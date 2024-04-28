@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.5
   flutter_local_notifications: ^17.0.1
+  flutter_native_splash: ^2.4.0
   google_fonts: ^6.2.1
   pinput: ^4.0.0
 
@@ -22,6 +23,13 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  background_image: 'assets/splash_background.png'
+  image: assets/logo_white_large.png
+  android_12:
+    color: '#4F14A0'
+
 flutter:
   uses-material-design: true
 

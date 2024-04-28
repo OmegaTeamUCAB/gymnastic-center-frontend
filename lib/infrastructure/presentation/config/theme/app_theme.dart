@@ -6,10 +6,14 @@ class AppTheme {
   ThemeData getTheme() {
     return ThemeData(
       useMaterial3: true,
+      dividerTheme: const DividerThemeData(
+        color: Color.fromRGBO(0, 0, 0, 0.09),
+      ),
       colorScheme: ColorScheme.fromSeed(
           seedColor: seedColor,
           primary: const Color(0xFF4F14A0),
           secondary: const Color(0xFF8066FF),
+          background: Colors.white,
           onBackground: Colors.white,
           onSurface: Colors.white, // content inside button
           outline: const Color(0xFFCDCDCD),
@@ -28,9 +32,11 @@ class AppTheme {
   ThemeData getDarkTheme() {
     return ThemeData(
       useMaterial3: true,
+      dividerTheme: const DividerThemeData(color: Colors.white, space: 20),
       colorScheme: ColorScheme.fromSeed(
           seedColor: seedColor,
           primary: Colors.white,
+          background: const Color(0xff2D2D3A),
           secondary: const Color(0xFF8066FF),
           onSurface: const Color(0xFF4F14A0),
           outline: Colors.white,
