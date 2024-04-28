@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/application/blocs/notifications/notifications_bloc.dart';
 import 'package:flutter_template/infrastructure/presentation/screens/auth/login_screen.dart';
-import 'package:flutter_template/infrastructure/presentation/screens/bloc_counter_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,16 +13,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          ListTile(
-            title: const Text('BLoC'),
-            subtitle: const Text('Gestor de estado complejo'),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const BlocCounterScreen()),
-            ),
-          ),
           ListTile(
             onTap: () =>
                 {context.read<NotificationsBloc>().requestPermission()},
