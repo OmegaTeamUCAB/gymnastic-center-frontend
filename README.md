@@ -1,16 +1,12 @@
-# Flutter Template
+# Gymnastic Center
 
-This template will serve as the frontend base for optimal development. Its objective is to demonstrate the guidelines to be followed when developing the application. It has examples that show state management (flutter bloc), notifications, routing, file system, among others.
+Bienvenido a nuestro proyecto de Desarrollo para la UCAB. Este es el frontend de la aplicación móvil Gymnastic Center, un compañero de salud y ejercicio.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Clone el repositorio en su computadora. Asegúrese de tener las extensiones Flutter y Dart de VSCode.
 
-A few resources to get you started if this is your first Flutter project:
+2. Instale los paquetes:
+   `flutter pub get`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Seleccione el archivo `main.dart` en la carpeta lib y ejecútela. Seleccione el dispositivo a utilizar y continue con el desarrollo.
