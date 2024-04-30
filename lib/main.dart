@@ -3,10 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/application/blocs/theme/theme_bloc.dart';
+import 'package:flutter_template/infrastructure/presentation/config/constants/environment.dart';
 import 'package:flutter_template/infrastructure/presentation/screens/auth/welcome_screen.dart';
 import 'package:flutter_template/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:flutter_template/infrastructure/services/firebase/firebase_options.dart';
-import 'package:flutter_template/infrastructure/presentation/config/theme/app_theme.dart';
 import 'package:flutter_template/application/blocs/notifications/notifications_bloc.dart';
 import 'package:flutter_template/infrastructure/services/notifications/notification_handler.dart';
 
@@ -16,6 +16,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await Environment.initEnvironment();
 
   runApp(MultiBlocProvider(
     providers: [
