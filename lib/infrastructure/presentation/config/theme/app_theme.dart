@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  final seedColor = const Color(0xFF4F14A0);
-  ThemeData getTheme() {
+  static ThemeData getTheme() {
     return ThemeData(
       useMaterial3: true,
       dividerTheme: const DividerThemeData(
         color: Color.fromRGBO(0, 0, 0, 0.09),
       ),
       colorScheme: ColorScheme.fromSeed(
-          seedColor: seedColor,
+          seedColor: const Color(0xFF4F14A0),
           primary: const Color(0xFF4F14A0),
           secondary: const Color(0xFF8066FF),
           background: Colors.white,
@@ -29,12 +28,12 @@ class AppTheme {
     );
   }
 
-  ThemeData getDarkTheme() {
+  static ThemeData getDarkTheme() {
     return ThemeData(
       useMaterial3: true,
       dividerTheme: const DividerThemeData(color: Colors.white, space: 20),
       colorScheme: ColorScheme.fromSeed(
-          seedColor: seedColor,
+          seedColor: const Color(0xFF4F14A0),
           primary: Colors.white,
           background: const Color(0xff2D2D3A),
           secondary: const Color(0xFF8066FF),
