@@ -41,5 +41,10 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: GymnasticCenter
+      fonts:
+        - asset: fonts/GymnasticCenter.ttf
+
   assets:
     - assets/

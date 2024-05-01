@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme().getTheme(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

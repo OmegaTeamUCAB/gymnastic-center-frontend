@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/application/blocs/sign_up/sign_up_bloc.dart';
 import 'package:flutter_template/infrastructure/presentation/screens/auth/verify_account_screen.dart';
+import 'package:flutter_template/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:flutter_template/presentation/widgets/ui/brand_button.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -84,6 +85,15 @@ class _SignUpFormState extends State<SignUpForm> {
               signUpBloc.add(EmailChanged(value));
             },
             decoration: InputDecoration(
+              prefixIcon: const Padding(
+                padding: EdgeInsets.only(
+                    left: 35, right: 15), // add padding to adjust icon
+                child: Icon(
+                  GymnasticCenter.email,
+                  size: 15,
+                ),
+              ),
+              prefixIconColor: const Color.fromARGB(106, 255, 255, 255),
               errorStyle: TextStyle(color: Colors.red[100]),
               labelStyle: const TextStyle(fontSize: 18, color: Colors.white),
               hintStyle: const TextStyle(color: Color(0xFFC4C4C4)),
@@ -193,7 +203,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     });
                   }),
               const Text(
-                'Yes! Agree all ',
+                'Yes! Agree with all ',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               TextButton(
