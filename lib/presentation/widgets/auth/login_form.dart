@@ -14,8 +14,9 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
+  final String _email = '';
+  final String _password = '';
+  bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +65,17 @@ class _LoginFormState extends State<LoginForm> {
 
               return null;
             },
+            suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isObscured = !isObscured;
+                  });
+                },
+                icon:
+                    Icon(isObscured ? Icons.visibility : Icons.visibility_off)),
             labelText: 'Password',
             hintText: 'Enter your password',
-            obscureText: true,
+            obscureText: isObscured,
           ),
           const SizedBox(height: 25),
           BrandButton(
@@ -80,7 +89,7 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 final isValid = _formKey.currentState!.validate();
                 if (!isValid) return;
-                loginBloc.add(FormSubmitted(email, password));
+                loginBloc.add(FormSubmitted(_email, _password));
               }),
           TextButton(
             onPressed: () {

@@ -18,6 +18,7 @@ class _SignUpFormState extends State<SignUpForm> {
   String email = '';
   String password = '';
   bool? isTermsChecked = false;
+  bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 25),
           TextFormField(
             cursorColor: Colors.white,
-            obscureText: true,
+            obscureText: isObscured,
             style: const TextStyle(fontSize: 16, color: Colors.white),
             validator: (value) {
               if (value == null || value.isEmpty) return 'Required Field';
@@ -151,6 +152,15 @@ class _SignUpFormState extends State<SignUpForm> {
               errorStyle: TextStyle(color: Colors.red[100]),
               labelStyle: const TextStyle(fontSize: 18, color: Colors.white),
               hintStyle: const TextStyle(color: Color(0xFFC4C4C4)),
+              suffixIconColor: Colors.white,
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObscured = !isObscured;
+                    });
+                  },
+                  icon: Icon(
+                      isObscured ? Icons.visibility : Icons.visibility_off)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(100),
                 borderSide: const BorderSide(color: Colors.white),
