@@ -109,7 +109,7 @@ class HomeAppBar extends StatelessWidget {
                   ),
                   Spacer(),
                   Icon(
-                    Icons.calendar_month,
+                    GymnasticCenter.calendar,
                     color: Colors.white,
                   )
                 ],
