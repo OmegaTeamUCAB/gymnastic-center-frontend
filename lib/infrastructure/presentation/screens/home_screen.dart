@@ -1,46 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/application/blocs/notifications/notifications_bloc.dart';
-import 'package:flutter_template/infrastructure/presentation/screens/auth/login_screen.dart';
+import 'package:flutter_template/presentation/widgets/ui/brand_gradient.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final notifications =
-        context.watch<NotificationsBloc>().state.notifications;
     return Scaffold(
-      body: ListView(
-        children: [
-          ListTile(
-            onTap: () =>
-                {context.read<NotificationsBloc>().requestPermission()},
-            title: const Text('Permiso Notificaciones'),
-            trailing: const Icon(Icons.notifications),
-            subtitle: Text(
-                'Permiso: ${context.select((NotificationsBloc bloc) => bloc.state.status)}'),
-          ),
-          ListTile(
-            title: const Text('Login'),
-            subtitle: const Text('Login Ui'),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
-            ),
-          ),
-          for (var notification in notifications)
-            ListTile(
-              title: Text(notification.title),
-              subtitle: Text(notification.body),
-              leading: notification.imageUrl != null
-                  ? Image(image: NetworkImage(notification.imageUrl!))
-                  : null,
-              trailing: const Icon(Icons.notifications_outlined),
-            )
-        ],
-      ),
-    );
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 230),
+            child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(50)),
+                    image: DecorationImage(
+                        image: AssetImage('assets/particles.png'),
+                        alignment: Alignment.topRight,
+                        fit: BoxFit.cover),
+                    gradient: brandGradient),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 60, left: 10, right: 10, bottom: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          const Column(
+                            children: [
+                              Text(
+                                'Jhon Doe',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'ID: Raxsdfe34879',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/test_user.jpeg'),
+                                radius: 20,
+                              ))
+                        ],
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 44,
+                          decoration: const BoxDecoration(
+                              color: Color(0xFFF2F2F2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6))),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Search',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Color(0xFF677294)),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Icons.search_rounded,
+                                  color: Color(0xFF677294),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 40, left: 15),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Tomorrow',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Text(
+                              'Today',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Text(
+                              'Yesterday',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                            Spacer(),
+                            Icon(Icons.calendar_month)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ))),
+        body: const Placeholder());
   }
 }
