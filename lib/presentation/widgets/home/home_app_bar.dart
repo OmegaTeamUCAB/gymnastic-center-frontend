@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/infrastructure/presentation/screens/search_screen.dart';
+import 'package:flutter_template/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:flutter_template/presentation/widgets/ui/custom_app_bar.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -65,7 +66,8 @@ class HomeAppBar extends StatelessWidget {
                       ),
                       Spacer(),
                       Icon(
-                        Icons.search_rounded,
+                        GymnasticCenter.search,
+                        size: 15,
                         color: Color(0xFF677294),
                       )
                     ],
@@ -107,7 +109,7 @@ class HomeAppBar extends StatelessWidget {
                   ),
                   Spacer(),
                   Icon(
-                    Icons.calendar_month,
+                    GymnasticCenter.calendar,
                     color: Colors.white,
                   )
                 ],

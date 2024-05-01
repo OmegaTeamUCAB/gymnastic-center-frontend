@@ -10,6 +10,7 @@ class CustomTextInput extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   const CustomTextInput({
     super.key,
@@ -22,6 +23,7 @@ class CustomTextInput extends StatelessWidget {
     this.prefixIcon,
     this.errorText,
     this.validator,
+    this.suffixIcon,
   });
 
   @override
@@ -38,6 +40,8 @@ class CustomTextInput extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSecondaryContainer),
         prefixIconColor: const Color.fromRGBO(200, 204, 217, 1),
         prefixIcon: prefixIcon,
+        suffixIconColor: Theme.of(context).colorScheme.primary,
+        suffixIcon: suffixIcon,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100),
           borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),

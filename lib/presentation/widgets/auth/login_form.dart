@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/application/blocs/login/login_bloc.dart';
 import 'package:flutter_template/infrastructure/presentation/screens/auth/sign_up_screen.dart';
+import 'package:flutter_template/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:flutter_template/presentation/widgets/ui/brand_button.dart';
 import 'package:flutter_template/presentation/widgets/ui/custom_text_input.dart';
 
@@ -14,8 +15,9 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
+  final String _email = '';
+  final String _password = '';
+  bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,11 @@ class _LoginFormState extends State<LoginForm> {
             },
             prefixIcon: const Padding(
               padding: EdgeInsets.only(
-                  left: 35, right: 10), // add padding to adjust icon
-              child: Icon(Icons.email),
+                  left: 35, right: 15), // add padding to adjust icon
+              child: Icon(
+                GymnasticCenter.email,
+                size: 15,
+              ),
             ),
             labelText: 'Email',
             hintText: 'email@gmail.com',
@@ -64,9 +69,17 @@ class _LoginFormState extends State<LoginForm> {
 
               return null;
             },
+            suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isObscured = !isObscured;
+                  });
+                },
+                icon:
+                    Icon(isObscured ? Icons.visibility : Icons.visibility_off)),
             labelText: 'Password',
             hintText: 'Enter your password',
-            obscureText: true,
+            obscureText: isObscured,
           ),
           const SizedBox(height: 25),
           BrandButton(
@@ -80,7 +93,7 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 final isValid = _formKey.currentState!.validate();
                 if (!isValid) return;
-                loginBloc.add(FormSubmitted(email, password));
+                loginBloc.add(FormSubmitted(_email, _password));
               }),
           TextButton(
             onPressed: () {
