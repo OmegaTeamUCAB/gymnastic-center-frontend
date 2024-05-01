@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/widgets/auth/verify_account_form.dart';
+import 'package:flutter_template/presentation/widgets/ui/brand_gradient.dart';
 
 class VerifyAccountScreen extends StatelessWidget {
   const VerifyAccountScreen({super.key});
-
-  final LinearGradient gradient = const LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF4F14A0), Color(0xFF8066FF)],
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +53,13 @@ class VerifyAccountScreen extends StatelessWidget {
                                 vertical: 60, horizontal: 170),
                             width: 720.0,
                             height: 720.0,
-                            decoration: BoxDecoration(
-                                image: const DecorationImage(
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
                                   image: AssetImage('assets/particles.png'),
                                   alignment: Alignment.topRight,
                                 ),
                                 shape: BoxShape.circle,
-                                gradient: gradient),
+                                gradient: brandGradient),
                             child: const Stack(
                               children: [
                                 SingleChildScrollView(

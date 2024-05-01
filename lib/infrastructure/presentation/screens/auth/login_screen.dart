@@ -2,21 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/application/blocs/login/login_bloc.dart';
 import 'package:flutter_template/presentation/widgets/auth/login_form.dart';
+import 'package:flutter_template/presentation/widgets/ui/brand_gradient.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
-  final LinearGradient gradient = const LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF4F14A0), Color(0xFF8066FF)],
-  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            decoration: BoxDecoration(gradient: gradient),
+            decoration: const BoxDecoration(gradient: brandGradient),
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [

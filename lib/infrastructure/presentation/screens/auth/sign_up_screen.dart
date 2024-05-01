@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/application/blocs/sign_up/sign_up_bloc.dart';
 import 'package:flutter_template/presentation/widgets/auth/sign_up_form.dart';
+import 'package:flutter_template/presentation/widgets/ui/brand_gradient.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
-
-  final LinearGradient gradient = const LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF4F14A0), Color(0xFF8066FF)],
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +48,13 @@ class SignUpScreen extends StatelessWidget {
                             vertical: 30, horizontal: 170),
                         width: 720.0,
                         height: 720.0,
-                        decoration: BoxDecoration(
-                            image: const DecorationImage(
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
                               image: AssetImage('assets/particles.png'),
                               alignment: Alignment.topRight,
                             ),
                             shape: BoxShape.circle,
-                            gradient: gradient),
+                            gradient: brandGradient),
                         child: Stack(
                           children: [
                             BlocProvider(
