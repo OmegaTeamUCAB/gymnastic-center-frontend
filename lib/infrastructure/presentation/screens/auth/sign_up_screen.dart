@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/application/blocs/sign_up/sign_up_bloc.dart';
-import 'package:flutter_template/presentation/widgets/auth/sign_up_form.dart';
-import 'package:flutter_template/presentation/widgets/ui/brand_gradient.dart';
+import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/sign_up_form.dart';
+import 'package:gymnastic_center/presentation/widgets/ui/brand_gradient.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});

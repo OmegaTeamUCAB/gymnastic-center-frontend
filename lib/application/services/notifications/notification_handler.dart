@@ -1,4 +1,4 @@
-import 'package:flutter_template/application/models/push_message.dart';
+import 'package:gymnastic_center/application/models/push_message.dart';
 
 abstract class INotificationHandler {
   Future<void> initializeLocalNotifications();

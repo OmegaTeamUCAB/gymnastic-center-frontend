@@ -1,11 +1,9 @@
-import 'package:flutter_template/application/core/result.dart';
+import 'package:gymnastic_center/application/core/result.dart';
 
 abstract class IHttpManager {
   final String baseUrl;
 
-  IHttpManager({
-    required this.baseUrl
-  });
+  IHttpManager({required this.baseUrl});
 
   Future<Result<T>> makeRequest<T>({
     required String httpMethod,
@@ -15,8 +13,5 @@ abstract class IHttpManager {
     dynamic body,
   });
 
-  void updateHeaders({
-    required String headerKey, 
-    required dynamic headerValue
-  });
+  void updateHeaders({required String headerKey, required dynamic headerValue});
 }

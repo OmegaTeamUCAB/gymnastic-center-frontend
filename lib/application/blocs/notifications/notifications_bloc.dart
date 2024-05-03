@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/application/models/push_message.dart';
-import 'package:flutter_template/application/services/notifications/notification_handler.dart';
+import 'package:gymnastic_center/application/models/push_message.dart';
+import 'package:gymnastic_center/application/services/notifications/notification_handler.dart';
 part 'notifications_event.dart';
 part 'notifications_state.dart';
 
