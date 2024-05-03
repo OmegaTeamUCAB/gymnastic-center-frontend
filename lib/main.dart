@@ -36,6 +36,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userTheme = MediaQuery.of(context).platformBrightness;
+
+    (userTheme == Brightness.dark) 
+      ? context.watch<ThemeBloc>().add(ToggleToDark())
+      : context.watch<ThemeBloc>().add(ToggleToLight());
+
     return MaterialApp(
       theme: context.select((ThemeBloc value) {
         return value.state.themeData;
