@@ -57,6 +57,6 @@ class NotificationsScreen extends StatelessWidget {
         ),
         body: notifications.isEmpty
             ? const EmptyNotifications()
-            : const NotificationsList());
+            : NotificationsList(notifications: notifications));
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/presentation/screens/home_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/home_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/ui/brand_button.dart';
 
 class EmptyNotifications extends StatelessWidget {
