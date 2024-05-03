@@ -11,6 +11,7 @@ import 'package:flutter_template/application/blocs/notifications/notifications_b
 import 'package:flutter_template/infrastructure/services/notifications/notification_handler.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(
@@ -18,6 +19,7 @@ void main() async {
   );
 
   await Environment.initEnvironment();
+
 
   runApp(MultiBlocProvider(
     providers: [
