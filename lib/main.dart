@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/screens/notifications_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/home_screen.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const NotificationsScreen(),
+      home: const HomeScreen(),
     );
   }
 }
