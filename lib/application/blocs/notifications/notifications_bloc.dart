@@ -13,6 +13,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }) : super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
+    on<NotificationViewed>(viewNotification);
 
     // Verifies notifications state
     _initialStatusCheck();
@@ -60,5 +61,29 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   void requestPermission() async {
     final status = await handler.requestPermission();
     add(NotificationStatusChanged(status));
+  }
+
+  void viewNotification(
+    NotificationViewed event,
+    Emitter<NotificationsState> emit,
+  ) {
+    final currentState = state;
+    final updatedNotifications = currentState.notifications
+        .map(
+          (notification) =>
+              notification.messageId == event.pushMessage.messageId
+                  ? PushMessage(
+                      messageId: notification.messageId,
+                      title: notification.title,
+                      body: notification.body,
+                      sentDate: notification.sentDate,
+                      data: notification.data,
+                      isViewed: true,
+                      imageUrl: notification.imageUrl,
+                    )
+                  : notification,
+        )
+        .toList();
+    emit(state.copyWith(notifications: updatedNotifications));
   }
 }

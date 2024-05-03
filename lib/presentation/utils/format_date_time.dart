@@ -5,11 +5,11 @@ String formatDateTime(DateTime dateTime) {
   Duration difference = now.difference(dateTime);
 
   if (difference.inSeconds < 60) {
-    return '${difference.inSeconds} seconds ago';
+    return 'now';
   } else if (difference.inMinutes < 60) {
-    return '${difference.inMinutes} minutes ago';
-  } else if (difference.inHours < 24) {
-    return '${difference.inHours} hours ago';
+    return '${difference.inMinutes} min ago';
+  } else if (difference.inHours < 5) {
+    return '${difference.inHours} h ago';
   } else if (difference.inDays == 1) {
     return 'Yesterday, ${DateFormat.jm().format(dateTime)}';
   } else if (difference.inDays < 7) {

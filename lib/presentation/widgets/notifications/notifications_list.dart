@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/models/push_message.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 
@@ -13,9 +15,25 @@ class NotificationsList extends StatelessWidget {
       itemBuilder: (context, index) {
         final notification = notifications[index];
         return ListTile(
-          tileColor: const Color.fromARGB(18, 78, 20, 160),
+          onTap: () {
+            context
+                .read<NotificationsBloc>()
+                .add(NotificationViewed(notification));
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const NotificationDetailScreen()),
+            // );
+          },
+          tileColor: notification.isViewed == false
+              ? Theme.of(context).colorScheme.surfaceTint
+              : Colors.transparent,
           contentPadding: const EdgeInsets.all(10),
-          shape: const Border(bottom: BorderSide(color: Colors.grey)),
+          shape: index != notifications.length - 1
+              ? Border(
+                  bottom: BorderSide(
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer))
+              : null,
           titleTextStyle: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 14,
