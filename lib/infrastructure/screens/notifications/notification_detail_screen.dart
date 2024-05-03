@@ -22,9 +22,9 @@ class NotificationDetailScreen extends StatelessWidget {
                       Icons.chevron_left,
                       color: Colors.white,
                     )),
-                Text(
-                  notification.title,
-                  style: const TextStyle(
+                const Text(
+                  'Notification',
+                  style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -32,12 +32,22 @@ class NotificationDetailScreen extends StatelessWidget {
               ],
             ),
           )),
-      body: Column(
-        children: [
-          Text(notification.body),
-          if (notification.imageUrl != null)
-            Image.network(notification.imageUrl!)
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Text(
+              notification.title,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(notification.body),
+            if (notification.imageUrl != null)
+              Image.network(notification.imageUrl!)
+          ],
+        ),
       ),
     );
   }
