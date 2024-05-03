@@ -83,13 +83,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 25),
           BrandButton(
-              width: double.infinity,
-              child: Text(
-                'Login',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 20),
-              ),
+              buttonText: 'Login',
               onPressed: () {
                 final isValid = _formKey.currentState!.validate();
                 if (!isValid) return;

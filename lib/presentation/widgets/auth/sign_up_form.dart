@@ -224,20 +224,19 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: 25),
           BrandButton(
-              isDarkMode: true,
-              width: double.infinity,
-              onPressed: () {
-                final isValid = _formKey.currentState!.validate();
-                if (!isValid) return;
-                signUpBloc.add(FormSubmitted(email, password, name, phone));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VerifyAccountScreen()),
-                );
-              },
-              child: const Text("Sign up",
-                  style: TextStyle(fontSize: 20, color: Color(0xFF4F14A0))))
+            isDarkMode: true,
+            onPressed: () {
+              final isValid = _formKey.currentState!.validate();
+              if (!isValid) return;
+              signUpBloc.add(FormSubmitted(email, password, name, phone));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const VerifyAccountScreen()),
+              );
+            },
+            buttonText: "Sign up",
+          )
         ],
       ),
     );

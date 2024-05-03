@@ -16,6 +16,7 @@ class AppTheme {
           onBackground: Colors.white,
           onSurface: Colors.white, // content inside button
           outline: const Color(0xFFCDCDCD),
+          onSecondary: const Color(0xFF677294),
           onSecondaryContainer: const Color(0xFFCDCDCD),
           onPrimaryContainer: const Color(0xFF4F14A0),
           brightness: Brightness.light,
@@ -37,6 +38,7 @@ class AppTheme {
           primary: Colors.white,
           background: const Color(0xff2D2D3A),
           secondary: const Color(0xFF8066FF),
+          onSecondary: Colors.white,
           onSurface: const Color(0xFF4F14A0),
           outline: Colors.white,
           onSecondaryContainer: const Color(0xFF8B8B93),
