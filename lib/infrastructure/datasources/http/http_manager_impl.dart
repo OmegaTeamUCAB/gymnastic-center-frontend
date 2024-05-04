@@ -1,26 +1,21 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/application/core/result.dart';
-import 'package:flutter_template/infrastructure/datasources/http/http_manager.dart';
+import 'package:gymnastic_center/application/core/result.dart';
+import 'package:gymnastic_center/infrastructure/datasources/http/http_manager.dart';
 
 class HttpManagerImpl extends IHttpManager {
   final Dio _dio;
 
-  HttpManagerImpl({
-    required super.baseUrl
-  }) 
-    : _dio = Dio();
+  HttpManagerImpl({required super.baseUrl}) : _dio = Dio();
 
   @override
-  Future<Result<T>> makeRequest<T>({
-    required String httpMethod,
-    required String urlPath,
-    required T Function(dynamic) mapperCallBack,
-    Map<String, dynamic>? queryParams,
-    dynamic body
-  }) async {
+  Future<Result<T>> makeRequest<T>(
+      {required String httpMethod,
+      required String urlPath,
+      required T Function(dynamic) mapperCallBack,
+      Map<String, dynamic>? queryParams,
+      dynamic body}) async {
     try {
-      final response = await _dio.request(
-          urlPath,
+      final response = await _dio.request(urlPath,
           data: body,
           options: Options(
             method: httpMethod,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/infrastructure/presentation/screens/search_screen.dart';
-import 'package:flutter_template/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:flutter_template/presentation/widgets/ui/custom_app_bar.dart';
+import 'package:gymnastic_center/infrastructure/screens/search_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/ui/custom_app_bar.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
