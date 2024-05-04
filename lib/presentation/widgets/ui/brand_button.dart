@@ -32,8 +32,7 @@ class BrandButton extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             buttonText,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
+            style: const TextStyle(color: Color(0xFF4F14A0), fontSize: 20),
           ),
         ),
       );
