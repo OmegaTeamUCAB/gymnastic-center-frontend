@@ -4,5 +4,6 @@ sealed class ThemeEvent {
   const ThemeEvent();
 }
 
-class ToggleDarkMode extends ThemeEvent {}
-
+class Toggle extends ThemeEvent {}
+class ToggleToLight extends ThemeEvent {}
+class ToggleToDark extends ThemeEvent {}

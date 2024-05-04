@@ -15,7 +15,7 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'emits [ThemeState as darkMode] when [ToggleDarkMode] event is added one time.',
       build: () => themeBloc,
-      act: (bloc) => bloc.add(ToggleDarkMode()),
+      act: (bloc) => bloc.add(Toggle()),
       expect: () =>
           [ThemeState(themeData: AppTheme.getDarkTheme(), isDarkMode: true)],
     );
@@ -24,8 +24,8 @@ void main() {
       'emits [ThemeState as lightMode] when [ToggleDarkMode] event is triggered twice.',
       build: () => themeBloc,
       act: (bloc) => bloc
-        ..add(ToggleDarkMode())
-        ..add(ToggleDarkMode()),
+        ..add(Toggle())
+        ..add(Toggle()),
       expect: () => [
         ThemeState(themeData: AppTheme.getDarkTheme(), isDarkMode: true),
         ThemeState(themeData: AppTheme.getTheme(), isDarkMode: false),
