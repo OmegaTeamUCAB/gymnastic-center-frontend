@@ -43,18 +43,14 @@ class NotificationsList extends StatelessWidget {
               fontWeight: FontWeight.bold),
           leading: const Icon(Icons.notifications_rounded),
           trailing: Text(formatDateTime(notification.sentDate)),
-          title: Flexible(
-            child: Text(
-              notification.title,
-              overflow: TextOverflow.ellipsis,
-            ),
+          title: Text(
+            notification.title,
+            overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Flexible(
-            child: Text(
-              notification.body,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
+          subtitle: Text(
+            notification.body,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
           ),
         );
       },
