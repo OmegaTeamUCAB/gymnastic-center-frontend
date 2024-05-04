@@ -5,6 +5,7 @@ class PushMessage {
   final DateTime sentDate;
   final Map<String, dynamic>? data;
   final String? imageUrl;
+  final bool isViewed;
 
   PushMessage(
       {required this.messageId,
@@ -12,6 +13,7 @@ class PushMessage {
       required this.body,
       required this.sentDate,
       this.data,
+      this.isViewed = false,
       this.imageUrl});
 
   @override
@@ -24,6 +26,7 @@ class PushMessage {
         sentDate: $sentDate
         data: $data
         imageUrl: $imageUrl
+        isViewed: $isViewed
       ''';
   }
 }

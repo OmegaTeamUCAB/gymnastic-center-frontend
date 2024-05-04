@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/application/blocs/sign_up/sign_up_bloc.dart';
-import 'package:flutter_template/infrastructure/presentation/screens/auth/verify_account_screen.dart';
-import 'package:flutter_template/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:flutter_template/presentation/widgets/ui/brand_button.dart';
+import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/verify_account_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/ui/brand_button.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -224,20 +224,19 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: 25),
           BrandButton(
-              isDarkMode: true,
-              width: double.infinity,
-              onPressed: () {
-                final isValid = _formKey.currentState!.validate();
-                if (!isValid) return;
-                signUpBloc.add(FormSubmitted(email, password, name, phone));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VerifyAccountScreen()),
-                );
-              },
-              child: const Text("Sign up",
-                  style: TextStyle(fontSize: 20, color: Color(0xFF4F14A0))))
+            isDarkMode: true,
+            onPressed: () {
+              final isValid = _formKey.currentState!.validate();
+              if (!isValid) return;
+              signUpBloc.add(FormSubmitted(email, password, name, phone));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const VerifyAccountScreen()),
+              );
+            },
+            buttonText: "Sign up",
+          )
         ],
       ),
     );

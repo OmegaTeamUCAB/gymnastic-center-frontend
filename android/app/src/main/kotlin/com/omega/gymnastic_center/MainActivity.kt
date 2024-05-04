@@ -1,4 +1,4 @@
-package com.juanhedderich.flutter_template
+package com.omega.gymnastic_center
 
 import io.flutter.embedding.android.FlutterActivity
 

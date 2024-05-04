@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_template/application/blocs/theme/theme_bloc.dart';
-import 'package:flutter_template/infrastructure/presentation/config/theme/app_theme.dart';
+import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
+import 'package:gymnastic_center/infrastructure/config/theme/app_theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  group('Theme Bloc Testing', () { 
+  group('Theme Bloc Testing', () {
     late ThemeBloc themeBloc;
 
     setUp(() {
@@ -16,9 +16,10 @@ void main() {
       'emits [ThemeState as darkMode] when [ToggleDarkMode] event is added one time.',
       build: () => themeBloc,
       act: (bloc) => bloc.add(Toggle()),
-      expect: () => [ThemeState(themeData: AppTheme.getDarkTheme(), isDarkMode: true)],
+      expect: () =>
+          [ThemeState(themeData: AppTheme.getDarkTheme(), isDarkMode: true)],
     );
-    
+
     blocTest<ThemeBloc, ThemeState>(
       'emits [ThemeState as lightMode] when [ToggleDarkMode] event is triggered twice.',
       build: () => themeBloc,
@@ -30,8 +31,5 @@ void main() {
         ThemeState(themeData: AppTheme.getTheme(), isDarkMode: false),
       ],
     );
-
   });
-
-
 }

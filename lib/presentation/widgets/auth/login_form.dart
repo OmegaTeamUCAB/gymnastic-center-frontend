@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/application/blocs/login/login_bloc.dart';
-import 'package:flutter_template/infrastructure/presentation/screens/auth/sign_up_screen.dart';
-import 'package:flutter_template/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:flutter_template/presentation/widgets/ui/brand_button.dart';
-import 'package:flutter_template/presentation/widgets/ui/custom_text_input.dart';
+import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/ui/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/ui/custom_text_input.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -83,13 +83,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 25),
           BrandButton(
-              width: double.infinity,
-              child: Text(
-                'Login',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 20),
-              ),
+              buttonText: 'Login',
               onPressed: () {
                 final isValid = _formKey.currentState!.validate();
                 if (!isValid) return;
