@@ -1,6 +1,6 @@
-import 'package:flutter_template/domain/categories/repositorio/ICategoryRepository.dart';
+import 'package:gymnastic_center/domain/categories/repositorio/ICategoryRepository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/application/models/category.dart';
+import 'package:gymnastic_center/application/models/category.dart';
 class SuperiorWidget extends StatelessWidget {
   final String title;
   final VoidCallback onButtonPressed;

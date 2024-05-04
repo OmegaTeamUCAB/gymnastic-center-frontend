@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:flutter_template/application/models/category.dart';
-import 'package:flutter_template/domain/categories/repositorio/ICategoryRepository.dart';
+import 'package:gymnastic_center/application/models/category.dart';
+import 'package:gymnastic_center/domain/categories/repositorio/ICategoryRepository.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
