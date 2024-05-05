@@ -10,26 +10,24 @@ class CarouselHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: TextButton(
-              onPressed: onButtonPressed,
-              child: const Text(
-                'See all >',
-                style: TextStyle(color: Colors.black),
-              ),
+          TextButton(
+            onPressed: onButtonPressed,
+            child: Text(
+              'See all >',
+              style:
+                  TextStyle(color: Theme.of(context).colorScheme.onSecondary),
             ),
           ),
         ],
