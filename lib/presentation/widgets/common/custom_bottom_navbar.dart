@@ -8,7 +8,7 @@ class CustomNavigationBar extends StatelessWidget {
 
   const CustomNavigationBar({
     required this.tabIndex,
-    this.iconsSize = 30,
+    this.iconsSize = 33,
     required this.onTap,
     super.key,
   });
@@ -61,7 +61,7 @@ class CustomNavigationBar extends StatelessWidget {
           const BottomNavigationBarItem(
             icon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 0),
-              child: Icon(Icons.notification_add_outlined),
+              child: Icon(Icons.notifications_outlined),
             ),
             label: 'Notifications',
           ),
