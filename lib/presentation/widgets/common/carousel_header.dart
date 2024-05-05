@@ -26,11 +26,9 @@ class CarouselHeader extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             child: TextButton(
               onPressed: onButtonPressed,
-              child: InkWell(
-                onTap: onButtonPressed,
-                splashColor: Colors.transparent,
-                child: const Text('See all >',
-                    style: TextStyle(color: Colors.black)),
+              child: const Text(
+                'See all >',
+                style: TextStyle(color: Colors.black),
               ),
             ),
           ),
