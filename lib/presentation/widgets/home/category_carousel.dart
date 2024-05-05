@@ -36,7 +36,9 @@ class CategoryCarousel extends StatelessWidget {
                             width: 100,
                             margin: EdgeInsets.only(
                                 left: 15,
-                                right: index == snapshot.data!.length - 1
+                                right: index ==
+                                        snapshot.data!.length -
+                                            1 //add margin to the last element of the carousel
                                     ? 15
                                     : 0),
                             decoration: BoxDecoration(
