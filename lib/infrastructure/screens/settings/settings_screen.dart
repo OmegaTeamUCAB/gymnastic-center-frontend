@@ -5,9 +5,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color.fromARGB(255, 209, 208, 208),
-      child: const Center(
+    return const Scaffold(
+      body: Center(
           child: Text('Settings page')
         ),
     );
