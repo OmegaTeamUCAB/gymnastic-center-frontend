@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/brand_button.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/custom_text_input.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

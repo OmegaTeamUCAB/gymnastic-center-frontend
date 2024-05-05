@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/notifications/empty_notifications.dart';
 import 'package:gymnastic_center/presentation/widgets/notifications/notifications_list.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/custom_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});

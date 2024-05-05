@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/sign_up_form.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/brand_gradient.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});

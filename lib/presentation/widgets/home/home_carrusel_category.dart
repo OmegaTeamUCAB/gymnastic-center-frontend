@@ -1,47 +1,10 @@
 import 'package:gymnastic_center/domain/categories/repositorio/ICategoryRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/models/category.dart';
-class SuperiorWidget extends StatelessWidget {
-  final String title;
-  final VoidCallback onButtonPressed;
+import 'package:gymnastic_center/presentation/widgets/common/carousel_header.dart';
 
-  const SuperiorWidget({super.key, required this.title, required this.onButtonPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        Padding(
-            padding: const EdgeInsets.only(top: 8.0), // Ajusta el relleno superior para mover el botón hacia abajo
-            child: TextButton(
-              onPressed: onButtonPressed,
-                 child: InkWell(
-                    onTap: onButtonPressed,
-                    splashColor: Colors.transparent, // Elimina el efecto de oscurecimiento al presionar el botón
-                    child: const Text('See all >', style: TextStyle(color: Colors.black)),
-                  ),
-             
-              
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 class CategoryCarousel extends StatelessWidget {
-final ICategoryRepository categoryRepository;
+  final ICategoryRepository categoryRepository;
 
   const CategoryCarousel({super.key, required this.categoryRepository});
 
@@ -57,7 +20,7 @@ final ICategoryRepository categoryRepository;
         } else {
           return Column(
             children: [
-              SuperiorWidget(
+              CarouselHeader(
                 title: 'Category of Yogas',
                 onButtonPressed: () {
                   // Botón para ver todas las categorías
@@ -69,7 +32,7 @@ final ICategoryRepository categoryRepository;
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Category currentCategory = snapshot.data![index]; // Obtiene la categoría actual
+                    Category currentCategory = snapshot.data![index];
                     return GestureDetector(
                       onTap: () {
                         // Acción al tocar la categoría
@@ -82,17 +45,18 @@ final ICategoryRepository categoryRepository;
                           color: const Color.fromARGB(255, 245, 242, 242),
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Flexible(
-                           child: SizedBox(
-                              height: 50,
-                              width: 50,
-                           child: Image.network(currentCategory.icon), 
-                            ),),// Muestra el icono de la categoría
-                            const SizedBox(height: 10.0), // Agrega espacio entre el icono y el texto
+                              child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: Image.network(currentCategory.icon),
+                              ),
+                            ),
+                            const SizedBox(height: 10.0),
                             Text(
-                              currentCategory.name, // Muestra el nombre de la categoría
+                              currentCategory.name,
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
