@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/brand_gradient.dart';
 
 class CustomFloatingLightningButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  CustomFloatingLightningButton({super.key, required this.onPressed});
+  const CustomFloatingLightningButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

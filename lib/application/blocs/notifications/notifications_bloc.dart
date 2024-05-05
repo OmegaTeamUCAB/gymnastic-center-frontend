@@ -14,6 +14,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
     on<NotificationViewed>(viewNotification);
+    on<NotificationsCleared>(clearNotifications);
 
     // Verifies notifications state
     _initialStatusCheck();
@@ -85,5 +86,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         )
         .toList();
     emit(state.copyWith(notifications: updatedNotifications));
+  }
+
+  void clearNotifications(
+    NotificationsCleared event,
+    Emitter<NotificationsState> emit,
+  ) {
+    emit(state.copyWith(notifications: []));
   }
 }

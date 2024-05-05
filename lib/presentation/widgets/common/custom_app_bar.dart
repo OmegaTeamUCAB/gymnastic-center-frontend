@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/brand_gradient.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Widget content;

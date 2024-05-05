@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/screens/home/home_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
 class EmptyNotifications extends StatelessWidget {
   const EmptyNotifications({super.key});

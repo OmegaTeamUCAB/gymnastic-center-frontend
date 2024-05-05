@@ -3,44 +3,43 @@ import 'package:gymnastic_center/infrastructure/screens/disability/disability_sc
 import 'package:gymnastic_center/infrastructure/screens/home/home_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/notifications/notifications_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/settings/settings_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/custom_bottom_navbar.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/custom_lightning_button.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_bottom_navbar.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_lightning_button.dart';
 
 // ignore: must_be_immutable
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   final int pageIndex;
-  MainScreen({
-    this.pageIndex = 0, 
-    super.key});
+  const MainScreen({this.pageIndex = 0, super.key});
 
-  final viewRoutes = <Widget>[
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final screens = <Widget>[
     HomeScreen(),
     const DisabilityScreen(),
     const SettingsScreen(),
     const NotificationsScreen(),
   ];
 
-  void onTap(int value, BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => MainScreen(
-                pageIndex: value,
-              )),
-    );
-  }
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       body: IndexedStack(
-        index: pageIndex,
-        children: viewRoutes,
+        index: selectedIndex,
+        children: screens,
       ),
       bottomNavigationBar: CustomNavigationBar(
-        tabIndex: pageIndex,
-        onTap: (value) => onTap(value, context),
+        tabIndex: selectedIndex,
+        onTap: (newScreenIndex) {
+          setState(() {
+            selectedIndex = newScreenIndex;
+          });
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomFloatingLightningButton(

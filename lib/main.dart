@@ -11,7 +11,6 @@ import 'package:gymnastic_center/application/blocs/notifications/notifications_b
 import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(
@@ -19,7 +18,6 @@ void main() async {
   );
 
   await Environment.initEnvironment();
-
 
   runApp(MultiBlocProvider(
     providers: [
@@ -50,7 +48,7 @@ class MainApp extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }
