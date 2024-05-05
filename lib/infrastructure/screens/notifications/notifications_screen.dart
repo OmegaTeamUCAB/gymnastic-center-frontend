@@ -46,7 +46,11 @@ class NotificationsScreen extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context
+                          .read<NotificationsBloc>()
+                          .add(NotificationsCleared());
+                    },
                     icon: const Icon(
                       Icons.delete_rounded,
                       color: Colors.white,

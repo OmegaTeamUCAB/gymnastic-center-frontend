@@ -20,3 +20,7 @@ class NotificationViewed extends NotificationsEvent {
 
   NotificationViewed(this.pushMessage);
 }
+
+class NotificationsCleared extends NotificationsEvent {
+  NotificationsCleared();
+}
