@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/screens/home_screen.dart';
+import 'package:gymnastic_center/infrastructure/config/routes/app_router.dart';
+// import 'package:gymnastic_center/infrastructure/screens/home_screen.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(
@@ -19,7 +19,6 @@ void main() async {
   );
 
   await Environment.initEnvironment();
-
 
   runApp(MultiBlocProvider(
     providers: [
@@ -44,13 +43,14 @@ class MainApp extends StatelessWidget {
         ? context.watch<ThemeBloc>().add(ToggleToDark())
         : context.watch<ThemeBloc>().add(ToggleToLight());
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       theme: context.select((ThemeBloc value) {
         return value.state.themeData;
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const HomeScreen(),
+      // home: const SettingsScreen(),
     );
   }
 }
