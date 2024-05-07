@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/models/push_message.dart';
-import 'package:gymnastic_center/presentation/widgets/ui/custom_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class NotificationDetailScreen extends StatelessWidget {
   final PushMessage notification;

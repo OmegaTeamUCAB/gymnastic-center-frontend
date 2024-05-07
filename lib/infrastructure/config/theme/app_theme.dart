@@ -20,6 +20,7 @@ class AppTheme {
           onSecondary: const Color(0xFF677294),
           onSecondaryContainer: const Color(0xFFCDCDCD),
           onPrimaryContainer: const Color(0xFF4F14A0),
+          tertiaryContainer: Colors.white,
           brightness: Brightness.light,
           onPrimary: const Color(0xFF2D2D3A)),
       textTheme: GoogleFonts.ptSansTextTheme().copyWith(
@@ -45,6 +46,7 @@ class AppTheme {
           surfaceTint: const Color(0xFF4E546A),
           onSecondaryContainer: const Color(0xFF8B8B93),
           onPrimaryContainer: Colors.white,
+          tertiaryContainer: const Color.fromRGBO(78, 84, 106, 1),
           onBackground: const Color(0xFF2D2D3A),
           brightness: Brightness.dark,
           onPrimary: Colors.white),
