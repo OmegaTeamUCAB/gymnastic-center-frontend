@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
-import 'package:gymnastic_center/infrastructure/screens/auth/verify_account_screen.dart';
+import 'package:gymnastic_center/domain/auth/repository/auth_repository.dart';
+import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key});
+  final IAuthRepository authRepository;
+  const SignUpForm({super.key, required this.authRepository});
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -14,8 +16,8 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String name = '';
-  String phone = '';
+  String fullName = '';
+  String phoneNumber = '';
   String email = '';
   String password = '';
   bool? isTermsChecked = false;
@@ -24,6 +26,23 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final signUpBloc = context.watch<SignUpBloc>();
+    void onSubmit(IAuthRepository authRepository) {
+      final isValid = _formKey.currentState!.validate();
+      if (!isValid) return;
+      final signUpState = signUpBloc.state;
+      authRepository.signUp({
+        'email': signUpState.email,
+        'password': signUpState.password,
+        'phoneNumber': signUpState.phoneNumber,
+        'fullName': signUpState.fullName,
+      });
+      // signUpBloc.add(FormSubmitted(email, password, fullName, phone));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MainScreen()),
+      );
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -47,7 +66,7 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
             onChanged: (value) {
-              signUpBloc.add(NameChanged(value));
+              signUpBloc.add(FullNameChanged(value));
             },
             decoration: InputDecoration(
               errorStyle: TextStyle(color: Colors.red[100]),
@@ -123,7 +142,7 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
             onChanged: (value) {
-              signUpBloc.add(PhoneChanged(value));
+              signUpBloc.add(PhoneNumberChanged(value));
             },
             decoration: InputDecoration(
               errorStyle: TextStyle(color: Colors.red[100]),
@@ -225,16 +244,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 25),
           BrandButton(
             isDarkMode: true,
-            onPressed: () {
-              final isValid = _formKey.currentState!.validate();
-              if (!isValid) return;
-              signUpBloc.add(FormSubmitted(email, password, name, phone));
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const VerifyAccountScreen()),
-              );
-            },
+            onPressed: () => onSubmit(widget.authRepository),
             buttonText: "Sign up",
           )
         ],
