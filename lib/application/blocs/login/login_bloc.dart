@@ -6,6 +6,8 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginFormEvent, LoginFormState> {
+  final AuthService authService = AuthService();
+
   LoginBloc() : super(const LoginFormState()) {
     on<FormSubmitted>(_onFormSubmitted);
     on<EmailChanged>(_onEmailChanged);
@@ -13,8 +15,7 @@ class LoginBloc extends Bloc<LoginFormEvent, LoginFormState> {
   }
 
   void _onFormSubmitted(FormSubmitted event, Emitter<LoginFormState> emit) {
-    final authRepository = AuthService();
-    authRepository.login({'email': state.email, 'password': state.password});
+    authService.login({'email': state.email, 'password': state.password});
   }
 
   void _onEmailChanged(EmailChanged event, Emitter<LoginFormState> emit) {

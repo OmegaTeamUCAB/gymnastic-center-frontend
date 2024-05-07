@@ -6,6 +6,7 @@ part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpFormState> {
+  final AuthService authService = AuthService();
   SignUpBloc() : super(const SignUpFormState()) {
     on<FormSubmitted>(_onFormSubmitted);
     on<FullNameChanged>(_onFullNameChanged);
@@ -15,8 +16,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpFormState> {
   }
 
   void _onFormSubmitted(FormSubmitted event, Emitter<SignUpFormState> emit) {
-    final authRepository = AuthService();
-    authRepository.login({
+    authService.login({
       'email': state.email,
       'password': state.password,
       'phoneNumber': state.phoneNumber,
