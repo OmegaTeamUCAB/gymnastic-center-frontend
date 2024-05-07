@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
+import 'package:gymnastic_center/domain/auth/repository/auth_repository.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  final IAuthRepository authRepository;
+  const LoginForm({super.key, required this.authRepository});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -15,13 +18,27 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final String _email = '';
-  final String _password = '';
+  final String email = '';
+  final String password = '';
   bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
     final loginBloc = context.watch<LoginBloc>();
+    void onSubmit(IAuthRepository authRepository) {
+      final isValid = _formKey.currentState!.validate();
+      if (!isValid) return;
+      final loginState = loginBloc.state;
+      authRepository.login({
+        'email': loginState.email,
+        'password': loginState.password,
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MainScreen()),
+      );
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -83,12 +100,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 25),
           BrandButton(
-              buttonText: 'Login',
-              onPressed: () {
-                final isValid = _formKey.currentState!.validate();
-                if (!isValid) return;
-                loginBloc.add(FormSubmitted(_email, _password));
-              }),
+              buttonText: 'Login', onPressed: () => onSubmit(authRepository)),
           TextButton(
             onPressed: () {
               // Handle forgot password link

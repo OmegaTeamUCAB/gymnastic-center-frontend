@@ -20,14 +20,12 @@ class AuthService implements IAuthRepository {
 
   @override
   Future signUp(signUpCredentials) async {
-    print(signUpCredentials);
     final response = await http.post(
         Uri.parse('${dotenv.env['API_URL']}/auth/signUp'),
         body: signUpCredentials);
 
     if (response.statusCode == 200) {
       User newUser = jsonDecode(response.body);
-      print(newUser);
       return newUser;
     } else {
       throw Exception(response.body);
