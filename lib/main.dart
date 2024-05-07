@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
@@ -22,6 +23,7 @@ void main() async {
 
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider(create: (context) => AuthBloc()),
       BlocProvider(
         create: (context) => NotificationsBloc(
             handler: NotificationHandler()..initializeLocalNotifications()),

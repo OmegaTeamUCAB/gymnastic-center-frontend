@@ -17,11 +17,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _verifyUser(VerifiedUser event, Emitter<AuthState> emit) async {
-    final user = await authenticationService.verifyUser();
-    emit(state.copyWith(user: user));
+    final userData = await authenticationService.verifyUser();
+    SecureStorage().writeSecureData('token', userData.token);
+    emit(state.copyWith(user: userData.user));
   }
 
-  void _signIn() {}
+  void _signIn(SignedIn event, Emitter<AuthState> emit) {
+    //le pasas el user y hace emit state
+  }
 
   void _signOut(SignedOut event, Emitter<AuthState> emit) {
     emit(state.copyWith(user: null));
