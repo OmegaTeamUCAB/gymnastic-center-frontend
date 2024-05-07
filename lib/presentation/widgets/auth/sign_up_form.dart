@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
-import 'package:gymnastic_center/domain/auth/repository/auth_repository.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
 class SignUpForm extends StatefulWidget {
-  final IAuthRepository authRepository;
-  const SignUpForm({super.key, required this.authRepository});
+  const SignUpForm({super.key});
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -26,17 +24,10 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final signUpBloc = context.watch<SignUpBloc>();
-    void onSubmit(IAuthRepository authRepository) {
+    void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-      final signUpState = signUpBloc.state;
-      authRepository.signUp({
-        'email': signUpState.email,
-        'password': signUpState.password,
-        'phoneNumber': signUpState.phoneNumber,
-        'fullName': signUpState.fullName,
-      });
-      // signUpBloc.add(FormSubmitted(email, password, fullName, phone));
+      signUpBloc.add(const FormSubmitted());
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MainScreen()),
@@ -244,7 +235,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 25),
           BrandButton(
             isDarkMode: true,
-            onPressed: () => onSubmit(widget.authRepository),
+            onPressed: onSubmit,
             buttonText: "Sign up",
           )
         ],

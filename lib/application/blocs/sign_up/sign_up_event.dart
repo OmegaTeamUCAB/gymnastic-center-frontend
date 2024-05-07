@@ -25,9 +25,5 @@ class PasswordChanged extends SignUpEvent {
 }
 
 class FormSubmitted extends SignUpEvent {
-  final String name;
-  final String email;
-  final String phone;
-  final String password;
-  const FormSubmitted(this.email, this.password, this.name, this.phone);
+  const FormSubmitted();
 }

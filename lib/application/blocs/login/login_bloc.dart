@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -12,7 +13,8 @@ class LoginBloc extends Bloc<LoginFormEvent, LoginFormState> {
   }
 
   void _onFormSubmitted(FormSubmitted event, Emitter<LoginFormState> emit) {
-    print('Form submitted');
+    final authRepository = AuthService();
+    authRepository.login({'email': state.email, 'password': state.password});
   }
 
   void _onEmailChanged(EmailChanged event, Emitter<LoginFormState> emit) {

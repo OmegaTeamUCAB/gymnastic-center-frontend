@@ -1,4 +1,4 @@
 abstract class IAuthRepository {
-  Future login(loginCredentials);
-  Future signUp(formData);
+  Future login(Map<String, dynamic> loginCredentials);
+  Future signUp(Map<String, dynamic> signUpCredentials);
 }

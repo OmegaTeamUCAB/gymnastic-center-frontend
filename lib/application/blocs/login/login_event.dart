@@ -15,7 +15,5 @@ class PasswordChanged extends LoginFormEvent {
 }
 
 class FormSubmitted extends LoginFormEvent {
-  final String email;
-  final String password;
-  const FormSubmitted(this.email, this.password);
+  const FormSubmitted();
 }

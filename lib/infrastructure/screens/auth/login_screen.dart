@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
-import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/login_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
-
-final authRepository = AuthService();
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -55,9 +52,7 @@ class LoginScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                             child: BlocProvider(
                           create: (context) => LoginBloc(),
-                          child: LoginForm(
-                            authRepository: authRepository,
-                          ),
+                          child: const LoginForm(),
                         )),
                       ),
                     ),
