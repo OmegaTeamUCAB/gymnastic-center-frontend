@@ -159,7 +159,7 @@ class _SignUpFormState extends State<SignUpForm> {
             validator: (value) {
               if (value == null || value.isEmpty) return 'Required Field';
               if (value.trim().isEmpty) return 'Required Field';
-              if (value.length < 6) return '6 characters minimum';
+              if (value.length < 8) return '8 characters minimum';
 
               return null;
             },
