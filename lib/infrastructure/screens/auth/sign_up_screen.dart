@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/sign_up_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
@@ -59,8 +61,20 @@ class SignUpScreen extends StatelessWidget {
                           children: [
                             BlocProvider(
                               create: (context) => SignUpBloc(),
-                              child: const SingleChildScrollView(
-                                child: SignUpForm(),
+                              child: SingleChildScrollView(
+                                child: BlocListener<AuthBloc, AuthState>(
+                                  listener: (context, state) {
+                                    if (state.user != null) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MainScreen()),
+                                      );
+                                    }
+                                  },
+                                  child: const SignUpForm(),
+                                ),
                               ),
                             ),
                           ],
