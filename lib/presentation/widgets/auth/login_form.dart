@@ -25,7 +25,6 @@ class _LoginFormState extends State<LoginForm> {
     void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-
       authBloc.add(LoggedIn(
           email: loginBloc.state.email, password: loginBloc.state.password));
     }

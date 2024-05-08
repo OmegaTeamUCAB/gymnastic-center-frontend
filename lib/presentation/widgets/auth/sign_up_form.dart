@@ -15,10 +15,6 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String fullName = '';
-  String phoneNumber = '';
-  String email = '';
-  String password = '';
   bool? isTermsChecked = false;
   bool isObscured = true;
 

@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _signUp(SignedUp event, Emitter<AuthState> emit) async {
-    final newUser = await authenticationService.login({
+    final newUser = await authenticationService.signUp({
       'email': event.email,
       'fullName': event.fullName,
       'phoneNumber': event.phoneNumber,

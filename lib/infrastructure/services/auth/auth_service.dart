@@ -16,7 +16,6 @@ class AuthService implements IAuthRepository {
         body: jsonEncode(loginCredentials),
       );
 
-      //todo: change to 200 when backend is fixed
       if (response.statusCode == 201) {
         return jsonDecode(response.body);
       } else {
@@ -46,8 +45,7 @@ class AuthService implements IAuthRepository {
       if (response.statusCode == 201) {
         return jsonDecode(response.body);
       } else {
-        throw Exception(
-            'Sign-up failed with status code: ${response.statusCode}');
+        throw Exception(response.body);
       }
     } on SocketException {
       throw Exception('Network error occurred.');
