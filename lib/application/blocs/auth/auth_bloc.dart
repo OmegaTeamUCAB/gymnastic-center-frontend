@@ -24,23 +24,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _logIn(LoggedIn event, Emitter<AuthState> emit) async {
-    final loggedUser = await authenticationService
-        .login({'email': event.email, 'password': event.password});
-    User user = User.fromJson(loggedUser['user']);
-    emit(state.copyWith(user: user));
-    SecureStorage().writeSecureData('token', loggedUser['token']);
+    emit(state.copyWith(isLoading: true));
+    try {
+      final loggedUser = await authenticationService
+          .login({'email': event.email, 'password': event.password});
+      User user = User.fromJson(loggedUser['user']);
+      emit(state.copyWith(user: user));
+      SecureStorage().writeSecureData('token', loggedUser['token']);
+    } catch (e) {
+      throw Exception('Login failed in bloC');
+    } finally {
+      emit(state.copyWith(isLoading: false));
+    }
   }
 
   void _signUp(SignedUp event, Emitter<AuthState> emit) async {
-    final newUser = await authenticationService.signUp({
-      'email': event.email,
-      'fullName': event.fullName,
-      'phoneNumber': event.phoneNumber,
-      'password': event.password
-    });
-    User user = User.fromJson(newUser['user']);
-    emit(state.copyWith(user: user));
-    SecureStorage().writeSecureData('token', newUser['token']);
+    emit(state.copyWith(isLoading: true));
+    try {
+      final newUser = await authenticationService.signUp({
+        'email': event.email,
+        'fullName': event.fullName,
+        'phoneNumber': event.phoneNumber,
+        'password': event.password
+      });
+      User user = User.fromJson(newUser['user']);
+      emit(state.copyWith(user: user));
+      SecureStorage().writeSecureData('token', newUser['token']);
+    } catch (e) {
+      throw Exception('Sing-up failed in bloC');
+    } finally {
+      emit(state.copyWith(isLoading: false));
+    }
   }
 
   void _signOut(SignedOut event, Emitter<AuthState> emit) {

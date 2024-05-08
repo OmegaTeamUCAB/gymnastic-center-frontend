@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({super.key});
+  final Set<String> filters;
+  const CustomSearchBar({super.key, required this.filters});
 
   @override
   Widget build(BuildContext context) {

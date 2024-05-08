@@ -33,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
             clipBehavior: Clip.none,
             children: [
               Container(
-                //makes searchBar clickable
+                //*makes searchBar clickable
                 height: 155,
               ),
               CustomAppBar(
@@ -54,13 +54,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              const Positioned(
+              Positioned(
                   bottom: 0,
                   left: 0.0,
                   right: 0.0,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0),
-                    child: CustomSearchBar(),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: CustomSearchBar(filters: _selectedFilters),
                   )),
             ],
           ),
