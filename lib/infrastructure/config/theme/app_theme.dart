@@ -12,7 +12,7 @@ class AppTheme {
           seedColor: const Color(0xFF4F14A0),
           primary: const Color(0xFF4F14A0),
           secondary: const Color(0xFF8066FF),
-          background: Colors.white,
+          background: const Color(0xFFF2F2F2),
           onBackground: Colors.white,
           onSurface: Colors.white, // content inside button
           outline: const Color(0xFFCDCDCD),
