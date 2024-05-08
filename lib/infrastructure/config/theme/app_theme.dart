@@ -47,6 +47,7 @@ class AppTheme {
           onSecondaryContainer: const Color(0xFF4E546A),
           onPrimaryContainer: Colors.white,
           onTertiaryContainer: const Color(0xFFe8e3f0),
+          tertiaryContainer: const Color(0xFF4E546A),
           onBackground: const Color(0xFF2D2D3A),
           brightness: Brightness.dark,
           onPrimary: Colors.white),

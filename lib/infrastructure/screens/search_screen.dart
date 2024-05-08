@@ -14,8 +14,15 @@ final filterChips = [
   const SearchFilter(label: 'Most Popular', value: 'most_popular'),
 ];
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final Set<String> _selectedFilters = {};
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +68,6 @@ class SearchScreen extends StatelessWidget {
             height: 15,
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Wrap(
                 children: filterChips.map((filter) {
@@ -72,16 +78,32 @@ class SearchScreen extends StatelessWidget {
                           Theme.of(context).colorScheme.surfaceTint,
                       selectedColor: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
+                      showCheckmark: false,
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
-                              color: Theme.of(context).colorScheme.surfaceTint),
+                            color: _selectedFilters.contains(filter.value)
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.surfaceTint,
+                          ),
                           borderRadius: BorderRadius.circular(60)),
                       label: Text(
                         filter.label,
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
                       ),
-                      onSelected: (bool value) {},
+                      labelStyle: TextStyle(
+                        color: _selectedFilters.contains(filter.value)
+                            ? Theme.of(context).colorScheme.onSurface
+                            : Theme.of(context).colorScheme.primary,
+                      ),
+                      selected: _selectedFilters.contains(filter.value),
+                      onSelected: (bool selected) {
+                        setState(() {
+                          if (selected) {
+                            _selectedFilters.add(filter.value);
+                          } else {
+                            _selectedFilters.remove(filter.value);
+                          }
+                        });
+                      },
                     ),
                   );
                 }).toList(),
