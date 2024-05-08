@@ -4,8 +4,23 @@ sealed class AuthEvent {
   const AuthEvent();
 }
 
-class SignedIn extends AuthEvent {
-  const SignedIn();
+class SignedUp extends AuthEvent {
+  final String email;
+  final String fullName;
+  final String password;
+  final String phoneNumber;
+
+  const SignedUp(
+      {required this.email,
+      required this.fullName,
+      required this.password,
+      required this.phoneNumber});
+}
+
+class LoggedIn extends AuthEvent {
+  final String email;
+  final String password;
+  const LoggedIn({required this.email, required this.password});
 }
 
 class SignedOut extends AuthEvent {

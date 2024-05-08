@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -20,10 +21,13 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final loginBloc = context.watch<LoginBloc>();
+    final authBloc = context.watch<AuthBloc>();
     void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-      loginBloc.add(const FormSubmitted());
+
+      authBloc.add(LoggedIn(
+          email: loginBloc.state.email, password: loginBloc.state.password));
     }
 
     return Form(

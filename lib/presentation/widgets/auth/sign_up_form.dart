@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -24,14 +25,15 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final signUpBloc = context.watch<SignUpBloc>();
+    final authBloc = context.watch<AuthBloc>();
     void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-      signUpBloc.add(const FormSubmitted());
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MainScreen()),
-      );
+      authBloc.add(SignedUp(
+          fullName: signUpBloc.state.fullName,
+          email: signUpBloc.state.email,
+          phoneNumber: signUpBloc.state.phoneNumber,
+          password: signUpBloc.state.password));
     }
 
     return Form(

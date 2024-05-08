@@ -12,7 +12,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc() : super(const AuthState()) {
     on<VerifiedUser>(_verifyUser);
-    // on<SignedIn>(_signIn);
+    on<LoggedIn>(_logIn);
+    on<SignedUp>(_signUp);
     on<SignedOut>(_signOut);
   }
 
@@ -22,8 +23,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(user: userData.user));
   }
 
-  void _signIn(SignedIn event, Emitter<AuthState> emit) {
-    //le pasas el user y hace emit state
+  void _logIn(LoggedIn event, Emitter<AuthState> emit) async {
+    final loggedUser = await authenticationService
+        .login({'email': event.email, 'password': event.password});
+    emit(state.copyWith(user: loggedUser));
+  }
+
+  void _signUp(SignedUp event, Emitter<AuthState> emit) async {
+    final newUser = await authenticationService.login({
+      'email': event.email,
+      'fullName': event.fullName,
+      'phoneNumber': event.phoneNumber,
+      'password': event.password
+    });
+    emit(state.copyWith(user: newUser));
   }
 
   void _signOut(SignedOut event, Emitter<AuthState> emit) {
