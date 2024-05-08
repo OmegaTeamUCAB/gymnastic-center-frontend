@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -15,13 +16,19 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final String _email = '';
-  final String _password = '';
   bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
     final loginBloc = context.watch<LoginBloc>();
+    final authBloc = context.watch<AuthBloc>();
+    void onSubmit() {
+      final isValid = _formKey.currentState!.validate();
+      if (!isValid) return;
+      authBloc.add(LoggedIn(
+          email: loginBloc.state.email, password: loginBloc.state.password));
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -82,13 +89,7 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: isObscured,
           ),
           const SizedBox(height: 25),
-          BrandButton(
-              buttonText: 'Login',
-              onPressed: () {
-                final isValid = _formKey.currentState!.validate();
-                if (!isValid) return;
-                loginBloc.add(FormSubmitted(_email, _password));
-              }),
+          BrandButton(buttonText: 'Login', onPressed: onSubmit),
           TextButton(
             onPressed: () {
               // Handle forgot password link
