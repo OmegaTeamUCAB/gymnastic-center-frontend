@@ -19,14 +19,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _verifyUser(VerifiedUser event, Emitter<AuthState> emit) async {
     final userData = await authenticationService.verifyUser();
-    SecureStorage().writeSecureData('token', userData.token);
-    emit(state.copyWith(user: userData.user));
+    SecureStorage().writeSecureData('token', userData['token']);
+    emit(state.copyWith(user: userData['user']));
   }
 
   void _logIn(LoggedIn event, Emitter<AuthState> emit) async {
     final loggedUser = await authenticationService
         .login({'email': event.email, 'password': event.password});
-    emit(state.copyWith(user: loggedUser));
+    User user = User.fromJson(loggedUser['user']);
+    emit(state.copyWith(user: user));
+    SecureStorage().writeSecureData('token', loggedUser['token']);
   }
 
   void _signUp(SignedUp event, Emitter<AuthState> emit) async {
@@ -36,7 +38,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       'phoneNumber': event.phoneNumber,
       'password': event.password
     });
-    emit(state.copyWith(user: newUser));
+    User user = User.fromJson(newUser['user']);
+    emit(state.copyWith(user: user));
+    SecureStorage().writeSecureData('token', newUser['token']);
   }
 
   void _signOut(SignedOut event, Emitter<AuthState> emit) {
