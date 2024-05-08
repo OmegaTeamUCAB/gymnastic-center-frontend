@@ -1,23 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/infrastructure/screens/about_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/account_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/faq_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/language_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/notifications/notifications_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/privacy_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/rate_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/statistics_screen.dart';
 
 class MenuItem {
   final String title;
-  final String link;
   final IconData icon;
+  final void Function(BuildContext) redirect;
 
-  const MenuItem({required this.title, required this.link, required this.icon});
+  const MenuItem(
+      {required this.title, required this.icon, required this.redirect});
 }
 
-const appMenuItems = <MenuItem>[
-  MenuItem(title: 'Account', link: '/account', icon: Icons.person),
+final appMenuItems = <MenuItem>[
   MenuItem(
-      title: 'Notifications',
-      link: '/notifications',
-      icon: Icons.notifications_on),
-  MenuItem(title: 'Privacy', link: '/privacy', icon: Icons.lock),
-  MenuItem(title: 'FAQ', link: '/faq', icon: Icons.help_outlined),
-  MenuItem(title: 'Statistics', link: '/statistics', icon: Icons.equalizer),
-  MenuItem(title: 'Language', link: '/language', icon: Icons.translate),
-  MenuItem(title: 'Rate Us', link: '/rate_us', icon: Icons.groups_rounded),
-  MenuItem(title: 'About', link: '/about', icon: Icons.people_sharp),
+    title: 'Account',
+    icon: Icons.person,
+    redirect: (context) => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const AccountScreen())),
+  ),
+  MenuItem(
+    title: 'Notifications',
+    icon: Icons.notifications_on,
+    redirect: (context) => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const NotificationsScreen())),
+  ),
+  MenuItem(
+    title: 'Privacy',
+    icon: Icons.lock,
+    redirect: (context) => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const PrivacyScreen())),
+  ),
+  MenuItem(
+    title: 'FAQ',
+    icon: Icons.help_outlined,
+    redirect: (context) => Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const FAQScreen())),
+  ),
+  MenuItem(
+    title: 'Statistics',
+    icon: Icons.equalizer,
+    redirect: (context) => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const StatisticsScreen())),
+  ),
+  MenuItem(
+    title: 'Language',
+    icon: Icons.translate,
+    redirect: (context) => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const LanguageScreen())),
+  ),
+  MenuItem(
+    title: 'Rate Us',
+    icon: Icons.groups_rounded,
+    redirect: (context) => Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const RateUsScreen())),
+  ),
+  MenuItem(
+    title: 'About',
+    icon: Icons.people_sharp,
+    redirect: (context) => Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const AboutScreen())),
+  ),
 ];
