@@ -4,8 +4,8 @@ class CourseCard extends StatelessWidget {
   final String courseId;
   final String courseImageUrl;
   const CourseCard({
-    super.key, 
-    required this.courseId, 
+    super.key,
+    required this.courseId,
     required this.courseImageUrl,
   });
 
@@ -15,33 +15,41 @@ class CourseCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: FadeInImage(
-            fit: BoxFit.cover,
-            placeholder: const AssetImage('assets/loader.gif'), 
-            height: 150,
-            image: NetworkImage(courseImageUrl)
-          ),
+          child: Image.network(courseImageUrl, fit: BoxFit.cover, height: 150,
+              loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress != null) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return child;
+            }
+          }),
         ),
-
         Positioned.fill(
-          child: Container(
-            decoration:  BoxDecoration(
+            child: Container(
+            width: 150,
+            height: 150,
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withOpacity(0.7),
-              Colors.black.withOpacity(0.3),
-            ],
-          ),
-        ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Icon(Icons.play_circle_outline_rounded, size: 60, color: Colors.white,),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.7),
+                Colors.black.withOpacity(0.3),
+              ],
             ),
-          ) 
-        ),
+          ),
+          child: Align(
+            alignment: Alignment.center,
+            child: Icon(
+              Icons.play_circle_outline_rounded,
+              size: 60,
+              color: Colors.white,
+            ),
+          ),
+        )),
       ],
     );
   }

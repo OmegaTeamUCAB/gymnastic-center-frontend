@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/infrastructure/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
@@ -52,21 +50,23 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 margin: EdgeInsets.only(top: 100),
                 child: GestureDetector(
                   onDoubleTap: () {
-                    Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              // TODO: pasarle el curso completo
-                              builder: (context) => const CourseContentScreen()),
-                        );
+                    
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(60)),
-                    child: FadeInImage(
+                    child: Image.network(
+                      course!.imageUrl,
                       height: 350,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress != null) {
+                          return Center(child: CircularProgressIndicator(),);
+                        } else {
+                          return child;
+                        }
+                      },
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      placeholder:  const AssetImage('assets/loader.gif'), 
-                      image: NetworkImage(course!.imageUrl)),
+                      ),
                   ),
                 ),
               ),

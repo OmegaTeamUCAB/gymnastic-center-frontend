@@ -9,38 +9,42 @@ class CourseCarrusel extends StatelessWidget {
   final Function(String courseId)? onTap;
   final Function? fetchData;
   const CourseCarrusel({
-    super.key, 
-    this.width = 150, 
-    this.height = 150, 
+    super.key,
+    this.width = 150,
+    this.height = 150,
     this.courses,
-    this.onTap, 
+    this.onTap,
     this.fetchData,
   }) : assert(courses != null || fetchData != null,
-        'Debe proporcionar una lista de cursos o una función fetchData');
+            'Debe proporcionar una lista de cursos o una función fetchData');
   @override
   Widget build(BuildContext context) {
-
     return (fetchData == null)
-    ?  _CourseBuilder(courses: courses! ,height: height, onTap: onTap, width: width,)
-    :  FutureBuilder(
-      future: fetchData!(), 
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-            if(snapshot.hasData && snapshot.data is List<Course>){
-              return _CourseBuilder(
-                courses: snapshot.data as List<Course>,
-                height: height,
-                width: width,
-                onTap: onTap,
-              );
-            } else{
-              return Text('No hay cursos para mostrar');
-            }
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-      },
-    );
+        ? _CourseBuilder(
+            courses: courses!,
+            height: height,
+            onTap: onTap,
+            width: width,
+          )
+        : FutureBuilder(
+            future: fetchData!(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData && snapshot.data is List<Course>) {
+                  return _CourseBuilder(
+                    courses: snapshot.data as List<Course>,
+                    height: height,
+                    width: width,
+                    onTap: onTap,
+                  );
+                } else {
+                  return Text('No hay cursos para mostrar');
+                }
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          );
   }
 }
 
@@ -49,15 +53,15 @@ class _CourseBuilder extends StatelessWidget {
   final double? height;
   final List<Course> courses;
   final Function(String courseId)? onTap;
-  const _CourseBuilder({super.key, this.width, this.height, required this.courses, this.onTap});
+  const _CourseBuilder(
+      {super.key, this.width, this.height, required this.courses, this.onTap});
 
-  void _funcionPredeterminada(String courseId, BuildContext context){
+  void _funcionPredeterminada(String courseId, BuildContext context) {
     Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      CourseDetailScreen(courseId: courseId)),
-            );
+      context,
+      MaterialPageRoute(
+          builder: (context) => CourseDetailScreen(courseId: courseId)),
+    );
   }
 
   @override
@@ -70,11 +74,13 @@ class _CourseBuilder extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final course = courses[index];
-          if(courses.isEmpty) return Text('No hay cursos para mostrar');
+          if (courses.isEmpty) return Text('No hay cursos para mostrar');
           return GestureDetector(
-            onTap: () => (onTap != null) ? onTap!(course.id) : _funcionPredeterminada(course.id, context),
-            child: _CourseSlide(width: width, height: height, imgUrl: course.imageUrl)
-          );
+              onTap: () => (onTap != null)
+                  ? onTap!(course.id)
+                  : _funcionPredeterminada(course.id, context),
+              child: _CourseSlide(
+                  width: width, height: height, imgUrl: course.imageUrl));
         },
       ),
     );
@@ -101,43 +107,58 @@ class _CourseSlide extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: [
-              FadeInImage(
+              SizedBox(
+                width: width,
+                height: height,
+                child: Image.network(
+                  imgUrl,
                   fit: BoxFit.cover,
-                  placeholder: const AssetImage('assets/loader.gif'), 
                   width: width,
                   height: height,
-                  image: NetworkImage(imgUrl)
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress != null) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return child;
+                    }
+                  },
                 ),
+              ),
               Positioned.fill(
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withOpacity(0.4),
-              Colors.black.withOpacity(0.3),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.4),
+                        Colors.black.withOpacity(0.3),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
-    ),
-            ],
+        Positioned(
+            child: Container(
+          width: 60,
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+          margin: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.deepPurple,
           ),
-        ),
-
-      Positioned(
-        child: Container(
-  width: 60,
-  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4), 
-  margin: EdgeInsets.all(8),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(30), 
-    color: Colors.deepPurple,
-  ),
-  child: Text('New', style:
-    TextStyle(color :Colors.white,),),
-))
+          child: Text(
+            'New',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ))
       ],
     );
   }

@@ -1,7 +1,7 @@
 
 import 'package:gymnastic_center/domain/course/course.dart';
 
-abstract class CourseRepository {
+abstract class ICourseRepository {
 
   Future<List<Course>> getAllCourses();
   Future<List<Course>> getCoursesByCategory(String id);

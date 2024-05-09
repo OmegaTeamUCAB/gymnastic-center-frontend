@@ -5,7 +5,7 @@ import 'package:gymnastic_center/domain/course/repository/course_repository.dart
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/mappers/course/course_mapper.dart';
 
-class CourseRepositoryImpl extends CourseRepository {
+class CourseService extends ICourseRepository {
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: Environment.getApiUrl(),
