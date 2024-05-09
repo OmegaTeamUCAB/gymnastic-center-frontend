@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  final Set<String> filters;
-  const CustomSearchBar({super.key, required this.filters});
+  const CustomSearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final searchBloc = context.watch<SearchBloc>();
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFF2F2F2),
@@ -22,6 +24,9 @@ class CustomSearchBar extends StatelessWidget {
       child: TextFormField(
         style: const TextStyle(fontSize: 16, color: Colors.black),
         cursorColor: const Color(0xFF4F14A0),
+        onChanged: (value) {
+          searchBloc.add(QueryStringChanged(value));
+        },
         decoration: const InputDecoration(
           hintStyle: TextStyle(fontSize: 16, color: Colors.grey),
           suffixIconColor: Colors.grey,

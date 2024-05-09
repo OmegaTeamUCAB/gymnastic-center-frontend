@@ -9,15 +9,15 @@ class LoginBloc extends Bloc<LoginFormEvent, LoginFormState> {
   final AuthService authService = AuthService();
 
   LoginBloc() : super(const LoginFormState()) {
-    on<EmailChanged>(_onEmailChanged);
-    on<PasswordChanged>(_onPasswordChanged);
+    on<EmailChanged>(_onEmailChange);
+    on<PasswordChanged>(_onPasswordChange);
   }
 
-  void _onEmailChanged(EmailChanged event, Emitter<LoginFormState> emit) {
+  void _onEmailChange(EmailChanged event, Emitter<LoginFormState> emit) {
     emit(state.copyWith(email: event.email));
   }
 
-  void _onPasswordChanged(PasswordChanged event, Emitter<LoginFormState> emit) {
+  void _onPasswordChange(PasswordChanged event, Emitter<LoginFormState> emit) {
     emit(state.copyWith(password: event.password));
   }
 }
