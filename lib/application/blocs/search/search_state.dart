@@ -3,14 +3,14 @@ part of 'search_bloc.dart';
 class SearchState extends Equatable {
   final String searchTerm;
   final Set<String> filters;
-  final List<Course> results;
+  final List<SearchResults> results;
   const SearchState(
       {this.searchTerm = '', this.filters = const {}, this.results = const []});
 
   SearchState copyWith({
     String? searchTerm,
     Set<String>? filters,
-    List<Course>? results,
+    List<SearchResults>? results,
   }) =>
       SearchState(
         searchTerm: searchTerm ?? this.searchTerm,
