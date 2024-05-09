@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/services/categories/CategoryService.dart';
+import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 

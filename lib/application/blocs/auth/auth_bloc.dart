@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gymnastic_center/application/models/user.dart';
+import 'package:gymnastic_center/domain/auth/user.dart';
 import 'package:gymnastic_center/infrastructure/config/local-storage/secure_storage.dart';
 import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
 
