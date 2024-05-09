@@ -1,7 +1,7 @@
+import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
-import 'package:gymnastic_center/application/models/blog.dart';
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/Blog_Detail.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/blog_detail.dart';
 
 class BlogList extends StatelessWidget {
   final IBlogRepository blogRepository;

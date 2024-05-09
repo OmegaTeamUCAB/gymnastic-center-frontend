@@ -7,6 +7,7 @@ class BlogMapper {
         title: json["title"],
         description: json["description"],
         content: json["content"],
+        comments: json["content"],
         uploadDate: DateTime.parse(json["uploadDate"]),
       );
 

@@ -41,7 +41,7 @@ class SearchScreen extends StatelessWidget {
                   ),
                 ),
                 const Positioned(
-                    bottom: 0,
+                    bottom: -20,
                     left: 0.0,
                     right: 0.0,
                     child: Padding(

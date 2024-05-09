@@ -1,5 +1,5 @@
+import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
-import 'package:gymnastic_center/application/models/blog.dart';
 import 'package:gymnastic_center/application/models/comment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
