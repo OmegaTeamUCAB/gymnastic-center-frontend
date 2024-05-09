@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class LanguageScreen extends StatelessWidget {
-  static const name = 'language_screen';
-
-  const LanguageScreen({super.key});
+class FAQScreen extends StatelessWidget {
+  const FAQScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class LanguageScreen extends StatelessWidget {
                       },
                     ),
                     const Text(
-                      'Language',
+                      'FAQ',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

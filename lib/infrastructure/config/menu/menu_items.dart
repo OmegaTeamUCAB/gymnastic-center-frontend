@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/screens/about_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/account_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/faq_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/language_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/notifications/notifications_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/privacy_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/rate_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/statistics_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/about_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/account_settings_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/faq_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/language_settings_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/notification_settings_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/privacy_settings_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/rate_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/settings/statistics_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
 class MenuItem {
   final String title;
@@ -20,43 +21,47 @@ class MenuItem {
 final appMenuItems = <MenuItem>[
   MenuItem(
     title: 'Account',
-    icon: Icons.person,
+    icon: GymnasticCenter.account,
     redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const AccountScreen())),
+        MaterialPageRoute(builder: (context) => const AccountSettingsScreen())),
   ),
   MenuItem(
     title: 'Notifications',
     icon: Icons.notifications_on,
-    redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const NotificationsScreen())),
+    redirect: (context) => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const NotificationSettingsScreen())),
   ),
   MenuItem(
     title: 'Privacy',
-    icon: Icons.lock,
+    icon: GymnasticCenter.lock,
     redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PrivacyScreen())),
+        MaterialPageRoute(builder: (context) => const PrivacySettingsScreen())),
   ),
   MenuItem(
     title: 'FAQ',
-    icon: Icons.help_outlined,
+    icon: GymnasticCenter.question,
     redirect: (context) => Navigator.push(
         context, MaterialPageRoute(builder: (context) => const FAQScreen())),
   ),
   MenuItem(
     title: 'Statistics',
-    icon: Icons.equalizer,
+    icon: GymnasticCenter.statistics,
     redirect: (context) => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const StatisticsScreen())),
   ),
   MenuItem(
     title: 'Language',
     icon: Icons.translate,
-    redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const LanguageScreen())),
+    redirect: (context) => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const LanguageSettingsScreen())),
   ),
   MenuItem(
     title: 'Rate Us',
-    icon: Icons.groups_rounded,
+    icon: GymnasticCenter.rate,
     redirect: (context) => Navigator.push(
         context, MaterialPageRoute(builder: (context) => const RateUsScreen())),
   ),
