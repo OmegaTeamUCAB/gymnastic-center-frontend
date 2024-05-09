@@ -18,7 +18,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final screens = <Widget>[
-    HomeScreen(),
+    const HomeScreen(),
     const DisabilityScreen(),
     const SettingsScreen(),
     const NotificationsScreen(),
