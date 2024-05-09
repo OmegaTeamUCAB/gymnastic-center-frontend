@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/services/categories/CategoryService.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
+import 'package:gymnastic_center/infrastructure/services/blogs/BlogsService.dart';
+import 'package:gymnastic_center/presentation/widgets/home/BlogList.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,6 +16,9 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),
+           Expanded(
+    child: BlogList(blogRepository: BlogsService()),
+  ),
         ],
       ),
     );

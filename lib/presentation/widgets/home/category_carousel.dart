@@ -6,7 +6,7 @@ import 'package:gymnastic_center/presentation/widgets/common/carousel_header.dar
 class CategoryCarousel extends StatelessWidget {
   final ICategoryRepository categoryRepository;
 
-  const CategoryCarousel({super.key, required this.categoryRepository});
+ const CategoryCarousel({super.key, required this.categoryRepository});
 
   @override
   Widget build(BuildContext context) {
