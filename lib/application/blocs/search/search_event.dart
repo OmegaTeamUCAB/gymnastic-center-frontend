@@ -5,8 +5,8 @@ sealed class SearchEvent {
 }
 
 class QueryStringChanged extends SearchEvent {
-  final String queryString;
-  const QueryStringChanged(this.queryString);
+  final String searchTerm;
+  const QueryStringChanged(this.searchTerm);
 }
 
 class FilterSelected extends SearchEvent {

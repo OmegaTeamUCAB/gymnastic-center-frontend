@@ -14,7 +14,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   void _onQueryStringChange(
       QueryStringChanged event, Emitter<SearchState> emit) {
-    emit(state.copyWith(queryString: event.queryString));
+    emit(state.copyWith(searchTerm: event.searchTerm));
   }
 
   void _onFilterSelect(FilterSelected event, Emitter<SearchState> emit) {
