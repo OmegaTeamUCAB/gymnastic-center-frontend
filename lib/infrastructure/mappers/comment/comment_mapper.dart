@@ -1,19 +1,20 @@
 import 'package:gymnastic_center/domain/comment/comment.dart';
 
 class CommentMapper {
-  static Comment fromJson(Map<String, dynamic> json) => Comment(
-        userId: json["userId"],
-        blogId: json["blogId"],
+static Comment fromJson(Map<String, dynamic> json) => Comment(
+        id: json["id"],
         content: json["content"],
-        postedAt: DateTime.parse(json["postedAt"]),
-      );
+        userId: json["userId"],
+        createdAt: DateTime.parse(json["createdAt"]),
+    );
 
   static Map<String, dynamic> toJson(Comment comment) => {
-        "userId": comment.userId,
-        "blogId": comment.blogId,
+        "id": comment.id,
         "content": comment.content,
-        "postedAt": comment.postedAt.toIso8601String(),
-      };
+        "userId": comment.userId,
+        "createdAt": comment.createdAt.toIso8601String(),
+    };
+  
   static List<Comment> fromJsonToList(dynamic jsonList) {
     return jsonList.map<Comment>((json) => fromJson(json)).toList();
   }

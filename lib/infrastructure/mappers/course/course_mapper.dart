@@ -16,8 +16,8 @@ class CourseMapper {
         categoryId: json["categoryId"],
         instructorId: json["instructorId"],
         lessons: LessonMapper.fromJsonToList(json["lessons"]),
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdAt: (json["createdAt"] != null) ? DateTime.parse(json["createdAt"]) : null,
+        updatedAt: (json["updatedAt"] != null) ? DateTime.parse(json["updatedAt"]) : null,
       );
 
   static Map<String, dynamic> toJson(Course course) => {
@@ -33,8 +33,6 @@ class CourseMapper {
         "instructorId": course.instructorId,
         "lessons": List<dynamic>.from(
             course.lessons.map((x) => LessonMapper.toJson(x))),
-        "createdAt": course.createdAt.toIso8601String(),
-        "updatedAt": course.updatedAt.toIso8601String(),
       };
   static List<Course> fromJsonToList(dynamic jsonList) {
     return jsonList.map<Course>((json) => fromJson(json)).toList();

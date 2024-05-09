@@ -3,7 +3,7 @@ import 'package:gymnastic_center/domain/comment/comment.dart';
 class Lesson {
     final String id;
     final String title;
-    final String description;
+    final String? description;
     final String? content;
     final String? videoUrl;
     final String? imageUrl;
