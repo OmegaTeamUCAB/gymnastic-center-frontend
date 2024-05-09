@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/models/blog.dart';
 import 'package:gymnastic_center/application/models/comment.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/Addcommentbar.dart';
-
 
 import 'package:intl/intl.dart';
-
 
 class CommentExpansionPanel extends StatelessWidget {
   final List<Comment> comments;
@@ -23,11 +21,12 @@ class CommentExpansionPanel extends StatelessWidget {
             value: -1,
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
-                title: Text('Comentarios (${comments.length})',    
-                style: const TextStyle(
-                color: Colors.black,  // Cambia esto al color que quieras
-                     ), 
-                 ),
+                title: Text(
+                  'Comentarios (${comments.length})',
+                  style: const TextStyle(
+                    color: Colors.black, // Cambia esto al color que quieras
+                  ),
+                ),
               );
             },
             body: ListView(
@@ -36,7 +35,8 @@ class CommentExpansionPanel extends StatelessWidget {
               children: comments.map((Comment comment) {
                 return ListTile(
                   leading: const CircleAvatar(
-                    backgroundImage: NetworkImage('https://www.example.com/path/to/your/generic/image.jpg'),
+                    backgroundImage: NetworkImage(
+                        'https://www.example.com/path/to/your/generic/image.jpg'),
                   ),
                   title: const Text('USUARIO'),
                   subtitle: Column(
@@ -56,18 +56,15 @@ class CommentExpansionPanel extends StatelessWidget {
   }
 }
 
-
-
-
-class Blog_detail extends StatelessWidget {
+class BlogDetail extends StatelessWidget {
   final Blog blog;
 
-  const Blog_detail({super.key, required this.blog});
+  const BlogDetail({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:const AddCommentBar(), 
+      bottomNavigationBar: const AddCommentBar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
           return SingleChildScrollView(
@@ -81,7 +78,7 @@ class Blog_detail extends StatelessWidget {
                   Stack(
                     children: [
                       Transform.translate(
-                        offset: const Offset(0,20),
+                        offset: const Offset(0, 20),
                         child: Stack(
                           children: [
                             Padding(
@@ -95,12 +92,14 @@ class Blog_detail extends StatelessWidget {
                                     children: [
                                       Image.network(
                                         blog.imageUrl,
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         height: 300,
                                         fit: BoxFit.cover,
                                       ),
                                       Container(
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         height: 300,
                                         color: Colors.black.withOpacity(0.6),
                                       ),
@@ -134,7 +133,8 @@ class Blog_detail extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    DateFormat('yyyy-MM-dd').format(blog.uploadDate),
+                                    DateFormat('yyyy-MM-dd')
+                                        .format(blog.uploadDate),
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -162,19 +162,19 @@ class Blog_detail extends StatelessWidget {
                               height: 30,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                 Transform.translate(
-                                offset: const Offset(0, -12),
-                                child:   IconButton(
-                                    icon: const Icon(Icons.chevron_left, color: Colors.white),
-                                     iconSize: 40,
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }
-                                    ),
+                                  Transform.translate(
+                                    offset: const Offset(0, -12),
+                                    child: IconButton(
+                                        icon: const Icon(Icons.chevron_left,
+                                            color: Colors.white),
+                                        iconSize: 40,
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        }),
                                   ),
-                                    const Text(
+                                  const Text(
                                     'BLOG DETAIL',
                                     style: TextStyle(color: Colors.white),
                                   ),
@@ -189,7 +189,7 @@ class Blog_detail extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Text(
-                      blog.description, 
+                      blog.description,
                       style: const TextStyle(
                         fontSize: 16,
                       ),
@@ -204,7 +204,7 @@ class Blog_detail extends StatelessWidget {
                       ),
                     ),
                   ),
-                CommentExpansionPanel(comments: blog.comments),
+                  CommentExpansionPanel(comments: blog.comments),
                 ],
               ),
             ),

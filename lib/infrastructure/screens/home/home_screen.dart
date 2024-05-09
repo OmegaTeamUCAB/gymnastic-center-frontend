@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
-import 'package:gymnastic_center/presentation/widgets/home/BlogList.dart';
+import 'package:gymnastic_center/presentation/widgets/home/blog_list.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {

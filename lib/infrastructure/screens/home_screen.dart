@@ -3,7 +3,7 @@ import 'package:gymnastic_center/infrastructure/services/categories/category_ser
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
-import 'package:gymnastic_center/presentation/widgets/home/BlogList.dart';
+import 'package:gymnastic_center/presentation/widgets/home/blog_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
