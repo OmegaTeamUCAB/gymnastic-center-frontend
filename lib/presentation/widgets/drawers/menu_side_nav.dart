@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
-class MenuSideNav extends StatefulWidget {
+class MenuSideNav extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   const MenuSideNav({
     super.key,
     required this.scaffoldKey,
   });
-
-  @override
-  State<MenuSideNav> createState() => _MenuSideNavState();
-}
-
-class _MenuSideNavState extends State<MenuSideNav> {
-  int navDrawerIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +37,10 @@ class _MenuSideNavState extends State<MenuSideNav> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Scaffold.of(context).closeDrawer();
                   },
                 ),
-              ), //Usemos .map para estas situaciones. Ej: appMenus.map((menuItem) => )
-
-              // Lista de opciones
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: appMenuItems.length,
@@ -60,7 +52,7 @@ class _MenuSideNavState extends State<MenuSideNav> {
                       leading: Icon(appMenuItems[i].icon, color: Colors.white),
                       onTap: () {
                         appMenuItems[i].redirect(context);
-                        widget.scaffoldKey.currentState?.closeDrawer();
+                        scaffoldKey.currentState?.closeDrawer();
                       }),
                 ),
               ),
@@ -74,7 +66,8 @@ class _MenuSideNavState extends State<MenuSideNav> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     )),
-                leading: const Icon(Icons.logout, color: Colors.white),
+                leading:
+                    const Icon(GymnasticCenter.logout, color: Colors.white),
                 onTap: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(

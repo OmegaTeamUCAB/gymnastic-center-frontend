@@ -29,25 +29,32 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
-    return Scaffold(
-      key: scaffoldKey,
-      extendBody: true,
-      body: IndexedStack(
-        index: selectedIndex,
-        children: screens,
-      ),
-      drawer: MenuSideNav(scaffoldKey: scaffoldKey),
-      bottomNavigationBar: CustomNavigationBar(
-        tabIndex: selectedIndex,
-        onTap: (newScreenIndex) {
-          setState(() {
-            selectedIndex = newScreenIndex;
-          });
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomFloatingLightningButton(
-        onPressed: () {},
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        Scaffold.of(context).openDrawer();
+      },
+      child: Scaffold(
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width * 0.35,
+        key: scaffoldKey,
+        extendBody: true,
+        body: IndexedStack(
+          index: selectedIndex,
+          children: screens,
+        ),
+        drawer: MenuSideNav(scaffoldKey: scaffoldKey),
+        bottomNavigationBar: CustomNavigationBar(
+          tabIndex: selectedIndex,
+          onTap: (newScreenIndex) {
+            setState(() {
+              selectedIndex = newScreenIndex;
+            });
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: CustomFloatingLightningButton(
+          onPressed: () {},
+        ),
       ),
     );
   }

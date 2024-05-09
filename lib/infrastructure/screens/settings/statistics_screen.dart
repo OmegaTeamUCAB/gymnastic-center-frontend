@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class StatisticsScreen extends StatelessWidget {
-  static const name = 'statistics_screen';
-
   const StatisticsScreen({super.key});
 
   @override

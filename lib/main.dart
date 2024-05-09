@@ -50,7 +50,6 @@ class MainApp extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      // home: const PruebaScreen(),
       home: const MainScreen(),
     );
   }
