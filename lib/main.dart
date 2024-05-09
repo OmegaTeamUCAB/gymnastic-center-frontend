@@ -13,7 +13,6 @@ import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handl
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
