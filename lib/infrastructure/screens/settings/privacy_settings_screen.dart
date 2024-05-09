@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class RateUsScreen extends StatelessWidget {
-  static const name = 'rate_us_screen';
-
-  const RateUsScreen({super.key});
+class PrivacySettingsScreen extends StatelessWidget {
+  const PrivacySettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class RateUsScreen extends StatelessWidget {
                       },
                     ),
                     const Text(
-                      'Rate Us',
+                      'Privacy',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

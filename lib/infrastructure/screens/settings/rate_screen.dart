@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class AccountScreen extends StatelessWidget {
-  static const name = 'account_screen';
-
-  const AccountScreen({super.key});
+class RateUsScreen extends StatelessWidget {
+  const RateUsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class AccountScreen extends StatelessWidget {
                       },
                     ),
                     const Text(
-                      'Account',
+                      'Rate Us',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

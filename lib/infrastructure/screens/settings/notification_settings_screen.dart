@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class PrivacyScreen extends StatelessWidget {
-  static const name = 'privacy_screen';
-
-  const PrivacyScreen({super.key});
+class NotificationSettingsScreen extends StatelessWidget {
+  const NotificationSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class PrivacyScreen extends StatelessWidget {
                       },
                     ),
                     const Text(
-                      'Privacy',
+                      'Notification Settings',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

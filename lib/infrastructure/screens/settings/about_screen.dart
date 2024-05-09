@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class FAQScreen extends StatelessWidget {
-  static const name = 'faq_screen';
-
-  const FAQScreen({super.key});
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class FAQScreen extends StatelessWidget {
                       },
                     ),
                     const Text(
-                      'FAQ',
+                      'About',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
