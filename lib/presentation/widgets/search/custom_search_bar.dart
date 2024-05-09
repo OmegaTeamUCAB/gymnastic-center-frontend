@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
-import 'package:gymnastic_center/domain/blog/blog.dart';
-import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/search/search_results_list.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({super.key});
@@ -11,8 +10,8 @@ class CustomSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchBloc = context.watch<SearchBloc>();
-    List<Course> courses = searchBloc.state.results.courses;
-    List<Blog> blogs = searchBloc.state.results.blogs;
+    final courses = searchBloc.state.results.courses;
+    final blogs = searchBloc.state.results.blogs;
     return Column(
       children: [
         Container(
@@ -47,30 +46,13 @@ class CustomSearchBar extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          color: Colors.blue,
-          child: courses.length + blogs.length == 0
-              ? const Text('No results')
-              : ListView.builder(
-                  itemCount: courses.length + blogs.length,
-                  itemBuilder: (context, index) {
-                    if (index < courses.length) {
-                      // Render Course ListTile
-                      return ListTile(
-                        title: Text(courses[index].name),
-                        subtitle: Text(courses[index].description),
-                      );
-                    } else {
-                      // Render Blog ListTile
-                      int blogIndex = index - courses.length;
-                      return ListTile(
-                        title: Text(blogs[blogIndex].title),
-                        subtitle: Text(blogs[blogIndex].description),
-                      );
-                    }
-                  },
-                ),
-        )
+        const SizedBox(
+          height: 10,
+        ),
+        SearchResultsList(
+          courses: courses,
+          blogs: blogs,
+        ),
       ],
     );
   }

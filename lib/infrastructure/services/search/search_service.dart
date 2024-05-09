@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:gymnastic_center/infrastructure/mappers/blog/blog_mapper.dart';
-import 'package:gymnastic_center/infrastructure/mappers/course/course_mapper.dart';
 import 'package:http/http.dart' as http;
 import 'package:gymnastic_center/domain/search/search_repository.dart';
 import 'package:gymnastic_center/domain/search/search_results.dart';
@@ -16,8 +14,8 @@ class SearchService implements SearchRepository {
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final searchData = jsonDecode(response.body);
-        final courses = CourseMapper.fromJsonToList(searchData['courses']);
-        final blogs = BlogMapper.fromJsonToList(searchData['blogs']);
+        final courses = Course.fromJsonToList(searchData['courses']);
+        final blogs = Blog.fromJsonToList(searchData['blogs']);
         return SearchResults(courses: courses, blogs: blogs);
       } else {
         throw Exception(

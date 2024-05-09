@@ -13,49 +13,49 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => SearchBloc(),
-        child: Column(
+        child: Stack(
+          clipBehavior: Clip.none,
           children: [
-            Stack(
-              clipBehavior: Clip.none,
+            Column(
               children: [
                 Container(
                   //*makes searchBar clickable
                   height: 155,
                 ),
-                CustomAppBar(
-                  content: Row(
-                    children: [
-                      IconButton(
-                          iconSize: 30,
-                          onPressed: () => Navigator.pop(context),
-                          color: Colors.white,
-                          icon: const Icon(Icons.chevron_left)),
-                      const Text(
-                        'Popular Search',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
+                const SizedBox(
+                  height: 15,
                 ),
-                const Positioned(
-                    bottom: -20,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.0),
-                      child: CustomSearchBar(),
-                    )),
+                const Expanded(
+                  child: SearchChips(),
+                ),
               ],
             ),
-            const SizedBox(
-              height: 15,
+            CustomAppBar(
+              content: Row(
+                children: [
+                  IconButton(
+                      iconSize: 30,
+                      onPressed: () => Navigator.pop(context),
+                      color: Colors.white,
+                      icon: const Icon(Icons.chevron_left)),
+                  const Text(
+                    'Popular Search',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
-            const Column(
-              children: [SearchChips()],
-            ),
+            const Positioned(
+                top: 110,
+                left: 0.0,
+                right: 0.0,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: CustomSearchBar(),
+                )),
           ],
         ),
       ),
