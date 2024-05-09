@@ -11,11 +11,11 @@ class Course {
     final int weeks;
     final int minutes;
     final String imageUrl;
-    String categoryId;
-    String instructorId;
+    final String categoryId;
+    final String instructorId;
     final List<Lesson> lessons;
-    final DateTime createdAt;
-    final DateTime updatedAt;
+    final DateTime? createdAt;
+    final DateTime? updatedAt;
 
     Course({
         required this.id,
