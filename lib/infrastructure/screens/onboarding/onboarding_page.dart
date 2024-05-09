@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:gymnastic_center/presentation/utils/onboarding_items.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
+
+
+
+
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
 
@@ -21,39 +25,34 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Scaffold(
       bottomSheet: Container(
         color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-        child: isLastPage? getStarted() : Row(
+        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+        child:isLastPage? getStarted(): Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
 
             //Skip Button
             TextButton(
                 onPressed: ()=>pageController.jumpToPage(controller.items.length-1),
-                child: const Text("Skip")),
+                child: const Text("Skip", 
+                        style:TextStyle(fontSize: 16,color: Color.fromARGB(136, 39, 9, 65)))),
 
-            //Indicator
+            //indicator
             SmoothPageIndicator(
                 controller: pageController,
                 count: controller.items.length,
                 onDotClicked: (index)=> pageController.animateToPage(index,
-                    duration: const Duration(milliseconds: 600), curve: Curves.easeIn),
+                    duration: const Duration(milliseconds: 600), 
+                    curve: Curves.easeIn),
                 effect: const WormEffect(
                   dotHeight: 12,
                   dotWidth: 12,
                 // activeDotColor: LinearGradient,
                 ),
             ),
-
-            //Next Button
-            TextButton(
-                onPressed: ()=>pageController.nextPage(
-                    duration: const Duration(milliseconds: 600), curve: Curves.easeIn),
-                child: const Text("Next")),
-
-
           ],
         ),
       ),
+
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
         child: PageView.builder(
@@ -65,38 +64,52 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(controller.items[index].image),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   Text(controller.items[index].title,
-                    style: const TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-                  const SizedBox(height: 15),
+                    style: const TextStyle(color: Colors.deepPurple,fontSize: 22,fontWeight: FontWeight.bold),),
+                  const SizedBox(height: 10),
+                  Text(controller.items[index].subtitle,
+                    style: const TextStyle(fontSize: 38, fontWeight: FontWeight.bold )),
+                   const SizedBox(height: 10,),
                   Text(controller.items[index].descriptions,
-                      style: const TextStyle(color: Colors.grey,fontSize: 17), textAlign: TextAlign.center),
+                      style: const TextStyle(fontSize: 17), textAlign: TextAlign.center),
+                      const SizedBox(height: 30,),
+                  ElevatedButton.icon(
+                    onPressed: () => pageController.nextPage(
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeIn,                    
+                    ),
+                     label: const Text("Next"),
+                     icon: const Icon(Icons.arrow_circle_right_rounded, color: Colors.deepPurple,),
+                  ),
                 ],
               );
-
         }),
+        
       ),
+
     );
   }
+  
 
 
  Widget getStarted(){
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: const Color.fromARGB(255, 163, 37, 185)
-
+        gradient: brandGradient
       ),
       width: MediaQuery.of(context).size.width * .2,
       height: 50,
       child: TextButton(
           onPressed: (){
-           // final pres = await SharedPreferences.getInstance();
-           // pres.setBool("onboarding", true);
-
-            //After we press get started button this onboarding value become true
-            // same key
-           // if(!mounted)return;
+          // final pres = await SharedPreferences.getInstance();
+          // pres.setBool("onboarding", true);
+          //After we press get started button this onboarding value become true
+          // same key
+          // if(!mounted)return;
+          //
+          //Modify Main.dart for open just one time 
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen()));
           },
           child: const Text("Get started",style: TextStyle(color: Colors.white),)),
