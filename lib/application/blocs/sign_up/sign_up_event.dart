@@ -4,9 +4,9 @@ sealed class SignUpEvent {
   const SignUpEvent();
 }
 
-class NameChanged extends SignUpEvent {
+class FullNameChanged extends SignUpEvent {
   final String name;
-  const NameChanged(this.name);
+  const FullNameChanged(this.name);
 }
 
 class EmailChanged extends SignUpEvent {
@@ -14,9 +14,9 @@ class EmailChanged extends SignUpEvent {
   const EmailChanged(this.email);
 }
 
-class PhoneChanged extends SignUpEvent {
-  final String phone;
-  const PhoneChanged(this.phone);
+class PhoneNumberChanged extends SignUpEvent {
+  final String phoneNumber;
+  const PhoneNumberChanged(this.phoneNumber);
 }
 
 class PasswordChanged extends SignUpEvent {
@@ -25,9 +25,5 @@ class PasswordChanged extends SignUpEvent {
 }
 
 class FormSubmitted extends SignUpEvent {
-  final String name;
-  final String email;
-  final String phone;
-  final String password;
-  const FormSubmitted(this.email, this.password, this.name, this.phone);
+  const FormSubmitted();
 }

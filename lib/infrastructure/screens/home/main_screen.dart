@@ -5,6 +5,7 @@ import 'package:gymnastic_center/infrastructure/screens/notifications/notificati
 import 'package:gymnastic_center/infrastructure/screens/settings/settings_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_bottom_navbar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_lightning_button.dart';
+import 'package:gymnastic_center/presentation/widgets/drawers/menu_side_nav.dart';
 
 // ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
@@ -27,23 +28,33 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: IndexedStack(
-        index: selectedIndex,
-        children: screens,
-      ),
-      bottomNavigationBar: CustomNavigationBar(
-        tabIndex: selectedIndex,
-        onTap: (newScreenIndex) {
-          setState(() {
-            selectedIndex = newScreenIndex;
-          });
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomFloatingLightningButton(
-        onPressed: () {},
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        Scaffold.of(context).openDrawer();
+      },
+      child: Scaffold(
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width * 0.35,
+        key: scaffoldKey,
+        extendBody: true,
+        body: IndexedStack(
+          index: selectedIndex,
+          children: screens,
+        ),
+        drawer: MenuSideNav(scaffoldKey: scaffoldKey),
+        bottomNavigationBar: CustomNavigationBar(
+          tabIndex: selectedIndex,
+          onTap: (newScreenIndex) {
+            setState(() {
+              selectedIndex = newScreenIndex;
+            });
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: CustomFloatingLightningButton(
+          onPressed: () {},
+        ),
       ),
     );
   }
