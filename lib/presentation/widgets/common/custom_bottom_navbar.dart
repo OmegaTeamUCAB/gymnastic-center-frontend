@@ -3,69 +3,71 @@ import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_ico
 
 class CustomNavigationBar extends StatelessWidget {
   final int tabIndex;
-  final double iconsSize;
-  final ValueChanged<int>? onTap;
+  final ValueChanged<int> onTap;
 
   const CustomNavigationBar({
     required this.tabIndex,
-    this.iconsSize = 33,
     required this.onTap,
     super.key,
   });
 
+  //todo: add conditionally rendered border
   @override
   Widget build(BuildContext context) {
     final colorAppBar = Theme.of(context).colorScheme.tertiaryContainer;
+    final activeColor = Theme.of(context).colorScheme.onPrimaryContainer;
 
     return BottomAppBar(
       surfaceTintColor: colorAppBar,
       color: colorAppBar,
       shape: const CircularNotchedRectangle(),
       clipBehavior: Clip.antiAlias,
-      child: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: colorAppBar,
-        elevation: 0,
-        selectedFontSize: 0,
-        onTap: onTap,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Theme.of(context).colorScheme.onPrimaryContainer,
-        currentIndex: tabIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        iconSize: iconsSize,
-        items: [
-          const BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0),
-              child: Icon(GymnasticCenter.home),
+      padding: EdgeInsets.zero,
+      shadowColor: Colors.grey,
+      elevation: 25,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            IconButton(
+                onPressed: () {
+                  onTap(0);
+                },
+                icon: Icon(GymnasticCenter.home,
+                    size: 32,
+                    color: tabIndex == 0 ? activeColor : Colors.grey)),
+            const SizedBox(
+              width: 30,
             ),
-            label: 'Home',
-          ),
-          const BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(right: 30),
-              child: Icon(GymnasticCenter.wheelchair),
+            IconButton(
+                onPressed: () {
+                  onTap(1);
+                },
+                icon: Icon(GymnasticCenter.wheelchair,
+                    size: 32,
+                    color: tabIndex == 1 ? activeColor : Colors.grey)),
+            const Spacer(),
+            IconButton(
+                onPressed: () {
+                  onTap(2);
+                },
+                icon: Icon(
+                  GymnasticCenter.settings,
+                  size: 32,
+                  color: tabIndex == 2 ? activeColor : Colors.grey,
+                )),
+            const SizedBox(
+              width: 32,
             ),
-            label: 'Wheelchair',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 50),
-              child: const Icon(
-                GymnasticCenter.settings,
-              ),
-            ),
-            label: 'Settings',
-          ),
-          const BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0),
-              child: Icon(Icons.notifications_outlined),
-            ),
-            label: 'Notifications',
-          ),
-        ],
+            IconButton(
+                onPressed: () {
+                  onTap(3);
+                },
+                icon: Icon(Icons.notifications_outlined,
+                    size: 32,
+                    color: tabIndex == 3 ? activeColor : Colors.grey)),
+          ],
+        ),
       ),
     );
   }
