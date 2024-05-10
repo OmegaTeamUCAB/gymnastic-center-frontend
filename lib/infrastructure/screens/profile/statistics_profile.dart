@@ -8,8 +8,30 @@ class StatisticsChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarChart(
       BarChartData(
-        barTouchData: barTouchData,
-        titlesData: titlesData,
+        barTouchData: BarTouchData(
+          enabled: false,
+          touchTooltipData: BarTouchTooltipData(
+            getTooltipColor: (group) => Colors.transparent,
+            tooltipPadding: EdgeInsets.zero,
+            tooltipMargin: 8,
+            getTooltipItem: (
+              BarChartGroupData group,
+              int groupIndex,
+              BarChartRodData rod,
+              int rodIndex,
+            ) {
+              return BarTooltipItem(
+                rod.toY.round().toString(),
+                TextStyle(
+                  color: Theme.of(context).colorScheme.surfaceTint,
+                  fontWeight: FontWeight.bold,
+                ),
+              );
+            },
+          ),
+        ),
+        titlesData:titlesData,
+        
         borderData: borderData,
         barGroups: barGroups,
         gridData: const FlGridData(show: false),
@@ -19,34 +41,11 @@ class StatisticsChart extends StatelessWidget {
     );
   }
 
-  BarTouchData get barTouchData => BarTouchData(
-        enabled: false,
-        touchTooltipData: BarTouchTooltipData(
-          getTooltipColor: (group) => Colors.transparent,
-          tooltipPadding: EdgeInsets.zero,
-          tooltipMargin: 8,
-          getTooltipItem: (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
-          ) {
-            return BarTooltipItem(
-              rod.toY.round().toString(),
-              const TextStyle(
-                color: Colors.cyan,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
-        ),
-      );
-
   Widget getTitles(double value, TitleMeta meta) {
-    final style = TextStyle(
-      color: Colors.blue.shade800,
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
+    const style = TextStyle(
+      color: Colors.grey,
+      fontWeight: FontWeight.normal,
+      fontSize: 12,
     );
     String text;
     switch (value.toInt()) {
@@ -75,13 +74,15 @@ class StatisticsChart extends StatelessWidget {
         text = '';
         break;
     }
+    
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 4,
       child: Text(text, style: style),
     );
+    
   }
-
+  
   FlTitlesData get titlesData => FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
@@ -106,11 +107,8 @@ class StatisticsChart extends StatelessWidget {
         show: false,
       );
 
-  LinearGradient get _barsGradient => LinearGradient(
-        colors: [
-          Colors.blue.shade800,
-          Colors.cyan,
-        ],
+  LinearGradient get _barsGradient => const LinearGradient(
+        colors: [Colors.green, Colors.greenAccent],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       );
