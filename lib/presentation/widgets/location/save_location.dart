@@ -11,7 +11,9 @@ class SaveLocation extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image.asset(
-          'assets/location_image_light.png',
+          Theme.of(context).brightness == Brightness.light
+              ? 'assets/location_image_light.png'
+              : 'assets/location_image_dark.png',
           width: 156,
         ),
         const SizedBox(
@@ -39,7 +41,7 @@ class SaveLocation extends StatelessWidget {
             width: double.infinity,
             buttonText: 'Use your location',
             onPressed: () {
-              // TODO: Implement link functionality
+              // TODO: Implement button functionality
             }),
         const SizedBox(
           height: 5,
