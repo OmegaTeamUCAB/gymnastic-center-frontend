@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = AuthBloc();
+    print(authBloc.state.user);
     return CustomAppBar(
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -14,7 +18,11 @@ class ProfileAppBar extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    size: 30,
+                    color: Colors.white,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
                 const SizedBox(
@@ -23,11 +31,16 @@ class ProfileAppBar extends StatelessWidget {
                 const Text('Profile',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500)),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold)),
                 const Spacer(),
                 IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.edit_rounded))
+                    onPressed: () {},
+                    icon: const Icon(
+                      GymnasticCenter.pencil,
+                      size: 20,
+                      color: Colors.white,
+                    ))
               ],
             ),
             const SizedBox(height: 6),
@@ -39,7 +52,7 @@ class ProfileAppBar extends StatelessWidget {
                       onPressed: () {},
                       icon: const CircleAvatar(
                         backgroundImage: AssetImage('assets/test_user.jpeg'),
-                        radius: 36,
+                        radius: 40,
                       )),
                   const SizedBox(width: 7),
                   const Column(
@@ -49,8 +62,8 @@ class ProfileAppBar extends StatelessWidget {
                         'Jhon Doe',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
                       Row(
                         children: [
@@ -94,13 +107,16 @@ class ProfileAppBar extends StatelessWidget {
                       SizedBox(height: 20),
                       Row(
                         children: [
-                          Icon(Icons.emoji_emotions_outlined),
+                          Icon(
+                            Icons.emoji_emotions,
+                            color: Colors.white,
+                          ),
                           SizedBox(width: 107),
                           Text('90',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontWeight: FontWeight.w700)),
+                                  fontWeight: FontWeight.bold)),
                           Text(' hrs',
                               style: TextStyle(
                                   color: Colors.white,
@@ -108,9 +124,12 @@ class ProfileAppBar extends StatelessWidget {
                                   fontWeight: FontWeight.normal))
                         ],
                       ),
-                      Spacer(),
+                      SizedBox(
+                        height: 10,
+                      ),
                       SizedBox(
                           width: 190,
+                          height: 6,
                           child: LinearProgressIndicator(
                             value: 0.7,
                             color: Colors.green,
