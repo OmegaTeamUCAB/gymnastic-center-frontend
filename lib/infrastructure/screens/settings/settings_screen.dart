@@ -9,7 +9,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Color> circleColors = [
+    final List<Color> circleColors = [
       Colors.red,
       Colors.green,
       Colors.blue,
@@ -45,11 +45,11 @@ class SettingsScreen extends StatelessWidget {
           child: ListTile(
               contentPadding: const EdgeInsets.fromLTRB(15, 5, 0, 0),
               title: Text(appMenuItems[i].title,
-                  style: const TextStyle(color: Colors.black, fontSize: 30)),
+                  style: const TextStyle(color: Colors.black, fontSize: 20)),
               leading: CircleAvatar(
                 backgroundColor: circleColors[i % circleColors.length],
                 radius: 30,
-                child: Icon(appMenuItems[i].icon, color: Colors.black),
+                child: Icon(appMenuItems[i].icon, color: Colors.white),
               ),
               trailing: const Padding(
                   padding: EdgeInsets.only(right: 10),
