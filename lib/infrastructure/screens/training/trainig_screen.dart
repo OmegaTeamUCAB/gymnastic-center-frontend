@@ -73,8 +73,6 @@ class TrainingScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                buildSizedBoxColumn(),
-                buildSizedBoxColumn(),
                 buildSizedBoxColumn()
               ],
             ),
@@ -133,7 +131,7 @@ Widget buildSizedBoxColumn() {
         padding: const EdgeInsets.fromLTRB(10, 3, 5, 10),
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.red,
+            color: Colors.black12,
           ),
           borderRadius: BorderRadius.circular(10),
         ),
