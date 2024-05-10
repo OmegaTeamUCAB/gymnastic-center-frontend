@@ -13,7 +13,3 @@ class PasswordChanged extends LoginFormEvent {
   final String password;
   const PasswordChanged(this.password);
 }
-
-class FormSubmitted extends LoginFormEvent {
-  const FormSubmitted();
-}

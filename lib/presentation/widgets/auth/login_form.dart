@@ -89,7 +89,9 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: isObscured,
           ),
           const SizedBox(height: 25),
-          BrandButton(buttonText: 'Login', onPressed: onSubmit),
+          authBloc.state.isLoading == true
+              ? const CircularProgressIndicator()
+              : BrandButton(buttonText: 'Login', onPressed: onSubmit),
           TextButton(
             onPressed: () {
               // Handle forgot password link
