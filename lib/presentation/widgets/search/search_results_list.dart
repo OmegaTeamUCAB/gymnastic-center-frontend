@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
 
 class SearchResultsList extends StatelessWidget {
   final List<dynamic> courses;
@@ -51,6 +52,14 @@ class SearchResultsList extends StatelessWidget {
                         subtitle: Text(
                           courses[index].description,
                         ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CourseDetailScreen(courseId: courses[index].id)),
+                          );
+                        },
                         subtitleTextStyle: const TextStyle(
                             fontSize: 12, color: Color(0xFF677294)));
                   } else {
