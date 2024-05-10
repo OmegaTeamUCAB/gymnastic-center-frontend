@@ -17,9 +17,9 @@ class CourseMediaViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.onBackground,
+            borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(60), topLeft: Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
@@ -34,7 +34,8 @@ class CourseMediaViewer extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close_sharp, color: Colors.red),
+                    icon: Icon(Icons.close_sharp,
+                        color: Theme.of(context).colorScheme.primary),
                     onPressed: () {
                       Navigator.pop(context);
                     },

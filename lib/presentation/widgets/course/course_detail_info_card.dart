@@ -30,7 +30,7 @@ class CourseDetailInfoCard extends StatelessWidget {
             child: IconButton(
               icon: Icon(iconData),
               onPressed: onPressed,
-              color: Colors.deepPurple,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           Column(
