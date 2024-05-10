@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_media_viewer.dart';
-import 'package:gymnastic_center/presentation/widgets/course/lesson_card.dart';
+import 'package:gymnastic_center/presentation/widgets/course/course_viewer.dart';
 
 class CourseContentScreen extends StatefulWidget {
   final Course course;
@@ -21,10 +21,10 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
               height: size.height * 0.46,
               child: Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: CourseViewer(
                   lesson: widget.course.lessons[currentLesson],
                 ),
