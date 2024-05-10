@@ -17,13 +17,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignedOut>(_signOut);
   }
 
-  void _verifyUser(VerifiedUser event, Emitter<AuthState> emit) async {
+  Future<void> _verifyUser(VerifiedUser event, Emitter<AuthState> emit) async {
     final userData = await authenticationService.verifyUser();
     SecureStorage().writeSecureData('token', userData['token']);
     emit(state.copyWith(user: userData['user']));
   }
 
-  void _logIn(LoggedIn event, Emitter<AuthState> emit) async {
+  Future<void> _logIn(LoggedIn event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true));
     try {
       final loggedUser = await authenticationService
@@ -32,13 +32,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(user: user));
       SecureStorage().writeSecureData('token', loggedUser['token']);
     } catch (e) {
-      throw Exception('Login failed in bloC');
+      emit(state.copyWith(errorMessage: 'Invalid email or password'));
     } finally {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, errorMessage: null));
     }
   }
 
-  void _signUp(SignedUp event, Emitter<AuthState> emit) async {
+  Future<void> _signUp(SignedUp event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true));
     try {
       final newUser = await authenticationService.signUp({
@@ -48,12 +48,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         'password': event.password
       });
       User user = User.fromJson(newUser['user']);
-      emit(state.copyWith(user: user));
+      emit(state.copyWith(isLoading: false, user: user));
       SecureStorage().writeSecureData('token', newUser['token']);
     } catch (e) {
-      throw Exception('Sing-up failed in bloC');
-    } finally {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
     }
   }
 

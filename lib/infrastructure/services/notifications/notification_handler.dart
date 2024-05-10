@@ -37,9 +37,18 @@ class NotificationHandler implements INotificationHandler {
     const initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
 
-    const initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+    final initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: DarwinInitializationSettings(
+          onDidReceiveLocalNotification:
+              (int id, String? title, String? body, String? data) {
+            showLocalNotification(
+                id: id,
+                title: title,
+                body: body,
+                data: json.decode(data!) as Map<String, dynamic>);
+          },
+        ));
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);

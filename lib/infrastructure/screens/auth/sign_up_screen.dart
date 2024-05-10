@@ -72,6 +72,14 @@ class SignUpScreen extends StatelessWidget {
                                                 const MainScreen()),
                                       );
                                     }
+                                    if (state.errorMessage != null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(state.errorMessage!),
+                                        backgroundColor: Colors.red,
+                                        duration: const Duration(milliseconds: 300),
+                                      ));
+                                    }
                                   },
                                   child: const SignUpForm(),
                                 ),
