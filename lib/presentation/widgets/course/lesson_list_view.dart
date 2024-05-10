@@ -27,7 +27,6 @@ class LessonListView extends StatelessWidget {
               onTap(index);
             },
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: (index == currentIndexLesson)
@@ -37,13 +36,14 @@ class LessonListView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 7),
-                    width: 40,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 12),
                     child: Text(
                       '${index + 1}',
                       style: TextStyle(
-                          fontSize: 30, color: Colors.black.withOpacity(0.3)),
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.onSecondary),
                     ),
                   ),
                   Expanded(
@@ -51,7 +51,7 @@ class LessonListView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${lesson.title}',
+                          lesson.title,
                           maxLines: 2,
                           style: const TextStyle(fontSize: 16),
                         ),
@@ -69,7 +69,7 @@ class LessonListView extends StatelessWidget {
                           : (lesson.imageUrl == null)
                               ? Icons.note_add_rounded
                               : Icons.image_rounded,
-                      color: Colors.deepPurple,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

@@ -19,9 +19,9 @@ class VideoView extends StatelessWidget {
       ),
       child: Center(
         child: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.play_circle_fill_outlined,
-            color: Colors.deepPurple,
+            color: Theme.of(context).colorScheme.primary,
             size: 80,
           ),
           onPressed: () {

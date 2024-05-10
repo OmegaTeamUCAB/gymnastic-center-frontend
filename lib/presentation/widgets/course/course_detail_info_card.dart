@@ -4,11 +4,13 @@ class CourseDetailInfoCard extends StatelessWidget {
   final IconData iconData;
   final String title;
   final String captionNumber;
+  final onPressed;
   const CourseDetailInfoCard({
     super.key,
     required this.iconData,
     required this.title,
     required this.captionNumber,
+    this.onPressed,
   });
 
   @override
@@ -25,9 +27,10 @@ class CourseDetailInfoCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).colorScheme.surfaceTint,
             ),
-            child: Icon(
-              iconData,
-              color: Colors.deepPurple,
+            child: IconButton(
+              icon: Icon(iconData),
+              onPressed: onPressed,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           Column(
