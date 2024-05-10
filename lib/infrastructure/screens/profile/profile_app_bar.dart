@@ -104,7 +104,7 @@ class ProfileAppBar extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 18),
                       Row(
                         children: [
                           Icon(
@@ -124,9 +124,7 @@ class ProfileAppBar extends StatelessWidget {
                                   fontWeight: FontWeight.normal))
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      Spacer(),
                       SizedBox(
                           width: 190,
                           height: 6,
