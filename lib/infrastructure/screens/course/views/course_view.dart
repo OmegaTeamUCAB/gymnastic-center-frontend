@@ -15,25 +15,31 @@ class CourseView extends StatelessWidget {
     final isLoading = context.watch<CourseBloc>().state.isLoading;
     final currentCategory = context.watch<CourseBloc>().state.currentCategory;
 
-    if (isLoading)
-      return Center(
+    if (isLoading) {
+      return const Center(
         child: CircularProgressIndicator(
           strokeWidth: 2,
         ),
       );
-    if (courseList.isEmpty)
-      return Center(
+    }
+    if (courseList.isEmpty) {
+      return const Center(
         child: Text('No hay cursos para esta categoria'),
       );
+    }
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
           Align(
-            alignment: Alignment.centerLeft,
-            child: Text('Courses', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 30))),
-          SizedBox(
+              alignment: Alignment.centerLeft,
+              child: Text('Courses',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontSize: 30))),
+          const SizedBox(
             height: 10,
           ),
           Expanded(
@@ -49,11 +55,11 @@ class CourseView extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        CourseDetailScreen(courseId: course.id)),
-              );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CourseDetailScreen(courseId: course.id)),
+                    );
                   },
                   child: CourseCard(
                     courseId: course.id,

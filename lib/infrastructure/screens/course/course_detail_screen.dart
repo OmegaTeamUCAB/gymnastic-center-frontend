@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
+import 'package:gymnastic_center/infrastructure/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_card.dart';
@@ -126,14 +127,24 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                         title: 'Level',
                         captionNumber: course.level.toString(),
                         iconData: Icons.menu,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CourseContentScreen(course: course)),
+                          );
+                        },
                       ),
                       CourseDetailInfoCard(
                         title: 'Weeks',
+                        onPressed: () {},
                         captionNumber: course.weeks.toString(),
                         iconData: Icons.calendar_month_sharp,
                       ),
                       CourseDetailInfoCard(
                         title: 'Mins',
+                        onPressed: () {},
                         captionNumber: course.minutes.toString(),
                         iconData: Icons.watch_later_outlined,
                       ),
