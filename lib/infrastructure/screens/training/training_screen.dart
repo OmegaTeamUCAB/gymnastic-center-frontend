@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/screens/training/trainig_app_bar.dart';
+import 'package:gymnastic_center/infrastructure/screens/training/training_app_bar.dart';
 
 class TrainingScreen extends StatelessWidget {
   const TrainingScreen({super.key});
@@ -8,7 +8,7 @@ class TrainingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 150), child: TrainigAppBar()),
+          preferredSize: Size(double.infinity, 150), child: TrainingAppBar()),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30, 1, 30, 15),
         child: Column(

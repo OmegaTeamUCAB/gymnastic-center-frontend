@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class TrainigAppBar extends StatelessWidget {
-  const TrainigAppBar({super.key});
+class TrainingAppBar extends StatelessWidget {
+  const TrainingAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

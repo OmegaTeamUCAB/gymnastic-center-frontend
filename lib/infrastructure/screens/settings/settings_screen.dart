@@ -3,8 +3,6 @@ import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
-  static const name = 'language_screen';
-
   const SettingsScreen({super.key});
 
   @override
