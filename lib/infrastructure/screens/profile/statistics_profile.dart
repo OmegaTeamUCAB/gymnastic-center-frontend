@@ -42,7 +42,7 @@ class StatisticsChart extends StatelessWidget {
   }
 
   Widget getTitles(double value, TitleMeta meta) {
-    final style = const TextStyle(
+    const style = TextStyle(
       color: Colors.grey,
       fontWeight: FontWeight.normal,
       fontSize: 12,
