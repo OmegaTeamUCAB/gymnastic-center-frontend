@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class DisabilityScreen extends StatelessWidget {
   const DisabilityScreen({super.key});
@@ -6,9 +7,23 @@ class DisabilityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-          child: Text('Disability page')
-        ),
+      appBar: PreferredSize(
+          preferredSize: Size(double.infinity, 100),
+          child: CustomAppBar(
+            content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      'Disability',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )),
+          )),
     );
   }
 }

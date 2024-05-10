@@ -160,7 +160,6 @@ class _SignUpFormState extends State<SignUpForm> {
               if (value == null || value.isEmpty) return 'Required Field';
               if (value.trim().isEmpty) return 'Required Field';
               if (value.length < 8) return '8 characters minimum';
-
               return null;
             },
             onChanged: (value) {
@@ -215,7 +214,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //todo: redirect to terms&conditions page
+                  },
                   style: TextButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: EdgeInsets.zero,
@@ -231,11 +232,13 @@ class _SignUpFormState extends State<SignUpForm> {
             ],
           ),
           const SizedBox(height: 25),
-          BrandButton(
-            isDarkMode: true,
-            onPressed: onSubmit,
-            buttonText: "Sign up",
-          )
+          authBloc.state.isLoading == true
+              ? const CircularProgressIndicator()
+              : BrandButton(
+                  isDarkMode: true,
+                  onPressed: onSubmit,
+                  buttonText: "Sign up",
+                )
         ],
       ),
     );

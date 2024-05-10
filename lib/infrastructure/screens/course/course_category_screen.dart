@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
-import 'package:gymnastic_center/application/models/category.dart';
-import 'package:gymnastic_center/domain/categories/repositorio/ICategoryRepository.dart';
+import 'package:gymnastic_center/domain/category/category.dart';
+import 'package:gymnastic_center/domain/category/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/views/course_view.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
@@ -35,7 +35,7 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
   final widgetList = <Widget>[
     InkWell(
       onTap: () {},
-      child: _TabView(
+      child: const _TabView(
           textContent: Text(
         'Nutrition',
         style: TextStyle(
@@ -44,7 +44,7 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
     ),
     InkWell(
       onDoubleTap: () {},
-      child: _TabView(
+      child: const _TabView(
           textContent: Text(
         'Training',
         style: TextStyle(
@@ -53,7 +53,7 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
     ),
     InkWell(
       onDoubleTap: () {},
-      child: _TabView(
+      child: const _TabView(
           textContent: Text(
         'Weight loss',
         style: TextStyle(
@@ -102,7 +102,7 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
                                       .read<CourseBloc>()
                                       .add(AddPopularCourses());
                                 },
-                                child: _TabView(
+                                child: const _TabView(
                                   textContent: Text(
                                     'Most popular',
                                     style: TextStyle(
@@ -129,7 +129,7 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
                                       child: _TabView(
                                           textContent: Text(
                                         snapshot.data![index].name,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14),
@@ -141,14 +141,14 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
                             ],
                           ),
                         )
-                      : CircularProgressIndicator()
+                      : const CircularProgressIndicator()
                 ],
               )),
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: (snapshot.connectionState == ConnectionState.waiting)
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : const CourseView(),
             ));
       },

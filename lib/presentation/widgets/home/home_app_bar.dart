@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/infrastructure/screens/profile/profile_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/search_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -15,27 +16,21 @@ class HomeAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Column(
-                  children: [
-                    Text(
-                      'Jhon Doe',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'ID: Raxsdfe34879',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
+                const Text(
+                  'Welcome back!',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ProfileScreen())
+                        );
+                    },
                     icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/test_user.jpeg'),
                       radius: 25,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
+import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
-import 'package:gymnastic_center/infrastructure/services/categories/CategoryService.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
-import 'package:gymnastic_center/infrastructure/services/blogs/BlogsService.dart';
 import 'package:gymnastic_center/presentation/widgets/home/blog_list.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 
