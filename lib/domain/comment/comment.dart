@@ -1,13 +1,13 @@
 class Comment {
-    final String userId;
-    final String blogId;
-    final String content;
-    final DateTime postedAt;
+    String id;
+    String content;
+    String userId;
+    DateTime createdAt;
 
     Comment({
-        required this.userId,
-        required this.blogId,
+        required this.id,
         required this.content,
-        required this.postedAt,
+        required this.userId,
+        required this.createdAt,
     });
-  }
+}

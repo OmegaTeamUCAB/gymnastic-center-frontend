@@ -5,7 +5,7 @@ class LessonMapper {
   static Lesson fromJson(Map<String, dynamic> json) => Lesson(
         id: json["id"],
         title: json["title"],
-        description: json["description"],
+        description: (json["description"] != null) ? json["description"] : null,
         content: (json["content"] != null) ? json["content"] : null,
         videoUrl: (json["videoUrl"] != null) ? json["videoUrl"] : null,
         imageUrl: (json["imageUrl"] != null) ? json["imageUrl"] : null,
