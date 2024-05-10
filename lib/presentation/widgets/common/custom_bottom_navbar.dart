@@ -11,7 +11,7 @@ class CustomNavigationBar extends StatelessWidget {
     super.key,
   });
 
-  //todo: add conditionally rendered border
+  //todo: add conditionally rendered underline
   @override
   Widget build(BuildContext context) {
     final colorAppBar = Theme.of(context).colorScheme.tertiaryContainer;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
@@ -14,7 +16,7 @@ class MenuSideNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasNotch = MediaQuery.of(context).viewPadding.top > 35;
-
+    final authBloc = context.watch<AuthBloc>();
     return Drawer(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -69,6 +71,7 @@ class MenuSideNav extends StatelessWidget {
                 leading:
                     const Icon(GymnasticCenter.logout, color: Colors.white),
                 onTap: () {
+                  authBloc.add(const SignedOut());
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => const WelcomeScreen(),

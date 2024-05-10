@@ -15,23 +15,12 @@ class HomeAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Column(
-                  children: [
-                    Text(
-                      'Jhon Doe',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'ID: Raxsdfe34879',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
+                const Text(
+                  'Welcome back!',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 IconButton(

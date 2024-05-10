@@ -3,16 +3,16 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
-// import 'package:gymnastic_center/application/blocs/player/player_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
-import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/onboarding/onboarding_page.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -30,7 +30,9 @@ void main() async {
             handler: NotificationHandler()..initializeLocalNotifications()),
       ),
       BlocProvider(create: (context) => ThemeBloc()),
-      BlocProvider(create: (context) => CourseBloc(CourseService()),),
+      BlocProvider(
+        create: (context) => CourseBloc(CourseService()),
+      ),
       // BlocProvider(create: (context) => PlayerBloc())
     ],
     child: const MainApp(),
@@ -54,7 +56,7 @@ class MainApp extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const MainScreen(),
+      home: const OnboardingPage(),
     );
   }
 }
