@@ -63,6 +63,15 @@ class LoginScreen extends StatelessWidget {
                                       builder: (context) => const MainScreen()),
                                 );
                               }
+                              if (state.errorMessage != null) {
+                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text(state.errorMessage!),
+                                  backgroundColor: Colors.red,
+                                  duration: const Duration(milliseconds: 300),
+                                ));
+                              }
                             },
                             child: const LoginForm(),
                           ),

@@ -189,7 +189,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 borderRadius: BorderRadius.circular(100),
               ),
               labelText: 'Password',
-              hintText: '6 digits minimum',
+              hintText: '8 digits minimum',
             ),
           ),
           const SizedBox(height: 25),
