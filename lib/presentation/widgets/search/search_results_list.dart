@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/search/result_tile.dart';
 
 class SearchResultsList extends StatelessWidget {
   final List<dynamic> courses;
@@ -35,10 +36,11 @@ class SearchResultsList extends StatelessWidget {
                   style: TextStyle(color: Colors.grey),
                 ),
               ))
-          : SizedBox(
-              width: 500,
-              height: 400,
+          : ConstrainedBox(
+              constraints: const BoxConstraints(
+                  minWidth: 500, minHeight: 100, maxHeight: 400),
               child: ListView.builder(
+                shrinkWrap: true,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 itemCount: courses.length +
@@ -62,41 +64,19 @@ class SearchResultsList extends StatelessWidget {
                     );
                   } else if (index <= courses.length && courses.isNotEmpty) {
                     // Render Course ListTile
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 195, 195, 195),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ListTile(
-                        title: Text(courses[index - 1].title), // Adjusted index
-                        titleTextStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitle: Text(
-                          courses[index - 1].description, // Adjusted index
-                        ),
-                        subtitleTextStyle: const TextStyle(
-                            fontSize: 12,
-                            overflow: TextOverflow.ellipsis,
-                            color: Colors.black),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CourseDetailScreen(
-                                courseId:
-                                    courses[index - 1].id, // Adjusted index
-                              ),
+                    return ResultTile(
+                      title: courses[index - 1].title,
+                      description: courses[index - 1].description,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseDetailScreen(
+                              courseId: courses[index - 1].id, // Adjusted index
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     );
                   } else if (index ==
                       courses.length + (courses.isNotEmpty ? 1 : 0)) {
@@ -119,41 +99,19 @@ class SearchResultsList extends StatelessWidget {
                         courses.length -
                         (courses.isNotEmpty ? 1 : 0) -
                         1; // Adjusted index
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 195, 195, 195),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ListTile(
-                        title: Text(blogs[blogIndex].title), // Corrected index
-                        titleTextStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitle: Text(
-                          blogs[blogIndex].description, // Corrected index
-                        ),
-                        subtitleTextStyle: const TextStyle(
-                            fontSize: 12,
-                            overflow: TextOverflow.ellipsis,
-                            color: Colors.black),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CourseDetailScreen(
-                                courseId:
-                                    blogs[blogIndex].id, // Corrected index
-                              ),
+                    return ResultTile(
+                      title: blogs[blogIndex].title,
+                      description: blogs[blogIndex].description,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseDetailScreen(
+                              courseId: blogs[blogIndex].id, // Corrected index
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     );
                   }
                 },
