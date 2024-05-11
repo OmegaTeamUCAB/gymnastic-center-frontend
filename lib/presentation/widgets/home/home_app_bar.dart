@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/profile/profile_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/search_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -9,6 +12,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = context.watch<AuthBloc>();
     return CustomAppBar(
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -16,20 +20,36 @@ class HomeAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Text(
-                  'Welcome back!',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                Column(
+                  // should be aligned to the left
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hello, ${authBloc.state.user?.fullName ?? 'there'}!',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const Text(
+                      'What\'s your plan for today?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
                 const Spacer(),
                 IconButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ProfileScreen())
-                        );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => authBloc.state.user == null
+                                ? const WelcomeScreen()
+                                : const ProfileScreen()),
+                      );
                     },
                     icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/test_user.jpeg'),
@@ -70,46 +90,7 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
-            const Padding(
-              padding: EdgeInsets.only(right: 40, left: 15),
-              child: Row(
-                children: [
-                  Text(
-                    'Tomorrow',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    'Today',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    'Yesterday',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  Spacer(),
-                  Icon(
-                    GymnasticCenter.calendar,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-            )
+            const SizedBox(height: 12)
           ],
         ),
       ),

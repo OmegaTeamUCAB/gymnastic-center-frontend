@@ -1,22 +1,18 @@
 class User {
-  final String fullName;
-  final String email;
-  final String phoneNumber;
-  final List<dynamic>? stats;
+  final Map<String, dynamic> data;
 
-  User({
-    required this.fullName,
-    required this.email,
-    required this.phoneNumber,
-    this.stats,
-  });
+  User(this.data);
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      fullName: json['fullName'],
-      email: json['email'],
-      phoneNumber: json['phoneNumber'],
-      stats: json['stats'],
-    );
+  String get id => data['id'];
+  String get fullName => data['fullName'];
+  String get email => data['email'];
+  String get phoneNumber => data['phoneNumber'];
+  String get stats => data['stats'];
+  // ... other getters ...
+
+  static User fromJson(Map<String, dynamic> json) => User(json);
+
+  static List<User> fromJsonToList(List<dynamic> jsonList) {
+    return jsonList.map((json) => fromJson(json)).toList();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -8,8 +9,7 @@ class ProfileAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = AuthBloc();
-    print(authBloc.state.user);
+    final authBloc = context.watch<AuthBloc>();
     return CustomAppBar(
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -55,17 +55,17 @@ class ProfileAppBar extends StatelessWidget {
                         radius: 40,
                       )),
                   const SizedBox(width: 7),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Jhon Doe',
-                        style: TextStyle(
+                        authBloc.state.user!.fullName,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,8 +104,8 @@ class ProfileAppBar extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(height: 18),
-                      Row(
+                      const SizedBox(height: 18),
+                      const Row(
                         children: [
                           Icon(
                             Icons.emoji_emotions,
@@ -124,8 +124,8 @@ class ProfileAppBar extends StatelessWidget {
                                   fontWeight: FontWeight.normal))
                         ],
                       ),
-                      Spacer(),
-                      SizedBox(
+                      const Spacer(),
+                      const SizedBox(
                           width: 190,
                           height: 6,
                           child: LinearProgressIndicator(

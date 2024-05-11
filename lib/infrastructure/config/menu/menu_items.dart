@@ -67,7 +67,7 @@ final appMenuItems = <MenuItem>[
   ),
   MenuItem(
     title: 'About',
-    icon: Icons.people_sharp,
+    icon: GymnasticCenter.about,
     redirect: (context) => Navigator.push(
         context, MaterialPageRoute(builder: (context) => const AboutScreen())),
   ),

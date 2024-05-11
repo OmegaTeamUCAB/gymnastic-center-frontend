@@ -21,14 +21,14 @@ class BlogList extends StatelessWidget {
           List<Blog> blogs = snapshot.data!;
           return Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Our Latest Blogs',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -86,7 +86,7 @@ class BlogList extends StatelessWidget {
                                               ),
                                               child: const Center(
                                                 child: Text(
-                                                  'New',
+                                                  'New', //todo: should optionally rendered
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 12,
@@ -107,6 +107,8 @@ class BlogList extends StatelessWidget {
                                     children: <Widget>[
                                       const SizedBox(height: 5),
                                       Text(blogs[index].title,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
                                           style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold)),
