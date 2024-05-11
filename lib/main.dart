@@ -7,6 +7,7 @@ import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
+import 'package:gymnastic_center/infrastructure/screens/home/home_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/onboarding/onboarding_page.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
@@ -56,7 +57,7 @@ class MainApp extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const OnboardingPage(),
+      home: const HomeScreen(),
     );
   }
 }

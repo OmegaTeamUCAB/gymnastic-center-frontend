@@ -37,6 +37,7 @@ class BlogList extends StatelessWidget {
               ),
               Flexible(
                 child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1,
