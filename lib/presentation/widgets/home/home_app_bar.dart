@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/profile/profile_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/search_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -24,7 +25,7 @@ class HomeAppBar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hello, ${authBloc.state.user!.fullName}!',
+                      'Hello, ${authBloc.state.user?.fullName ?? 'there'}!',
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -43,9 +44,12 @@ class HomeAppBar extends StatelessWidget {
                 IconButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ProfileScreen()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => authBloc.state.user == null
+                                ? const WelcomeScreen()
+                                : const ProfileScreen()),
+                      );
                     },
                     icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/test_user.jpeg'),

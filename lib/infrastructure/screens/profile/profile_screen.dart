@@ -89,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              CarouselHeader(title: 'My Traning', onButtonPressed: () {}),
+              CarouselHeader(title: 'My Training', onButtonPressed: () {}),
               const SizedBox(
                 height: 10,
               ),
