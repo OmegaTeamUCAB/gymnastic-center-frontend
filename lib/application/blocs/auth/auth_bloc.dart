@@ -24,22 +24,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _logIn(LoggedIn event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, errorMessage: ""));
     try {
       final loggedUser = await authenticationService
           .login({'email': event.email, 'password': event.password});
       User user = User.fromJson(loggedUser['user']);
-      emit(state.copyWith(user: user));
+      emit(state.copyWith(isLoading: true, user: user));
       SecureStorage().writeSecureData('token', loggedUser['token']);
     } catch (e) {
-      emit(state.copyWith(errorMessage: 'Invalid email or password'));
-    } finally {
-      emit(state.copyWith(isLoading: false, errorMessage: null));
+      emit(state.copyWith(
+          isLoading: false, errorMessage: 'Invalid email or password'));
     }
   }
 
   Future<void> _signUp(SignedUp event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, errorMessage: ""));
     try {
       final newUser = await authenticationService.signUp({
         'email': event.email,
