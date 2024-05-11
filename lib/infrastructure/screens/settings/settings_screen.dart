@@ -9,14 +9,13 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Color> circleColors = [
       Colors.red,
-      Colors.green,
+      const Color(0xFF219653),
       Colors.blue,
       Colors.purple,
-      Colors.yellow,
-      Colors.lightBlue,
+      const Color(0xFFF2C94C),
+      const Color(0xFF56CCF2),
       Colors.blueAccent,
       Colors.orange,
-      // Agrega más colores aquí
     ];
     return Scaffold(
       appBar: const PreferredSize(
@@ -38,21 +37,26 @@ class SettingsScreen extends StatelessWidget {
           )),
       body: ListView.builder(
         itemCount: appMenuItems.length,
+        padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
         itemBuilder: (context, i) => Padding(
-          padding: const EdgeInsets.fromLTRB(5, 15, 0, 10),
+          padding: const EdgeInsets.symmetric(vertical: 5),
           child: ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(15, 5, 0, 0),
+              contentPadding: const EdgeInsets.symmetric(vertical: 5),
               title: Text(appMenuItems[i].title,
-                  style: const TextStyle(color: Colors.black, fontSize: 20)),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 20)),
               leading: CircleAvatar(
                 backgroundColor: circleColors[i % circleColors.length],
-                radius: 30,
-                child: Icon(appMenuItems[i].icon, color: Colors.white),
+                radius: 20,
+                child:
+                    Icon(appMenuItems[i].icon, size: 18, color: Colors.white),
               ),
-              trailing: const Padding(
-                  padding: EdgeInsets.only(right: 10),
-                  child: Icon(Icons.chevron_right,
-                      color: Colors.black54, size: 40)),
+              trailing: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.chevron_right_outlined,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      size: 35)),
               onTap: () {
                 appMenuItems[i].redirect(context);
               }),
