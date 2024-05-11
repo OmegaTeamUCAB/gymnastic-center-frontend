@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 230), child: HomeAppBar()),
+          preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
       body: Column(
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),

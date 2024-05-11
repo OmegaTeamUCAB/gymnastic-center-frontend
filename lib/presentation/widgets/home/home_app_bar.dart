@@ -90,46 +90,7 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
-            const Padding(
-              padding: EdgeInsets.only(right: 40, left: 15),
-              child: Row(
-                children: [
-                  Text(
-                    'Tomorrow',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    'Today',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    'Yesterday',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  Spacer(),
-                  Icon(
-                    GymnasticCenter.calendar,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-            )
+            const SizedBox(height: 12)
           ],
         ),
       ),
