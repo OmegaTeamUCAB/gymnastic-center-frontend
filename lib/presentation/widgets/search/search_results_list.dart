@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/search/result_tile.dart';
 
@@ -10,6 +12,8 @@ class SearchResultsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchTerm = context.watch<SearchBloc>().state.searchTerm;
+    if (searchTerm.isEmpty) return const SizedBox.shrink();
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFF2F2F2),
