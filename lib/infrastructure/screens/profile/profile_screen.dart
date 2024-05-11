@@ -21,8 +21,10 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              StatisticsHeader(title: 'Statistics',subtitle: 'This Week', onButtonPressed: () {}),
-              
+              StatisticsHeader(
+                  title: 'Statistics',
+                  subtitle: 'This Week',
+                  onButtonPressed: () {}),
               const SizedBox(
                 height: 10,
               ),
@@ -32,12 +34,12 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                       color: colors.surfaceTint,
-                      child:  Row(
+                      child: Row(
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: Column(   
-                              crossAxisAlignment: CrossAxisAlignment.start,     
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Calories',
@@ -92,8 +94,7 @@ class ProfileScreen extends StatelessWidget {
                 height: 10,
               ),
               const CourseCarrusel(
-
-              courses: [],
+                courses: [],
               )
             ],
           ),
