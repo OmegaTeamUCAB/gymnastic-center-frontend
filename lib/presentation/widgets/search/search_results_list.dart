@@ -10,56 +10,68 @@ class SearchResultsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFFF2F2F2),
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xff2D2D3A).withOpacity(0.1),
-              spreadRadius: 0.5,
-              blurRadius: 10,
-              offset: const Offset(0, 3),
-            ),
-          ],
-          border: Border.all(
-            color: Theme.of(context).colorScheme.outline,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF2F2F2),
+        borderRadius: BorderRadius.circular(6),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xff2D2D3A).withOpacity(0.1),
+            spreadRadius: 0.5,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
+        ],
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
         ),
-        child: courses.length + blogs.length == 0
-            ? const SizedBox(
-                width: 500,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-                  child: Text(
-                    'No results',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ))
-            : SizedBox(
-                width: 500,
-                height: 400,
-                child: ListView.builder(
-                  itemCount: courses.length +
-                      blogs.length +
-                      (courses.isNotEmpty ? 1 : 0) +
-                      1, // Adjusted for the titles
-                  itemBuilder: (context, index) {
-                    if (index == 0 && courses.isNotEmpty) {
-                      // Render 'Courses' title
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
-                          'Courses',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF4F14A0),
-                            fontWeight: FontWeight.bold,
-                          ),
+      ),
+      child: courses.length + blogs.length == 0
+          ? const SizedBox(
+              width: 500,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                child: Text(
+                  'No results',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ))
+          : SizedBox(
+              width: 500,
+              height: 400,
+              child: ListView.builder(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                itemCount: courses.length +
+                    blogs.length +
+                    (courses.isNotEmpty ? 1 : 0) +
+                    1, // Adjusted for the titles
+                itemBuilder: (context, index) {
+                  if (index == 0 && courses.isNotEmpty) {
+                    // Render 'Courses' title
+                    return const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                      child: Text(
+                        'Courses',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF4F14A0),
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    } else if (index <= courses.length && courses.isNotEmpty) {
-                      // Render Course ListTile
-                      return ListTile(
+                      ),
+                    );
+                  } else if (index <= courses.length && courses.isNotEmpty) {
+                    // Render Course ListTile
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 195, 195, 195),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
                         title: Text(courses[index - 1].title), // Adjusted index
                         titleTextStyle: const TextStyle(
                           color: Colors.black,
@@ -84,44 +96,69 @@ class SearchResultsList extends StatelessWidget {
                             ),
                           );
                         },
-                      );
-                    } else if (index ==
-                        courses.length + (courses.isNotEmpty ? 1 : 0)) {
-                      // Render 'Blogs' title
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
-                          'Blogs',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF4F14A0),
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                    );
+                  } else if (index ==
+                      courses.length + (courses.isNotEmpty ? 1 : 0)) {
+                    // Render 'Blogs' title
+                    return const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                      child: Text(
+                        'Blogs',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF4F14A0),
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    } else {
-                      // Render Blog ListTile
-                      int blogIndex = index -
-                          courses.length -
-                          (courses.isNotEmpty ? 1 : 0) -
-                          1; // Adjusted index
-                      return ListTile(
-                        title: Text(blogs[blogIndex].title),
+                      ),
+                    );
+                  } else {
+                    // Render Blog ListTile
+                    int blogIndex = index -
+                        courses.length -
+                        (courses.isNotEmpty ? 1 : 0) -
+                        1; // Adjusted index
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 195, 195, 195),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        title: Text(blogs[blogIndex].title), // Corrected index
                         titleTextStyle: const TextStyle(
                           color: Colors.black,
-                          overflow: TextOverflow.ellipsis,
                           fontSize: 16,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        subtitle: Text(blogs[blogIndex].description),
-                        tileColor: Colors.grey[200],
+                        subtitle: Text(
+                          blogs[blogIndex].description, // Corrected index
+                        ),
                         subtitleTextStyle: const TextStyle(
                             fontSize: 12,
                             overflow: TextOverflow.ellipsis,
                             color: Colors.black),
-                      );
-                    }
-                  },
-                ),
-              ));
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CourseDetailScreen(
+                                courseId:
+                                    blogs[blogIndex].id, // Corrected index
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+    );
   }
 }
