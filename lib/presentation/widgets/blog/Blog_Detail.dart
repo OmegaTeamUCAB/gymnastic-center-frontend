@@ -163,7 +163,7 @@ class BlogDetail extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            height: 25,
+                            height: 30,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -171,7 +171,6 @@ class BlogDetail extends StatelessWidget {
                               children: [
                                 Text(
                                   state.blog.description,
-                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
