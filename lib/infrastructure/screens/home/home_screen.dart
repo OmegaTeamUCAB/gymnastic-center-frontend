@@ -24,11 +24,10 @@ class HomeScreen extends StatelessWidget {
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),
           const SizedBox(height: 20),
-          Expanded(
-              child: BlogList(
-                  blogRepository: BlogsService(HttpManagerImpl(
-            baseUrl: Environment.getApiUrl(),
-          )))),
+          BlogList(
+              blogRepository: BlogsService(HttpManagerImpl(
+                      baseUrl: Environment.getApiUrl(),
+                    ))),
           CourseCarrusel(
             courses: popularCourses,
           ),
