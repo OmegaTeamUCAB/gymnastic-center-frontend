@@ -51,10 +51,13 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   background_image: 'assets/splash_background.png'
-  image: assets/logo_color.png
+  image: assets/logo_white_large.png
+
   android_12:
     color: '#ffffff'
+
   image_ios: assets/logo_white_large.png
+
 flutter:
   uses-material-design: true
 
