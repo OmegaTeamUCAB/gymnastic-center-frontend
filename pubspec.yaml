@@ -8,7 +8,10 @@ environment:
 
 dependencies:
   avatar_glow: ^3.0.1
-  cached_video_player: ^2.0.4
+  cached_video_player: 
+    git:
+      url: https://github.com/vikram25897/flutter_cached_video_player
+      ref: feature/gradle_version_bump
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
   equatable: ^2.0.5

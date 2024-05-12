@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
-      body: Column(
+      body: ListView(
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),
           const SizedBox(height: 20),
@@ -29,11 +29,9 @@ class HomeScreen extends StatelessWidget {
                   blogRepository: BlogsService(HttpManagerImpl(
             baseUrl: Environment.getApiUrl(),
           )))),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CourseCarrusel(
-                courses: popularCourses,
-              )),
+          CourseCarrusel(
+            courses: popularCourses,
+          ),
         ],
       ),
     );
