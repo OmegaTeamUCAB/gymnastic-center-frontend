@@ -1,14 +1,14 @@
 name: gymnastic_center
-description: "Your new companion for fitness and health."
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+description: 'Your new companion for fitness and health.'
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.3.3 <4.0.0"
+  sdk: '>=3.3.3 <4.0.0'
 
 dependencies:
   avatar_glow: ^3.0.1
-  cached_video_player: 
+  cached_video_player:
     git:
       url: https://github.com/vikram25897/flutter_cached_video_player
       ref: feature/gradle_version_bump
@@ -36,23 +36,24 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.1.7
-  flutter_launcher_icons: "^0.13.1"
+  flutter_launcher_icons: '^0.13.1'
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
-  image_path: "assets/app-launcher/app_icon.png"
-  adaptive_icon_background: "assets/app-launcher/app_launcher_icon_background.png"
-  image_path_ios: "assets/app-launcher/app_launcher_icon.png"
+  image_path_android: 'assets/app-launcher/launcher-icon.png'
+  image_path_ios: 'assets/app-launcher/launcher-icon.png'
+  adaptive_icon_background: '#ffffff'
+  background_color_ios: '#ffffff'
 
 flutter_native_splash:
-  background_image: "assets/splash_background.png"
+  background_image: 'assets/splash_background.png'
   image: assets/logo_color.png
   android_12:
-    color: "#ffffff"
+    color: '#ffffff'
   image_ios: assets/logo_white_large.png
 flutter:
   uses-material-design: true
