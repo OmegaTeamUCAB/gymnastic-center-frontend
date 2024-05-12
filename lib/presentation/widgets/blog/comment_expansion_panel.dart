@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:gymnastic_center/application/models/comment.dart';
 
 class CommentExpansionPanel extends StatelessWidget {
@@ -12,21 +12,26 @@ class CommentExpansionPanel extends StatelessWidget {
     return SingleChildScrollView(
       child: ExpansionPanelList.radio(
         initialOpenPanelValue: 1,
+        elevation: 0,
         children: [
           ExpansionPanelRadio(
+            backgroundColor: Theme.of(context).colorScheme.background,
             value: -1,
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
                 title: Text(
                   'Comentarios (${comments.length})',
-                  style: const TextStyle(
-                    color: Colors.black, // Cambia esto al color que quieras
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onPrimary, // Cambia esto al color que quieras
                   ),
                 ),
               );
             },
             body: ListView(
               shrinkWrap: true,
+              padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               children: comments.map((Comment comment) {
                 return ListTile(
@@ -34,14 +39,23 @@ class CommentExpansionPanel extends StatelessWidget {
                     backgroundImage: NetworkImage(
                         'https://www.example.com/path/to/your/generic/image.jpg'),
                   ),
-                  title: const Text('USUARIO'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  title: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(comment.content),
-                      Text(DateFormat('dd/MM/yyyy').format(comment.postedAt)),
+                      Text('Usuario',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.onPrimary)),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(timeago.format(comment.postedAt),
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context).colorScheme.onPrimary))
                     ],
                   ),
+                  subtitle: Text(comment.content),
                 );
               }).toList(),
             ),

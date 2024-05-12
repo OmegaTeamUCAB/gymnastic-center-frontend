@@ -17,11 +17,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   void _onQueryStringChange(
       QueryStringChanged event, Emitter<SearchState> emit) async {
-      emit(state.copyWith(searchTerm: event.searchTerm));
-    
+    emit(state.copyWith(searchTerm: event.searchTerm, isLoading: true));
+
     if (state.searchTerm.isNotEmpty) {
-    final results = await searchService.search(event.searchTerm);
-      emit(state.copyWith(results: results));
+      final results = await searchService.search(event.searchTerm);
+      emit(state.copyWith(results: results, isLoading: false));
     }
   }
 
