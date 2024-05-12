@@ -160,7 +160,6 @@ class _TabView extends StatelessWidget {
   final Text textContent;
   const _TabView({
     required this.textContent,
-    super.key,
   });
 
   @override

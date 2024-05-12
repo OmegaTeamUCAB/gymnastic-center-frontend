@@ -41,7 +41,7 @@ class CourseCard extends StatelessWidget {
               ],
             ),
           ),
-          child: Align(
+          child: const Align(
             alignment: Alignment.center,
             child: Icon(
               Icons.play_circle_outline_rounded,

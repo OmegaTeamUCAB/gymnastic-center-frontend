@@ -61,10 +61,10 @@ class PauseVideoOptions extends StatelessWidget {
                             color: Colors.white, size: 30)),
                     const SizedBox(width: 10),
                     IconButton(
-                      icon: Icon(Icons.playlist_add,
+                      icon: const Icon(Icons.playlist_add,
                           color: Colors.white, size: 28),
                       onPressed: () {
-                        final snackBar = SnackBar(
+                        const snackBar = SnackBar(
                           behavior: SnackBarBehavior.floating,
                           content: Text('No hay lista por los momentos'),
                           duration: Duration(seconds: 2),
@@ -75,7 +75,7 @@ class PauseVideoOptions extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Container(
+                SizedBox(
                   height: 13,
                   child: VideoProgressIndicator(
                     playerBloc.cachedVideoPlayerController,
@@ -104,14 +104,14 @@ class PauseVideoOptions extends StatelessWidget {
 
 class _SpeedOptions extends StatelessWidget {
   final double speed;
-  const _SpeedOptions({super.key, required this.speed});
+  const _SpeedOptions({required this.speed});
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Center(
             child: Text(
-      '${speed}',
+      '$speed',
       style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 14),
     )));
   }

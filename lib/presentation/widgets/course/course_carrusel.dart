@@ -69,7 +69,7 @@ class _CourseBuilder extends StatelessWidget {
   final List<Course> courses;
   final Function(String courseId)? onTap;
   const _CourseBuilder(
-      {super.key, this.width, this.height, required this.courses, this.onTap});
+      {this.width, this.height, required this.courses, this.onTap});
 
   void _funcionPredeterminada(String courseId, BuildContext context) {
     Navigator.push(
@@ -89,7 +89,7 @@ class _CourseBuilder extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final course = courses[index];
-          if (courses.isEmpty) return Text('No hay cursos para mostrar');
+          if (courses.isEmpty) return const Text('No hay cursos para mostrar');
           return GestureDetector(
             onTap: () => (onTap != null)
                 ? onTap!(course.id)
@@ -108,7 +108,6 @@ class _CourseBuilder extends StatelessWidget {
 
 class _CourseSlide extends StatelessWidget {
   const _CourseSlide({
-    super.key,
     required this.width,
     required this.height,
     required this.imgUrl,
@@ -165,8 +164,8 @@ class _CourseSlide extends StatelessWidget {
         Positioned(
             child: Container(
           width: 60,
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          margin: EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: Colors.deepPurple,
