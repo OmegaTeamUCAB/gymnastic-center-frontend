@@ -8,7 +8,6 @@ import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/onboarding/onboarding_page.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';

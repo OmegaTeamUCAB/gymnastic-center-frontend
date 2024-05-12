@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/domain/course/repository/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
 
 part 'course_event.dart';
