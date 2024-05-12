@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/blog_detail.dart';
 import 'package:gymnastic_center/presentation/widgets/search/result_tile.dart';
 
 class SearchResultsList extends StatelessWidget {
@@ -110,8 +111,8 @@ class SearchResultsList extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CourseDetailScreen(
-                              courseId: blogs[blogIndex].id, // Corrected index
+                            builder: (context) => BlogDetail(
+                              blogId: blogs[blogIndex].id, // Corrected index
                             ),
                           ),
                         );

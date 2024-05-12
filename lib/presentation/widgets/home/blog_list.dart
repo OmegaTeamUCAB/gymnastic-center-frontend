@@ -11,7 +11,13 @@ class BlogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Blog>>(
-      future: blogRepository.getAllBlogs(),
+      future: blogRepository.getAllBlogs().then((result) {
+        if (result.isSuccessful) {
+          return result.unwrap();
+        } else {
+          throw Exception('Failed to load blogs');
+        }
+      }),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container();
@@ -58,8 +64,8 @@ class BlogList extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              BlogDetail(blog: blogs[index]),
+                                          builder: (context) => BlogDetail(
+                                              blogId: blogs[index].id),
                                         ),
                                       );
                                     },
@@ -127,7 +133,7 @@ class BlogList extends StatelessWidget {
             ],
           );
         } else {
-          return const Text('No data');
+          return const Text('No hay blogs');
         }
       },
     );

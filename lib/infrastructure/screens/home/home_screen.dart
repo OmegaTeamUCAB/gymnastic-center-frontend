@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
 import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
@@ -22,7 +24,11 @@ class HomeScreen extends StatelessWidget {
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),
           const SizedBox(height: 20),
-          Expanded(child: BlogList(blogRepository: BlogsService())),
+          Expanded(
+              child: BlogList(
+                  blogRepository: BlogsService(HttpManagerImpl(
+            baseUrl: Environment.getApiUrl(),
+          )))),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CourseCarrusel(
