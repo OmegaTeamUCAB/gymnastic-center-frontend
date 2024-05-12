@@ -8,7 +8,7 @@ import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dar
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/comment_expansion_panel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
-import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class BlogDetail extends StatelessWidget {
   final String blogId;
@@ -46,7 +46,6 @@ class BlogDetail extends StatelessWidget {
                         minHeight: viewportConstraints.maxHeight,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Stack(
                             children: [
@@ -68,16 +67,16 @@ class BlogDetail extends StatelessWidget {
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
-                                                height: 300,
+                                                height: 400,
                                                 fit: BoxFit.cover,
                                               ),
                                               Container(
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
-                                                height: 300,
+                                                height: 400,
                                                 color: Colors.black
-                                                    .withOpacity(0.6),
+                                                    .withOpacity(0.3),
                                               ),
                                             ],
                                           ),
@@ -111,7 +110,8 @@ class BlogDetail extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            DateFormat('yyyy-MM-dd')
+                                            //use timeago package
+                                            timeago
                                                 .format(state.blog.uploadDate),
                                             style: const TextStyle(
                                               color: Colors.white,
@@ -162,22 +162,33 @@ class BlogDetail extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: Text(
-                              state.blog.description,
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
+                          const SizedBox(
+                            height: 25,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              state.blog.content,
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  state.blog.description,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Text(
+                                  state.blog.content,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           CommentExpansionPanel(comments: state.blog.comments),
