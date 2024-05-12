@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextInput extends StatelessWidget {
-  final String labelText;
+  final String? labelText;
   final String hintText;
   final String? errorText;
   final bool obscureText;
@@ -14,7 +14,7 @@ class CustomTextInput extends StatelessWidget {
 
   const CustomTextInput({
     super.key,
-    required this.labelText,
+    this.labelText,
     required this.hintText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,

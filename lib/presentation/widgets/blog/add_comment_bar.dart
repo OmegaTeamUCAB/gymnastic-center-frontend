@@ -18,7 +18,7 @@ class AddCommentBar extends StatelessWidget {
           Expanded(
             child: TextField(
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+                contentPadding: const EdgeInsets.all(15),
                 border: InputBorder.none,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -29,14 +29,15 @@ class AddCommentBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Theme.of(context).colorScheme.surfaceTint,
                 hintText: 'Add a comment...',
               ),
             ),
           ),
           const SizedBox(width: 10.0),
           Container(
-            width: 56, // Estos valores son los tamaños predeterminados de un FloatingActionButton
+            width:
+                56, // Estos valores son los tamaños predeterminados de un FloatingActionButton
             height: 56,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -47,9 +48,10 @@ class AddCommentBar extends StatelessWidget {
                 // Acción al presionar el botón
               },
               shape: const CircleBorder(),
-              backgroundColor: Colors.transparent, // Hacer el color de fondo transparente
+              backgroundColor:
+                  Colors.transparent, // Hacer el color de fondo transparente
               elevation: 0,
-              child: const Icon(Icons.send, color: Colors.white), 
+              child: const Icon(Icons.send, color: Colors.white),
             ),
           ),
         ],

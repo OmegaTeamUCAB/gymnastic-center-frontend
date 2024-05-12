@@ -134,36 +134,29 @@ class BlogDetail extends StatelessWidget {
                               ),
                               PreferredSize(
                                 preferredSize: const Size(double.infinity, 100),
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: CustomAppBar(
-                                    content: SizedBox(
-                                      height: 30,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Transform.translate(
-                                            offset: const Offset(0, -12),
-                                            child: IconButton(
-                                                icon: const Icon(
-                                                    Icons.chevron_left,
-                                                    color: Colors.white),
-                                                iconSize: 40,
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                }),
+                                child: CustomAppBar(
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                          icon: const Icon(
+                                            Icons.chevron_left,
+                                            color: Colors.white,
+                                            size: 30,
                                           ),
-                                          const Text(
-                                            'BLOG DETAIL',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }),
+                                      const Text(
+                                        'Blog',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ),
