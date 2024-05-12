@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
         Scaffold.of(context).openDrawer();
       },
       child: Scaffold(
-        drawerEdgeDragWidth: MediaQuery.of(context).size.width * 0.35,
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width * 0.12,
         key: scaffoldKey,
         extendBody: true,
         body: IndexedStack(
