@@ -1,4 +1,4 @@
-import 'package:gymnastic_center/application/core/result.dart';
+import 'package:gymnastic_center/core/result.dart';
 
 abstract class IHttpManager {
   final String baseUrl;
