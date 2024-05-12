@@ -19,32 +19,47 @@ class CourseCarrusel extends StatelessWidget {
             'Debe proporcionar una lista de cursos o una función fetchData');
   @override
   Widget build(BuildContext context) {
-    return (fetchData == null)
-        ? _CourseBuilder(
-            courses: courses!,
-            height: height,
-            onTap: onTap,
-            width: width,
-          )
-        : FutureBuilder(
-            future: fetchData!(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData && snapshot.data is List<Course>) {
-                  return _CourseBuilder(
-                    courses: snapshot.data as List<Course>,
-                    height: height,
-                    width: width,
-                    onTap: onTap,
-                  );
+    return Column(children: [
+      Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Popular courses',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          )),
+      (fetchData == null)
+          ? _CourseBuilder(
+              courses: courses!,
+              height: height,
+              onTap: onTap,
+              width: width,
+            )
+          : FutureBuilder(
+              future: fetchData!(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData && snapshot.data is List<Course>) {
+                    return _CourseBuilder(
+                      courses: snapshot.data as List<Course>,
+                      height: height,
+                      width: width,
+                      onTap: onTap,
+                    );
+                  } else {
+                    return const Text('No hay cursos para mostrar');
+                  }
                 } else {
-                  return Text('No hay cursos para mostrar');
+                  return const Center(child: CircularProgressIndicator());
                 }
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            },
-          );
+              },
+            )
+    ]);
   }
 }
 
@@ -76,11 +91,15 @@ class _CourseBuilder extends StatelessWidget {
           final course = courses[index];
           if (courses.isEmpty) return Text('No hay cursos para mostrar');
           return GestureDetector(
-              onTap: () => (onTap != null)
-                  ? onTap!(course.id)
-                  : _funcionPredeterminada(course.id, context),
+            onTap: () => (onTap != null)
+                ? onTap!(course.id)
+                : _funcionPredeterminada(course.id, context),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8,0,8,0),
               child: _CourseSlide(
-                  width: width, height: height, imgUrl: course.imageUrl));
+                  width: width, height: height, imgUrl: course.imageUrl),
+            ),
+          );
         },
       ),
     );
@@ -152,7 +171,7 @@ class _CourseSlide extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             color: Colors.deepPurple,
           ),
-          child: Text(
+          child: const Text(
             'New',
             style: TextStyle(
               color: Colors.white,

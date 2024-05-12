@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_detail.dart';
@@ -41,11 +43,13 @@ class BlogList extends StatelessWidget {
                   ),
                 ),
               ),
-              Flexible(
+              SizedBox(
+                height: 209 + 84 - 14,
                 child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1,
+                    crossAxisCount: 1,
+                    childAspectRatio: 1.5,
                   ),
                   itemCount: blogs.length,
                   itemBuilder: (context, index) {
