@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/improved_blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class CategoryScreen extends StatelessWidget {
   final String categoryName;
   final String categoryId;
+  //todo: add the blogs-by-category bloc
   const CategoryScreen(
       {super.key, required this.categoryName, required this.categoryId});
 
@@ -32,19 +37,24 @@ class CategoryScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Text(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
               'Popular Blogs',
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onPrimary),
-            )
-          ],
-        ),
+            ),
+          ),
+          ImprovedBlogCarousel(
+              blogRepository: BlogsService(HttpManagerImpl(
+            baseUrl: Environment.getApiUrl(),
+          )))
+        ],
       ),
     );
   }

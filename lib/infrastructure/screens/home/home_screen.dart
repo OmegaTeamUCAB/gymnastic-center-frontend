@@ -5,9 +5,9 @@ import 'package:gymnastic_center/infrastructure/config/constants/environment.dar
 import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
 import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/improved_blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
-import 'package:gymnastic_center/presentation/widgets/home/blog_list.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,14 +23,24 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
           CourseCarrusel(
             courses: popularCourses,
           ),
           const SizedBox(
             height: 25,
           ),
-          BlogList(
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Popular Blogs',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
+          ImprovedBlogCarousel(
               blogRepository: BlogsService(HttpManagerImpl(
             baseUrl: Environment.getApiUrl(),
           ))),
