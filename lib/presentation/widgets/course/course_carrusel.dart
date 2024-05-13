@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
 
@@ -95,9 +96,8 @@ class _CourseBuilder extends StatelessWidget {
                 ? onTap!(course.id)
                 : _funcionPredeterminada(course.id, context),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(8,0,8,0),
-              child: _CourseSlide(
-                  width: width, height: height, imgUrl: course.imageUrl),
+              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+              child: _CourseSlide(course: course),
             ),
           );
         },
@@ -107,32 +107,24 @@ class _CourseBuilder extends StatelessWidget {
 }
 
 class _CourseSlide extends StatelessWidget {
-  const _CourseSlide({
-    required this.width,
-    required this.height,
-    required this.imgUrl,
-  });
+  final Course course;
 
-  final double? width;
-  final double? height;
-  final String imgUrl;
+  const _CourseSlide({required this.course});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           child: Stack(
             children: [
               SizedBox(
-                width: width,
-                height: height,
+                width: 180,
+                height: 180,
                 child: Image.network(
-                  imgUrl,
+                  course.imageUrl,
                   fit: BoxFit.cover,
-                  width: width,
-                  height: height,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress != null) {
                       return const Center(
@@ -151,11 +143,24 @@ class _CourseSlide extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black.withOpacity(0.4),
-                        Colors.black.withOpacity(0.3),
+                        Colors.black.withOpacity(0.1),
+                        Colors.black.withOpacity(0.6),
                       ],
                     ),
                   ),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                child: Text(
+                  course.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
                 ),
               ),
             ],

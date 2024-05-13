@@ -28,7 +28,7 @@ class BlogList extends StatelessWidget {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -71,58 +71,54 @@ class BlogList extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(6.0),
-                                      child: Stack(
-                                        children: [
-                                          Image.network(
-                                            blogs[index].imageUrl,
-                                            fit: BoxFit.cover,
-                                            width: 230,
-                                            height: 180,
-                                          ),
-                                          Positioned(
-                                            right: 10,
-                                            top: 10,
-                                            child: Container(
-                                              width: 45,
-                                              height: 18,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFF7351E6),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: const Center(
-                                                child: Text(
-                                                  'New', //todo: should optionally rendered
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Stack(
+                                          children: [
+                                            Image.network(
+                                              blogs[index].imageUrl,
+                                              fit: BoxFit.cover,
+                                              width: 230,
+                                              height: 180,
+                                            ),
+                                            Positioned(
+                                              right: 10,
+                                              top: 10,
+                                              child: Container(
+                                                width: 45,
+                                                height: 18,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xFF7351E6),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    'New', //todo: should optionally rendered
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 160,
-                                  height: 84,
-                                  child: Column(
-                                    children: <Widget>[
-                                      const SizedBox(height: 5),
-                                      Text(blogs[index].title,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                )
+                                Text(blogs[index].title,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ],

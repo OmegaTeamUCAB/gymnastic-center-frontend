@@ -32,8 +32,19 @@ class CategoryScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Column(
-        children: [],
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Text(
+              'Popular Blogs',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary),
+            )
+          ],
+        ),
       ),
     );
   }
