@@ -1,12 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
-
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpFormState> {
-  final AuthService authService = AuthService();
   SignUpBloc() : super(const SignUpFormState()) {
     // on<FormSubmitted>(_onFormSubmitted);
     on<FullNameChanged>(_onFullNameChanged);

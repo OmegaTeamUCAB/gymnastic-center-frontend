@@ -11,7 +11,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-
     return Scaffold(
         appBar: const PreferredSize(
             preferredSize: Size(double.infinity, 230), child: ProfileAppBar()),

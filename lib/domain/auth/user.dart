@@ -8,7 +8,6 @@ class User {
   String get email => data['email'];
   String get phoneNumber => data['phoneNumber'];
   String get stats => data['stats'];
-  // ... other getters ...
 
   static User fromJson(Map<String, dynamic> json) => User(json);
 

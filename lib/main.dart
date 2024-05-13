@@ -5,9 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/logout.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
+import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
+import 'package:gymnastic_center/infrastructure/services/datasources/local_storage.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
@@ -24,7 +32,18 @@ void main() async {
 
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (context) => AuthBloc()),
+      BlocProvider(create: (context) {
+        final localDatasource = LocalStorage();
+        final authRepository = AuthService(
+            HttpManagerImpl(baseUrl: Environment.getApiUrl()), localDatasource);
+        return AuthBloc(
+          logoutUseCase: LogoutUseCase(localDatasource: localDatasource),
+          loginUseCase: LoginUseCase(authRepository, localDatasource),
+          signUpUseCase: SignUpUseCase(authRepository, localDatasource),
+          getUserFromTokenUseCase:
+              GetUserFromTokenUseCase(authRepository, localDatasource),
+        );
+      }),
       BlocProvider(
         create: (context) => NotificationsBloc(
             handler: NotificationHandler()..initializeLocalNotifications()),
@@ -45,18 +64,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userTheme = MediaQuery.of(context).platformBrightness;
-
     (userTheme == Brightness.dark)
         ? context.watch<ThemeBloc>().add(ToggleToDark())
         : context.watch<ThemeBloc>().add(ToggleToLight());
-
     return MaterialApp(
       theme: context.select((ThemeBloc value) {
         return value.state.themeData;
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const MainScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

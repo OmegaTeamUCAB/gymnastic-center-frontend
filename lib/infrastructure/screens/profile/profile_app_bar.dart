@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/login_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
@@ -10,6 +11,12 @@ class ProfileAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
+    if (authBloc.state is! Authenticated && authBloc.state is! AuthLoading) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    }
     return CustomAppBar(
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -58,13 +65,15 @@ class ProfileAppBar extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        authBloc.state.user!.fullName,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      authBloc.state is Authenticated
+                          ? Text(
+                              (authBloc.state as Authenticated).user.fullName,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          : const CircularProgressIndicator(),
                       const Row(
                         children: [
                           Column(

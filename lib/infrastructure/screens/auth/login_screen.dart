@@ -56,19 +56,19 @@ class LoginScreen extends StatelessWidget {
                           create: (context) => LoginBloc(),
                           child: BlocListener<AuthBloc, AuthState>(
                             listener: (context, state) {
-                              if (state.user != null) {
+                              if (state is Authenticated) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => const MainScreen()),
                                 );
                               }
-                              if (state.errorMessage != null && state.errorMessage!.isNotEmpty) {
+                              if (state is AuthError) {
                                 ScaffoldMessenger.of(context)
                                     .hideCurrentSnackBar();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
-                                  content: Text(state.errorMessage!),
+                                  content: Text(state.message),
                                   backgroundColor: Colors.red,
                                   duration: const Duration(milliseconds: 300),
                                 ));

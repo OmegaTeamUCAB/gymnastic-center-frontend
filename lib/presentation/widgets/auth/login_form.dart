@@ -89,7 +89,7 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: isObscured,
           ),
           const SizedBox(height: 25),
-          authBloc.state.isLoading == true
+          authBloc.state is AuthLoading
               ? const CircularProgressIndicator()
               : BrandButton(buttonText: 'Login', onPressed: onSubmit),
           TextButton(
