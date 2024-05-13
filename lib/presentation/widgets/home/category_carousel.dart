@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
 import 'package:gymnastic_center/domain/category/category_repository.dart';
+import 'package:gymnastic_center/infrastructure/screens/categories/category_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/carousel_header.dart';
 
 class CategoryCarousel extends StatelessWidget {
   final ICategoryRepository categoryRepository;
 
- const CategoryCarousel({super.key, required this.categoryRepository});
+  const CategoryCarousel({super.key, required this.categoryRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,14 @@ class CategoryCarousel extends StatelessWidget {
                         Category currentCategory = snapshot.data![index];
                         return GestureDetector(
                           onTap: () {
-                            // Acción al tocar la categoría
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryScreen(
+                                        categoryId: currentCategory.id,
+                                        categoryName: currentCategory.name,
+                                      )),
+                            );
                           },
                           child: Container(
                             width: 100,

@@ -17,7 +17,7 @@ class NotificationsScreen extends StatelessWidget {
           preferredSize: const Size(double.infinity, 100),
           child: CustomAppBar(
               content: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Row(
               children: [
                 const Text(

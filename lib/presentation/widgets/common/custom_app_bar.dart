@@ -16,8 +16,7 @@ class CustomAppBar extends StatelessWidget {
                 fit: BoxFit.cover),
             gradient: brandGradient),
         child: Padding(
-            padding:
-                const EdgeInsets.only(top: 60, left: 8, right: 8, bottom: 20),
+            padding: const EdgeInsets.only(top: 60, bottom: 20),
             child: content));
   }
 }
