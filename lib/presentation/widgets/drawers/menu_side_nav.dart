@@ -72,6 +72,10 @@ class MenuSideNav extends StatelessWidget {
                     const Icon(GymnasticCenter.logout, color: Colors.white),
                 onTap: () {
                   authBloc.add(const SignedOut());
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+                  );
                 },
               ),
             ],
