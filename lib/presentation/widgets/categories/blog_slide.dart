@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/Blog_Detail.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
@@ -63,7 +63,7 @@ class ImprovedBlogSlide extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '15/05/2024',
+                          timeago.format(blog.uploadDate),
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),
@@ -74,7 +74,8 @@ class ImprovedBlogSlide extends StatelessWidget {
                 ),
               ),
             ),
-            const Positioned(top: 5, right: 5, child: NewChip())
+            if (DateTime.now().difference(blog.uploadDate).inDays < 90)
+              const Positioned(top: 5, left: 5, child: NewChip()),
           ])),
     );
   }

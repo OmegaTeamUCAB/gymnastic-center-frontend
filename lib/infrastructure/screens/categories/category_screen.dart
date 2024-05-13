@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/improved_blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class CategoryScreen extends StatelessWidget {

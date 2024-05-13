@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/improved_blog_slide.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blog_slide.dart';
 
 class ImprovedBlogCarousel extends StatelessWidget {
   final IBlogRepository blogRepository;

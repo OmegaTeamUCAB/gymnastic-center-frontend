@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class CourseCarrusel extends StatelessWidget {
   final double? width;
@@ -151,22 +152,7 @@ class _CourseSlide extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-            child: Container(
-          width: 60,
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.deepPurple,
-          ),
-          child: const Text(
-            'New',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ))
+        const Positioned(top: 5, left: 5, child: NewChip())
       ],
     );
   }

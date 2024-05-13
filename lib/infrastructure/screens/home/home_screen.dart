@@ -5,7 +5,7 @@ import 'package:gymnastic_center/infrastructure/config/constants/environment.dar
 import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
 import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/improved_blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
@@ -24,6 +24,16 @@ class HomeScreen extends StatelessWidget {
         children: [
           CategoryCarousel(categoryRepository: CategoryService()),
           const SizedBox(height: 25),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Trending Courses',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
           CourseCarrusel(
             courses: popularCourses,
           ),
