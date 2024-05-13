@@ -25,7 +25,7 @@ class HomeAppBar extends StatelessWidget {
                   children: [
                     authBloc.state is Authenticated
                         ? Text(
-                            'Hello, ${(authBloc.state as Authenticated).user.fullName ?? 'there'}!',
+                            'Hello, ${(authBloc.state as Authenticated).user.fullName}!',
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -89,7 +89,6 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 12)
           ],
         ),
       ),

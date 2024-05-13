@@ -13,7 +13,6 @@ import 'package:gymnastic_center/infrastructure/config/constants/environment.dar
 import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
 import 'package:gymnastic_center/infrastructure/services/datasources/local_storage.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
