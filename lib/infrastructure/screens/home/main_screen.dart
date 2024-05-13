@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/disability/disability_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/home/home_screen.dart';
 import 'package:gymnastic_center/infrastructure/screens/notifications/notifications_screen.dart';
@@ -29,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = context.watch<AuthBloc>();
     final scaffoldKey = GlobalKey<ScaffoldState>();
     return PopScope(
       canPop: false,

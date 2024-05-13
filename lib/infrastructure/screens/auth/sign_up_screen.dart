@@ -64,7 +64,7 @@ class SignUpScreen extends StatelessWidget {
                               child: SingleChildScrollView(
                                 child: BlocListener<AuthBloc, AuthState>(
                                   listener: (context, state) {
-                                    if (state.user != null) {
+                                    if (state is Authenticated) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -72,10 +72,10 @@ class SignUpScreen extends StatelessWidget {
                                                 const MainScreen()),
                                       );
                                     }
-                                    if (state.errorMessage != null) {
+                                    if (state is AuthError) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
-                                        content: Text(state.errorMessage!),
+                                        content: Text(state.message),
                                         backgroundColor: Colors.red,
                                         duration: const Duration(milliseconds: 300),
                                       ));

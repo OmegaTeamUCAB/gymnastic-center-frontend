@@ -1,61 +1,73 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/logout.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/domain/auth/user.dart';
-import 'package:gymnastic_center/infrastructure/config/local-storage/secure_storage.dart';
-import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthService authenticationService = AuthService();
+  final LogoutUseCase logoutUseCase;
+  final LoginUseCase loginUseCase;
+  final SignUpUseCase signUpUseCase;
+  final GetUserFromTokenUseCase getUserFromTokenUseCase;
 
-  AuthBloc() : super(const AuthState()) {
+  AuthBloc({
+    required this.logoutUseCase,
+    required this.loginUseCase,
+    required this.signUpUseCase,
+    required this.getUserFromTokenUseCase,
+  }) : super(AuthState()) {
     on<VerifiedUser>(_verifyUser);
     on<LoggedIn>(_logIn);
     on<SignedUp>(_signUp);
-    on<SignedOut>(_signOut);
+    on<SignedOut>(_logout);
+    add(const VerifiedUser());
   }
 
   Future<void> _verifyUser(VerifiedUser event, Emitter<AuthState> emit) async {
-    final userData = await authenticationService.verifyUser();
-    SecureStorage().writeSecureData('token', userData['token']);
-    emit(state.copyWith(user: userData['user']));
+    emit(AuthLoading());
+    final result = await getUserFromTokenUseCase.execute(null);
+    if (result.isSuccessful) {
+      emit(Authenticated(result.unwrap()));
+    } else {
+      emit(AuthState());
+    }
   }
 
   Future<void> _logIn(LoggedIn event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true, errorMessage: ""));
-    try {
-      final loggedUser = await authenticationService
-          .login({'email': event.email, 'password': event.password});
-      User user = User.fromJson(loggedUser['user']);
-      emit(state.copyWith(isLoading: true, user: user));
-      SecureStorage().writeSecureData('token', loggedUser['token']);
-    } catch (e) {
-      emit(state.copyWith(
-          isLoading: false, errorMessage: 'Invalid email or password'));
+    emit(AuthLoading());
+    final result = await loginUseCase
+        .execute(LoginDto(email: event.email, password: event.password));
+    if (result.isSuccessful) {
+      emit(Authenticated(result.unwrap()));
+    } else {
+      emit(AuthError(result.error.message));
     }
   }
 
   Future<void> _signUp(SignedUp event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true, errorMessage: ""));
-    try {
-      final newUser = await authenticationService.signUp({
-        'email': event.email,
-        'fullName': event.fullName,
-        'phoneNumber': event.phoneNumber,
-        'password': event.password
-      });
-      User user = User.fromJson(newUser['user']);
-      emit(state.copyWith(isLoading: false, user: user));
-      SecureStorage().writeSecureData('token', newUser['token']);
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
+    emit(AuthLoading());
+    final result = await signUpUseCase.execute(SignUpDto(
+      email: event.email,
+      password: event.password,
+      fullName: event.fullName,
+      phoneNumber: event.phoneNumber,
+    ));
+    if (result.isSuccessful) {
+      emit(Authenticated(result.unwrap()));
+    } else {
+      emit(AuthError(result.error.message));
     }
   }
 
-  void _signOut(SignedOut event, Emitter<AuthState> emit) {
-    emit(state.copyWith(user: null));
-    SecureStorage().deleteSecureData;
+  void _logout(SignedOut event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final result = await logoutUseCase.execute(null);
+    if (result.isSuccessful) {
+      emit(AuthState());
+    }
   }
 }

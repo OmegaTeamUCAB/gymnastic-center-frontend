@@ -1,31 +1,17 @@
 part of 'auth_bloc.dart';
 
-class AuthState extends Equatable {
-  final User? user;
-  final bool isLoading;
-  final bool isAuthenticated;
-  final String? errorMessage;
+class AuthState {}
 
-  const AuthState({
-    this.user,
-    this.isLoading = false,
-    this.isAuthenticated = false,
-    this.errorMessage,
-  });
+class Authenticated extends AuthState {
+  final User user;
 
-  @override
-  List<Object?> get props => [user, isLoading, isAuthenticated, errorMessage];
+  Authenticated(this.user);
+}
 
-  AuthState copyWith(
-      {User? user,
-      bool? isLoading,
-      bool? isAuthenticated,
-      String? errorMessage}) {
-    return AuthState(
-      user: user ?? this.user,
-      isLoading: isLoading ?? this.isLoading,
-      isAuthenticated: isAuthenticated ?? this.isAuthenticated,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
+class AuthLoading extends AuthState {}
+
+class AuthError extends AuthState {
+  final String message;
+
+  AuthError(this.message);
 }

@@ -3,6 +3,10 @@ sealed class ApplicationException {
   const ApplicationException(this.message);
 }
 
+class UnauthorizedException extends ApplicationException {
+  const UnauthorizedException() : super("Unauthorized");
+}
+
 class NetworkException extends ApplicationException {
   const NetworkException() : super("Network Error");
 }
