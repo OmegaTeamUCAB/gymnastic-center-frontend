@@ -25,19 +25,19 @@ class ImprovedBlogCarousel extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         } else {
           List<Blog> blogs = snapshot.data!;
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(width: 15),
-                ...blogs.map((blog) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: ImprovedBlogSlide(blog: blog),
-                  );
-                }),
-                const SizedBox(width: 15),
-              ],
+          return SizedBox(
+            height: 260,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: blogs.length,
+              itemBuilder: (context, index) {
+                if (index % 2 == 0) {
+                  // Render a SizedBox for every even index
+                  return const SizedBox(width: 15);
+                } else {
+                  return ImprovedBlogSlide(blog: blogs[index ~/ 2]);
+                }
+              },
             ),
           );
         }
