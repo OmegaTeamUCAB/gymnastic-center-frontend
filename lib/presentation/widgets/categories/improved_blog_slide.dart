@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/Blog_Detail.dart';
+import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class ImprovedBlogSlide extends StatelessWidget {
   final Blog blog;
@@ -54,7 +56,7 @@ class ImprovedBlogSlide extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Dieta',
+                          'Categoría o Autor',
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.primary),
@@ -71,7 +73,8 @@ class ImprovedBlogSlide extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            const Positioned(top: 5, right: 5, child: NewChip())
           ])),
     );
   }
