@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class HomeCourseCard extends StatelessWidget {
-  const HomeCourseCard({super.key});
+  //todo: add the course object
+  final dynamic course;
+  const HomeCourseCard({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,14 @@ class HomeCourseCard extends StatelessWidget {
       child: Ink(
         height: 130,
         width: 380,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).colorScheme.outline,
+              width: 0.5,
+            ),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
@@ -30,18 +39,20 @@ class HomeCourseCard extends StatelessWidget {
               const SizedBox(
                 width: 15,
               ),
-              const Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Full-Body Burner',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    //! temporary
+                    course['title'],
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  Text('10 min | John Doe')
+                  Text('${course['description']} | ${course['author']}')
                 ],
               ),
               const Spacer(),

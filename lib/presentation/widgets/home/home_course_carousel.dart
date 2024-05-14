@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_card.dart';
 
 class HomeCourseCarousel extends StatelessWidget {
@@ -13,23 +14,23 @@ class HomeCourseCarousel extends StatelessWidget {
       child: PageView(
         scrollDirection: Axis.horizontal,
         // todo: connect data to the carousel
-        children: const [
+        children: [
           Column(
             children: [
-              HomeCourseCard(),
-              HomeCourseCard(),
+              HomeCourseCard(course: dummyCourses[0]),
+              HomeCourseCard(course: dummyCourses[0]),
             ],
           ),
           Column(
             children: [
-              HomeCourseCard(),
-              HomeCourseCard(),
+              HomeCourseCard(course: dummyCourses[0]),
+              HomeCourseCard(course: dummyCourses[0]),
             ],
           ),
           Column(
             children: [
-              HomeCourseCard(),
-              HomeCourseCard(),
+              HomeCourseCard(course: dummyCourses[0]),
+              HomeCourseCard(course: dummyCourses[0]),
             ],
           ),
         ],

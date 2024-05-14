@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             child: Text(
               'Popular Blogs',
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onPrimary),
             ),

@@ -12,7 +12,7 @@ class ProfileAppBar extends StatelessWidget {
     final authBloc = context.watch<AuthBloc>();
     return CustomAppBar(
       content: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.only(left: 10, bottom: 20),
         child: Column(
           children: [
             Row(

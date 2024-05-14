@@ -67,6 +67,7 @@ class HomeAppBar extends StatelessWidget {
               },
               child: Container(
                 height: 44,
+                margin: const EdgeInsets.only(bottom: 20),
                 decoration: const BoxDecoration(
                     color: Color(0xFFF2F2F2),
                     borderRadius: BorderRadius.all(Radius.circular(6))),
