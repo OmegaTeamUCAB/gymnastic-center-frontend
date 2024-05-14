@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/models/push_message.dart';
-import 'package:gymnastic_center/infrastructure/screens/notifications/notification_detail_screen.dart';
+import 'package:gymnastic_center/presentation/screens/notifications/notification_detail_screen.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 
 class NotificationsList extends StatelessWidget {

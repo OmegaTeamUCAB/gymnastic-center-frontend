@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gymnastic_center/domain/search/search_results.dart';
-import 'package:gymnastic_center/infrastructure/services/search/search_service.dart';
+import 'package:gymnastic_center/application/repositories/search/search_results.dart';
+import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final SearchService searchService = SearchService();
+  final SearchRepository searchService = SearchRepository();
 
   SearchBloc() : super(const SearchState()) {
     on<QueryStringChanged>(_onQueryStringChange);

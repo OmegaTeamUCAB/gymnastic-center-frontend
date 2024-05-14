@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
+import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 
 class CourseCarrusel extends StatelessWidget {
   final double? width;
