@@ -9,6 +9,7 @@ import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.d
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,17 +27,30 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.all(15),
-            child: Text(
-              'Trending Courses',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onPrimary),
+            child: Row(
+              children: [
+                Text(
+                  'Trending Courses',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Show all',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                )
+              ],
             ),
           ),
-          CourseCarrusel(
-            courses: popularCourses,
-          ),
+          const HomeCourseCarousel(),
+          // CourseCarrusel(
+          //   courses: popularCourses,
+          // ),
           const SizedBox(
             height: 25,
           ),

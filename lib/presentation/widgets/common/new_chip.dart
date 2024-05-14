@@ -7,7 +7,7 @@ class NewChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: const Color(0xFF4F14A0),
+            color: const Color(0xFF4F14A0).withOpacity(0.8),
             borderRadius: BorderRadius.circular(15)),
         child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0),

@@ -24,10 +24,9 @@ class CarouselHeader extends StatelessWidget {
           ),
           TextButton(
             onPressed: onButtonPressed,
-            child: Text(
-              'See all >',
-              style:
-                  TextStyle(color: Theme.of(context).colorScheme.onSecondary),
+            child: const Text(
+              'Show all',
+              style: TextStyle(fontSize: 16),
             ),
           ),
         ],
