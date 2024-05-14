@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
-import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/infrastructure/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -49,8 +48,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       );
     }
 
-    List<Course> updatedCourses =
-        popularCourses.where((courses) => courses.id != course.id).toList();
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 350),

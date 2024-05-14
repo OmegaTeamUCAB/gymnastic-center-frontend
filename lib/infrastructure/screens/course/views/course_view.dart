@@ -13,7 +13,6 @@ class CourseView extends StatelessWidget {
   Widget build(BuildContext context) {
     final courseList = context.watch<CourseBloc>().state.currentCourses;
     final isLoading = context.watch<CourseBloc>().state.isLoading;
-    final currentCategory = context.watch<CourseBloc>().state.currentCategory;
 
     if (isLoading) {
       return const Center(
