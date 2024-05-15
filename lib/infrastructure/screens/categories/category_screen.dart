@@ -3,7 +3,6 @@ import 'package:gymnastic_center/infrastructure/config/constants/environment.dar
 import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/categories/blogs_grid.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_chip.dart';
