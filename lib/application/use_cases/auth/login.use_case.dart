@@ -1,7 +1,7 @@
 import 'package:gymnastic_center/application/services/datasources/local_datasource.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/core/use_case.dart';
-import 'package:gymnastic_center/domain/auth/auth_repository.dart';
+import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
 import 'package:gymnastic_center/domain/auth/user.dart';
 
 class LoginDto {

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/comment_expansion_panel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -15,9 +12,7 @@ class BlogDetail extends StatelessWidget {
   late final BlogDetailBloc bloc;
 
   BlogDetail({super.key, required this.blogId}) {
-    bloc = BlogDetailBloc(
-        getBlogUseCase: GetBlogByIdUseCase(
-            BlogsService(HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
+    bloc = GetIt.instance.get<BlogDetailBloc>();
   }
 
   @override

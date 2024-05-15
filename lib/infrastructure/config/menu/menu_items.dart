@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/about_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/account_settings_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/faq_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/language_settings_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/notification_settings_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/privacy_settings_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/rate_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/settings/statistics_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/about_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/account_settings_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/faq_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/language_settings_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/notification_settings_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/privacy_settings_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/rate_screen.dart';
+import 'package:gymnastic_center/presentation/screens/settings/statistics_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
 class MenuItem {

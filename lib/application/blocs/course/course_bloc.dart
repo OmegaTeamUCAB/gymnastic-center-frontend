@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
+import 'package:gymnastic_center/infrastructure/repositories/course/course_repository.dart';
 
 part 'course_event.dart';
 part 'course_state.dart';
 
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
-  final CourseService courseService;
+  final CourseRepository courseService;
   CourseBloc(this.courseService) : super(CourseState()) {
     
     on<AddCoursesByCategory>(_addByCategory);

@@ -34,9 +34,6 @@ class HttpManagerImpl extends IHttpManager {
 
   @override
   void updateHeaders({required String headerKey, required headerValue}) {
-    print('Updating headers');
-    print('Key: $headerKey');
-    print('Value: $headerValue');
     _dio.options.headers[headerKey] = headerValue;
   }
 }

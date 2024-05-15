@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
-import 'package:gymnastic_center/infrastructure/screens/profile/profile_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/search_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
+import 'package:gymnastic_center/presentation/screens/search_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
