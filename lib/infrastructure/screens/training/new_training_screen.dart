@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/training/course_option_page_view.dart';
 
-class NewTrainingScreen extends StatelessWidget {
+class NewTrainingScreen extends StatefulWidget {
   const NewTrainingScreen({super.key});
+
+  @override
+  State<NewTrainingScreen> createState() => _NewTrainingScreenState();
+}
+
+class _NewTrainingScreenState extends State<NewTrainingScreen> {
+  final PageController controller = PageController();
+  int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // PageView
           Positioned.fill(
             child: PageView(
-              children: <Widget>[
-                const Column(
-                  children: [
-                    // add title, subtitle and an image
-                  ],
-                ),
-                Container(color: Colors.green), // replace with your page 2
-                Container(color: Colors.blue), // replace with your page 3
+              controller: controller,
+              onPageChanged: (index) {
+                setState(() {
+                  currentPage = index;
+                });
+              },
+              children: const <Widget>[
+                CourseOptionPageView(),
+                CourseOptionPageView(),
+                CourseOptionPageView(),
               ],
             ),
           ),
@@ -31,16 +45,38 @@ class NewTrainingScreen extends StatelessWidget {
             right: 0,
             child: Center(
               child: Text(
-                'Today\'s workout:',
+                'Choose a workout:',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                 ),
               ),
             ),
           ),
+          Positioned(
+            bottom: 140,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                  3,
+                  (index) => Container(
+                        margin: const EdgeInsets.all(4.0),
+                        width: 12.0,
+                        height: 12.0,
+                        decoration: BoxDecoration(
+                          // takes a while when going from one page to another
+                          color: currentPage == index
+                              ? Colors.deepPurple
+                              : Theme.of(context).colorScheme.outline,
+                          shape: BoxShape.circle,
+                        ),
+                      )),
+            ),
+          ),
           // Button
           Positioned(
-            bottom: 70, // adjust the value as needed
+            bottom: 50,
             left: 0,
             right: 0,
             child: Center(
