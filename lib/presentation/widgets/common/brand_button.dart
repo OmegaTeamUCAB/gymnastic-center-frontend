@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class BrandButton extends StatelessWidget {
-  final String buttonText;
+  final Widget child;
   final VoidCallback onPressed;
   final double? width;
   final bool isDarkMode;
 
   const BrandButton({
     super.key,
-    required this.buttonText,
+    required this.child,
     required this.onPressed,
     this.width = double.infinity,
     this.isDarkMode = false,
@@ -26,15 +26,11 @@ class BrandButton extends StatelessWidget {
       return SizedBox(
         width: width,
         child: TextButton(
-          style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Colors.white),
-          ),
-          onPressed: onPressed,
-          child: Text(
-            buttonText,
-            style: const TextStyle(color: Color(0xFF4F14A0), fontSize: 20),
-          ),
-        ),
+            style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Colors.white),
+            ),
+            onPressed: onPressed,
+            child: child),
       );
     }
 
@@ -52,14 +48,7 @@ class BrandButton extends StatelessWidget {
         gradient: gradient,
       ),
       width: width,
-      child: TextButton(
-        onPressed: onPressed,
-        child: Text(
-          buttonText,
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
-        ),
-      ),
+      child: TextButton(onPressed: onPressed, child: child),
     );
   }
 }

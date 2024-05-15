@@ -39,7 +39,11 @@ class SaveLocation extends StatelessWidget {
         ),
         BrandButton(
             width: double.infinity,
-            buttonText: 'Use your location',
+            child: Text(
+              'Use your location',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
+            ),
             onPressed: () {
               // TODO: Implement button functionality
             }),

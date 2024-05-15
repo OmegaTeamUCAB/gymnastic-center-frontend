@@ -36,7 +36,12 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: BrandButton(
-                      buttonText: 'Login',
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 20),
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
