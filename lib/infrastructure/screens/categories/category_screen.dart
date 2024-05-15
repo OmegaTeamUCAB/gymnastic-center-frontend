@@ -1,11 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_chip.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_card.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   final String categoryName;
   final String categoryId;
   //todo: add the blogs-by-category bloc
@@ -13,10 +16,17 @@ class CategoryScreen extends StatelessWidget {
       {super.key, required this.categoryName, required this.categoryId});
 
   @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  String selectedChip = 'Courses';
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 80),
+        preferredSize: const Size(double.infinity, 130),
         child: CustomAppBar(
           content: Column(
             children: [
@@ -29,12 +39,41 @@ class CategoryScreen extends StatelessWidget {
                       icon: const Icon(Icons.chevron_left,
                           size: 30, color: Colors.white)),
                   Text(
-                    categoryName,
+                    widget.categoryName,
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold),
                   ),
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomChip(
+                    label: "Courses",
+                    isSelected: selectedChip == 'Courses',
+                    onTap: (isSelected) {
+                      setState(() {
+                        selectedChip = 'Courses';
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  CustomChip(
+                    label: "Blogs",
+                    isSelected: selectedChip == 'Blogs',
+                    onTap: (isSelected) {
+                      setState(() {
+                        selectedChip = 'Blogs';
+                      });
+                    },
+                  )
                 ],
               ),
             ],
@@ -46,65 +85,12 @@ class CategoryScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 140,
-                    padding: const EdgeInsets.all(7),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(60),
-                      border: Border.all(color: Colors.white, width: 1),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Courses',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 140,
-                    padding: const EdgeInsets.all(7),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(60),
-                      border: Border.all(color: Colors.white, width: 1),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Courses',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
+              height: 24,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                '81 cursos',
+                selectedChip == 'Blogs' ? '81 Blogs' : '40 Cursos',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -112,19 +98,24 @@ class CategoryScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 12,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: dummyCourses.length,
-                itemBuilder: (context, index) {
-                  return HomeCourseCard(course: dummyCourses[index]);
-                },
-              ),
-            ),
+            selectedChip == 'Blogs'
+                ? ImprovedBlogCarousel(
+                    blogRepository: BlogsService(HttpManagerImpl(
+                    baseUrl: Environment.getApiUrl(),
+                  )))
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: dummyCourses.length,
+                      itemBuilder: (context, index) {
+                        return HomeCourseCard(course: dummyCourses[index]);
+                      },
+                    ),
+                  ),
             const SizedBox(
               height: 60,
             )

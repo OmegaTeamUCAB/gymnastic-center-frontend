@@ -31,21 +31,24 @@ class SearchScreen extends StatelessWidget {
               ],
             ),
             CustomAppBar(
-              content: Row(
-                children: [
-                  IconButton(
-                      iconSize: 30,
-                      onPressed: () => Navigator.pop(context),
-                      color: Colors.white,
-                      icon: const Icon(Icons.chevron_left)),
-                  const Text(
-                    'Popular Search',
-                    style: TextStyle(
+              content: Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                        iconSize: 30,
+                        onPressed: () => Navigator.pop(context),
                         color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
+                        icon: const Icon(Icons.chevron_left)),
+                    const Text(
+                      'Popular Search',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               ),
             ),
             const Positioned(
