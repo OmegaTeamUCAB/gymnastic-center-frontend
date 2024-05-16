@@ -31,7 +31,8 @@ class HomeCourseCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset('assets/course_sample.jpg'),
+                    child: Image.network(course['imageUrl'],
+                        height: 110, width: 150, fit: BoxFit.cover),
                   ),
                   const Positioned(bottom: 5, left: 5, child: NewChip()),
                 ],
@@ -39,21 +40,26 @@ class HomeCourseCard extends StatelessWidget {
               const SizedBox(
                 width: 15,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    //! temporary
-                    course['title'],
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text('${course['description']} | ${course['author']}')
-                ],
+              SizedBox(
+                width: 180,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      //! temporary
+                      course['title'],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text('${course['duration']} | ${course['author']}')
+                  ],
+                ),
               ),
               const Spacer(),
               const Icon(Icons.chevron_right)

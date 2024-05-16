@@ -18,18 +18,18 @@ class HomeCourseCarousel extends StatelessWidget {
           Column(
             children: [
               HomeCourseCard(course: dummyCourses[0]),
-              HomeCourseCard(course: dummyCourses[0]),
+              HomeCourseCard(course: dummyCourses[1]),
             ],
           ),
           Column(
             children: [
-              HomeCourseCard(course: dummyCourses[0]),
-              HomeCourseCard(course: dummyCourses[0]),
+              HomeCourseCard(course: dummyCourses[2]),
+              HomeCourseCard(course: dummyCourses[3]),
             ],
           ),
           Column(
             children: [
-              HomeCourseCard(course: dummyCourses[0]),
+              HomeCourseCard(course: dummyCourses[4]),
               HomeCourseCard(course: dummyCourses[0]),
             ],
           ),

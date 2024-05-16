@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
+import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/training/course_option_page_view.dart';
 
@@ -31,27 +33,38 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
                   currentPage = index;
                 });
               },
-              children: const <Widget>[
-                CourseOptionPageView(),
-                CourseOptionPageView(),
-                CourseOptionPageView(),
+              //TODO: should come from backend
+              children: dummyCourses
+                  .map((course) => CourseOptionPageView(course: course))
+                  .toList(),
+            ),
+          ),
+          // back button
+          Positioned(
+            top: 60,
+            left: 5,
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainScreen()));
+                  },
+                  icon: Icon(Icons.arrow_back_ios,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                const Text(
+                  'Choose a workout',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
           // Title
-          const Positioned(
-            top: 80, // adjust the value as needed
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                'Choose a workout:',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ),
           Positioned(
             bottom: 140,
             left: 0,
@@ -59,19 +72,19 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                  3,
-                  (index) => Container(
-                        margin: const EdgeInsets.all(4.0),
-                        width: 12.0,
-                        height: 12.0,
-                        decoration: BoxDecoration(
-                          // takes a while when going from one page to another
-                          color: currentPage == index
-                              ? Colors.deepPurple
-                              : Theme.of(context).colorScheme.outline,
-                          shape: BoxShape.circle,
-                        ),
-                      )),
+                dummyCourses.length, //TODO: should come from backend
+                (index) => Container(
+                  margin: const EdgeInsets.all(4.0),
+                  width: 12.0,
+                  height: 12.0,
+                  decoration: BoxDecoration(
+                    color: currentPage == index
+                        ? Colors.deepPurple
+                        : Theme.of(context).colorScheme.outline,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
             ),
           ),
           // Button
