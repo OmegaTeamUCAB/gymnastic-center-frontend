@@ -69,10 +69,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     onDotClicked: (index) => pageController.animateToPage(index,
                         duration: const Duration(milliseconds: 600),
                         curve: Curves.easeIn),
-                    effect: const WormEffect(
+                    effect: WormEffect(
                       dotHeight: 12,
                       dotWidth: 12,
-                      // activeDotColor: LinearGradient,
+                      dotColor: Theme.of(context).colorScheme.outline,
+                      activeDotColor: Colors.deepPurple,
                     ),
                   ),
                 ],

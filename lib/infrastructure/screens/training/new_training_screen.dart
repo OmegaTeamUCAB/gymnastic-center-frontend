@@ -3,6 +3,7 @@ import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/training/course_option_page_view.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewTrainingScreen extends StatefulWidget {
   const NewTrainingScreen({super.key});
@@ -12,7 +13,7 @@ class NewTrainingScreen extends StatefulWidget {
 }
 
 class _NewTrainingScreenState extends State<NewTrainingScreen> {
-  final PageController controller = PageController();
+  final PageController pageController = PageController();
   int currentPage = 0;
 
   @override
@@ -27,7 +28,7 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
         children: <Widget>[
           Positioned.fill(
             child: PageView(
-              controller: controller,
+              controller: pageController,
               onPageChanged: (index) {
                 setState(() {
                   currentPage = index;
@@ -64,25 +65,23 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
               ],
             ),
           ),
-          // Title
+          // center this dots
           Positioned(
             bottom: 140,
             left: 0,
             right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                dummyCourses.length, //TODO: should come from backend
-                (index) => Container(
-                  margin: const EdgeInsets.all(4.0),
-                  width: 12.0,
-                  height: 12.0,
-                  decoration: BoxDecoration(
-                    color: currentPage == index
-                        ? Colors.deepPurple
-                        : Theme.of(context).colorScheme.outline,
-                    shape: BoxShape.circle,
-                  ),
+            child: Center(
+              child: SmoothPageIndicator(
+                controller: pageController,
+                count: dummyCourses.length,
+                onDotClicked: (index) => pageController.animateToPage(index,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeIn),
+                effect: WormEffect(
+                  dotHeight: 12,
+                  dotWidth: 12,
+                  dotColor: Theme.of(context).colorScheme.outline,
+                  activeDotColor: Colors.deepPurple,
                 ),
               ),
             ),
