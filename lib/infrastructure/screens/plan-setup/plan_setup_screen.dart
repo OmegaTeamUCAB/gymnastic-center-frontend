@@ -22,6 +22,21 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen()));
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+      ),
       bottomSheet: Container(
         color: Theme.of(context).colorScheme.background,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
@@ -74,10 +89,13 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
             return Column(
               children: <Widget>[
                 Text(step['title'],
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
+                        fontSize: 24, fontWeight: FontWeight.bold)),
+                const Spacer(),
                 PlanSetupStep(
                     options: step['options'], isRadio: step['type'] == 'radio'),
+                const SizedBox(height: 110),
               ],
             );
           },
