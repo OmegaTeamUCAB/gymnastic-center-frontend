@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:gymnastic_center/presentation/utils/onboarding_items.dart';
+import 'package:gymnastic_center/presentation/widgets/onboarding/onboarding_items.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
