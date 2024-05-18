@@ -20,6 +20,11 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> imagePaths = [
+      'assets/plan-setup/goals.png',
+      'assets/plan-setup/interests.png',
+      'assets/plan-setup/weights.png',
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -94,7 +99,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Image.asset('assets/plan-setup/weights.png', height: 250),
+                Image.asset(imagePaths[index], height: 250),
                 const Spacer(),
                 PlanSetupStep(
                     options: step['options'], isRadio: step['type'] == 'radio'),
@@ -102,7 +107,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
               ],
             );
           },
-        ), //use the dummy plan setup steps
+        ),
       ),
     );
   }
