@@ -12,8 +12,8 @@ class SaveLocation extends StatelessWidget {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image.asset(
           Theme.of(context).brightness == Brightness.light
-              ? 'assets/location_image_light.png'
-              : 'assets/location_image_dark.png',
+              ? 'assets/location/location_image_light.png'
+              : 'assets/location/location_image_dark.png',
           width: 156,
         ),
         const SizedBox(

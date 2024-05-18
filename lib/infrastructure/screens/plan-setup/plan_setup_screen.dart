@@ -92,6 +92,10 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(
+                  height: 15,
+                ),
+                Image.asset('assets/plan-setup/weights.png', height: 250),
                 const Spacer(),
                 PlanSetupStep(
                     options: step['options'], isRadio: step['type'] == 'radio'),

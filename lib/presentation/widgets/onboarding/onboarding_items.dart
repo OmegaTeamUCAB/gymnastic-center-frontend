@@ -7,18 +7,18 @@ class OnboardingItems {
         title: "Yoga",
         descriptions:
             "Do your practice of physical exercise and relaxation make helthy.",
-        image: "assets/yoga_woman.png"),
+        image: "assets/onboarding/yoga_woman.png"),
     OnboardingInfo(
         subtitle: "Yoga Clases",
         title: "Meditation",
         descriptions:
             "Meditation is the key to Productivity. Happiness & Longevity.",
-        image: "assets/meditate_woman.png"),
+        image: "assets/onboarding/meditate_woman.png"),
     OnboardingInfo(
         subtitle: "Community",
         title: "Meets",
         descriptions:
             "Do your practice of physical exercise and relaxation make helthy.",
-        image: "assets/meet.png"),
+        image: "assets/onboarding/meet.png"),
   ];
 }
