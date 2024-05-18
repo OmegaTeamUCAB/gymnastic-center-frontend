@@ -3,7 +3,6 @@ import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart
 import 'package:gymnastic_center/presentation/data/dummy_plan_setup_step.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/plan-setup/plan_setup_step.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:gymnastic_center/presentation/widgets/onboarding/onboarding_items.dart';
 
 class PlanSetupScreen extends StatefulWidget {
