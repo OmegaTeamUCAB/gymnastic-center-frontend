@@ -6,8 +6,9 @@ import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/repositories/course/course_service.dart';
-import 'package:gymnastic_center/infrastructure/screens/plan-setup/plan_setup_screen.dart';
+import 'package:gymnastic_center/infrastructure/screens/home/main_screen.dart';
+import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_options.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
@@ -24,14 +25,14 @@ void main() async {
 
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (context) => AuthBloc()),
+      BlocProvider(create: (context) => AuthBloc(AuthRepository())),
       BlocProvider(
         create: (context) => NotificationsBloc(
             handler: NotificationHandler()..initializeLocalNotifications()),
       ),
       BlocProvider(create: (context) => ThemeBloc()),
       BlocProvider(
-        create: (context) => CourseBloc(CourseService()),
+        create: (context) => CourseBloc(CourseRepository()),
       ),
       // BlocProvider(create: (context) => PlayerBloc())
     ],
@@ -56,7 +57,7 @@ class MainApp extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const PlanSetupScreen(),
+      home: const MainScreen(),
     );
   }
 }

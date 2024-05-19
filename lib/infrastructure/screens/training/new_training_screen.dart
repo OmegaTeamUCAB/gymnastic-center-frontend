@@ -98,7 +98,7 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
                 child: BrandButton(
                   onPressed: () {},
                   child: Text(
-                    'Start!',
+                    'Select',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 24),

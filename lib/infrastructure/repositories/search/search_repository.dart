@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
 import 'package:gymnastic_center/domain/search/search_repository.dart';
+import 'package:http/http.dart' as http;
 import 'package:gymnastic_center/domain/search/search_results.dart';
 
-class SearchService implements SearchRepository {
+class SearchRepository implements ISearchRepository {
   @override
   Future<SearchResults> search(String searchTerm) async {
     final url = Uri.parse('${dotenv.env['API_URL']}/search/$searchTerm');

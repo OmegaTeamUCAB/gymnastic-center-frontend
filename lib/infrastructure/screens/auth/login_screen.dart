@@ -63,7 +63,8 @@ class LoginScreen extends StatelessWidget {
                                       builder: (context) => const MainScreen()),
                                 );
                               }
-                              if (state.errorMessage != null && state.errorMessage!.isNotEmpty) {
+                              if (state.errorMessage != null &&
+                                  state.errorMessage!.isNotEmpty) {
                                 ScaffoldMessenger.of(context)
                                     .hideCurrentSnackBar();
                                 ScaffoldMessenger.of(context)

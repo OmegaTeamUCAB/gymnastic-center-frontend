@@ -2,12 +2,12 @@ import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 import 'package:gymnastic_center/application/models/comment.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager.dart';
+import 'package:gymnastic_center/infrastructure/dataSources/http/http_manager.dart';
 
-class BlogsService implements IBlogRepository {
+class BlogsRepository implements IBlogRepository {
   final IHttpManager _httpConnectionManager;
 
-  BlogsService(this._httpConnectionManager);
+  BlogsRepository(this._httpConnectionManager);
 
   @override
   Future<Result<List<Blog>>> getAllBlogs() async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
+import 'package:gymnastic_center/infrastructure/dataSources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
 import 'package:gymnastic_center/presentation/widgets/categories/blogs_grid.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -102,7 +102,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
             selectedChip == 'Blogs'
                 ? BlogsGrid(
-                    blogRepository: BlogsService(HttpManagerImpl(
+                    blogRepository: BlogsRepository(HttpManagerImpl(
                     baseUrl: Environment.getApiUrl(),
                   )))
                 : Padding(

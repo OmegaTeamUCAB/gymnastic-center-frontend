@@ -5,7 +5,7 @@ import 'package:gymnastic_center/infrastructure/config/local-storage/secure_stor
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class AuthService implements IAuthRepository {
+class AuthRepository implements IAuthRepository {
   @override
   Future login(Map<String, dynamic> loginCredentials) async {
     final url = Uri.parse('${dotenv.env['API_URL']}/auth/login');

@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gymnastic_center/domain/search/search_results.dart';
-import 'package:gymnastic_center/infrastructure/services/search/search_service.dart';
+import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final SearchService searchService = SearchService();
+  final SearchRepository searchRepository;
 
-  SearchBloc() : super(const SearchState()) {
+  SearchBloc(this.searchRepository) : super(const SearchState()) {
     on<QueryStringChanged>(_onQueryStringChange);
     on<FilterSelected>(_onFilterSelect);
     on<FilterDeselected>(_onFilterDeselect);
@@ -20,7 +20,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(state.copyWith(searchTerm: event.searchTerm, isLoading: true));
 
     if (state.searchTerm.isNotEmpty) {
-      final results = await searchService.search(event.searchTerm);
+      final results = await searchRepository.search(event.searchTerm);
       emit(state.copyWith(results: results, isLoading: false));
     }
   }

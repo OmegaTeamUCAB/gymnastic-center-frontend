@@ -2,15 +2,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gymnastic_center/domain/auth/user.dart';
 import 'package:gymnastic_center/infrastructure/config/local-storage/secure_storage.dart';
-import 'package:gymnastic_center/infrastructure/services/auth/auth_service.dart';
+import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthService authenticationService = AuthService();
+  final AuthRepository authRepository;
 
-  AuthBloc() : super(const AuthState()) {
+  AuthBloc(this.authRepository) : super(const AuthState()) {
     on<VerifiedUser>(_verifyUser);
     on<LoggedIn>(_logIn);
     on<SignedUp>(_signUp);
@@ -18,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _verifyUser(VerifiedUser event, Emitter<AuthState> emit) async {
-    final userData = await authenticationService.verifyUser();
+    final userData = await authRepository.verifyUser();
     SecureStorage().writeSecureData('token', userData['token']);
     emit(state.copyWith(user: userData['user']));
   }
@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _logIn(LoggedIn event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true, errorMessage: ""));
     try {
-      final loggedUser = await authenticationService
+      final loggedUser = await authRepository
           .login({'email': event.email, 'password': event.password});
       User user = User.fromJson(loggedUser['user']);
       emit(state.copyWith(isLoading: true, user: user));
@@ -40,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _signUp(SignedUp event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true, errorMessage: ""));
     try {
-      final newUser = await authenticationService.signUp({
+      final newUser = await authRepository.signUp({
         'email': event.email,
         'fullName': event.fullName,
         'phoneNumber': event.phoneNumber,

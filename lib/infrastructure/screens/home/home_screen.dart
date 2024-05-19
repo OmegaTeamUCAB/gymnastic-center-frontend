@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/services/blogs/blogs_service.dart';
-import 'package:gymnastic_center/infrastructure/services/categories/category_service.dart';
+import 'package:gymnastic_center/infrastructure/dataSources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.dart';
-import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
@@ -23,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
       body: ListView(
         children: [
-          CategoryCarousel(categoryRepository: CategoryService()),
+          CategoryCarousel(categoryRepository: CategoryRepository()),
           const SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.all(15),
@@ -65,7 +64,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ImprovedBlogCarousel(
-              blogRepository: BlogsService(HttpManagerImpl(
+              blogRepository: BlogsRepository(HttpManagerImpl(
             baseUrl: Environment.getApiUrl(),
           ))),
           const SizedBox(

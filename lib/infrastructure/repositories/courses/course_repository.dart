@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/domain/course/repository/course_repository.dart';
+import 'package:gymnastic_center/domain/course/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/mappers/course/course_mapper.dart';
 
-class CourseService extends ICourseRepository {
+class CourseRepository extends ICourseRepository {
   final Dio dio = Dio(BaseOptions(
     baseUrl: Environment.getApiUrl(),
   ));
@@ -96,5 +97,11 @@ class CourseService extends ICourseRepository {
     } catch (e) {
       throw Exception('Something wrong happened');
     }
+  }
+
+  @override
+  Future<Result<List<Course>>> getCoursesByCategoryNew(String id) {
+    // TODO: implement getCoursesByCategoryNew
+    throw UnimplementedError();
   }
 }

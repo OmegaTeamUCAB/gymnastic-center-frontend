@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
+import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
@@ -12,7 +13,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => SearchBloc(),
+        create: (context) => SearchBloc(SearchRepository()),
         child: Stack(
           clipBehavior: Clip.none,
           children: [

@@ -4,7 +4,7 @@ import 'package:gymnastic_center/domain/category/category_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class CategoryService implements ICategoryRepository {
+class CategoryRepository implements ICategoryRepository {
   @override
   Future<List<Category>> getAllCategories() async {
     final response =
