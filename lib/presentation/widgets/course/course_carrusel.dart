@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/infrastructure/screens/course/course_detail_screen.dart';
+import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class CourseCarrusel extends StatelessWidget {

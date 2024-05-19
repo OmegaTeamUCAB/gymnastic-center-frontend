@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/dataSources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
 import 'package:gymnastic_center/presentation/widgets/categories/blogs_grid.dart';

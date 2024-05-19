@@ -1,81 +1,90 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:gymnastic_center/domain/auth/auth_repository.dart';
-import 'package:gymnastic_center/infrastructure/config/local-storage/secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gymnastic_center/application/services/data-sources/local_data_source.dart';
+import 'package:gymnastic_center/core/exception.dart';
+import 'package:gymnastic_center/core/result.dart';
+import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
+import 'package:gymnastic_center/domain/auth/user.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
+
+class AuthResponse implements IAuthResponse {
+  @override
+  final String token;
+  @override
+  final User user;
+
+  AuthResponse({required this.token, required this.user});
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
+      token: json['token'],
+      user: User.fromJson(json['user']),
+    );
+  }
+}
 
 class AuthRepository implements IAuthRepository {
-  @override
-  Future login(Map<String, dynamic> loginCredentials) async {
-    final url = Uri.parse('${dotenv.env['API_URL']}/auth/login');
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(loginCredentials),
-      );
+  final IHttpManager _httpConnectionManager;
+  final LocalDataSource _localDataSource;
 
-      if (response.statusCode == 201) {
-        return jsonDecode(response.body);
-      } else {
-        throw Exception(
-            'Login failed with status code: ${response.statusCode}');
-      }
-    } on SocketException {
-      throw Exception('Network error occurred.');
-    } on FormatException {
-      throw Exception('Invalid response format.');
-    } catch (e) {
-      rethrow;
-    }
+  AuthRepository(this._httpConnectionManager, this._localDataSource);
+
+  @override
+  Future<Result<AuthResponse>> login(
+      {required String email, required String password}) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'auth/login',
+      httpMethod: 'POST',
+      body: jsonEncode({'email': email, 'password': password}),
+      mapperCallBack: (data) {
+        return AuthResponse.fromJson(data);
+      },
+    );
+    return result;
   }
 
   @override
-  Future signUp(Map<String, dynamic> signUpCredentials) async {
-    final url = Uri.parse('${dotenv.env['API_URL']}/auth/signUp');
-
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(signUpCredentials),
-      );
-
-      if (response.statusCode == 201) {
-        return jsonDecode(response.body);
-      } else {
-        throw Exception(response.body);
-      }
-    } on SocketException {
-      throw Exception('Network error occurred.');
-    } on FormatException {
-      throw Exception('Invalid response format.');
-    } catch (e) {
-      rethrow;
-    }
+  Future<Result<AuthResponse>> signUp({
+    required String email,
+    required String fullName,
+    required String phoneNumber,
+    required String password,
+  }) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'auth/signUp',
+      httpMethod: 'POST',
+      body: jsonEncode({
+        'email': email,
+        'fullName': fullName,
+        'phoneNumber': phoneNumber,
+        'password': password
+      }),
+      mapperCallBack: (data) {
+        return AuthResponse.fromJson(data);
+      },
+    );
+    return result;
   }
 
   @override
-  Future verifyUser() async {
-    final url = Uri.parse('${dotenv.env['API_URL']}/auth/currentUser');
-
-    try {
-      final token = SecureStorage().readSecureData('token');
-      if (token == null) throw Exception('No token in session');
-      final response =
-          await http.get(url, headers: {'Authorization': 'Bearer $token'});
-      if (response.statusCode == 200) {
-        final userData = jsonDecode(response.body);
-        return userData.user;
-      } else {
-        throw Exception(
-            'Verify user failed with status code: ${response.statusCode}');
-      }
-    } on SocketException {
-      throw Exception('Network error occurred.');
-    } catch (e) {
-      rethrow;
+  Future<Result<AuthResponse>> verifyUser() async {
+    final token = await _localDataSource.getValue('token');
+    if (token == null) {
+      return Result.failure(const UnauthorizedException());
     }
+    _httpConnectionManager.updateHeaders(
+        headerKey: 'Authorization', headerValue: 'Bearer $token');
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'auth/currentUser',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        return AuthResponse.fromJson(data);
+      },
+    );
+    _httpConnectionManager.updateHeaders(
+        headerKey: 'Authorization', headerValue: null);
+    if (result.isError) {
+      await _localDataSource.removeKey('token');
+    }
+    return result;
   }
 }

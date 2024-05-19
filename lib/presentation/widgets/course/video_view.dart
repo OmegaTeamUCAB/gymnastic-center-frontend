@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/lesson/lesson.dart';
-import 'package:gymnastic_center/infrastructure/screens/disability/video_player_screen.dart';
+import 'package:gymnastic_center/presentation/screens/disability/video_player_screen.dart';
 
 class VideoView extends StatelessWidget {
   const VideoView({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/screens/auth/login_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
+import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
+import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
 class WelcomeScreen extends StatelessWidget {

@@ -6,8 +6,8 @@ part 'course_event.dart';
 part 'course_state.dart';
 
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
-  final CourseRepository courseService;
-  CourseBloc(this.courseService) : super(CourseState()) {
+  final CourseRepository courseRepository;
+  CourseBloc(this.courseRepository) : super(CourseState()) {
     on<AddCoursesByCategory>(_addByCategory);
     on<AddPopularCourses>(_addPopularCourses);
     on<GetMostPopularCourses>(_getMostPopular);
@@ -19,20 +19,21 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
   _addByCategory(AddCoursesByCategory event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: event.categoryId));
-    final courses = await courseService.getCoursesByCategory(event.categoryId);
+    final courses =
+        await courseRepository.getCoursesByCategory(event.categoryId);
     add(AddCourses(courses: courses));
   }
 
   _addPopularCourses(AddPopularCourses event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: 'popular'));
-    final courses = await courseService.getAllCourses();
+    final courses = await courseRepository.getAllCourses();
     add(AddCourses(courses: courses));
   }
 
   _getMostPopular(
       GetMostPopularCourses event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: 'empty'));
-    final courses = await courseService.getAllCourses();
+    final courses = await courseRepository.getAllCourses();
     add(AddToPopularCourses(courses: courses));
   }
 
@@ -46,7 +47,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
   _getCourseById(GetCourseById event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true));
-    final course = await courseService.getCourseById(event.courseId);
+    final course = await courseRepository.getCourseById(event.courseId);
     emit(state.copyWith(isLoading: false, course: course));
   }
 }

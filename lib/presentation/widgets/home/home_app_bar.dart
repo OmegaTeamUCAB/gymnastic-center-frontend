@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
-import 'package:gymnastic_center/infrastructure/screens/auth/welcome_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/profile/profile_screen.dart';
-import 'package:gymnastic_center/infrastructure/screens/search_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
+import 'package:gymnastic_center/presentation/screens/search_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
@@ -24,13 +23,15 @@ class HomeAppBar extends StatelessWidget {
                   // should be aligned to the left
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Hello, ${authBloc.state.user?.fullName ?? 'there'}!',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    authBloc.state is Authenticated
+                        ? Text(
+                            'Hello, ${(authBloc.state as Authenticated).user.fullName}!',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : const CircularProgressIndicator(),
                     const Text(
                       'What\'s your plan for today?',
                       style: TextStyle(
@@ -46,9 +47,7 @@ class HomeAppBar extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => authBloc.state.user == null
-                                ? const WelcomeScreen()
-                                : const ProfileScreen()),
+                            builder: (context) => const ProfileScreen()),
                       );
                     },
                     icon: const CircleAvatar(
@@ -91,7 +90,6 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 12)
           ],
         ),
       ),

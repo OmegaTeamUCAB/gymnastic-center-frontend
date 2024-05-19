@@ -231,7 +231,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ],
           ),
           const SizedBox(height: 25),
-          authBloc.state.isLoading == true
+          authBloc.state is AuthLoading
               ? const CircularProgressIndicator()
               : BrandButton(
                   isDarkMode: true,

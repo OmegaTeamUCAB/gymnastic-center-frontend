@@ -9,6 +9,8 @@ class Result<T> {
   bool get isSuccessful => this._value != null;
   bool get isError => this._error != null;
 
+  ApplicationException get error => this._error!;
+
   T unwrap() {
     if (isSuccessful) {
       return this._value!;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
-import 'package:gymnastic_center/infrastructure/screens/auth/sign_up_screen.dart';
+import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
@@ -89,7 +89,7 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: isObscured,
           ),
           const SizedBox(height: 25),
-          authBloc.state.isLoading == true
+          authBloc.state is AuthLoading
               ? const CircularProgressIndicator()
               : BrandButton(
                   onPressed: onSubmit,
