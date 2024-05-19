@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/domain/blog/blog.dart';
-import 'package:gymnastic_center/domain/blog/blog_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
+import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_event.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
 
-class BlogsGrid extends StatelessWidget {
-  final IBlogRepository blogRepository;
-  const BlogsGrid({super.key, required this.blogRepository});
+class BlogsByCategoryGrid extends StatelessWidget {
+  final String categoryId;
+  late final BlogsByCategoryBloc bloc;
+  BlogsByCategoryGrid({super.key, required this.categoryId}) {
+    bloc = BlogsByCategoryBloc(GetBlogsByCategoryUseCase(
+        BlogsRepository(HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Blog>>(
-      future: blogRepository.getAllBlogs().then((result) {
-        if (result.isSuccessful) {
-          return result.unwrap();
-        } else {
-          throw Exception('Failed to load blogs');
-        }
-      }),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    return BlocProvider(
+      create: (context) {
+        bloc.add(BlogsByCategoryRequested(categoryId: categoryId));
+        return bloc;
+      },
+      child: BlocBuilder<BlogsByCategoryBloc, BlogsByCategoryState>(
+          builder: (context, state) {
+        if (state is BlogsByCategoryLoading) {
           return const Center(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 25),
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          List<Blog> blogs = snapshot.data!;
+        }
+        if (state is BlogsByCategoryFailed) {
+          return Center(
+            child: Text(state.message),
+          );
+        }
+        if (state is BlogsByCategorySuccess) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -37,7 +47,7 @@ class BlogsGrid extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
-                  '${blogs.length} Blogs',
+                  '${state.blogs.length} Blogs',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -51,7 +61,7 @@ class BlogsGrid extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(10.0),
-                itemCount: blogs.length,
+                itemCount: state.blogs.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 2 / 3,
@@ -66,18 +76,18 @@ class BlogsGrid extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          blogs[i].imageUrl,
+                          state.blogs[i].imageUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Text(blogs[i].title,
+                      Text(state.blogs[i].title,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           )),
                       const SizedBox(height: 10),
-                      Text(blogs[i].description,
+                      Text(state.blogs[i].description,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -93,8 +103,12 @@ class BlogsGrid extends StatelessWidget {
               )
             ],
           );
+        } else {
+          return const Center(
+            child: Text('Error'),
+          );
         }
-      },
+      }),
     );
   }
 }

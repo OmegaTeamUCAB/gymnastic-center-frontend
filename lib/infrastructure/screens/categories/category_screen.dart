@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/blogs_grid.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blogs_by_category_grid.dart';
 import 'package:gymnastic_center/presentation/widgets/categories/courses_by_category_list.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_chip.dart';
@@ -80,10 +80,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
       body: SingleChildScrollView(
         child: selectedChip == 'Blogs'
-            ? BlogsGrid(
-                blogRepository: BlogsRepository(HttpManagerImpl(
-                baseUrl: Environment.getApiUrl(),
-              )))
+            ? BlogsByCategoryGrid(
+                categoryId: widget.categoryId,
+              )
             : CoursesByCategoryList(categoryId: widget.categoryId),
       ),
     );
