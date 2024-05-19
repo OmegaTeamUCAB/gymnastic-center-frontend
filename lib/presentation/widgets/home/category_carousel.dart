@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
 import 'package:gymnastic_center/domain/category/category_repository.dart';
-import 'package:gymnastic_center/infrastructure/screens/categories/category_screen.dart';
+import 'package:gymnastic_center/presentation/screens/categories/category_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/carousel_header.dart';
 
 class CategoryCarousel extends StatelessWidget {
