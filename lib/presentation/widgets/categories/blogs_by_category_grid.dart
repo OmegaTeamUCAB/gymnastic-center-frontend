@@ -6,6 +6,7 @@ import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_categor
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
+import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
 class BlogsByCategoryGrid extends StatelessWidget {
   final String categoryId;
@@ -38,6 +39,11 @@ class BlogsByCategoryGrid extends StatelessWidget {
           );
         }
         if (state is BlogsByCategorySuccess) {
+          if (state.blogs.isEmpty) {
+            return const Center(
+              child: NoResults(),
+            );
+          }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

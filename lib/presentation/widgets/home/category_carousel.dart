@@ -59,7 +59,12 @@ class CategoryCarousel extends StatelessWidget {
                                 SizedBox(
                                   height: 40,
                                   width: 40,
-                                  child: Image.network(currentCategory.icon),
+                                  child: ColorFiltered(
+                                      colorFilter: ColorFilter.mode(
+                                          Theme.of(context).colorScheme.primary,
+                                          BlendMode.srcIn),
+                                      child:
+                                          Image.network(currentCategory.icon)),
                                 ),
                                 const SizedBox(height: 10.0),
                                 Text(

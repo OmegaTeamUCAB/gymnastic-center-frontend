@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
+import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
 
 class CoursesByCategoryList extends StatelessWidget {
@@ -36,6 +37,11 @@ class CoursesByCategoryList extends StatelessWidget {
             );
           }
           if (state is CoursesByCategorySuccess) {
+            if (state.courses.isEmpty) {
+              return const Center(
+                child: NoResults(),
+              );
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
