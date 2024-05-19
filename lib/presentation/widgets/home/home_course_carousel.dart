@@ -14,25 +14,25 @@ class HomeCourseCarousel extends StatelessWidget {
       child: PageView(
         scrollDirection: Axis.horizontal,
         // todo: connect data to the carousel
-        children: [
-          Column(
-            children: [
-              HomeCourseCard(course: dummyCourses[0]),
-              HomeCourseCard(course: dummyCourses[1]),
-            ],
-          ),
-          Column(
-            children: [
-              HomeCourseCard(course: dummyCourses[2]),
-              HomeCourseCard(course: dummyCourses[3]),
-            ],
-          ),
-          Column(
-            children: [
-              HomeCourseCard(course: dummyCourses[4]),
-              HomeCourseCard(course: dummyCourses[0]),
-            ],
-          ),
+        children: const [
+          // Column(
+          //   children: [
+          //     HomeCourseCard(course: dummyCourses[0]),
+          //     HomeCourseCard(course: dummyCourses[1]),
+          //   ],
+          // ),
+          // Column(
+          //   children: [
+          //     HomeCourseCard(course: dummyCourses[2]),
+          //     HomeCourseCard(course: dummyCourses[3]),
+          //   ],
+          // ),
+          // Column(
+          //   children: [
+          //     HomeCourseCard(course: dummyCourses[4]),
+          //     HomeCourseCard(course: dummyCourses[0]),
+          //   ],
+          // ),
         ],
       ),
     );
