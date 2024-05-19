@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:gymnastic_center/presentation/utils/onboarding_items.dart';
+import 'package:gymnastic_center/presentation/widgets/onboarding/onboarding_items.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -25,7 +25,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: isLastPage
             ? BrandButton(
-                buttonText: 'Get Started',
+                child: Text(
+                  'Get Started',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 20),
+                ),
                 onPressed: () {
                   // final pres = await SharedPreferences.getInstance();
                   // pres.setBool("onboarding", true);
@@ -64,10 +69,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     onDotClicked: (index) => pageController.animateToPage(index,
                         duration: const Duration(milliseconds: 600),
                         curve: Curves.easeIn),
-                    effect: const WormEffect(
+                    effect: WormEffect(
                       dotHeight: 12,
                       dotWidth: 12,
-                      // activeDotColor: LinearGradient,
+                      dotColor: Theme.of(context).colorScheme.outline,
+                      activeDotColor: Colors.deepPurple,
                     ),
                   ),
                 ],

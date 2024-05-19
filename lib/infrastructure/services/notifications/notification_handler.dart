@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gymnastic_center/application/models/push_message.dart';
-import 'package:gymnastic_center/application/services/notifications/notification_handler.dart';
+import 'package:gymnastic_center/application/ports/notifications/notification_handler.dart';
 
 class NotificationHandler implements INotificationHandler {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;

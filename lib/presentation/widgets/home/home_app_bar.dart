@@ -14,7 +14,7 @@ class HomeAppBar extends StatelessWidget {
     final authBloc = context.watch<AuthBloc>();
     return CustomAppBar(
       content: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
           children: [
             Row(
@@ -66,6 +66,7 @@ class HomeAppBar extends StatelessWidget {
               },
               child: Container(
                 height: 44,
+                margin: const EdgeInsets.only(bottom: 20),
                 decoration: const BoxDecoration(
                     color: Color(0xFFF2F2F2),
                     borderRadius: BorderRadius.all(Radius.circular(6))),

@@ -77,7 +77,8 @@ class SignUpScreen extends StatelessWidget {
                                           .showSnackBar(SnackBar(
                                         content: Text(state.message),
                                         backgroundColor: Colors.red,
-                                        duration: const Duration(milliseconds: 300),
+                                        duration:
+                                            const Duration(milliseconds: 300),
                                       ));
                                     }
                                   },

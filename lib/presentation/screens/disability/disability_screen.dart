@@ -11,7 +11,7 @@ class DisabilityScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 100),
           child: CustomAppBar(
             content: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.only(left: 18, bottom: 20),
                 child: Row(
                   children: [
                     Text(

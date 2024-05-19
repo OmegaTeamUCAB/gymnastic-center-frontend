@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:gymnastic_center/application/services/datasources/local_datasource.dart';
+import 'package:gymnastic_center/application/services/data-sources/local_data_source.dart';
 
-class SecureStorage implements LocalDatasource {
+class SecureStorage implements LocalDataSource {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   @override

@@ -236,7 +236,12 @@ class _SignUpFormState extends State<SignUpForm> {
               : BrandButton(
                   isDarkMode: true,
                   onPressed: onSubmit,
-                  buttonText: "Sign up",
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 20),
+                  ),
                 )
         ],
       ),

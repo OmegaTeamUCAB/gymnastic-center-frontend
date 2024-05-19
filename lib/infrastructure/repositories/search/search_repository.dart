@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
 import 'package:gymnastic_center/application/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/application/repositories/search/search_results.dart';
+import 'package:http/http.dart' as http;
 
 class SearchRepository implements ISearchRepository {
   @override

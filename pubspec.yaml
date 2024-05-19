@@ -70,4 +70,8 @@ flutter:
 
   assets:
     - assets/
+    - assets/plan-setup/
+    - assets/location/
+    - assets/onboarding/
+    - assets/app-launcher/
     - .env

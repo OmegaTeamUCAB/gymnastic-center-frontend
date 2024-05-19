@@ -1,14 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/infrastructure/repositories/course/course_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 
 part 'course_event.dart';
 part 'course_state.dart';
 
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
-  final CourseRepository courseService;
-  CourseBloc(this.courseService) : super(CourseState()) {
-    
+  final CourseRepository courseRepository;
+  CourseBloc(this.courseRepository) : super(CourseState()) {
     on<AddCoursesByCategory>(_addByCategory);
     on<AddPopularCourses>(_addPopularCourses);
     on<GetMostPopularCourses>(_getMostPopular);
@@ -21,25 +20,24 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   _addByCategory(AddCoursesByCategory event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: event.categoryId));
     final courses =
-        await courseService.getCoursesByCategory(event.categoryId);
+        await courseRepository.getCoursesByCategory(event.categoryId);
     add(AddCourses(courses: courses));
   }
 
   _addPopularCourses(AddPopularCourses event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: 'popular'));
-    final courses =
-        await courseService.getAllCourses();
+    final courses = await courseRepository.getAllCourses();
     add(AddCourses(courses: courses));
   }
 
   _getMostPopular(
       GetMostPopularCourses event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: 'empty'));
-    final courses = await courseService.getAllCourses();
+    final courses = await courseRepository.getAllCourses();
     add(AddToPopularCourses(courses: courses));
   }
 
-  _addToPopularCourses(AddToPopularCourses event, Emitter<CourseState> emit){
+  _addToPopularCourses(AddToPopularCourses event, Emitter<CourseState> emit) {
     emit(state.copyWith(isLoading: false, popularCourses: event.courses));
   }
 
@@ -49,7 +47,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
   _getCourseById(GetCourseById event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true));
-    final course = await courseService.getCourseById(event.courseId);
+    final course = await courseRepository.getCourseById(event.courseId);
     emit(state.copyWith(isLoading: false, course: course));
   }
 }

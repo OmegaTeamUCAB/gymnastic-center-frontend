@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:gymnastic_center/application/services/datasources/local_datasource.dart';
+import 'package:gymnastic_center/application/services/data-sources/local_data_source.dart';
 import 'package:gymnastic_center/core/exception.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
 import 'package:gymnastic_center/domain/auth/user.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
 class AuthResponse implements IAuthResponse {
   @override
@@ -24,9 +24,9 @@ class AuthResponse implements IAuthResponse {
 
 class AuthRepository implements IAuthRepository {
   final IHttpManager _httpConnectionManager;
-  final LocalDatasource _localDatasource;
+  final LocalDataSource _localDataSource;
 
-  AuthRepository(this._httpConnectionManager, this._localDatasource);
+  AuthRepository(this._httpConnectionManager, this._localDataSource);
 
   @override
   Future<Result<AuthResponse>> login(
@@ -67,8 +67,8 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Result<AuthResponse>> verifyUser() async {
-    final token = await _localDatasource.getValue('token');
-    if(token == null) {
+    final token = await _localDataSource.getValue('token');
+    if (token == null) {
       return Result.failure(const UnauthorizedException());
     }
     _httpConnectionManager.updateHeaders(
@@ -83,7 +83,7 @@ class AuthRepository implements IAuthRepository {
     _httpConnectionManager.updateHeaders(
         headerKey: 'Authorization', headerValue: null);
     if (result.isError) {
-      await _localDatasource.removeKey('token');
+      await _localDataSource.removeKey('token');
     }
     return result;
   }

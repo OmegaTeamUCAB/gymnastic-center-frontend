@@ -99,79 +99,69 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
             ],
           )),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  Container(
-                      margin: const EdgeInsets.symmetric(vertical: 11),
-                      child: Text(
-                        course.description,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      )),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child: Divider(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CourseDetailInfoCard(
-                        title: 'Level',
-                        captionNumber: course.level.toString(),
-                        iconData: Icons.menu,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CourseContentScreen(course: course)),
-                          );
-                        },
-                      ),
-                      CourseDetailInfoCard(
-                        title: 'Weeks',
-                        onPressed: () {},
-                        captionNumber: course.weeks.toString(),
-                        iconData: Icons.calendar_month_sharp,
-                      ),
-                      CourseDetailInfoCard(
-                        title: 'Mins',
-                        onPressed: () {},
-                        captionNumber: course.minutes.toString(),
-                        iconData: Icons.watch_later_outlined,
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('More Most Popular Courses',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(fontSize: 20)),
-                    ),
-                  ),
-                  SizedBox(
-                      height: 150,
-                      child: CourseCarrusel(
-                        courses: popularCourses,
-                        width: 180,
-                        onTap: (courseId) {
-                          context
-                              .read<CourseBloc>()
-                              .add(GetCourseById(courseId: courseId));
-                        },
-                      ))
-                ],
-              ),
+            Text(
+              course.description,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
+            const Divider(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CourseDetailInfoCard(
+                  title: 'Level',
+                  captionNumber: course.level.toString(),
+                  iconData: Icons.menu,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CourseContentScreen(course: course)),
+                    );
+                  },
+                ),
+                CourseDetailInfoCard(
+                  title: 'Weeks',
+                  onPressed: () {},
+                  captionNumber: course.weeks.toString(),
+                  iconData: Icons.calendar_month_sharp,
+                ),
+                CourseDetailInfoCard(
+                  title: 'Mins',
+                  onPressed: () {},
+                  captionNumber: course.minutes.toString(),
+                  iconData: Icons.watch_later_outlined,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            //why is this text centered?
+            Text('More Most Popular Courses',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontSize: 20)),
+            const SizedBox(
+              height: 12,
+            ),
+            CourseCarrusel(
+              width: double.infinity,
+              courses: popularCourses,
+              onTap: (courseId) {
+                context
+                    .read<CourseBloc>()
+                    .add(GetCourseById(courseId: courseId));
+              },
+            )
           ],
         ),
       ),

@@ -12,8 +12,8 @@ class SaveLocation extends StatelessWidget {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image.asset(
           Theme.of(context).brightness == Brightness.light
-              ? 'assets/location_image_light.png'
-              : 'assets/location_image_dark.png',
+              ? 'assets/location/location_image_light.png'
+              : 'assets/location/location_image_dark.png',
           width: 156,
         ),
         const SizedBox(
@@ -39,7 +39,11 @@ class SaveLocation extends StatelessWidget {
         ),
         BrandButton(
             width: double.infinity,
-            buttonText: 'Use your location',
+            child: Text(
+              'Use your location',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
+            ),
             onPressed: () {
               // TODO: Implement button functionality
             }),

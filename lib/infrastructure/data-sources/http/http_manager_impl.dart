@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gymnastic_center/core/exception.dart';
 import 'package:gymnastic_center/core/result.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
 class HttpManagerImpl extends IHttpManager {
   final Dio _dio;

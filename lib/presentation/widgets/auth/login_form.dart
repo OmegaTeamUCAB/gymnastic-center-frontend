@@ -91,7 +91,14 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 25),
           authBloc.state is AuthLoading
               ? const CircularProgressIndicator()
-              : BrandButton(buttonText: 'Login', onPressed: onSubmit),
+              : BrandButton(
+                  onPressed: onSubmit,
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 20),
+                  )),
           TextButton(
             onPressed: () {
               // Handle forgot password link

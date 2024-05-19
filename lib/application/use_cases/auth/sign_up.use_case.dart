@@ -1,4 +1,4 @@
-import 'package:gymnastic_center/application/services/datasources/local_datasource.dart';
+import 'package:gymnastic_center/application/services/data-sources/local_data_source.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/core/use_case.dart';
 import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
@@ -10,16 +10,20 @@ class SignUpDto {
   final String fullName;
   final String phoneNumber;
 
-  SignUpDto({required this.email, required this.password, required this.fullName, required this.phoneNumber});
+  SignUpDto(
+      {required this.email,
+      required this.password,
+      required this.fullName,
+      required this.phoneNumber});
 }
 
 class SignUpUseCase extends IUseCase<SignUpDto, User> {
   final IAuthRepository _authRepository;
-  final LocalDatasource _localDatasource;
+  final LocalDataSource _localDataSource;
 
   SignUpUseCase(
     this._authRepository,
-    this._localDatasource,
+    this._localDataSource,
   );
 
   @override
@@ -31,7 +35,7 @@ class SignUpUseCase extends IUseCase<SignUpDto, User> {
       phoneNumber: dto.phoneNumber,
     );
     if (result.isSuccessful) {
-      _localDatasource.setKeyValue('token', result.unwrap().token);
+      _localDataSource.setKeyValue('token', result.unwrap().token);
       return Result.success(result.unwrap().user);
     }
     return Result.failure(result.error);

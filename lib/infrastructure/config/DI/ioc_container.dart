@@ -14,12 +14,12 @@ import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dar
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/datasources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/datasources/local/secure_storage.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/local/secure_storage.dart';
 import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_service.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
-import 'package:gymnastic_center/infrastructure/repositories/course/course_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
@@ -46,7 +46,7 @@ class IoCContainer {
     final getUserFromTokenUseCase =
         GetUserFromTokenUseCase(authRepository, secureStorage);
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
-    final logoutUseCase = LogoutUseCase(localDatasource: secureStorage);
+    final logoutUseCase = LogoutUseCase(localDataSource: secureStorage);
     final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
     getIt.registerSingleton<GetBlogByIdUseCase>(getBlogByIdUseCase);

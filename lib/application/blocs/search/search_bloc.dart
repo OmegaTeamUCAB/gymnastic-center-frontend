@@ -7,9 +7,9 @@ part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final SearchRepository searchService = SearchRepository();
+  final SearchRepository searchRepository;
 
-  SearchBloc() : super(const SearchState()) {
+  SearchBloc(this.searchRepository) : super(const SearchState()) {
     on<QueryStringChanged>(_onQueryStringChange);
     on<FilterSelected>(_onFilterSelect);
     on<FilterDeselected>(_onFilterDeselect);
@@ -20,7 +20,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(state.copyWith(searchTerm: event.searchTerm, isLoading: true));
 
     if (state.searchTerm.isNotEmpty) {
-      final results = await searchService.search(event.searchTerm);
+      final results = await searchRepository.search(event.searchTerm);
       emit(state.copyWith(results: results, isLoading: false));
     }
   }
