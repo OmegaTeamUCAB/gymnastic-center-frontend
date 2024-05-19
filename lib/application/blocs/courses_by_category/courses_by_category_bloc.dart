@@ -20,7 +20,7 @@ class CoursesByCategoryBloc
     final result = await getCoursesByCategoryUseCase
         .execute(GetCoursesByCategoryDto(event.categoryId));
     if (result.isSuccessful) {
-      emit(CoursesByCategoryLoaded(courses: result.unwrap()));
+      emit(CoursesByCategorySuccess(courses: result.unwrap()));
     } else {
       try {
         throw result.unwrap();

@@ -21,7 +21,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     emit(state.copyWith(isLoading: true, currentCategory: event.categoryId));
     final courses =
         await courseRepository.getCoursesByCategory(event.categoryId);
-    add(AddCourses(courses: courses));
+    add(AddCourses(courses: courses.unwrap()));
   }
 
   _addPopularCourses(AddPopularCourses event, Emitter<CourseState> emit) async {

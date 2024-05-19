@@ -17,6 +17,6 @@ class GetCoursesByCategoryUseCase
 
   @override
   Future<Result<List<Course>>> execute(GetCoursesByCategoryDto dto) async {
-    return await courseRepository.getCoursesByCategoryNew(dto.categoryId);
+    return await courseRepository.getCoursesByCategory(dto.categoryId);
   }
 }

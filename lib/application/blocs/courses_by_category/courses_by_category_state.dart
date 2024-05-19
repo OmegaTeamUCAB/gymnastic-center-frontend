@@ -7,10 +7,10 @@ sealed class CoursesByCategoryState extends Equatable {
 
 class CoursesByCategoryLoading extends CoursesByCategoryState {}
 
-class CoursesByCategoryLoaded extends CoursesByCategoryState {
+class CoursesByCategorySuccess extends CoursesByCategoryState {
   final List<Course> courses;
 
-  CoursesByCategoryLoaded({required this.courses});
+  CoursesByCategorySuccess({required this.courses});
 
   @override
   List<Object> get props => [courses];

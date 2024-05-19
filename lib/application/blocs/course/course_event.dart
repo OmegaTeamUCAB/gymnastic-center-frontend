@@ -11,6 +11,7 @@ class AddCoursesByCategory extends CourseEvent {
 }
 
 class AddPopularCourses extends CourseEvent {}
+
 class GetMostPopularCourses extends CourseEvent {}
 
 class AddCourses extends CourseEvent {
@@ -23,7 +24,6 @@ class GetCourseById extends CourseEvent {
   final String courseId;
 
   GetCourseById({required this.courseId});
-
 }
 
 class AddToPopularCourses extends CourseEvent {
@@ -31,4 +31,3 @@ class AddToPopularCourses extends CourseEvent {
 
   AddToPopularCourses({required this.courses});
 }
-
