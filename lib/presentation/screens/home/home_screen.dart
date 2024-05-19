@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const HomeCourseCarousel(),
+          HomeCourseCarousel(),
           // CourseCarrusel(
           //   courses: popularCourses,
           // ),

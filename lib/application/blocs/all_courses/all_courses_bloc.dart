@@ -6,15 +6,14 @@ import 'package:gymnastic_center/domain/course/course.dart';
 part 'all_courses_event.dart';
 part 'all_courses_state.dart';
 
-class CoursesByCategoryBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
+class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
   final GetAllCoursesUseCase getAllCoursesUseCase;
-  CoursesByCategoryBloc(this.getAllCoursesUseCase)
-      : super(AllCoursesLoading()) {
-    on<CoursesByCategoryRequested>(_getCoursesByCategory);
+  AllCoursesBloc(this.getAllCoursesUseCase) : super(AllCoursesLoading()) {
+    on<AllCoursesRequested>(_getAllCourses);
   }
 
-  Future<void> _getCoursesByCategory(
-      CoursesByCategoryRequested event, Emitter<AllCoursesState> emit) async {
+  Future<void> _getAllCourses(
+      AllCoursesRequested event, Emitter<AllCoursesState> emit) async {
     emit(AllCoursesLoading());
     final result = await getAllCoursesUseCase.execute(GetAllCoursesDto());
     if (result.isSuccessful) {

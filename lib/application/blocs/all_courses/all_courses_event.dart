@@ -4,6 +4,6 @@ sealed class AllCoursesEvent {
   const AllCoursesEvent();
 }
 
-class CoursesByCategoryRequested extends AllCoursesEvent {
-  CoursesByCategoryRequested();
+class AllCoursesRequested extends AllCoursesEvent {
+  AllCoursesRequested();
 }

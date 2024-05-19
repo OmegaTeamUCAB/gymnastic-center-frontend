@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
+import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class CourseTile extends StatelessWidget {
@@ -9,7 +10,14 @@ class CourseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CourseDetailScreen(courseId: course.id),
+          ),
+        );
+      },
       splashColor: Theme.of(context).colorScheme.surfaceTint,
       borderRadius: BorderRadius.circular(10),
       child: Ink(
@@ -47,7 +55,6 @@ class CourseTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      //! temporary
                       course.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -57,7 +64,7 @@ class CourseTile extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text('${course.minutes} | Course Author')
+                    Text('${course.minutes} min | Level ${course.level}')
                   ],
                 ),
               ),
