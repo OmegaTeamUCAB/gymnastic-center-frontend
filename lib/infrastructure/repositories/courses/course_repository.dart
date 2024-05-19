@@ -24,11 +24,11 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<List<Course>> getAllCourses() async {
+  Future<Result<List<Course>>> getAllCourses() async {
     try {
       final response = await dio.get('/courses');
       final List<Course> courses = CourseMapper.fromJsonToList(response.data);
-      return courses;
+      return Result.success(courses);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception(e.response?.data['message']);

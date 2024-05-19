@@ -27,14 +27,14 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   _addPopularCourses(AddPopularCourses event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: 'popular'));
     final courses = await courseRepository.getAllCourses();
-    add(AddCourses(courses: courses));
+    add(AddCourses(courses: courses.unwrap()));
   }
 
   _getMostPopular(
       GetMostPopularCourses event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true, currentCategory: 'empty'));
     final courses = await courseRepository.getAllCourses();
-    add(AddToPopularCourses(courses: courses));
+    add(AddToPopularCourses(courses: courses.unwrap()));
   }
 
   _addToPopularCourses(AddToPopularCourses event, Emitter<CourseState> emit) {

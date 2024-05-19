@@ -18,7 +18,12 @@ class BlogsGrid extends StatelessWidget {
       }),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 25),
+              child: CircularProgressIndicator(),
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_course_card.dart';
+import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
 
 class CoursesByCategoryList extends StatelessWidget {
   final String categoryId;
@@ -24,7 +24,10 @@ class CoursesByCategoryList extends StatelessWidget {
         builder: (context, state) {
           if (state is CoursesByCategoryLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 25),
+                child: CircularProgressIndicator(),
+              ),
             );
           }
           if (state is CoursesByCategoryFailed) {
@@ -59,7 +62,7 @@ class CoursesByCategoryList extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.courses.length,
                     itemBuilder: (context, index) {
-                      return HomeCourseCard(course: state.courses[index]);
+                      return CourseTile(course: state.courses[index]);
                     },
                   ),
                 ),

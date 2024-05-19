@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
-class HomeCourseCard extends StatelessWidget {
+class CourseTile extends StatelessWidget {
   final Course course;
-  const HomeCourseCard({super.key, required this.course});
+  const CourseTile({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
