@@ -24,11 +24,11 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<List<Course>> getAllCourses() async {
+  Future<Result<List<Course>>> getAllCourses() async {
     try {
       final response = await dio.get('/courses');
       final List<Course> courses = CourseMapper.fromJsonToList(response.data);
-      return courses;
+      return Result.success(courses);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception(e.response?.data['message']);
@@ -62,11 +62,11 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<List<Course>> getCoursesByCategory(String id) async {
+  Future<Result<List<Course>>> getCoursesByCategory(String categoryId) async {
     try {
-      final response = await dio.get('/courses/category/$id');
+      final response = await dio.get('/courses/category/$categoryId');
       final List<Course> courses = CourseMapper.fromJsonToList(response.data);
-      return courses;
+      return Result.success(courses);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception(e.response?.data['message']);
@@ -97,11 +97,5 @@ class CourseRepository extends ICourseRepository {
     } catch (e) {
       throw Exception('Something wrong happened');
     }
-  }
-
-  @override
-  Future<Result<List<Course>>> getCoursesByCategoryNew(String id) {
-    // TODO: implement getCoursesByCategoryNew
-    throw UnimplementedError();
   }
 }

@@ -26,20 +26,20 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Positioned.fill(
-            child: PageView(
-              controller: pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  currentPage = index;
-                });
-              },
-              //TODO: should come from backend
-              children: dummyCourses
-                  .map((course) => CourseOptionPageView(course: course))
-                  .toList(),
-            ),
+          PageView(
+            controller: pageController,
+            onPageChanged: (index) {
+              setState(() {
+                currentPage = index;
+              });
+            },
+            //TODO: should come from backend
+            children: dummyCourses
+                .map((course) =>
+                    SizedBox(child: CourseOptionPageView(course: course)))
+                .toList(),
           ),
+
           // back button
           Positioned(
             top: 60,
@@ -65,7 +65,6 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
               ],
             ),
           ),
-          // center this dots
           Positioned(
             bottom: 140,
             left: 0,

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
-import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/blogs_grid.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blogs_by_category_grid.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/courses_by_category_list.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_chip.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_course_card.dart';
 
 class CategoryScreen extends StatefulWidget {
   final String categoryName;
   final String categoryId;
-  //todo: add the blogs-by-category bloc
   const CategoryScreen(
       {super.key, required this.categoryName, required this.categoryId});
 
@@ -81,46 +76,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 24,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                selectedChip == 'Blogs' ? '81 Blogs' : '40 Cursos',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onPrimary),
-              ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            selectedChip == 'Blogs'
-                ? BlogsGrid(
-                    blogRepository: BlogsRepository(HttpManagerImpl(
-                    baseUrl: Environment.getApiUrl(),
-                  )))
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: dummyCourses.length,
-                      itemBuilder: (context, index) {
-                        return HomeCourseCard(course: dummyCourses[index]);
-                      },
-                    ),
-                  ),
-            const SizedBox(
-              height: 60,
-            )
-          ],
-        ),
+        child: selectedChip == 'Blogs'
+            ? BlogsByCategoryGrid(
+                categoryId: widget.categoryId,
+              )
+            : CoursesByCategoryList(categoryId: widget.categoryId),
       ),
     );
   }

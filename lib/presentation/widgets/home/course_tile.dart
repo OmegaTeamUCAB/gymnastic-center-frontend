@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/domain/course/course.dart';
+import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
-class HomeCourseCard extends StatelessWidget {
-  //todo: add the course object
-  final dynamic course;
-  const HomeCourseCard({super.key, required this.course});
+class CourseTile extends StatelessWidget {
+  final Course course;
+  const CourseTile({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CourseDetailScreen(courseId: course.id),
+          ),
+        );
+      },
       splashColor: Theme.of(context).colorScheme.surfaceTint,
       borderRadius: BorderRadius.circular(10),
       child: Ink(
@@ -31,7 +39,7 @@ class HomeCourseCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(course['imageUrl'],
+                    child: Image.network(course.imageUrl,
                         height: 110, width: 150, fit: BoxFit.cover),
                   ),
                   const Positioned(bottom: 5, left: 5, child: NewChip()),
@@ -47,8 +55,7 @@ class HomeCourseCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      //! temporary
-                      course['title'],
+                      course.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -57,7 +64,7 @@ class HomeCourseCard extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text('${course['duration']} | ${course['author']}')
+                    Text('${course.minutes} min | Level ${course.level}')
                   ],
                 ),
               ),

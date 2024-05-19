@@ -79,21 +79,24 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 ),
               ),
               CustomAppBar(
-                content: Row(
-                  children: [
-                    IconButton(
-                        iconSize: 30,
-                        onPressed: () => Navigator.pop(context),
-                        color: Colors.white,
-                        icon: const Icon(Icons.chevron_left)),
-                    Text(
-                      course.name,
-                      style: const TextStyle(
+                content: Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          iconSize: 30,
+                          onPressed: () => Navigator.pop(context),
                           color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+                          icon: const Icon(Icons.chevron_left)),
+                      Text(
+                        course.name,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
