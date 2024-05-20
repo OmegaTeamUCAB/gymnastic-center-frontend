@@ -4,7 +4,6 @@ import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
-import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/categories/blog_carousel.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
@@ -23,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
       body: ListView(
         children: [
-          CategoryCarousel(categoryRepository: CategoryRepository()),
+          CategoryCarousel(),
           const SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.all(15),
@@ -48,9 +47,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           HomeCourseCarousel(),
-          // CourseCarrusel(
-          //   courses: popularCourses,
-          // ),
           const SizedBox(
             height: 25,
           ),
