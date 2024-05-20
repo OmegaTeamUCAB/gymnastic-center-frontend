@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/blog_slide.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/blog_slide.dart';
 
-class ImprovedBlogCarousel extends StatelessWidget {
+class BlogCarousel extends StatelessWidget {
   final IBlogRepository blogRepository;
-  const ImprovedBlogCarousel({super.key, required this.blogRepository});
+  const BlogCarousel({super.key, required this.blogRepository});
 
   //! this should only receive a list of blogs
   @override
