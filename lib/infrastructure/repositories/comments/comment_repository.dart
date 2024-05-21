@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:gymnastic_center/core/result.dart';
@@ -40,15 +39,30 @@ class CommentRepository extends ICommentRepository {
         'lessonId': lessonId,
       }),
       mapperCallBack: (data) {
-        return .fromJson(data);
+        return CreateCommentResponse.fromJson(data);
       },
     );
     return result;
   }
 
   @override
-  Future<Result<ICreateCommentResponse>> createBlogComment({required String userId, required String content, required String blogId}) {
-    // TODO: implement createBlogComment
-    throw UnimplementedError();
+  Future<Result<ICreateCommentResponse>> createBlogComment({
+    required String userId,
+    required String content,
+    required String blogId,
+  }) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'blog/create-comment',
+      httpMethod: 'POST',
+      body: jsonEncode({
+        'userId': userId,
+        'content': content,
+        'blogId': blogId,
+      }),
+      mapperCallBack: (data) {
+        return CreateCommentResponse.fromJson(data);
+      },
+    );
+    return result;
   }
 }
