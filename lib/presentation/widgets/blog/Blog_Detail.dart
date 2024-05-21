@@ -23,7 +23,9 @@ class BlogDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const AddCommentBar(),
+      bottomNavigationBar: AddCommentBar(
+        blogId: blogId,
+      ),
       body: BlocProvider(
         create: (context) {
           bloc.add(BlogDetailRequested(blogId: blogId));
