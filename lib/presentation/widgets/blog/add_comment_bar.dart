@@ -25,14 +25,36 @@ class AddCommentBar extends StatefulWidget {
 
 class _AddCommentBarState extends State<AddCommentBar> {
   final _formKey = GlobalKey<FormState>();
+  final _controller = TextEditingController();
   String blogContent = '';
+
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
     final userId = (authBloc.state is Authenticated)
         ? (authBloc.state as Authenticated).user.id
         : null;
-    return Padding(
+
+    void onSubmit() {
+      if (_formKey.currentState!.validate()) {
+        _controller.clear();
+        FocusScope.of(context).unfocus();
+        widget.bloc.add(CreatedBlogComment(
+          userId: userId!,
+          content: blogContent,
+          blogId: widget.blogId,
+        ));
+      }
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+              color: Theme.of(context).colorScheme.outline, width: 1.0),
+        ),
+      ),
+      child: Padding(
         padding: EdgeInsets.only(
           left: 15.0,
           right: 15.0,
@@ -42,8 +64,11 @@ class _AddCommentBarState extends State<AddCommentBar> {
         child: Form(
           key: _formKey,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
+              SizedBox(
+                height: 56,
+                width: 300,
                 child: TextFormField(
                   onChanged: (value) {
                     blogContent = value;
@@ -54,6 +79,7 @@ class _AddCommentBarState extends State<AddCommentBar> {
                     }
                     return null;
                   },
+                  controller: _controller,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(15),
                     border: InputBorder.none,
@@ -71,7 +97,7 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   ),
                 ),
               ),
-              const SizedBox(width: 10.0),
+              const Spacer(),
               Container(
                 width: 56,
                 height: 56,
@@ -80,25 +106,17 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   gradient: brandGradient,
                 ),
                 child: FloatingActionButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      FocusScope.of(context).unfocus();
-                      widget.bloc.add(CreatedBlogComment(
-                        userId: userId!,
-                        content: blogContent,
-                        blogId: widget.blogId,
-                      ));
-                    }
-                  },
+                  onPressed: onSubmit,
                   shape: const CircleBorder(),
-                  backgroundColor: Colors
-                      .transparent, // Make the background color transparent
+                  backgroundColor: Colors.transparent,
                   elevation: 0,
                   child: const Icon(Icons.send, color: Colors.white),
                 ),
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
