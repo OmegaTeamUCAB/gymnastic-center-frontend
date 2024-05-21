@@ -2,33 +2,32 @@ import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/core/use_case.dart';
 import 'package:gymnastic_center/domain/comment/comment_repository.dart';
 
-class CreateCommentDto {
+class CreateCourseCommentDto {
   final String userId;
-  final String? courseId;
-  final String? lessonId;
+  final String courseId;
+  final String lessonId;
   final String content;
-  final String? blogId;
 
-  CreateCommentDto({
+  CreateCourseCommentDto({
     required this.userId,
     required this.content,
-    this.courseId,
-    this.lessonId,
-    this.blogId,
+    required this.courseId,
+    required this.lessonId,
   });
 }
 
-class CreateCommentUseCase
-    extends IUseCase<CreateCommentDto, ICommentResponse> {
+class CreateCourseCommentUseCase
+    extends IUseCase<CreateCourseCommentDto, ICreateCommentResponse> {
   final ICommentRepository _commentRepository;
 
-  CreateCommentUseCase(
+  CreateCourseCommentUseCase(
     this._commentRepository,
   );
 
   @override
-  Future<Result<ICommentResponse>> execute(CreateCommentDto dto) async {
-    final result = await _commentRepository.createComment(
+  Future<Result<ICreateCommentResponse>> execute(
+      CreateCourseCommentDto dto) async {
+    final result = await _commentRepository.createCourseComment(
       userId: dto.userId,
       courseId: dto.courseId,
       lessonId: dto.lessonId,

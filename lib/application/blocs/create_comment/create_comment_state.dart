@@ -7,6 +7,8 @@ sealed class CreateCommentState extends Equatable {
 
 class CreateCommentLoading extends CreateCommentState {}
 
+class CreateCommentSuccess extends CreateCommentState {}
+
 class CreateCommentFailed extends CreateCommentState {
   final String message;
 
