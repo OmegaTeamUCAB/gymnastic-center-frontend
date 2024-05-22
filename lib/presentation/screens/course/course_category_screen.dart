@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
 import 'package:gymnastic_center/domain/category/category_repository.dart';
 import 'package:gymnastic_center/presentation/screens/course/views/course_view.dart';
@@ -64,7 +65,7 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Category>>(
+    return FutureBuilder<Result<List<Category>>>(
       future: widget.categoryRepository.getAllCategories(),
       builder: (context, snapshot) {
         return Scaffold(
@@ -121,14 +122,16 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
                                       onTap: () {
                                         context.read<CourseBloc>().add(
                                             AddCoursesByCategory(
-                                                categoryId: (snapshot.data !=
-                                                        null)
-                                                    ? snapshot.data![index].id
-                                                    : ''));
+                                                categoryId:
+                                                    (snapshot.data != null)
+                                                        ? snapshot.data!
+                                                            .unwrap()[index]
+                                                            .id
+                                                        : ''));
                                       },
                                       child: _TabView(
                                           textContent: Text(
-                                        snapshot.data![index].name,
+                                        snapshot.data!.unwrap()[index].name,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
