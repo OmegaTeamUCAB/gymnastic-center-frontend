@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
+import 'package:gymnastic_center/presentation/screens/auth/verify_code_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
@@ -16,17 +17,20 @@ class RequestCodeForm extends StatefulWidget {
 
 class _RequestCodeFormState extends State<RequestCodeForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String email = '';
   bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
-    final loginBloc = context.watch<LoginBloc>();
     final authBloc = context.watch<AuthBloc>();
     void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-      authBloc.add(LoggedIn(
-          email: loginBloc.state.email, password: loginBloc.state.password));
+      authBloc.add(CodeRequested(email: email));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => VerifyCodeScreen(email: email)),
+      );
     }
 
     return Form(
@@ -44,7 +48,7 @@ class _RequestCodeFormState extends State<RequestCodeForm> {
                 )),
             const SizedBox(height: 15),
             Text(
-                "Please enter your email address. You will get a link to create new password by email.",
+                "Please enter your email address. You will get a verification code to create a new password.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSecondary,
@@ -53,7 +57,7 @@ class _RequestCodeFormState extends State<RequestCodeForm> {
             const SizedBox(height: 40),
             CustomTextInput(
               onChanged: (value) {
-                loginBloc.add(EmailChanged(value));
+                email = value;
               },
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Required Field';

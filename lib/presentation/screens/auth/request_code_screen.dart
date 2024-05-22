@@ -36,49 +36,39 @@ class RequestCodeScreen extends StatelessWidget {
                         width: 420,
                       ),
                     )),
+                Positioned(
+                    top: 50,
+                    left: 0,
+                    child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_rounded,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        color: Colors.white)),
                 Stack(
                   alignment: Alignment.center,
                   children: [
                     Positioned(
-                      bottom: -210,
-                      right: -140,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 50, horizontal: 150),
-                        width: 685.0,
-                        height: 685.0,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).colorScheme.onBackground,
-                        ),
-                        child: SingleChildScrollView(
-                            child: BlocProvider(
-                          create: (context) => LoginBloc(),
-                          child: BlocListener<AuthBloc, AuthState>(
-                            listener: (context, state) {
-                              if (state is Authenticated) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MainScreen()),
-                                );
-                              }
-                              if (state is AuthError) {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(state.message),
-                                  backgroundColor: Colors.red,
-                                  duration: const Duration(milliseconds: 300),
-                                ));
-                              }
-                            },
-                            child: const RequestCodeForm(),
+                        bottom: -210,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 50, horizontal: 150),
+                            width: 685.0,
+                            height: 685.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).colorScheme.onBackground,
+                            ),
+                            child: const SingleChildScrollView(
+                              child: RequestCodeForm(),
+                            ),
                           ),
                         )),
-                      ),
-                    ),
                   ],
                 )
               ],

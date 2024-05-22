@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class VerifyAccountForm extends StatefulWidget {
-  const VerifyAccountForm({super.key});
+  final String email;
+  const VerifyAccountForm({super.key, required this.email});
 
   @override
   State<VerifyAccountForm> createState() => _VerifyAccountFormState();
@@ -36,9 +37,9 @@ class _VerifyAccountFormState extends State<VerifyAccountForm> {
                 color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 25),
-          const Column(
+          Column(
             children: [
-              Text(
+              const Text(
                 'Please type the verification code sent to',
                 style: TextStyle(
                   color: Colors.white,
@@ -46,8 +47,8 @@ class _VerifyAccountFormState extends State<VerifyAccountForm> {
                 ),
               ),
               Text(
-                'tucorreo@email.com',
-                style: TextStyle(
+                widget.email,
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
