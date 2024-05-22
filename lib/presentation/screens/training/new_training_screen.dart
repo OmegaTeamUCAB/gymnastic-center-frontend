@@ -46,15 +46,8 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
             left: 5,
             child: Row(
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MainScreen()));
-                  },
-                  icon: Icon(Icons.arrow_back_ios,
-                      color: Theme.of(context).colorScheme.onPrimary),
+                BackButton(
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 const Text(
                   'Choose a workout',

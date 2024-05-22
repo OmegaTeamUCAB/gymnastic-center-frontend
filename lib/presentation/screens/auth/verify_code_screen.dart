@@ -35,17 +35,10 @@ class VerifyCodeScreen extends StatelessWidget {
                   ),
                 )),
             Positioned(
-                top: 50,
-                left: 0,
-                child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_rounded,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Theme.of(context).colorScheme.primary)),
+              top: 50,
+              left: 0,
+              child: BackButton(color: Theme.of(context).colorScheme.primary),
+            ),
             Stack(
               alignment: Alignment.center,
               children: [

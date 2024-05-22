@@ -27,12 +27,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
             children: [
               Row(
                 children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.chevron_left,
-                          size: 30, color: Colors.white)),
+                  const BackButton(
+                    color: Colors.white,
+                  ),
                   Text(
                     widget.categoryName,
                     style: const TextStyle(

@@ -32,18 +32,8 @@ class RequestCodeScreen extends StatelessWidget {
                         width: 420,
                       ),
                     )),
-                Positioned(
-                    top: 50,
-                    left: 0,
-                    child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        color: Colors.white)),
+                const Positioned(
+                    top: 50, left: 0, child: BackButton(color: Colors.white)),
                 Stack(
                   alignment: Alignment.center,
                   children: [

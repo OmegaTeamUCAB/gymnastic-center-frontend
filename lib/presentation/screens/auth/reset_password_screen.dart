@@ -33,18 +33,12 @@ class ResetPasswordScreen extends StatelessWidget {
                         width: 420,
                       ),
                     )),
-                Positioned(
+                const Positioned(
                     top: 50,
                     left: 0,
-                    child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        color: Colors.white)),
+                    child: BackButton(
+                      color: Colors.white,
+                    )),
                 Stack(
                   alignment: Alignment.center,
                   children: [
