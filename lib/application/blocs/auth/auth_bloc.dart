@@ -24,6 +24,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoggedIn>(_logIn);
     on<SignedUp>(_signUp);
     on<SignedOut>(_logout);
+    on<CodeRequested>(_requestCode);
+    on<CodeVerified>(_verifyCode);
+    on<PasswordUpdated>(_updatePassword);
     add(const VerifiedUser());
   }
 
@@ -70,4 +73,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthState());
     }
   }
+
+  void _requestCode(CodeRequested event, Emitter<AuthState> emit) async {}
+
+  void _verifyCode(CodeVerified event, Emitter<AuthState> emit) async {}
+
+  void _updatePassword(PasswordUpdated event, Emitter<AuthState> emit) async {}
 }

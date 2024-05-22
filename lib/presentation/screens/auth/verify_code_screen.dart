@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/verify_account_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
-class VerifyAccountScreen extends StatelessWidget {
-  const VerifyAccountScreen({super.key});
+class VerifyCodeScreen extends StatelessWidget {
+  const VerifyCodeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

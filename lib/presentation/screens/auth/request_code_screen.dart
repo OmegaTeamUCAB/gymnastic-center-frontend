@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/login_form.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/request_code_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RequestCodeScreen extends StatelessWidget {
+  const RequestCodeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Positioned(
-                      bottom: -160,
+                      bottom: -210,
                       right: -140,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
@@ -70,11 +70,11 @@ class LoginScreen extends StatelessWidget {
                                     .showSnackBar(SnackBar(
                                   content: Text(state.message),
                                   backgroundColor: Colors.red,
-                                  duration: const Duration(seconds: 2),
+                                  duration: const Duration(milliseconds: 300),
                                 ));
                               }
                             },
-                            child: const LoginForm(),
+                            child: const RequestCodeForm(),
                           ),
                         )),
                       ),

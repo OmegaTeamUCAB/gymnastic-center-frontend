@@ -30,3 +30,21 @@ class SignedOut extends AuthEvent {
 class VerifiedUser extends AuthEvent {
   const VerifiedUser();
 }
+
+class CodeRequested extends AuthEvent {
+  final String email;
+
+  const CodeRequested({required this.email});
+}
+
+class CodeVerified extends AuthEvent {
+  final String code;
+
+  const CodeVerified({required this.code});
+}
+
+class PasswordUpdated extends AuthEvent {
+  final String newPassword;
+
+  const PasswordUpdated({required this.newPassword});
+}
