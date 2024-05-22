@@ -1,19 +1,24 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/auth/reset_password_screen.dart';
 import 'package:pinput/pinput.dart';
 
-class VerifyAccountForm extends StatefulWidget {
+class VerifyCodeForm extends StatefulWidget {
   final String email;
-  const VerifyAccountForm({super.key, required this.email});
+  const VerifyCodeForm({super.key, required this.email});
 
   @override
-  State<VerifyAccountForm> createState() => _VerifyAccountFormState();
+  State<VerifyCodeForm> createState() => _VerifyCodeFormState();
 }
 
-class _VerifyAccountFormState extends State<VerifyAccountForm> {
+class _VerifyCodeFormState extends State<VerifyCodeForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String verificationCode = '';
   @override
   Widget build(BuildContext context) {
+    final authBloc = context.watch<AuthBloc>();
     const defaultPinTheme = PinTheme(
         width: 60,
         height: 60,
@@ -63,6 +68,12 @@ class _VerifyAccountFormState extends State<VerifyAccountForm> {
               verificationCode = value;
             },
             onCompleted: (value) {
+              authBloc.add(CodeVerified(code: value));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ResetPasswordScreen()),
+              );
               print('THIS IS THE CODE: $verificationCode ');
             },
           ),

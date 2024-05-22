@@ -43,8 +43,8 @@ class CodeVerified extends AuthEvent {
   const CodeVerified({required this.code});
 }
 
-class PasswordUpdated extends AuthEvent {
+class PasswordReset extends AuthEvent {
   final String newPassword;
 
-  const PasswordUpdated({required this.newPassword});
+  const PasswordReset({required this.newPassword});
 }

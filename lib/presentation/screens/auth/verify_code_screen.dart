@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/verify_account_form.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/verify_code_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class VerifyCodeScreen extends StatelessWidget {
@@ -68,7 +68,7 @@ class VerifyCodeScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                               gradient: brandGradient),
                           child: SingleChildScrollView(
-                            child: VerifyAccountForm(email: email),
+                            child: VerifyCodeForm(email: email),
                           ),
                         ),
                       ],
