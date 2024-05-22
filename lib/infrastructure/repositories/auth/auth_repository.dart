@@ -22,6 +22,19 @@ class AuthResponse implements IAuthResponse {
   }
 }
 
+class PasswordResetResponse implements IPasswordResetResponse {
+  @override
+  final bool success;
+
+  PasswordResetResponse({required this.success});
+
+  factory PasswordResetResponse.fromJson(Map<String, dynamic> json) {
+    return PasswordResetResponse(
+      success: json['success'],
+    );
+  }
+}
+
 class AuthRepository implements IAuthRepository {
   final IHttpManager _httpConnectionManager;
   final LocalDataSource _localDataSource;
@@ -85,6 +98,48 @@ class AuthRepository implements IAuthRepository {
     if (result.isError) {
       await _localDataSource.removeKey('token');
     }
+    return result;
+  }
+
+  @override
+  Future<Result<IPasswordResetResponse>> requestCode(
+      {required String email}) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'auth/requestCode',
+      httpMethod: 'POST',
+      body: jsonEncode({'email': email}),
+      mapperCallBack: (data) {
+        return PasswordResetResponse.fromJson(data);
+      },
+    );
+    return result;
+  }
+
+  @override
+  Future<Result<IPasswordResetResponse>> resetPassword(
+      {required String email, required String newPassword}) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'auth/resetPassword',
+      httpMethod: 'POST',
+      body: jsonEncode({'email': email, 'password': newPassword}),
+      mapperCallBack: (data) {
+        return PasswordResetResponse.fromJson(data);
+      },
+    );
+    return result;
+  }
+
+  @override
+  Future<Result<IPasswordResetResponse>> verifyCode(
+      {required String email, required String code}) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'auth/checkCode',
+      httpMethod: 'POST',
+      body: jsonEncode({'email': email, 'code': code}),
+      mapperCallBack: (data) {
+        return PasswordResetResponse.fromJson(data);
+      },
+    );
     return result;
   }
 }

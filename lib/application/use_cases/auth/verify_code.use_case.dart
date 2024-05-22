@@ -3,9 +3,10 @@ import 'package:gymnastic_center/core/use_case.dart';
 import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
 
 class VerifyCodeDto {
+  final String email;
   final String code;
 
-  VerifyCodeDto({required this.code});
+  VerifyCodeDto(this.email, {required this.code});
 }
 
 class VerifyCodeUseCase
@@ -19,6 +20,7 @@ class VerifyCodeUseCase
   @override
   Future<Result<IPasswordResetResponse>> execute(VerifyCodeDto dto) async {
     final result = await _authRepository.verifyCode(
+      email: dto.email,
       code: dto.code,
     );
     if (result.isSuccessful) {

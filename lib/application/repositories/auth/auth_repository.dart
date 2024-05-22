@@ -25,7 +25,8 @@ abstract class IAuthRepository {
   });
   Future<Result<IAuthResponse>> verifyUser();
   Future<Result<IPasswordResetResponse>> requestCode({required String email});
-  Future<Result<IPasswordResetResponse>> verifyCode({required String code});
+  Future<Result<IPasswordResetResponse>> verifyCode(
+      {required String email, required String code});
   Future<Result<IPasswordResetResponse>> resetPassword(
-      {required String newPassword});
+      {required String email, required String newPassword});
 }

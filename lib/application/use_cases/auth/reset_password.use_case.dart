@@ -3,9 +3,10 @@ import 'package:gymnastic_center/core/use_case.dart';
 import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
 
 class ResetPasswordDto {
+  final String email;
   final String newPassword;
 
-  ResetPasswordDto({required this.newPassword});
+  ResetPasswordDto(this.email, {required this.newPassword});
 }
 
 class ResetPasswordUseCase
@@ -19,6 +20,7 @@ class ResetPasswordUseCase
   @override
   Future<Result<IPasswordResetResponse>> execute(ResetPasswordDto dto) async {
     final result = await _authRepository.resetPassword(
+      email: dto.email,
       newPassword: dto.newPassword,
     );
     if (result.isSuccessful) {
