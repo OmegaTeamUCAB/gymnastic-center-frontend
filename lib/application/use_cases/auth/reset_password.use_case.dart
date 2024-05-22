@@ -6,7 +6,7 @@ class ResetPasswordDto {
   final String email;
   final String newPassword;
 
-  ResetPasswordDto(this.email, {required this.newPassword});
+  ResetPasswordDto({required this.email, required this.newPassword});
 }
 
 class ResetPasswordUseCase

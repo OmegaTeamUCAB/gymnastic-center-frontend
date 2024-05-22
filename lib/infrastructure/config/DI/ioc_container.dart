@@ -10,7 +10,10 @@ import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/logout.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/request_code.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/reset_password.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
@@ -48,14 +51,21 @@ class IoCContainer {
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
     final logoutUseCase = LogoutUseCase(localDataSource: secureStorage);
     final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
+    final requestCodeUseCase = RequestCodeUseCase(authRepository);
+    final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
+    final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
     getIt.registerSingleton<GetBlogByIdUseCase>(getBlogByIdUseCase);
     //BLOCS
     getIt.registerSingleton<AuthBloc>(AuthBloc(
-        logoutUseCase: logoutUseCase,
-        loginUseCase: loginUseCase,
-        signUpUseCase: signUpUseCase,
-        getUserFromTokenUseCase: getUserFromTokenUseCase));
+      logoutUseCase: logoutUseCase,
+      loginUseCase: loginUseCase,
+      signUpUseCase: signUpUseCase,
+      requestCodeUseCase: requestCodeUseCase,
+      verifyCodeUseCase: verifyCodeUseCase,
+      resetPasswordUseCase: resetPasswordUseCase,
+      getUserFromTokenUseCase: getUserFromTokenUseCase,
+    ));
     getIt.registerSingleton<BlogDetailBloc>(
         BlogDetailBloc(getBlogUseCase: getBlogByIdUseCase));
     getIt.registerSingleton<NotificationsBloc>(NotificationsBloc(

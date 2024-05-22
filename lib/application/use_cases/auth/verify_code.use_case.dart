@@ -6,7 +6,7 @@ class VerifyCodeDto {
   final String email;
   final String code;
 
-  VerifyCodeDto(this.email, {required this.code});
+  VerifyCodeDto({required this.email, required this.code});
 }
 
 class VerifyCodeUseCase
