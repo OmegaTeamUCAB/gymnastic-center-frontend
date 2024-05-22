@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
-import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
-import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/request_code_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 

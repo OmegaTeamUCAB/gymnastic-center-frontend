@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
-import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
-import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/login_form.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/reset_password_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -36,6 +32,18 @@ class ResetPasswordScreen extends StatelessWidget {
                         width: 420,
                       ),
                     )),
+                Positioned(
+                    top: 50,
+                    left: 0,
+                    child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_rounded,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        color: Colors.white)),
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -52,7 +60,7 @@ class ResetPasswordScreen extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onBackground,
                         ),
                         child: const SingleChildScrollView(
-                          child: LoginForm(),
+                          child: ResetPasswordForm(),
                         ),
                       ),
                     ),
