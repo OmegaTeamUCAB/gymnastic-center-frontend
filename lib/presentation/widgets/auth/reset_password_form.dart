@@ -5,7 +5,8 @@ import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
 
 class ResetPasswordForm extends StatefulWidget {
-  const ResetPasswordForm({super.key});
+  final String email;
+  const ResetPasswordForm({super.key, required this.email});
 
   @override
   State<ResetPasswordForm> createState() => ResetPasswordFormState();
@@ -24,7 +25,8 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
     void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-      authBloc.add(PasswordReset(newPassword: newPassword));
+      authBloc
+          .add(PasswordReset(email: widget.email, newPassword: newPassword));
     }
 
     return Form(

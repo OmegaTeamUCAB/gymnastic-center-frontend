@@ -68,11 +68,12 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
               verificationCode = value;
             },
             onCompleted: (value) {
-              authBloc.add(CodeVerified(code: value));
+              authBloc.add(CodeVerified(email: widget.email, code: value));
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ResetPasswordScreen()),
+                    builder: (context) =>
+                        ResetPasswordScreen(email: widget.email)),
               );
               print('THIS IS THE CODE: $verificationCode ');
             },

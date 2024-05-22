@@ -3,7 +3,8 @@ import 'package:gymnastic_center/presentation/widgets/auth/reset_password_form.d
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  final String email;
+  const ResetPasswordScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +60,8 @@ class ResetPasswordScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                           color: Theme.of(context).colorScheme.onBackground,
                         ),
-                        child: const SingleChildScrollView(
-                          child: ResetPasswordForm(),
+                        child: SingleChildScrollView(
+                          child: ResetPasswordForm(email: email),
                         ),
                       ),
                     ),
