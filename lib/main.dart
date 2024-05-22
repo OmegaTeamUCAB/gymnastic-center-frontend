@@ -5,7 +5,6 @@ import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/DI/ioc_container.dart';
-import 'package:gymnastic_center/presentation/screens/auth/password_reset_success_screen.dart';
 import 'package:gymnastic_center/presentation/screens/auth/welcome_screen.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 
@@ -55,7 +54,7 @@ class App extends StatelessWidget {
       theme: getIt.get<ThemeBloc>().state.themeData,
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const PasswordResetSuccessScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
