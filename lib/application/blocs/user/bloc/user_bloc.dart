@@ -12,7 +12,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UpdateUser>((event, emit) {
       emit(state.copyWith(
         name: event.user.fullName,
-        password: event.user.password,
         email: event.user.email,
         phone: event.user.phoneNumber
       ));
