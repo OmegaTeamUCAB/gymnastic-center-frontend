@@ -134,27 +134,19 @@ class BlogDetail extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              PreferredSize(
-                                preferredSize: const Size(double.infinity, 100),
+                              const PreferredSize(
+                                preferredSize: Size(double.infinity, 100),
                                 child: CustomAppBar(
                                   content: Padding(
-                                    padding: const EdgeInsets.only(bottom: 15),
+                                    padding: EdgeInsets.only(bottom: 15),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        IconButton(
-                                            icon: const Icon(
-                                              Icons.chevron_left,
-                                              color: Colors.white,
-                                              size: 30,
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            }),
-                                        const Text(
+                                        BackButton(),
+                                        Text(
                                           'Blog',
                                           style: TextStyle(
                                               color: Colors.white,

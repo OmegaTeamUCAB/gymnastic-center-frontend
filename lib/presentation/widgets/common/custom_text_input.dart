@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextInput extends StatelessWidget {
   final String? labelText;
+  final String? initialValue;
   final String hintText;
   final String? errorText;
   final bool obscureText;
@@ -15,6 +16,7 @@ class CustomTextInput extends StatelessWidget {
   const CustomTextInput({
     super.key,
     this.labelText,
+    this.initialValue,
     required this.hintText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
@@ -29,6 +31,7 @@ class CustomTextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(

@@ -7,25 +7,16 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 100),
+          preferredSize: Size(double.infinity, 100),
           child: CustomAppBar(
             content: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.chevron_left,
-                        size: 30,
-                        color: Colors.white,
-                      ), // Ícono de flecha hacia la izquierda
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    const Text(
+                    BackButton(),
+                    Text(
                       'Edit Profile',
                       style: TextStyle(
                           color: Colors.white,
@@ -35,7 +26,7 @@ class EditProfile extends StatelessWidget {
                   ],
                 )),
           )),
-      body: const EditProfileFrom(),
+      body: EditProfileFrom(),
     );
   }
 }

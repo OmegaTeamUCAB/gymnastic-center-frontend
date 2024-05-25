@@ -11,77 +11,83 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-            decoration: const BoxDecoration(gradient: brandGradient),
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Positioned(
-                    top: 90,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        'assets/logo_white.png',
-                        width: 205,
-                      ),
-                    )),
-                Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        'assets/particles.png',
-                        width: 420,
-                      ),
-                    )),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned(
-                      bottom: -160,
-                      right: -140,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 50, horizontal: 150),
-                        width: 685.0,
-                        height: 685.0,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).colorScheme.onBackground,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+          body: Container(
+              decoration: const BoxDecoration(gradient: brandGradient),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Positioned(
+                      top: 90,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/logo_white.png',
+                          width: 205,
                         ),
-                        child: SingleChildScrollView(
-                            child: BlocProvider(
-                          create: (context) => LoginBloc(),
-                          child: BlocListener<AuthBloc, AuthState>(
-                            listener: (context, state) {
-                              if (state is Authenticated) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MainScreen()),
-                                );
-                              }
-                              if (state is AuthError) {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(state.message),
-                                  backgroundColor: Colors.red,
-                                  duration: const Duration(milliseconds: 300),
-                                ));
-                              }
-                            },
-                            child: const LoginForm(),
+                      )),
+                  Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/particles.png',
+                          width: 420,
+                        ),
+                      )),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        bottom: -160,
+                        right: -140,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 50, horizontal: 150),
+                          width: 685.0,
+                          height: 685.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
-                        )),
+                          child: SingleChildScrollView(
+                              child: BlocProvider(
+                            create: (context) => LoginBloc(),
+                            child: BlocListener<AuthBloc, AuthState>(
+                              listener: (context, state) {
+                                if (state is Authenticated) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MainScreen()),
+                                  );
+                                }
+                                if (state is AuthError) {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(state.message),
+                                    backgroundColor: Colors.red,
+                                    duration: const Duration(milliseconds: 300),
+                                  ));
+                                }
+                              },
+                              child: const LoginForm(),
+                            ),
+                          )),
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
-            )));
+                    ],
+                  )
+                ],
+              ))),
+    );
   }
 }

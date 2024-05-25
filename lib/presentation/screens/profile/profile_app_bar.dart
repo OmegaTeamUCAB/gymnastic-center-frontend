@@ -25,14 +25,7 @@ class ProfileAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.chevron_left,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
+                const BackButton(),
                 const SizedBox(
                   width: 12,
                 ),
