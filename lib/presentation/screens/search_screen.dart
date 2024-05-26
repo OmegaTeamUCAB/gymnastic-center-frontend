@@ -11,56 +11,57 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => SearchBloc(SearchRepository()),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              children: [
-                Container(
-                  //*makes searchBar clickable
-                  height: 155,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Expanded(
-                  child: SearchChips(),
-                ),
-              ],
-            ),
-            CustomAppBar(
-              content: Padding(
-                padding: const EdgeInsets.only(bottom: 24.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                        iconSize: 30,
-                        onPressed: () => Navigator.pop(context),
-                        color: Colors.white,
-                        icon: const Icon(Icons.chevron_left)),
-                    const Text(
-                      'Popular Search',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: BlocProvider(
+          create: (context) => SearchBloc(SearchRepository()),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    //*makes searchBar clickable
+                    height: 155,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Expanded(
+                    child: SearchChips(),
+                  ),
+                ],
+              ),
+              const CustomAppBar(
+                content: Padding(
+                  padding: EdgeInsets.only(bottom: 24.0),
+                  child: Row(
+                    children: [
+                      BackButton(),
+                      Text(
+                        'Popular Search',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const Positioned(
-                top: 110,
-                left: 0.0,
-                right: 0.0,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                  child: CustomSearchBar(),
-                )),
-          ],
+              const Positioned(
+                  top: 110,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: CustomSearchBar(),
+                  )),
+            ],
+          ),
         ),
       ),
     );

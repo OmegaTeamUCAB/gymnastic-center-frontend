@@ -83,11 +83,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   padding: const EdgeInsets.only(bottom: 15),
                   child: Row(
                     children: [
-                      IconButton(
-                          iconSize: 30,
-                          onPressed: () => Navigator.pop(context),
-                          color: Colors.white,
-                          icon: const Icon(Icons.chevron_left)),
+                      const BackButton(),
                       Text(
                         course.name,
                         style: const TextStyle(
