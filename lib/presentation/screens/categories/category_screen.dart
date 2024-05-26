@@ -21,7 +21,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 130),
+        preferredSize: const Size(double.infinity, 150),
         child: CustomAppBar(
           content: Column(
             children: [
