@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 class CourseDetailInfoCard extends StatelessWidget {
   final IconData iconData;
   final String label;
-
-  final onPressed;
   const CourseDetailInfoCard({
     super.key,
     required this.iconData,
     required this.label,
-    this.onPressed,
   });
 
   @override
