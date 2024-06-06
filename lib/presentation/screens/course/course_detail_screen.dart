@@ -116,8 +116,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CourseDetailInfoCard(
-                  title: 'Level',
-                  captionNumber: course.level.toString(),
+                  label: 'Level ${course.level.toString()}',
                   iconData: Icons.menu,
                   onPressed: () {
                     Navigator.push(
@@ -129,15 +128,13 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   },
                 ),
                 CourseDetailInfoCard(
-                  title: 'Weeks',
+                  label: '${course.weeks.toString()} Weeks',
                   onPressed: () {},
-                  captionNumber: course.weeks.toString(),
                   iconData: Icons.calendar_month_sharp,
                 ),
                 CourseDetailInfoCard(
-                  title: 'Mins',
+                  label: '${course.minutes.toString()} mins',
                   onPressed: () {},
-                  captionNumber: course.minutes.toString(),
                   iconData: Icons.watch_later_outlined,
                 ),
               ],
