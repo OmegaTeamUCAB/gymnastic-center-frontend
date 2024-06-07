@@ -17,10 +17,17 @@ class UserRepository extends IUserRepository{
     final response = await dio.put(url,data: user);
     final users = User.fromJson(response.data);
     return users;
-   }
-   catch (e){
-    throw Exception();
-   }
+   } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw Exception(e.response?.data['message']);
+      }
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('Connection Timeout');
+      }
+      throw Exception('Something wrong happened');
+    } catch (e) {
+      throw Exception('Something wrong happened');
+    }
   }
 
 }
