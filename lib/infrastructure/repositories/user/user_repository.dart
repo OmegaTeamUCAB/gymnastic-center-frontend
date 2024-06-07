@@ -11,9 +11,16 @@ class UserRepository extends IUserRepository{
   ));
 
   @override
-  Future<void> editUser(User user) {
-    //TODO: implement repository
-    throw UnimplementedError();
+  Future<User> editUser(Map<String, dynamic> user) async{
+   try{
+    const String url = '/users/update';
+    final response = await dio.put(url,data: user);
+    final users = User.fromJson(response.data);
+    return users;
+   }
+   catch (e){
+    throw Exception();
+   }
   }
 
 }
