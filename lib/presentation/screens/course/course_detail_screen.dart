@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
@@ -86,9 +89,9 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           SingleChildScrollView(
             controller: _scrollController,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
                 ),
@@ -144,7 +147,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                         'Start course',
                         style: TextStyle(
                             fontSize: 20,
-                            color: Theme.of(context).colorScheme.onBackground),
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       onPressed: () {
                         Navigator.push(
@@ -203,6 +206,48 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
             ),
           ),
           AnimatedPositioned(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut,
+              left: 0,
+              right: 0,
+              top: _showFab ? 0 : -140,
+              child: Container(
+                height: 95,
+                width: double.infinity,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      course.name,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              )),
+          Positioned(
+            top: 45,
+            left: 10,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Material(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.5),
+                    child: BackButton(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    )),
+              ),
+            ),
+          ),
+          AnimatedPositioned(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOut,
             left: 10,
@@ -213,7 +258,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 'Start course',
                 style: TextStyle(
                     fontSize: 20,
-                    color: Theme.of(context).colorScheme.onBackground),
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
               onPressed: () {
                 Navigator.push(
