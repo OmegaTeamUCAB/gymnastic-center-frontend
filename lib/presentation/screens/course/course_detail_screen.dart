@@ -96,7 +96,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               child: Container(
                 height: 95,
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
+                color: const Color(0xFF4F14A0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -104,31 +104,25 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                     child: Text(
                       course.name,
                       style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ),
                 ),
               )),
           Positioned(
-            top: 45,
-            left: 10,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(25),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Material(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.5),
-                    child: BackButton(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    )),
-              ),
-            ),
-          ),
+              top: 45,
+              left: 10,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF4F14A0),
+                  shape: BoxShape.circle,
+                ),
+                child: const BackButton(
+                  color: Colors.white,
+                ),
+              )),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOut,
