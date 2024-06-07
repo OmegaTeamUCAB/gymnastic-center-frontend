@@ -1,13 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
-import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
-import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_card.dart';
+import 'package:gymnastic_center/presentation/widgets/course/course_info.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   final String courseId;
@@ -53,7 +51,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   Widget build(BuildContext context) {
     final courseIsLoading = context.watch<CourseBloc>().state.isLoading;
     final course = context.watch<CourseBloc>().state.course;
-    final popularCourses = context.watch<CourseBloc>().state.popularCourses;
 
     if (courseIsLoading) {
       return const Scaffold(
@@ -86,124 +83,9 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          SingleChildScrollView(
-            controller: _scrollController,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-              ),
-              margin: const EdgeInsets.only(top: 365),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Column(
-                        children: [
-                          Text(
-                            course.name,
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          const Text(
-                            'John Doe',
-                            style: TextStyle(fontSize: 15),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CourseDetailInfoCard(
-                          label: 'Level ${course.level.toString()}',
-                          iconData: Icons.menu,
-                        ),
-                        CourseDetailInfoCard(
-                          label: '${course.weeks.toString()} Weeks',
-                          iconData: Icons.calendar_month_sharp,
-                        ),
-                        CourseDetailInfoCard(
-                          label: '${course.minutes.toString()} mins',
-                          iconData: Icons.watch_later_outlined,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    BrandButton(
-                      child: Text(
-                        'Start course',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  CourseContentScreen(course: course)),
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      course.description,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const Divider(
-                      height: 30,
-                    ),
-                    Text('15 Lessons',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.onPrimary)),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const Placeholder(
-                      fallbackHeight: 800,
-                      fallbackWidth: double.infinity,
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Text('More Most Popular Courses',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontSize: 20)),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    CourseCarrusel(
-                      width: double.infinity,
-                      courses: popularCourses,
-                      onTap: (courseId) {
-                        context
-                            .read<CourseBloc>()
-                            .add(GetCourseById(courseId: courseId));
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
+          CourseInfo(
+            course: course,
+            scrollController: _scrollController,
           ),
           AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
