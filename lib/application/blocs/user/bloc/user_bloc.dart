@@ -13,7 +13,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(
         name: event.user.fullName,
         email: event.user.email,
-        phone: event.user.phoneNumber
+        phone: event.user.phoneNumber,
+        image: event.user.image
       ));
     });
   }
