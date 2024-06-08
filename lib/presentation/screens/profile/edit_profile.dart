@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/edit_profile_from.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class StatisticsScreen extends StatelessWidget {
-  const StatisticsScreen({super.key});
+class EditProfile extends StatelessWidget {
+  const EditProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class StatisticsScreen extends StatelessWidget {
                   children: [
                     BackButton(),
                     Text(
-                      'Statistics',
+                      'Edit Profile',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -25,6 +26,7 @@ class StatisticsScreen extends StatelessWidget {
                   ],
                 )),
           )),
+      body: EditProfileFrom(),
     );
   }
 }
