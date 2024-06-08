@@ -8,8 +8,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class CategoryRepository implements ICategoryRepository {
   @override
   Future<Result<List<Category>>> getAllCategories() async {
-    final response =
-        await http.get(Uri.parse('${dotenv.env['API_URL']}/categories'));
+    final response = await http.get(
+        Uri.parse('${dotenv.env['API_URL']}/category/many?page=1&perPage=15'));
 
     if (response.statusCode == 200) {
       List<Category> categories = [];

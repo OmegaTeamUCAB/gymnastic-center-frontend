@@ -65,7 +65,7 @@ class BlogDetail extends StatelessWidget {
                                           child: Stack(
                                             children: [
                                               Image.network(
-                                                state.blog.imageUrl,
+                                                state.blog.images.first,
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
@@ -190,7 +190,8 @@ class BlogDetail extends StatelessWidget {
                               ],
                             ),
                           ),
-                          CommentExpansionPanel(comments: state.blog.comments),
+                          //TODO: FIGURE THIS OUT
+                          // CommentExpansionPanel(comments: state.blog.comments),
                         ],
                       ),
                     ),

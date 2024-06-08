@@ -26,7 +26,7 @@ class CourseRepository extends ICourseRepository {
   @override
   Future<Result<List<Course>>> getAllCourses() async {
     try {
-      final response = await dio.get('/courses');
+      final response = await dio.get('/course/many?page=1&perPage=15');
       final List<Course> courses = CourseMapper.fromJsonToList(response.data);
       return Result.success(courses);
     } on DioException catch (e) {
@@ -45,7 +45,7 @@ class CourseRepository extends ICourseRepository {
   @override
   Future<Course> getCourseById(String id) async {
     try {
-      final response = await dio.get('/courses/$id');
+      final response = await dio.get('/course/one/$id');
       final Course course = CourseMapper.fromJson(response.data);
       return course;
     } on DioException catch (e) {
@@ -64,7 +64,8 @@ class CourseRepository extends ICourseRepository {
   @override
   Future<Result<List<Course>>> getCoursesByCategory(String categoryId) async {
     try {
-      final response = await dio.get('/courses/category/$categoryId');
+      final response =
+          await dio.get('/course/many?page=1&perPage=15&category=$categoryId');
       final List<Course> courses = CourseMapper.fromJsonToList(response.data);
       return Result.success(courses);
     } on DioException catch (e) {
@@ -83,7 +84,8 @@ class CourseRepository extends ICourseRepository {
   @override
   Future<List<Course>> getCoursesByInstructor(String id) async {
     try {
-      final response = await dio.get('/courses/instructor/$id');
+      final response =
+          await dio.get('/course/many?page=1&perPage=15&trainer=$id');
       final List<Course> courses = CourseMapper.fromJsonToList(response.data);
       return courses;
     } on DioException catch (e) {

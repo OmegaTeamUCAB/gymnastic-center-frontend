@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/data/dummy_plan_setup_step.dart';
-import 'package:gymnastic_center/presentation/screens/auth/welcome_screen.dart';
+import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/plan-setup/plan_setup_step.dart';
 import 'package:gymnastic_center/presentation/widgets/onboarding/onboarding_items.dart';
@@ -34,7 +34,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const WelcomeScreen()));
+                      builder: (context) => const AuthOptionsScreen()));
             },
             icon: Icon(
               Icons.arrow_back,
@@ -56,7 +56,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen()));
+                          builder: (context) => const AuthOptionsScreen()));
                 },
               )
             : BrandButton(
@@ -76,7 +76,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen()),
+                          builder: (context) => const AuthOptionsScreen()),
                     );
                   }
                 },

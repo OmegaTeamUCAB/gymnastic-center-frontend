@@ -63,12 +63,12 @@ class AuthRepository implements IAuthRepository {
     required String password,
   }) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/signUp',
+      urlPath: 'auth/register',
       httpMethod: 'POST',
       body: jsonEncode({
         'email': email,
-        'fullName': fullName,
-        'phoneNumber': phoneNumber,
+        'name': fullName,
+        'phone': phoneNumber,
         'password': password
       }),
       mapperCallBack: (data) {
@@ -87,7 +87,7 @@ class AuthRepository implements IAuthRepository {
     _httpConnectionManager.updateHeaders(
         headerKey: 'Authorization', headerValue: 'Bearer $token');
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/currentUser',
+      urlPath: 'auth/current',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         return AuthResponse.fromJson(data);
@@ -105,7 +105,7 @@ class AuthRepository implements IAuthRepository {
   Future<Result<IPasswordResetResponse>> requestCode(
       {required String email}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/requestCode',
+      urlPath: 'auth/forget/password',
       httpMethod: 'POST',
       body: jsonEncode({'email': email}),
       mapperCallBack: (data) {
@@ -119,8 +119,8 @@ class AuthRepository implements IAuthRepository {
   Future<Result<IPasswordResetResponse>> resetPassword(
       {required String email, required String newPassword}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/resetPassword',
-      httpMethod: 'POST',
+      urlPath: 'auth/change/password',
+      httpMethod: 'PUT',
       body: jsonEncode({'email': email, 'password': newPassword}),
       mapperCallBack: (data) {
         return PasswordResetResponse.fromJson(data);
@@ -133,7 +133,7 @@ class AuthRepository implements IAuthRepository {
   Future<Result<IPasswordResetResponse>> verifyCode(
       {required String email, required String code}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/checkCode',
+      urlPath: 'auth/code/validate',
       httpMethod: 'POST',
       body: jsonEncode({'email': email, 'code': code}),
       mapperCallBack: (data) {

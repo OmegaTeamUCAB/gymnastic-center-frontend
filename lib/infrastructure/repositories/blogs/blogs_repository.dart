@@ -1,9 +1,9 @@
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
-import 'package:gymnastic_center/application/models/comment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
+// Weird stuff here
 class BlogsRepository implements IBlogRepository {
   final IHttpManager _httpConnectionManager;
 
@@ -12,32 +12,19 @@ class BlogsRepository implements IBlogRepository {
   @override
   Future<Result<List<Blog>>> getAllBlogs() async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'blog',
+      urlPath: 'blog/many?page=1&perPage=15',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Blog> blogs = [];
         for (var blog in data) {
-          List<Comment> comments = [];
-          if (blog['comments'] != null) {
-            for (var comment in blog['comments']) {
-              comments.add(Comment(
-                id: comment['id'],
-                userId: comment['userId'],
-                blogId: comment['blogId'],
-                content: comment['content'],
-                postedAt: DateTime.parse(comment['postedAt']),
-                isExpanded: false,
-              ));
-            }
-          }
           blogs.add(Blog(
             id: blog['id'],
-            imageUrl: blog['imageUrl'],
+            images: [blog['image']],
             title: blog['title'],
+            trainer: blog['trainer'],
             description: blog['description'],
             content: blog['content'],
-            uploadDate: DateTime.now(),
-            comments: comments,
+            uploadDate: blog['date'],
           ));
         }
         return blogs;
@@ -49,32 +36,19 @@ class BlogsRepository implements IBlogRepository {
   @override
   Future<Result<List<Blog>>> getBlogsByCategory(String categoryId) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'blog', //TODO: update the url path
+      urlPath: 'blog/many?page=1&perPage=10&category=$categoryId',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Blog> blogs = [];
         for (var blog in data) {
-          List<Comment> comments = [];
-          if (blog['comments'] != null) {
-            for (var comment in blog['comments']) {
-              comments.add(Comment(
-                id: comment['id'],
-                userId: comment['userId'],
-                blogId: comment['blogId'],
-                content: comment['content'],
-                postedAt: DateTime.parse(comment['postedAt']),
-                isExpanded: false,
-              ));
-            }
-          }
           blogs.add(Blog(
             id: blog['id'],
-            imageUrl: blog['imageUrl'],
+            images: [blog['image']],
             title: blog['title'],
+            trainer: blog['trainer'],
             description: blog['description'],
             content: blog['content'],
-            uploadDate: DateTime.now(),
-            comments: comments,
+            uploadDate: blog['date'],
           ));
         }
         return blogs;
@@ -87,29 +61,16 @@ class BlogsRepository implements IBlogRepository {
   Future<Result<Blog>> getBlogById(String blog) async {
     final result = await _httpConnectionManager.makeRequest(
       httpMethod: 'GET',
-      urlPath: 'blog/$blog',
+      urlPath: 'blog/one/$blog',
       mapperCallBack: (data) {
-        List<Comment> comments = [];
-        if (data['comments'] != null) {
-          for (var comment in data['comments']) {
-            comments.add(Comment(
-              id: comment['id'],
-              userId: comment['userId'],
-              blogId: comment['blogId'],
-              content: comment['content'],
-              postedAt: DateTime.parse(comment['postedAt']),
-              isExpanded: false,
-            ));
-          }
-        }
         return Blog(
           id: data['id'],
-          imageUrl: data['imageUrl'],
+          images: data['images'],
           title: data['title'],
+          trainer: data['trainer'],
           description: data['description'],
           content: data['content'],
-          uploadDate: DateTime.now(),
-          comments: comments,
+          uploadDate: data['date'],
         );
       },
     );

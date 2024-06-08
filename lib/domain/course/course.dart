@@ -10,7 +10,7 @@ class Course {
   final int minutes;
   final String imageUrl;
   final String categoryId;
-  final String instructorId;
+  final Trainer trainer;
   final List<Lesson> lessons;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -24,10 +24,20 @@ class Course {
     required this.weeks,
     required this.minutes,
     required this.imageUrl,
-    required this.instructorId,
+    required this.trainer,
     required this.categoryId,
     required this.lessons,
     required this.createdAt,
     required this.updatedAt,
+  });
+}
+
+class Trainer {
+  final String id;
+  final String name;
+
+  Trainer({
+    required this.id,
+    required this.name,
   });
 }

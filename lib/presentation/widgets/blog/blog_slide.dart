@@ -31,7 +31,7 @@ class ImprovedBlogSlide extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                blog.imageUrl,
+                blog.images.first,
                 height: 170,
                 width: double.infinity,
                 fit: BoxFit.cover,

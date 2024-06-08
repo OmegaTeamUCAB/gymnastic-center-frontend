@@ -82,7 +82,7 @@ class BlogsByCategoryGrid extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          state.blogs[i].imageUrl,
+                          state.blogs[i].images.first,
                           fit: BoxFit.cover,
                         ),
                       ),
