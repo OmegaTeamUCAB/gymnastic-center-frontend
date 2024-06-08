@@ -2,102 +2,66 @@ import 'package:dio/dio.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/domain/course/course_repository.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 import 'package:gymnastic_center/infrastructure/mappers/course/course_mapper.dart';
 
 class CourseRepository extends ICourseRepository {
-  final Dio dio = Dio(BaseOptions(
-    baseUrl: Environment.getApiUrl(),
-  ));
+  final IHttpManager _httpConnectionManager;
 
-  @override
-  Future<Course> createUpdateCourse(Map<String, dynamic> courseDto) {
-    // TODO: implement createUpdateCourse
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> createUpdateLessonComment(
-      Map<String, dynamic> lessonCommentDto) {
-    // TODO: implement createUpdateLessonComment
-    throw UnimplementedError();
-  }
+  CourseRepository(this._httpConnectionManager);
 
   @override
   Future<Result<List<Course>>> getAllCourses() async {
-    try {
-      final response = await dio.get('/course/many?page=1&perPage=15');
-      final List<Course> courses = CourseMapper.fromJsonToList(response.data);
-      return Result.success(courses);
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        throw Exception(e.response?.data['message']);
-      }
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('Connection Timeout');
-      }
-      throw Exception('Something wrong happened');
-    } catch (e) {
-      throw Exception('Something wrong happened');
-    }
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'course/many?page=1&perPage=15',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<Course> courses = [];
+        courses = CourseMapper.fromJsonToList(data);
+        return courses;
+      },
+    );
+    return result;
   }
 
   @override
-  Future<Course> getCourseById(String id) async {
-    try {
-      final response = await dio.get('/course/one/$id');
-      final Course course = CourseMapper.fromJson(response.data);
-      return course;
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        throw Exception(e.response?.data['message']);
-      }
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('Connection Timeout');
-      }
-      throw Exception('Something wrong happened');
-    } catch (e) {
-      throw Exception('Something wrong happened');
-    }
+  Future<Result<Course>> getCourseById(String id) async {
+    final response = await _httpConnectionManager.makeRequest(
+      urlPath: '/course/one/$id',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        final Course course = CourseMapper.fromJson(data);
+        return course;
+      },
+    );
+    return response;
   }
 
   @override
   Future<Result<List<Course>>> getCoursesByCategory(String categoryId) async {
-    try {
-      final response =
-          await dio.get('/course/many?page=1&perPage=15&category=$categoryId');
-      final List<Course> courses = CourseMapper.fromJsonToList(response.data);
-      return Result.success(courses);
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        throw Exception(e.response?.data['message']);
-      }
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('Connection Timeout');
-      }
-      throw Exception('Something wrong happened');
-    } catch (e) {
-      throw Exception(e.hashCode);
-    }
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'course/many?page=1&perPage=10&category=$categoryId',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<Course> courses = [];
+        courses = CourseMapper.fromJsonToList(data);
+        return courses;
+      },
+    );
+    return result;
   }
 
   @override
-  Future<List<Course>> getCoursesByInstructor(String id) async {
-    try {
-      final response =
-          await dio.get('/course/many?page=1&perPage=15&trainer=$id');
-      final List<Course> courses = CourseMapper.fromJsonToList(response.data);
-      return courses;
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        throw Exception(e.response?.data['message']);
-      }
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('Connection Timeout');
-      }
-      throw Exception('Something wrong happened');
-    } catch (e) {
-      throw Exception('Something wrong happened');
-    }
+  Future<Result<List<Course>>> getCoursesByInstructor(String id) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: '/course/many?page=1&perPage=15&trainer=$id',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<Course> courses = [];
+        courses = CourseMapper.fromJsonToList(data);
+        return courses;
+      },
+    );
+    return result;
   }
 }

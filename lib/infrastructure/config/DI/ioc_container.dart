@@ -42,14 +42,15 @@ class IoCContainer {
     //REPOSITORIES
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
     final blogRepository = BlogsRepository(httpConnectionManager);
-    final categoryRepository = CategoryRepository();
-    final courseRepository = CourseRepository();
-    final searchRepository = SearchRepository();
+    final categoryRepository = CategoryRepository(httpConnectionManager);
+    //TODO: use httpConnectionManager
+    final courseRepository = CourseRepository(httpConnectionManager);
+    final searchRepository = SearchRepository(httpConnectionManager);
     //USE CASES
     final getUserFromTokenUseCase =
         GetUserFromTokenUseCase(authRepository, secureStorage);
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
-    final logoutUseCase = LogoutUseCase(localDataSource: secureStorage);
+    final logoutUseCase = LogoutUseCase(authRepository);
     final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
     final requestCodeUseCase = RequestCodeUseCase(authRepository);
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);

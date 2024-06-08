@@ -25,7 +25,8 @@ class HttpManagerImpl extends IHttpManager {
           ),
           queryParameters: queryParams);
       return Result.success<T>(mapperCallBack(response.data));
-    } on DioException {
+    } on DioException catch (e) {
+      print('DioException: ${e.message}');
       return Result.failure<T>(const NetworkException());
     } catch (e) {
       return Result.failure<T>(const UnknownException());

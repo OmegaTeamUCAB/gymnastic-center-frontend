@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
@@ -10,8 +12,8 @@ class CoursesByCategoryList extends StatelessWidget {
   final String categoryId;
   late final CoursesByCategoryBloc bloc;
   CoursesByCategoryList({super.key, required this.categoryId}) {
-    bloc =
-        CoursesByCategoryBloc(GetCoursesByCategoryUseCase(CourseRepository()));
+    bloc = CoursesByCategoryBloc(GetCoursesByCategoryUseCase(
+        CourseRepository(HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
   }
 
   @override

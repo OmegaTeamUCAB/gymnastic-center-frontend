@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_categories/all_categories_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/presentation/screens/categories/category_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/carousel_header.dart';
@@ -11,7 +13,8 @@ class CategoryCarousel extends StatelessWidget {
   late final AllCategoriesBloc bloc;
 
   CategoryCarousel({super.key}) {
-    bloc = AllCategoriesBloc(GetAllCategoriesUseCase(CategoryRepository()));
+    bloc = AllCategoriesBloc(GetAllCategoriesUseCase(
+        CategoryRepository(HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
   }
 
   @override

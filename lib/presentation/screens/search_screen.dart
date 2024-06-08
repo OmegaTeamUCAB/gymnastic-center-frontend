@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
@@ -17,7 +19,8 @@ class SearchScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: BlocProvider(
-          create: (context) => SearchBloc(SearchRepository()),
+          create: (context) => SearchBloc(SearchRepository(
+              HttpManagerImpl(baseUrl: Environment.getApiUrl()))),
           child: Stack(
             clipBehavior: Clip.none,
             children: [

@@ -3,7 +3,6 @@ import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
-// Weird stuff here
 class BlogsRepository implements IBlogRepository {
   final IHttpManager _httpConnectionManager;
 

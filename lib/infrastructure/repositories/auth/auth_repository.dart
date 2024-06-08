@@ -52,6 +52,9 @@ class AuthRepository implements IAuthRepository {
         return AuthResponse.fromJson(data);
       },
     );
+    final token = result.unwrap().token;
+    _httpConnectionManager.updateHeaders(
+        headerKey: 'Authorization', headerValue: 'Bearer $token');
     return result;
   }
 
@@ -93,8 +96,6 @@ class AuthRepository implements IAuthRepository {
         return AuthResponse.fromJson(data);
       },
     );
-    _httpConnectionManager.updateHeaders(
-        headerKey: 'Authorization', headerValue: null);
     if (result.isError) {
       await _localDataSource.removeKey('token');
     }
@@ -141,5 +142,12 @@ class AuthRepository implements IAuthRepository {
       },
     );
     return result;
+  }
+
+  @override
+  logout() async {
+    await _localDataSource.removeKey('token');
+    _httpConnectionManager.updateHeaders(
+        headerKey: 'Authorization', headerValue: null);
   }
 }

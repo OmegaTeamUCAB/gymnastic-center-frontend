@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_all_courses.use_case.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
 
 class HomeCourseCarousel extends StatelessWidget {
   late final AllCoursesBloc bloc;
   HomeCourseCarousel({super.key}) {
-    bloc = AllCoursesBloc(GetAllCoursesUseCase(CourseRepository()));
+    bloc = AllCoursesBloc(GetAllCoursesUseCase(
+        CourseRepository(HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
   }
 
   @override

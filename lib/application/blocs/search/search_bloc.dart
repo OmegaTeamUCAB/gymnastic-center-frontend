@@ -21,7 +21,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     if (state.searchTerm.isNotEmpty) {
       final results = await searchRepository.search(event.searchTerm);
-      emit(state.copyWith(results: results, isLoading: false));
+      emit(state.copyWith(results: results.unwrap(), isLoading: false));
     }
   }
 
