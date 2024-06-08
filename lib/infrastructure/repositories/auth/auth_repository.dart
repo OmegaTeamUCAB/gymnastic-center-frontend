@@ -59,7 +59,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Result<AuthResponse>> signUp({
+  Future<Result<void>> signUp({
     required String email,
     required String fullName,
     required String phoneNumber,
@@ -75,7 +75,7 @@ class AuthRepository implements IAuthRepository {
         'password': password
       }),
       mapperCallBack: (data) {
-        return AuthResponse.fromJson(data);
+        return null;
       },
     );
     return result;
