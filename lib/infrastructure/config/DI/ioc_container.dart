@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/application/blocs/all_categories/all_categories_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:gymnastic_center/application/use_cases/auth/reset_password.use_c
 import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
@@ -56,8 +58,11 @@ class IoCContainer {
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
+    final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     getIt.registerSingleton<GetBlogByIdUseCase>(getBlogByIdUseCase);
     //BLOCS
+    getIt.registerSingleton<AllCategoriesBloc>(
+        AllCategoriesBloc(getAllCategoriesUseCase: getAllCategoriesUseCase));
     getIt.registerSingleton<AuthBloc>(AuthBloc(
       logoutUseCase: logoutUseCase,
       loginUseCase: loginUseCase,

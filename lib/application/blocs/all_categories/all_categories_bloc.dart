@@ -8,7 +8,7 @@ part 'all_categories_state.dart';
 
 class AllCategoriesBloc extends Bloc<AllCategoriesEvent, AllCategoriesState> {
   final GetAllCategoriesUseCase getAllCategoriesUseCase;
-  AllCategoriesBloc(this.getAllCategoriesUseCase)
+  AllCategoriesBloc({required this.getAllCategoriesUseCase})
       : super(AllCategoriesLoading()) {
     on<AllCategoriesRequested>(_getAllCategories);
   }
