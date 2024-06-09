@@ -161,24 +161,15 @@ class BlogDetailScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: [
-                                Text(
-                                  state.blog.description!,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                                ),
                                 const SizedBox(
                                   height: 25,
                                 ),
-                                // Text(
-                                //   state.blog.content!,
-                                //   style: const TextStyle(
-                                //     fontSize: 16,
-                                //   ),
-                                // ),
+                                Text(
+                                  state.blog.content!,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ],
                             ),
                           ),

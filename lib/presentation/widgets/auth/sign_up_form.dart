@@ -234,14 +234,9 @@ class _SignUpFormState extends State<SignUpForm> {
           authBloc.state is AuthLoading
               ? const CircularProgressIndicator()
               : BrandButton(
-                  isDarkMode: true,
+                  isVariant: true,
                   onPressed: onSubmit,
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 20),
-                  ),
+                  text: 'Sign up',
                 )
         ],
       ),

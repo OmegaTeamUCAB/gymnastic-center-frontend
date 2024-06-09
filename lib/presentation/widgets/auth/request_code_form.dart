@@ -94,15 +94,8 @@ class _RequestCodeFormState extends State<RequestCodeForm> {
                   ? const CircularProgressIndicator()
                   : BrandButton(
                       onPressed: onSubmit,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Text(
-                          'Send New Password',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 20),
-                        ),
-                      )),
+                      text: 'Send New Password',
+                    ),
             ],
           ),
         ),

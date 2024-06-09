@@ -115,15 +115,8 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                   ? const CircularProgressIndicator()
                   : BrandButton(
                       onPressed: onSubmit,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 20),
-                        ),
-                      )),
+                      text: 'Save',
+                    ),
             ],
           ),
         ),

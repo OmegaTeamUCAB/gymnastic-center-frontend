@@ -94,12 +94,8 @@ class _LoginFormState extends State<LoginForm> {
               ? const CircularProgressIndicator()
               : BrandButton(
                   onPressed: onSubmit,
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 20),
-                  )),
+                  text: 'Login',
+                ),
           TextButton(
             onPressed: () {
               Navigator.push(

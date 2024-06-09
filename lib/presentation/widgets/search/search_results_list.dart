@@ -120,7 +120,7 @@ class SearchResultsList extends StatelessWidget {
                             1; // Adjusted index
                         return ResultTile(
                           title: blogs[blogIndex].title,
-                          description: blogs[blogIndex].description!,
+                          description: blogs[blogIndex].content!,
                           onTap: () {
                             Navigator.push(
                               context,

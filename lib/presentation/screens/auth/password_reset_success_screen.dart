@@ -56,7 +56,7 @@ class PasswordResetSuccessScreen extends StatelessWidget {
                       height: 60,
                     ),
                     BrandButton(
-                      isDarkMode: true,
+                      isVariant: true,
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -64,13 +64,7 @@ class PasswordResetSuccessScreen extends StatelessWidget {
                               builder: (context) => const LoginScreen()),
                         );
                       },
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        child: Text(
-                          'Back to Login',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
+                      text: 'Back to Login',
                     )
                   ],
                 ),

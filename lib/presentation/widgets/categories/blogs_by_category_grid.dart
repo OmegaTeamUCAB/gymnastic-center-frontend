@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_event.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_detail.screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
 class BlogsByCategoryGrid extends StatelessWidget {
@@ -67,33 +68,44 @@ class BlogsByCategoryGrid extends StatelessWidget {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
-                itemBuilder: (ctx, i) => Card(
-                  elevation: 0,
-                  color: Colors.transparent,
-                  child: Column(
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          state.blogs[i].images.first,
-                          fit: BoxFit.cover,
+                itemBuilder: (ctx, i) => GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BlogDetailScreen(
+                                blogId: state.blogs[i].id,
+                              )),
+                    );
+                  },
+                  child: Card(
+                    elevation: 0,
+                    color: Colors.transparent,
+                    child: Column(
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            state.blogs[i].images.first,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(state.blogs[i].title,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      const SizedBox(height: 10),
-                      Text(state.blogs[i].trainer,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          )),
-                    ],
+                        const SizedBox(height: 10),
+                        Text(state.blogs[i].title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        const SizedBox(height: 10),
+                        Text(state.blogs[i].trainer,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            )),
+                      ],
+                    ),
                   ),
                 ),
               ),
