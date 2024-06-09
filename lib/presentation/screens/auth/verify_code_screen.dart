@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/verify_code_form.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class VerifyCodeScreen extends StatelessWidget {
@@ -37,7 +38,8 @@ class VerifyCodeScreen extends StatelessWidget {
             Positioned(
               top: 50,
               left: 0,
-              child: BackButton(color: Theme.of(context).colorScheme.primary),
+              child:
+                  BrandBackButton(color: Theme.of(context).colorScheme.primary),
             ),
             Stack(
               alignment: Alignment.center,

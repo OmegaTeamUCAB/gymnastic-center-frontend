@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class BackButton extends StatelessWidget {
+class BrandBackButton extends StatelessWidget {
   final Color color;
-  const BackButton({super.key, required this.color});
+  const BrandBackButton({super.key, this.color = Colors.white});
 
   @override
   Widget build(BuildContext context) {

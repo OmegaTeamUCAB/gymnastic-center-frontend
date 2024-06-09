@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class PrivacySettingsScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class PrivacySettingsScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    BackButton(),
+                    BrandBackButton(),
                     Text(
                       'Privacy',
                       style: TextStyle(

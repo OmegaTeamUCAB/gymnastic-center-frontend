@@ -15,28 +15,26 @@ class HomeScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
       body: ListView(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Categories',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
           const CategoryCarousel(),
           const SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Text(
-                  'Trending Courses',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Show all',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                )
-              ],
+            child: Text(
+              'Trending Courses',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
           const HomeCourseCarousel(),

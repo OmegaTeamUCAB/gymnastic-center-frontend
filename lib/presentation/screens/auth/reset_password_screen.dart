@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/reset_password_form.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -36,7 +37,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 const Positioned(
                     top: 50,
                     left: 0,
-                    child: BackButton(
+                    child: BrandBackButton(
                       color: Colors.white,
                     )),
                 Stack(

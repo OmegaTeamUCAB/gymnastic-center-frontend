@@ -6,7 +6,7 @@ class User {
   String get id => data['id'];
   String get fullName => data['fullName'];
   String get email => data['email'];
-  String get phoneNumber => data['phoneNumber'];
+  String get phoneNumber => data['phone'];
   String get image => data['image'];
   String get stats => data['stats'];
 
