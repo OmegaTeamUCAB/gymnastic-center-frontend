@@ -6,7 +6,8 @@ class Blog {
   final dynamic trainer;
   final String? content;
   final List<dynamic>? tags;
-  final String uploadDate;
+  final String? uploadDate;
+  final String? category;
 
   Blog({
     required this.id,
@@ -16,6 +17,7 @@ class Blog {
     this.content,
     required this.trainer,
     this.tags,
-    required this.uploadDate,
+    this.uploadDate,
+    this.category,
   });
 }

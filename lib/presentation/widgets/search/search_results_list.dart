@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
+import 'package:gymnastic_center/domain/blog/blog.dart';
+import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail.screen.dart';
 import 'package:gymnastic_center/presentation/widgets/search/result_tile.dart';
 
 class SearchResultsList extends StatelessWidget {
-  final List<dynamic> courses;
-  final List<dynamic> blogs;
+  final List<Course> courses;
+  final List<Blog> blogs;
   const SearchResultsList(
       {super.key, this.courses = const [], this.blogs = const []});
 
@@ -81,8 +83,8 @@ class SearchResultsList extends StatelessWidget {
                           courses.isNotEmpty) {
                         // Render Course ListTile
                         return ResultTile(
-                          title: courses[index - 1].title,
-                          description: courses[index - 1].description,
+                          title: courses[index - 1].name,
+                          description: courses[index - 1].description!,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -118,7 +120,7 @@ class SearchResultsList extends StatelessWidget {
                             1; // Adjusted index
                         return ResultTile(
                           title: blogs[blogIndex].title,
-                          description: blogs[blogIndex].description,
+                          description: blogs[blogIndex].description!,
                           onTap: () {
                             Navigator.push(
                               context,

@@ -5,7 +5,7 @@ class Course {
   final String name;
   final String? description;
   final int? level;
-  final List<String>? tags;
+  final dynamic tags;
   final int? weeks;
   final int? minutes;
   final String imageUrl;

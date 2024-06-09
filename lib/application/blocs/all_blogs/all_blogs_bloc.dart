@@ -8,7 +8,7 @@ part 'all_blogs_state.dart';
 
 class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState> {
   final GetAllBlogsUseCase getAllBlogsUseCase;
-  AllBlogsBloc({required this.getAllBlogsUseCase}) : super(AllBlogsLoading()) {
+  AllBlogsBloc(this.getAllBlogsUseCase) : super(AllBlogsLoading()) {
     on<AllBlogsRequested>(_getAllBlogs);
   }
 

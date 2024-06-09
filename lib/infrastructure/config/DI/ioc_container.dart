@@ -11,6 +11,7 @@ import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_ca
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
+import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
@@ -25,6 +26,7 @@ import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_categor
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_all_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
@@ -53,7 +55,6 @@ class IoCContainer {
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
     final blogRepository = BlogsRepository(httpConnectionManager);
     final categoryRepository = CategoryRepository(httpConnectionManager);
-    //TODO: use httpConnectionManager
     final courseRepository = CourseRepository(httpConnectionManager);
     final searchRepository = SearchRepository(httpConnectionManager);
     //USE CASES
@@ -70,19 +71,19 @@ class IoCContainer {
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     final getAllCoursesUseCase = GetAllCoursesUseCase(courseRepository);
     final getAllBlogsUseCase = GetAllBlogsUseCase(blogRepository);
+    final searchUseCase = SearchUseCase(searchRepository);
     final getCoursesByCategoryUseCase =
         GetCoursesByCategoryUseCase(courseRepository);
     //BLOCS
     getIt.registerSingleton<BlogsByCategoryBloc>(BlogsByCategoryBloc(
         getBlogsByCategoryUseCase: getBlogsByCategoryUseCase));
     getIt.registerSingleton<AllCoursesBloc>(
-        AllCoursesBloc(getAllCoursesUseCase: getAllCoursesUseCase));
+        AllCoursesBloc(getAllCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(
         CoursesByCategoryBloc(getCoursesByCategoryUseCase));
     getIt.registerSingleton<AllCategoriesBloc>(
-        AllCategoriesBloc(getAllCategoriesUseCase: getAllCategoriesUseCase));
-    getIt.registerSingleton<AllBlogsBloc>(
-        AllBlogsBloc(getAllBlogsUseCase: getAllBlogsUseCase));
+        AllCategoriesBloc(getAllCategoriesUseCase));
+    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getAllBlogsUseCase));
     getIt.registerSingleton<AuthBloc>(AuthBloc(
       logoutUseCase: logoutUseCase,
       loginUseCase: loginUseCase,
@@ -92,8 +93,8 @@ class IoCContainer {
       resetPasswordUseCase: resetPasswordUseCase,
       getUserFromTokenUseCase: getUserFromTokenUseCase,
     ));
-    getIt.registerSingleton<BlogDetailBloc>(
-        BlogDetailBloc(getBlogUseCase: getBlogByIdUseCase));
+    getIt.registerSingleton<SearchBloc>(SearchBloc(searchUseCase));
+    getIt.registerSingleton<BlogDetailBloc>(BlogDetailBloc(getBlogByIdUseCase));
     getIt.registerSingleton<NotificationsBloc>(NotificationsBloc(
         handler: NotificationHandler()..initializeLocalNotifications()));
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());

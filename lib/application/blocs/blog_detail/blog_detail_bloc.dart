@@ -8,7 +8,7 @@ part 'blog_detail_state.dart';
 class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
   final GetBlogByIdUseCase getBlogUseCase;
 
-  BlogDetailBloc({required this.getBlogUseCase}) : super(BlogDetailLoading()) {
+  BlogDetailBloc(this.getBlogUseCase) : super(BlogDetailLoading()) {
     on<BlogDetailRequested>(_getBlogDetail);
   }
 
@@ -16,7 +16,7 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
       BlogDetailRequested event, Emitter<BlogDetailState> emit) async {
     emit(BlogDetailLoading());
     final result = await getBlogUseCase.execute(GetBlogByIdDto(event.blogId));
-    if(result.isSuccessful) {
+    if (result.isSuccessful) {
       emit(BlogDetailLoaded(blog: result.unwrap()));
     } else {
       try {
