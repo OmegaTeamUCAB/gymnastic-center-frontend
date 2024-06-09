@@ -3,6 +3,7 @@ import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_card.dart';
+import 'package:gymnastic_center/presentation/widgets/course/lesson_list.dart';
 
 class CourseInfo extends StatelessWidget {
   final Course course;
@@ -90,16 +91,16 @@ class CourseInfo extends StatelessWidget {
               const Divider(
                 height: 30,
               ),
-              Text('15 Lessons',
+              Text('${course.lessons!.length} Lessons',
                   style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.onPrimary)),
               const SizedBox(
-                height: 12,
+                height: 24,
               ),
-              const Placeholder(
-                fallbackHeight: 800,
-                fallbackWidth: double.infinity,
+              LessonList(lessons: course.lessons!),
+              const SizedBox(
+                height: 120,
               ),
             ],
           ),
