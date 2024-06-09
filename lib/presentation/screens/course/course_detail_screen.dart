@@ -94,7 +94,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               right: 0,
               top: _showFab ? 0 : -140,
               child: Container(
-                height: 95,
+                height: 110,
                 width: double.infinity,
                 color: const Color(0xFF4F14A0),
                 child: Align(
@@ -112,7 +112,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 ),
               )),
           Positioned(
-              top: 45,
+              top: 60,
               left: 10,
               child: Container(
                 decoration: const BoxDecoration(
@@ -130,12 +130,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
             right: 10,
             bottom: _showFab ? 30 : -100,
             child: BrandButton(
-              child: Text(
-                'Start course',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.onSurface),
-              ),
+              text: 'Start Course',
               onPressed: () {
                 Navigator.push(
                   context,

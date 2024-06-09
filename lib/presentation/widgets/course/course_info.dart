@@ -69,12 +69,7 @@ class CourseInfo extends StatelessWidget {
                 height: 24,
               ),
               BrandButton(
-                child: Text(
-                  'Start course',
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Theme.of(context).colorScheme.onSurface),
-                ),
+                text: 'Start course',
                 onPressed: () {
                   Navigator.push(
                     context,

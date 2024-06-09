@@ -50,13 +50,7 @@ class AuthOptionsScreen extends StatelessWidget {
                   : [
                       Expanded(
                         child: BrandButton(
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 20),
-                            ),
+                            text: 'Login',
                             onPressed: () {
                               Navigator.push(
                                 context,

@@ -25,12 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: isLastPage
             ? BrandButton(
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 20),
-                ),
+                text: 'Get Started',
                 onPressed: () {
                   // final pres = await SharedPreferences.getInstance();
                   // pres.setBool("onboarding", true);

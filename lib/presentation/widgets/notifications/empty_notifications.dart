@@ -37,11 +37,7 @@ class EmptyNotifications extends StatelessWidget {
         ),
         BrandButton(
             width: double.infinity,
-            child: Text(
-              'Back to Feed',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
-            ),
+            text: 'Back to Feed',
             onPressed: () {
               Navigator.push(
                 context,

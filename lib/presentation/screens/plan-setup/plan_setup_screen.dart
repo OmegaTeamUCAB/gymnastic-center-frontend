@@ -46,12 +46,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
         child: isLastPage
             ? BrandButton(
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 20),
-                ),
+                text: 'Get Started',
                 onPressed: () {
                   Navigator.pushReplacement(
                       context,
@@ -60,12 +55,7 @@ class _PlanSetupScreenState extends State<PlanSetupScreen> {
                 },
               )
             : BrandButton(
-                child: Text(
-                  'Next',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 20),
-                ),
+                text: 'Next',
                 onPressed: () {
                   if (_pageController.hasClients &&
                       _pageController.page! < dummyPlanSetupSteps.length - 1) {

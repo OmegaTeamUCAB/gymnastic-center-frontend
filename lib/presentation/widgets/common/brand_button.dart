@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class BrandButton extends StatelessWidget {
-  final Widget child;
+  final String text;
   final VoidCallback onPressed;
   final double? width;
-  final bool isDarkMode;
+  final bool isVariant;
 
   const BrandButton({
     super.key,
-    required this.child,
+    required this.text,
     required this.onPressed,
     this.width = double.infinity,
-    this.isDarkMode = false,
+    this.isVariant = false,
   });
 
   @override
@@ -22,7 +22,7 @@ class BrandButton extends StatelessWidget {
       colors: [Color(0xFF4F14A0), Color(0xFF8066FF)],
     );
 
-    if (Theme.of(context).brightness == Brightness.dark || isDarkMode) {
+    if (isVariant) {
       return SizedBox(
         width: width,
         child: TextButton(
@@ -30,25 +30,35 @@ class BrandButton extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(Colors.white),
             ),
             onPressed: onPressed,
-            child: child),
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 20, color: Color(0xFF4F14A0)),
+            )),
       );
     }
 
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromRGBO(114, 79, 227, 0.17),
-            blurRadius: 22.0,
-            spreadRadius: 0.0,
-            offset: Offset(0, 14.0),
-          ),
-        ],
+        boxShadow: Theme.of(context).brightness == Brightness.light
+            ? const [
+                BoxShadow(
+                  color: Color.fromRGBO(114, 79, 227, 0.17),
+                  blurRadius: 22.0,
+                  spreadRadius: 0.0,
+                  offset: Offset(0, 14.0),
+                ),
+              ]
+            : null, // no boxShadow in dark theme
         gradient: gradient,
       ),
       width: width,
-      child: TextButton(onPressed: onPressed, child: child),
+      child: TextButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 20, color: Colors.white),
+          )),
     );
   }
 }

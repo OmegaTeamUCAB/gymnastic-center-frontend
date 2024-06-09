@@ -88,12 +88,7 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
                 height: 60,
                 child: BrandButton(
                   onPressed: () {},
-                  child: Text(
-                    'Select',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 24),
-                  ),
+                  text: 'Select',
                 ),
               ),
             ),
