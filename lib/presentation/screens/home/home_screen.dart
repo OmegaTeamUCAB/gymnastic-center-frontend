@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
@@ -15,8 +10,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final popularCourses = context.watch<CourseBloc>().state.popularCourses;
-
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
