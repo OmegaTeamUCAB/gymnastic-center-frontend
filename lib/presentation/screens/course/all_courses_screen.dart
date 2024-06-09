@@ -5,7 +5,7 @@ import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
-import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
+import 'package:gymnastic_center/presentation/widgets/course/all_courses_list.dart';
 
 class AllCoursesScreen extends StatelessWidget {
   const AllCoursesScreen({super.key});
@@ -57,41 +57,7 @@ class AllCoursesScreen extends StatelessWidget {
                     child: NoResults(),
                   );
                 }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        '${state.courses.length} Courses',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.courses.length,
-                        itemBuilder: (context, index) {
-                          return CourseTile(course: state.courses[index]);
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 60,
-                    )
-                  ],
-                );
+                return CoursesList(courses: state.courses);
               } else {
                 return const Center(
                   child: Text('Error'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/screens/blog/all_blogs.screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
 
@@ -62,12 +63,30 @@ class HomeScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(15),
-            child: Text(
-              'Popular Blogs',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onPrimary),
+            child: Row(
+              children: [
+                Text(
+                  'Popular Blogs',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AllBlogsScreen()),
+                    );
+                  },
+                  child: const Text(
+                    'Show all',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                )
+              ],
             ),
           ),
           const BlogCarousel(),
