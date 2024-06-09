@@ -36,12 +36,11 @@ class SearchRepository implements ISearchRepository {
           blogs.add(Blog(
             id: blog['id'],
             title: blog['title'],
-            description: blog['description'],
+            content: blog['description'],
             tags: [blog['tags']],
             images: [blog['imageUrl']],
             category: blog['categoryName'],
             trainer: blog['instructorName'],
-            content: blog['content'],
           ));
         }
         return SearchResults(courses: courses, blogs: blogs);

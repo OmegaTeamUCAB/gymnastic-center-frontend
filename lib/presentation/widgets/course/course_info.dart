@@ -88,7 +88,7 @@ class CourseInfo extends StatelessWidget {
                 height: 24,
               ),
               Text(
-                course.description,
+                course.description!,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
