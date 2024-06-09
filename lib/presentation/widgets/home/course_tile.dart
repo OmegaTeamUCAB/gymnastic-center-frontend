@@ -64,7 +64,7 @@ class CourseTile extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text('${course.minutes} min | Level ${course.level}')
+                    Text('${course.minutes} min | ${course.trainer}')
                   ],
                 ),
               ),

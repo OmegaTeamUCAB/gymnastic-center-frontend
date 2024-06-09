@@ -30,14 +30,14 @@ class CourseMapper {
         "name": course.name,
         "description": course.description,
         "level": course.level,
-        "tags": List<dynamic>.from(course.tags.map((x) => x)),
+        "tags": List<dynamic>.from(course.tags!.map((x) => x)),
         "durationWeeks": course.weeks,
         "durationMinutes": course.minutes,
         "image": course.imageUrl,
         "category": course.categoryId,
         "trainer": course.trainer,
         "lessons": List<dynamic>.from(
-            course.lessons.map((x) => LessonMapper.toJson(x))),
+            course.lessons!.map((x) => LessonMapper.toJson(x))),
       };
   static List<Course> fromJsonToList(dynamic jsonList) {
     return jsonList.map<Course>((json) => fromJson(json)).toList();

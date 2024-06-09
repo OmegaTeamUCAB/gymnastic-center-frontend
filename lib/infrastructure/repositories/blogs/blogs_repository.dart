@@ -21,8 +21,6 @@ class BlogsRepository implements IBlogRepository {
             images: [blog['image']],
             title: blog['title'],
             trainer: blog['trainer'],
-            description: blog['description'],
-            content: blog['content'],
             uploadDate: blog['date'],
           ));
         }
@@ -45,8 +43,6 @@ class BlogsRepository implements IBlogRepository {
             images: [blog['image']],
             title: blog['title'],
             trainer: blog['trainer'],
-            description: blog['description'],
-            content: blog['content'],
             uploadDate: blog['date'],
           ));
         }

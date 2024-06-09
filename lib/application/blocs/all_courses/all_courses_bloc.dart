@@ -8,7 +8,8 @@ part 'all_courses_state.dart';
 
 class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
   final GetAllCoursesUseCase getAllCoursesUseCase;
-  AllCoursesBloc(this.getAllCoursesUseCase) : super(AllCoursesLoading()) {
+  AllCoursesBloc({required this.getAllCoursesUseCase})
+      : super(AllCoursesLoading()) {
     on<AllCoursesRequested>(_getAllCourses);
   }
 

@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_event.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
 class BlogsByCategoryGrid extends StatelessWidget {
   final String categoryId;
-  late final BlogsByCategoryBloc bloc;
-  BlogsByCategoryGrid({super.key, required this.categoryId}) {
-    bloc = BlogsByCategoryBloc(GetBlogsByCategoryUseCase(
-        BlogsRepository(HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
-  }
+
+  const BlogsByCategoryGrid({super.key, required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        bloc.add(BlogsByCategoryRequested(categoryId: categoryId));
-        return bloc;
-      },
+    final blogsByCategoryBloc = GetIt.instance<BlogsByCategoryBloc>();
+    blogsByCategoryBloc.add(BlogsByCategoryRequested(categoryId: categoryId));
+    return BlocProvider<BlogsByCategoryBloc>.value(
+      value: blogsByCategoryBloc,
       child: BlocBuilder<BlogsByCategoryBloc, BlogsByCategoryState>(
           builder: (context, state) {
         if (state is BlogsByCategoryLoading) {
@@ -93,7 +86,7 @@ class BlogsByCategoryGrid extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           )),
                       const SizedBox(height: 10),
-                      Text(state.blogs[i].description,
+                      Text(state.blogs[i].trainer,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

@@ -29,6 +29,7 @@ class HttpManagerImpl extends IHttpManager {
       print('DioException: ${e.message}');
       return Result.failure<T>(const NetworkException());
     } catch (e) {
+      print('Exception: $e');
       return Result.failure<T>(const UnknownException());
     }
   }

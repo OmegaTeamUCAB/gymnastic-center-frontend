@@ -44,7 +44,7 @@ class CourseMediaViewer extends StatelessWidget {
               ),
               Expanded(
                 child: LessonListView(
-                  lessons: course.lessons,
+                  lessons: course.lessons!,
                   currentIndexLesson: currentLesson,
                   onTap: (index) {
                     onTap(index);

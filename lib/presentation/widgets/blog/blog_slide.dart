@@ -63,7 +63,8 @@ class ImprovedBlogSlide extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          timeago.format(blog.uploadDate),
+                          'some date',
+                          // timeago.format(blog.uploadDate),
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),
@@ -74,8 +75,8 @@ class ImprovedBlogSlide extends StatelessWidget {
                 ),
               ),
             ),
-            if (DateTime.now().difference(blog.uploadDate).inDays < 90)
-              const Positioned(top: 5, left: 5, child: NewChip()),
+            // if (DateTime.now().difference(blog.uploadDate).inDays < 90)
+            const Positioned(top: 5, left: 5, child: NewChip()),
           ])),
     );
   }

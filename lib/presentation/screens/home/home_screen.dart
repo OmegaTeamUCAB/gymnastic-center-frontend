@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
       body: ListView(
         children: [
-          CategoryCarousel(),
+          const CategoryCarousel(),
           const SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.all(15),
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          HomeCourseCarousel(),
+          const HomeCourseCarousel(),
           const SizedBox(
             height: 25,
           ),
@@ -60,10 +60,7 @@ class HomeScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
-          BlogCarousel(
-              blogRepository: BlogsRepository(HttpManagerImpl(
-            baseUrl: Environment.getApiUrl(),
-          ))),
+          const BlogCarousel(),
           const SizedBox(
             height: 60,
           )

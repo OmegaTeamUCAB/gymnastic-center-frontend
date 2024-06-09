@@ -111,11 +111,12 @@ class BlogDetail extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Text(
+                                          const Text(
                                             //use timeago package
-                                            timeago
-                                                .format(state.blog.uploadDate),
-                                            style: const TextStyle(
+                                            'some date',
+                                            // timeago
+                                            //     .format(state.blog.uploadDate),
+                                            style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
                                               shadows: <Shadow>[
@@ -170,7 +171,7 @@ class BlogDetail extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  state.blog.description,
+                                  state.blog.description!,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -182,7 +183,7 @@ class BlogDetail extends StatelessWidget {
                                   height: 25,
                                 ),
                                 Text(
-                                  state.blog.content,
+                                  state.blog.content!,
                                   style: const TextStyle(
                                     fontSize: 16,
                                   ),

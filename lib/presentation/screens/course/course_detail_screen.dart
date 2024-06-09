@@ -105,7 +105,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              course.description,
+              course.description!,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),

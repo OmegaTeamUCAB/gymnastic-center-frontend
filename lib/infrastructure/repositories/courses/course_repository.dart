@@ -17,7 +17,16 @@ class CourseRepository extends ICourseRepository {
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
-        courses = CourseMapper.fromJsonToList(data);
+        for (var course in data) {
+          courses.add(Course(
+            id: course['id'],
+            imageUrl: course['image'],
+            categoryId: course['category'],
+            name: course['title'],
+            trainer: course['trainer'],
+            createdAt: course['date'],
+          ));
+        }
         return courses;
       },
     );
@@ -44,7 +53,16 @@ class CourseRepository extends ICourseRepository {
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
-        courses = CourseMapper.fromJsonToList(data);
+        for (var course in data) {
+          courses.add(Course(
+            id: course['id'],
+            imageUrl: course['image'],
+            categoryId: course['category'],
+            name: course['title'],
+            trainer: course['trainer'],
+            createdAt: course['date'],
+          ));
+        }
         return courses;
       },
     );
@@ -58,7 +76,16 @@ class CourseRepository extends ICourseRepository {
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
-        courses = CourseMapper.fromJsonToList(data);
+        for (var course in data) {
+          courses.add(Course(
+            id: course['id'],
+            imageUrl: course['image'],
+            categoryId: course['category'],
+            name: course['title'],
+            trainer: course['trainer'],
+            createdAt: course['date'],
+          ));
+        }
         return courses;
       },
     );

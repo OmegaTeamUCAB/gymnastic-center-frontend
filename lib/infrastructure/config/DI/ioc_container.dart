@@ -2,10 +2,14 @@ import 'package:get_it/get_it.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_categories/all_categories_bloc.dart';
+import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
+import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
@@ -15,8 +19,12 @@ import 'package:gymnastic_center/application/use_cases/auth/request_code.use_cas
 import 'package:gymnastic_center/application/use_cases/auth/reset_password.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_all_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_all_courses.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
@@ -58,11 +66,23 @@ class IoCContainer {
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
+    final getBlogsByCategoryUseCase = GetBlogsByCategoryUseCase(blogRepository);
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
-    getIt.registerSingleton<GetBlogByIdUseCase>(getBlogByIdUseCase);
+    final getAllCoursesUseCase = GetAllCoursesUseCase(courseRepository);
+    final getAllBlogsUseCase = GetAllBlogsUseCase(blogRepository);
+    final getCoursesByCategoryUseCase =
+        GetCoursesByCategoryUseCase(courseRepository);
     //BLOCS
+    getIt.registerSingleton<BlogsByCategoryBloc>(BlogsByCategoryBloc(
+        getBlogsByCategoryUseCase: getBlogsByCategoryUseCase));
+    getIt.registerSingleton<AllCoursesBloc>(
+        AllCoursesBloc(getAllCoursesUseCase: getAllCoursesUseCase));
+    getIt.registerSingleton<CoursesByCategoryBloc>(
+        CoursesByCategoryBloc(getCoursesByCategoryUseCase));
     getIt.registerSingleton<AllCategoriesBloc>(
         AllCategoriesBloc(getAllCategoriesUseCase: getAllCategoriesUseCase));
+    getIt.registerSingleton<AllBlogsBloc>(
+        AllBlogsBloc(getAllBlogsUseCase: getAllBlogsUseCase));
     getIt.registerSingleton<AuthBloc>(AuthBloc(
       logoutUseCase: logoutUseCase,
       loginUseCase: loginUseCase,
