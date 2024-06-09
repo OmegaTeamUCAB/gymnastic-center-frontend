@@ -52,27 +52,30 @@ class AuthRepository implements IAuthRepository {
         return AuthResponse.fromJson(data);
       },
     );
+    final token = result.unwrap().token;
+    _httpConnectionManager.updateHeaders(
+        headerKey: 'Authorization', headerValue: 'Bearer $token');
     return result;
   }
 
   @override
-  Future<Result<AuthResponse>> signUp({
+  Future<Result<void>> signUp({
     required String email,
     required String fullName,
     required String phoneNumber,
     required String password,
   }) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/signUp',
+      urlPath: 'auth/register',
       httpMethod: 'POST',
       body: jsonEncode({
         'email': email,
-        'fullName': fullName,
-        'phoneNumber': phoneNumber,
+        'name': fullName,
+        'phone': phoneNumber,
         'password': password
       }),
       mapperCallBack: (data) {
-        return AuthResponse.fromJson(data);
+        return null;
       },
     );
     return result;
@@ -87,14 +90,12 @@ class AuthRepository implements IAuthRepository {
     _httpConnectionManager.updateHeaders(
         headerKey: 'Authorization', headerValue: 'Bearer $token');
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/currentUser',
+      urlPath: 'auth/current',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         return AuthResponse.fromJson(data);
       },
     );
-    _httpConnectionManager.updateHeaders(
-        headerKey: 'Authorization', headerValue: null);
     if (result.isError) {
       await _localDataSource.removeKey('token');
     }
@@ -105,7 +106,7 @@ class AuthRepository implements IAuthRepository {
   Future<Result<IPasswordResetResponse>> requestCode(
       {required String email}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/requestCode',
+      urlPath: 'auth/forget/password',
       httpMethod: 'POST',
       body: jsonEncode({'email': email}),
       mapperCallBack: (data) {
@@ -119,8 +120,8 @@ class AuthRepository implements IAuthRepository {
   Future<Result<IPasswordResetResponse>> resetPassword(
       {required String email, required String newPassword}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/resetPassword',
-      httpMethod: 'POST',
+      urlPath: 'auth/change/password',
+      httpMethod: 'PUT',
       body: jsonEncode({'email': email, 'password': newPassword}),
       mapperCallBack: (data) {
         return PasswordResetResponse.fromJson(data);
@@ -133,7 +134,7 @@ class AuthRepository implements IAuthRepository {
   Future<Result<IPasswordResetResponse>> verifyCode(
       {required String email, required String code}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/checkCode',
+      urlPath: 'auth/code/validate',
       httpMethod: 'POST',
       body: jsonEncode({'email': email, 'code': code}),
       mapperCallBack: (data) {
@@ -141,5 +142,12 @@ class AuthRepository implements IAuthRepository {
       },
     );
     return result;
+  }
+
+  @override
+  logout() async {
+    await _localDataSource.removeKey('token');
+    _httpConnectionManager.updateHeaders(
+        headerKey: 'Authorization', headerValue: null);
   }
 }

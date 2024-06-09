@@ -48,6 +48,6 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   _getCourseById(GetCourseById event, Emitter<CourseState> emit) async {
     emit(state.copyWith(isLoading: true));
     final course = await courseRepository.getCourseById(event.courseId);
-    emit(state.copyWith(isLoading: false, course: course));
+    emit(state.copyWith(isLoading: false, course: course.unwrap()));
   }
 }

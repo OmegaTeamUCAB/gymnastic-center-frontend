@@ -1,19 +1,23 @@
 class Blog {
   final String id;
-  final String imageUrl;
+  final List<dynamic> images;
   final String title;
-  final String description;
-  final String content;
-  final DateTime uploadDate;
-  final dynamic comments;
+  final String? description;
+  final dynamic trainer;
+  final String? content;
+  final List<dynamic>? tags;
+  final String? uploadDate;
+  final String? category;
 
   Blog({
     required this.id,
-    required this.imageUrl,
+    required this.images,
     required this.title,
-    required this.description,
-    required this.content,
-    required this.comments,
-    required this.uploadDate,
+    this.description,
+    this.content,
+    required this.trainer,
+    this.tags,
+    this.uploadDate,
+    this.category,
   });
 }

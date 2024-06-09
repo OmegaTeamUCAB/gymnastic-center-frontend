@@ -5,19 +5,18 @@ class LessonMapper {
   static Lesson fromJson(Map<String, dynamic> json) => Lesson(
         id: json["id"],
         title: json["title"],
-        description: (json["description"] != null) ? json["description"] : null,
         content: (json["content"] != null) ? json["content"] : null,
-        videoUrl: (json["videoUrl"] != null) ? json["videoUrl"] : null,
-        imageUrl: (json["imageUrl"] != null) ? json["imageUrl"] : null,
+        videoUrl: (json["video"] != null) ? json["video"] : null,
+        imageUrl: (json["image"] != null) ? json["image"] : null,
         comments: (json["comments"] != null)
             ? CommentMapper.fromJsonToList(json["comments"])
             : [],
       );
 
+  //! remove if unused
   static Map<String, dynamic> toJson(Lesson lesson) => {
         "id": lesson.id,
         "title": lesson.title,
-        "description": lesson.description,
         "content": lesson.content,
         "videoUrl": lesson.videoUrl,
         "imageUrl": lesson.imageUrl,

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/auth/welcome_screen.dart';
+import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:gymnastic_center/presentation/widgets/onboarding/onboarding_items.dart';
 
-class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({super.key});
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
 
   @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _WelcomePageState extends State<WelcomePage> {
   final controller = OnboardingItems();
   final pageController = PageController();
 
@@ -42,7 +42,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen()));
+                          builder: (context) => const AuthOptionsScreen()));
                 },
               )
             : Row(
@@ -54,7 +54,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const WelcomeScreen()),
+                                  builder: (context) =>
+                                      const AuthOptionsScreen()),
                             )
                           },
                       child: const Text("Skip",

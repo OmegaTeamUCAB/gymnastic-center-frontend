@@ -9,7 +9,7 @@ part 'blogs_by_category_state.dart';
 class BlogsByCategoryBloc
     extends Bloc<BlogsByCategoryEvent, BlogsByCategoryState> {
   final GetBlogsByCategoryUseCase getBlogsByCategoryUseCase;
-  BlogsByCategoryBloc(this.getBlogsByCategoryUseCase)
+  BlogsByCategoryBloc({required this.getBlogsByCategoryUseCase})
       : super(BlogsByCategoryLoading()) {
     on<BlogsByCategoryRequested>(_getBlogsByCategory);
   }
