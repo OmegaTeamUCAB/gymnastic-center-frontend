@@ -4,13 +4,13 @@ class CourseDetailInfoCard extends StatelessWidget {
   final IconData iconData;
   final String title;
   final String captionNumber;
-  final onPressed;
+  final void Function() onPressed;
   const CourseDetailInfoCard({
     super.key,
     required this.iconData,
     required this.title,
     required this.captionNumber,
-    this.onPressed,
+    required this.onPressed,
   });
 
   @override

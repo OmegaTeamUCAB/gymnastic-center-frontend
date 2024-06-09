@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
-import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/training/course_option_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -46,15 +45,8 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
             left: 5,
             child: Row(
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MainScreen()));
-                  },
-                  icon: Icon(Icons.arrow_back_ios,
-                      color: Theme.of(context).colorScheme.onPrimary),
+                BackButton(
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 const Text(
                   'Choose a workout',

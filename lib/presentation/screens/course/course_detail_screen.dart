@@ -83,7 +83,9 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   padding: const EdgeInsets.only(bottom: 15),
                   child: Row(
                     children: [
-                      const BackButton(),
+                      const BackButton(
+                        color: Colors.white,
+                      ),
                       Text(
                         course.name,
                         style: const TextStyle(
@@ -103,7 +105,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              course.description,
+              course.description!,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),

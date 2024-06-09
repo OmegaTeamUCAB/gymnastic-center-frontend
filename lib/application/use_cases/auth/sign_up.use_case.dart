@@ -28,11 +28,18 @@ class SignUpUseCase extends IUseCase<SignUpDto, User> {
 
   @override
   Future<Result<User>> execute(SignUpDto dto) async {
-    final result = await _authRepository.signUp(
+    final signUpResult = await _authRepository.signUp(
       email: dto.email,
       password: dto.password,
       fullName: dto.fullName,
       phoneNumber: dto.phoneNumber,
+    );
+    if(signUpResult.isError) {
+      return Result.failure(signUpResult.error);
+    }
+    final result = await _authRepository.login(
+      email: dto.email,
+      password: dto.password,
     );
     if (result.isSuccessful) {
       _localDataSource.setKeyValue('token', result.unwrap().token);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/auth/request_code_screen.dart';
 import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
@@ -101,7 +102,11 @@ class _LoginFormState extends State<LoginForm> {
                   )),
           TextButton(
             onPressed: () {
-              // Handle forgot password link
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const RequestCodeScreen()),
+              );
             },
             child: const Text("Forgot your password?",
                 style: TextStyle(fontSize: 15)),
