@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:gymnastic_center/domain/blog/blog.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/Blog_Detail.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_detail.screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class ImprovedBlogSlide extends StatelessWidget {
@@ -17,7 +17,7 @@ class ImprovedBlogSlide extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BlogDetail(blogId: blog.id),
+            builder: (context) => BlogDetailScreen(blogId: blog.id),
           ),
         );
       },

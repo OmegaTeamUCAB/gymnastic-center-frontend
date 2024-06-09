@@ -1,36 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/comment_expansion_panel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class BlogDetail extends StatelessWidget {
+class BlogDetailScreen extends StatelessWidget {
   final String blogId;
-  late final BlogDetailBloc bloc;
 
-  BlogDetail({super.key, required this.blogId}) {
-    bloc = BlogDetailBloc(
-        getBlogUseCase: GetBlogByIdUseCase(BlogsRepository(
-            HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
-  }
+  const BlogDetailScreen({super.key, required this.blogId});
 
   @override
   Widget build(BuildContext context) {
+    final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
+    blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
     return Scaffold(
       bottomNavigationBar: AddCommentBar(
         blogId: blogId,
       ),
-      body: BlocProvider(
-        create: (context) {
-          bloc.add(BlogDetailRequested(blogId: blogId));
-          return bloc;
-        },
+      body: BlocProvider<BlogDetailBloc>.value(
+        value: blogDetailBloc,
         child: BlocBuilder<BlogDetailBloc, BlogDetailState>(
           builder: (context, state) {
             if (state is BlogDetailLoading) {
@@ -182,12 +173,12 @@ class BlogDetail extends StatelessWidget {
                                 const SizedBox(
                                   height: 25,
                                 ),
-                                Text(
-                                  state.blog.content!,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
+                                // Text(
+                                //   state.blog.content!,
+                                //   style: const TextStyle(
+                                //     fontSize: 16,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

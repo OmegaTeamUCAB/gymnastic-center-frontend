@@ -60,12 +60,13 @@ class BlogsRepository implements IBlogRepository {
       mapperCallBack: (data) {
         return Blog(
           id: data['id'],
-          images: data['images'],
           title: data['title'],
+          images: data['images'],
           trainer: data['trainer'],
           description: data['description'],
           content: data['content'],
           uploadDate: data['date'],
+          tags: data['tags'],
         );
       },
     );

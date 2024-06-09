@@ -1,10 +1,11 @@
 class Blog {
   final String id;
-  final List<String> images;
+  final List<dynamic> images;
   final String title;
   final String? description;
   final dynamic trainer;
   final String? content;
+  final List<dynamic>? tags;
   final String uploadDate;
 
   Blog({
@@ -14,6 +15,7 @@ class Blog {
     this.description,
     this.content,
     required this.trainer,
+    this.tags,
     required this.uploadDate,
   });
 }
