@@ -7,3 +7,7 @@ sealed class AllCoursesEvent {
 class AllCoursesRequested extends AllCoursesEvent {
   AllCoursesRequested();
 }
+
+class NextPageLoaded extends AllCoursesEvent {
+  NextPageLoaded();
+}

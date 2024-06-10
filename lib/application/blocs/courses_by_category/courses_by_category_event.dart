@@ -4,6 +4,8 @@ sealed class CoursesByCategoryEvent {
   const CoursesByCategoryEvent();
 }
 
+class NextPageLoaded extends CoursesByCategoryEvent {}
+
 class CoursesByCategoryRequested extends CoursesByCategoryEvent {
   final String categoryId;
 
