@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
-import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
@@ -11,13 +11,14 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchBloc = GetIt.instance<SearchBloc>();
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: BlocProvider(
-          create: (context) => SearchBloc(SearchRepository()),
+        body: BlocProvider<SearchBloc>.value(
+          value: searchBloc,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -40,7 +41,9 @@ class SearchScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 24.0),
                   child: Row(
                     children: [
-                      BackButton(),
+                      BackButton(
+                        color: Colors.white,
+                      ),
                       Text(
                         'Popular Search',
                         style: TextStyle(

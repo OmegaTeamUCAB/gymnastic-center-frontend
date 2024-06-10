@@ -6,8 +6,8 @@ import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+class AuthOptionsScreen extends StatelessWidget {
+  const AuthOptionsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                   : [
                       Expanded(
                         child: BrandButton(
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 20),
-                            ),
+                            text: 'Login',
                             onPressed: () {
                               Navigator.push(
                                 context,

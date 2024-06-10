@@ -1,4 +1,3 @@
-import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -170,20 +169,15 @@ class _EditProfileFromState extends State<EditProfileFrom> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: BrandButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Save the form
-                          print(
-                              'Image: $_newUserImage, Name: $_newUserName, Email: $_newUserEmail, Phone: $_newUserPhone');
-                        }
-                      },
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      )),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Save the form
+                        print(
+                            'Image: $_newUserImage, Name: $_newUserName, Email: $_newUserEmail, Phone: $_newUserPhone');
+                      }
+                    },
+                    text: 'Save',
+                  ),
                 ),
               ],
             ),

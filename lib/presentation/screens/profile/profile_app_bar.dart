@@ -25,7 +25,9 @@ class ProfileAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                const BackButton(),
+                const BackButton(
+                  color: Colors.white,
+                ),
                 const SizedBox(
                   width: 12,
                 ),

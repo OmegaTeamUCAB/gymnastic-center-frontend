@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/verify_account_form.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/verify_code_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
-class VerifyAccountScreen extends StatelessWidget {
-  const VerifyAccountScreen({super.key});
+class VerifyCodeScreen extends StatelessWidget {
+  final String email;
+  const VerifyCodeScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color:
-                Theme.of(context).colorScheme.primary, //change your color here
-          ),
-        ),
         resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Positioned(
-                top: 0,
+                top: 80,
                 child: Align(
                   alignment: Alignment.center,
                   child: Image.asset(
@@ -39,34 +34,36 @@ class VerifyAccountScreen extends StatelessWidget {
                     width: 420,
                   ),
                 )),
+            Positioned(
+              top: 50,
+              left: 0,
+              child: BackButton(color: Theme.of(context).colorScheme.primary),
+            ),
             Stack(
               alignment: Alignment.center,
               children: [
                 Positioned(
-                  bottom: -70,
+                  bottom: -80,
                   child: Align(
                     alignment: Alignment.center,
                     child: Stack(
                       children: [
                         Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 60, horizontal: 170),
-                            width: 720.0,
-                            height: 720.0,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/particles.png'),
-                                  alignment: Alignment.topRight,
-                                ),
-                                shape: BoxShape.circle,
-                                gradient: brandGradient),
-                            child: const Stack(
-                              children: [
-                                SingleChildScrollView(
-                                  child: VerifyAccountForm(),
-                                ),
-                              ],
-                            )),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 60, horizontal: 170),
+                          width: 720.0,
+                          height: 720.0,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/particles.png'),
+                                alignment: Alignment.topRight,
+                              ),
+                              shape: BoxShape.circle,
+                              gradient: brandGradient),
+                          child: SingleChildScrollView(
+                            child: VerifyCodeForm(email: email),
+                          ),
+                        ),
                       ],
                     ),
                   ),

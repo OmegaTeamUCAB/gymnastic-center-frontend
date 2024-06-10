@@ -26,7 +26,7 @@ class _CourseContentScreenState extends State<CourseContentScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: CourseViewer(
-                  lesson: widget.course.lessons[currentLesson],
+                  lesson: widget.course.lessons![currentLesson],
                 ),
               )),
           CourseMediaViewer(

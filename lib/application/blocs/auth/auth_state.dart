@@ -15,3 +15,9 @@ class AuthError extends AuthState {
 
   AuthError(this.message);
 }
+
+class CodeRequestedSuccess extends AuthState {}
+
+class CodeVerifiedSuccess extends AuthState {}
+
+class PasswordResetSuccess extends AuthState {}
