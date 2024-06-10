@@ -58,8 +58,7 @@ class IoCContainer {
     final courseRepository = CourseRepository(httpConnectionManager);
     final searchRepository = SearchRepository(httpConnectionManager);
     //USE CASES
-    final getUserFromTokenUseCase =
-        GetUserFromTokenUseCase(authRepository, secureStorage);
+    final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
     final logoutUseCase = LogoutUseCase(authRepository);
     final signUpUseCase = SignUpUseCase(authRepository, secureStorage);

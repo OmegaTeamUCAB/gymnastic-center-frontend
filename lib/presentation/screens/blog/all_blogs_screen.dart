@@ -2,18 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
+import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blogs_grid.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
-class AllBlogsScreen extends StatelessWidget {
+class AllBlogsScreen extends StatefulWidget {
   const AllBlogsScreen({super.key});
 
   @override
+  State<AllBlogsScreen> createState() => _AllBlogsScreenState();
+}
+
+class _AllBlogsScreenState extends State<AllBlogsScreen> {
+  late final PaginationController paginationController;
+  final allBlogsBloc = GetIt.instance<AllBlogsBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+    //! Wait for backend pagination to work before uncommenting
+    // paginationController = PaginationController(
+    //   requestNextPage: (page) => allBlogsBloc.add(AllBlogsRequested(page)),
+    // );
+  }
+
+  @override
+  void dispose() {
+    paginationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final allBlogsBloc = GetIt.instance<AllBlogsBloc>();
-    allBlogsBloc.add(AllBlogsRequested());
     return Scaffold(
         appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 100),
@@ -57,7 +79,10 @@ class AllBlogsScreen extends StatelessWidget {
                   child: NoResults(),
                 );
               }
-              return BlogsGrid(blogs: state.blogs);
+              return BlogsGrid(
+                blogs: state.blogs,
+                controller: paginationController.scrollController,
+              );
             } else {
               return const Center(
                 child: Text('Error'),

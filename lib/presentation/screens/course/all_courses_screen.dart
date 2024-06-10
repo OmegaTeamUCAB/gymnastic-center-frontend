@@ -6,7 +6,7 @@ import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
-import 'package:gymnastic_center/presentation/widgets/course/all_courses_list.dart';
+import 'package:gymnastic_center/presentation/widgets/course/courses_list.dart';
 
 class AllCoursesScreen extends StatefulWidget {
   const AllCoursesScreen({super.key});
@@ -22,9 +22,10 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
   @override
   void initState() {
     super.initState();
-    paginationController = PaginationController(
-      requestNextPage: (page) => allCoursesBloc.add(AllCoursesRequested(page)),
-    );
+    //! Wait for backend pagination to work before uncommenting
+    // paginationController = PaginationController(
+    //   requestNextPage: (page) => allCoursesBloc.add(AllCoursesRequested(page)),
+    // );
   }
 
   @override

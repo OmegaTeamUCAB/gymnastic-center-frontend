@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
 
@@ -29,16 +30,18 @@ class CoursesList extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: ListView.builder(
-            shrinkWrap: false,
-            physics: const AlwaysScrollableScrollPhysics(),
-            controller: controller,
-            itemCount: courses.length,
-            itemBuilder: (context, index) {
-              return CourseTile(course: courses[index]);
-            },
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: ListView.builder(
+              shrinkWrap: false,
+              physics: const AlwaysScrollableScrollPhysics(),
+              controller: controller,
+              itemCount: courses.length,
+              itemBuilder: (context, index) {
+                return CourseTile(course: courses[index]);
+              },
+            ),
           ),
         ),
         const SizedBox(

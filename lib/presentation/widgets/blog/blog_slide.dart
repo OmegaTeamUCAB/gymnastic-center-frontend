@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:gymnastic_center/domain/blog/blog.dart';
-import 'package:gymnastic_center/presentation/screens/blog/blog_detail.screen.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class ImprovedBlogSlide extends StatelessWidget {

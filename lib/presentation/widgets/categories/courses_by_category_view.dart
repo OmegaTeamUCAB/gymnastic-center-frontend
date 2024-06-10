@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
-import 'package:gymnastic_center/presentation/widgets/course/all_courses_list.dart';
+import 'package:gymnastic_center/presentation/widgets/course/courses_list.dart';
 
 class CoursesByCategoryView extends StatefulWidget {
   final String categoryId;
@@ -22,11 +22,12 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
   @override
   void initState() {
     super.initState();
-    paginationController = PaginationController(
-      requestNextPage: (page) => coursesByCategoryBloc.add(
-          CoursesByCategoryRequested(
-              categoryId: widget.categoryId, page: page)),
-    );
+    //! Wait for backend pagination to work before uncommenting
+    // paginationController = PaginationController(
+    //   requestNextPage: (page) => coursesByCategoryBloc.add(
+    //       CoursesByCategoryRequested(
+    //           categoryId: widget.categoryId, page: page)),
+    // );
   }
 
   @override
