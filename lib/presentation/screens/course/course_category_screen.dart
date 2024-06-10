@@ -120,14 +120,14 @@ class _CourseCategoryScreenState extends State<CourseCategoryScreen> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        context.read<CourseBloc>().add(
-                                            AddCoursesByCategory(
-                                                categoryId:
-                                                    (snapshot.data != null)
-                                                        ? snapshot.data!
-                                                            .unwrap()[index]
-                                                            .id
-                                                        : ''));
+                                        // context.read<CourseBloc>().add(
+                                        //     AddCoursesByCategory(
+                                        //         categoryId:
+                                        //             (snapshot.data != null)
+                                        //                 ? snapshot.data!
+                                        //                     .unwrap()[index]
+                                        //                     .id
+                                        //                 : ''));
                                       },
                                       child: _TabView(
                                           textContent: Text(

@@ -25,6 +25,7 @@ import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_c
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_all_courses.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
@@ -74,6 +75,7 @@ class IoCContainer {
     final searchUseCase = SearchUseCase(searchRepository);
     final getCoursesByCategoryUseCase =
         GetCoursesByCategoryUseCase(courseRepository);
+    final getCourseByIdUseCase = GetCourseByIdUseCase(courseRepository);
     //BLOCS
     getIt.registerSingleton<BlogsByCategoryBloc>(BlogsByCategoryBloc(
         getBlogsByCategoryUseCase: getBlogsByCategoryUseCase));

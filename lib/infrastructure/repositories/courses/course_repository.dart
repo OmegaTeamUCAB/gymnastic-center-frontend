@@ -11,9 +11,9 @@ class CourseRepository extends ICourseRepository {
   CourseRepository(this._httpConnectionManager);
 
   @override
-  Future<Result<List<Course>>> getAllCourses() async {
+  Future<Result<List<Course>>> getAllCourses({int page = 1, int perPage = 15}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'course/many?page=1&perPage=15',
+      urlPath: 'course/many?page=$page&perPage=$perPage',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
@@ -47,9 +47,9 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<Result<List<Course>>> getCoursesByCategory(String categoryId) async {
+  Future<Result<List<Course>>> getCoursesByCategory({required String categoryId, int page = 1, int perPage = 15}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'course/many?page=1&perPage=10&category=$categoryId',
+      urlPath: 'course/many?page=$page&perPage=$perPage&category=$categoryId',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
@@ -70,9 +70,9 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<Result<List<Course>>> getCoursesByInstructor(String id) async {
+  Future<Result<List<Course>>> getCoursesByInstructor({required String id, int page = 1, int perPage = 15}) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: '/course/many?page=1&perPage=15&trainer=$id',
+      urlPath: '/course/many?page=$page&perPage=$perPage&trainer=$id',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
