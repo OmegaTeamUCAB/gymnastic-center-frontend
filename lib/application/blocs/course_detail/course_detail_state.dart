@@ -5,21 +5,21 @@ enum CourseStatus {
   fetched
 }
 
-sealed class CourseState extends Equatable {
+sealed class CourseDetailState extends Equatable {
   @override
   List<Object> get props => [];
 }
 
-class CourseError extends CourseState {
+class CourseError extends CourseDetailState {
   final String message;
 
   CourseError({required this.message});
 
 } 
 
-class CourseLoading extends CourseState {}
+class CourseLoading extends CourseDetailState {}
 
-class CourseFetched extends CourseState {
+class CourseFetched extends CourseDetailState {
   final Course course;
 
   CourseFetched({

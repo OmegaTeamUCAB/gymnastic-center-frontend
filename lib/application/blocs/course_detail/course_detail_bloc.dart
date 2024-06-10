@@ -8,14 +8,14 @@ import 'package:meta/meta.dart';
 part 'course_detail_event.dart';
 part 'course_detail_state.dart';
 
-class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseState> {
+class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final GetCourseByIdUseCase getCourseByIdUseCase;
   
-  CourseDetailBloc(this.getCourseByIdUseCase) : super(CourseLoading()) {
+  CourseDetailBloc({required this.getCourseByIdUseCase}) : super(CourseLoading()) {
     on<CourseRequested>(_getCourseRequested);     
   }
 
-    Future<void> _getCourseRequested(CourseRequested event, Emitter<CourseState> emit) async {
+    Future<void> _getCourseRequested(CourseRequested event, Emitter<CourseDetailState> emit) async {
     emit(CourseLoading());
     final result = await getCourseByIdUseCase.execute(GetCourseByIdDto(id: event.id));
     if(result.isSuccessful){

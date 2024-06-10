@@ -2,20 +2,44 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:gymnastic_center/application/blocs/course_detail/course_detail_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_info.dart';
 
-class CourseDetailScreen extends StatefulWidget {
+class CourseDetailScreen extends StatelessWidget {
   final String courseId;
   const CourseDetailScreen({super.key, required this.courseId});
 
   @override
-  State<CourseDetailScreen> createState() => _CourseDetailScreenState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => CourseDetailBloc(getCourseByIdUseCase: GetIt.instance<GetCourseByIdUseCase>())..add(CourseRequested(id: courseId))
+        )
+      ],
+      child: _CourseView(courseId: courseId,),
+    );
+  }
 }
 
-class _CourseDetailScreenState extends State<CourseDetailScreen> {
+class _CourseView extends StatefulWidget {
+  final String courseId;
+  
+  const _CourseView({
+    super.key,
+    required this.courseId
+  });
+
+  @override
+  State<_CourseView> createState() => _CourseViewState();
+}
+
+class _CourseViewState extends State<_CourseView> {
   final ScrollController _scrollController = ScrollController();
   bool _showFab = false;
 
@@ -23,9 +47,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    Future.delayed(Duration.zero, () {
-      context.read<CourseBloc>().add(GetCourseById(courseId: widget.courseId));
-    });
   }
 
   @override
@@ -46,24 +67,25 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
-    final courseIsLoading = context.watch<CourseBloc>().state.isLoading;
-    final course = context.watch<CourseBloc>().state.course;
-
-    if (courseIsLoading) {
+    return BlocBuilder<CourseDetailBloc, CourseDetailState>(
+      builder: (context, state) {
+        if (state is CourseLoading) {
       return const Scaffold(
           body: Center(
               child: CircularProgressIndicator(
         strokeWidth: 2,
       )));
     }
-    if (course == null) {
-      return const Center(
-        child: Text('No existe el curso'),
+    if (state is CourseError) {
+      return Center(
+        child: Text(state.message),
       );
     }
+
+    final courseDetailBloc = state as CourseFetched ;
+    final course = courseDetailBloc.course;
 
     return Scaffold(
       body: Stack(
@@ -144,5 +166,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         ],
       ),
     );
+      },
+    );
+  
   }
 }
