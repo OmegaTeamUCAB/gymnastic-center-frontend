@@ -22,12 +22,12 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
   @override
   void initState() {
     super.initState();
-    //! Wait for backend pagination to work before uncommenting
-    // paginationController = PaginationController(
-    //   requestNextPage: (page) => coursesByCategoryBloc.add(
-    //       CoursesByCategoryRequested(
-    //           categoryId: widget.categoryId, page: page)),
-    // );
+    //! Buggy as hell
+    paginationController = PaginationController(
+      requestNextPage: (page) => coursesByCategoryBloc.add(
+          CoursesByCategoryRequested(
+              categoryId: widget.categoryId, page: page)),
+    );
   }
 
   @override

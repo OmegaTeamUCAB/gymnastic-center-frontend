@@ -32,6 +32,11 @@ class CategoryCarousel extends StatelessWidget {
                 );
               }
               if (state is AllCategoriesSuccess) {
+                if (state.categories.isEmpty) {
+                  return const Center(
+                    child: Text('No categories found'),
+                  );
+                }
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.categories.length,

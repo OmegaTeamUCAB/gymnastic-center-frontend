@@ -17,7 +17,12 @@ class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState> {
     emit(AllBlogsLoading());
     final result = await getAllBlogsUseCase.execute(GetAllBlogsDto());
     if (result.isSuccessful) {
-      emit(AllBlogsSuccess(blogs: result.unwrap()));
+      final previousBlogs = state is AllBlogsSuccess
+          ? (state as AllBlogsSuccess).blogs
+          : <Blog>[];
+      final currentBlogs = result.unwrap();
+      final allBlogs = [...previousBlogs, ...currentBlogs];
+      emit(AllBlogsSuccess(blogs: allBlogs));
     } else {
       try {
         throw result.unwrap();

@@ -23,11 +23,11 @@ class _BlogsByCategoryViewState extends State<BlogsByCategoryView> {
   @override
   void initState() {
     super.initState();
-    //! Wait for backend pagination to work before uncommenting
-    // paginationController = PaginationController(
-    //   requestNextPage: (page) => blogsByCategoryBloc.add(
-    //       BlogsByCategoryRequested(categoryId: widget.categoryId, page: page)),
-    // );
+    //! Buggy as hell
+    paginationController = PaginationController(
+      requestNextPage: (page) => blogsByCategoryBloc.add(
+          BlogsByCategoryRequested(categoryId: widget.categoryId, page: page)),
+    );
   }
 
   @override

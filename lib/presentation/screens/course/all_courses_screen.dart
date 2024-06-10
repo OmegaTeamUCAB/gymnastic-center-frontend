@@ -22,10 +22,10 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
   @override
   void initState() {
     super.initState();
-    //! Wait for backend pagination to work before uncommenting
-    // paginationController = PaginationController(
-    //   requestNextPage: (page) => allCoursesBloc.add(AllCoursesRequested(page)),
-    // );
+    //! Buggy as hell
+    paginationController = PaginationController(
+      requestNextPage: (page) => allCoursesBloc.add(AllCoursesRequested(page)),
+    );
   }
 
   @override

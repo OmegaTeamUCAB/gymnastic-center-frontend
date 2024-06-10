@@ -22,10 +22,10 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
   @override
   void initState() {
     super.initState();
-    //! Wait for backend pagination to work before uncommenting
-    // paginationController = PaginationController(
-    //   requestNextPage: (page) => allBlogsBloc.add(AllBlogsRequested(page)),
-    // );
+    //! Buggy as hell
+    paginationController = PaginationController(
+      requestNextPage: (page) => allBlogsBloc.add(AllBlogsRequested(page)),
+    );
   }
 
   @override
