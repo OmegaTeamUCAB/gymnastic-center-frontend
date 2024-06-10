@@ -18,9 +18,14 @@ class CoursesByCategoryBloc
       Emitter<CoursesByCategoryState> emit) async {
     emit(CoursesByCategoryLoading());
     final result = await getCoursesByCategoryUseCase
-        .execute(GetCoursesByCategoryDto(event.categoryId));
+        .execute(GetCoursesByCategoryDto(event.categoryId, event.page));
     if (result.isSuccessful) {
-      emit(CoursesByCategorySuccess(courses: result.unwrap()));
+      final previousCourses = state is CoursesByCategorySuccess
+          ? (state as CoursesByCategorySuccess).courses
+          : <Course>[];
+      final currentCourses = result.unwrap();
+      final allCourses = [...previousCourses, ...currentCourses];
+      emit(CoursesByCategorySuccess(courses: allCourses));
     } else {
       try {
         throw result.unwrap();

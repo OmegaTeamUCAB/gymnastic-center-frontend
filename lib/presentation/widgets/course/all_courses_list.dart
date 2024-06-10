@@ -4,7 +4,9 @@ import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
 
 class CoursesList extends StatelessWidget {
   final List<Course> courses;
-  const CoursesList({super.key, required this.courses});
+  final ScrollController controller;
+  const CoursesList(
+      {super.key, required this.courses, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,9 @@ class CoursesList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: false,
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller: controller,
             itemCount: courses.length,
             itemBuilder: (context, index) {
               return CourseTile(course: courses[index]);
