@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
 

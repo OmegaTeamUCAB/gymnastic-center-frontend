@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/comment_expansion_panel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class BlogDetailScreen extends StatelessWidget {
   final String blogId;
