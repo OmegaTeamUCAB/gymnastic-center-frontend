@@ -44,7 +44,8 @@ class CourseInfo extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const TrainerScreen(),
+                            builder: (context) =>
+                                TrainerScreen(trainerId: course.trainer['id']),
                           ),
                         );
                       },

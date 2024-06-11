@@ -10,7 +10,6 @@ class HomeCourseCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allCoursesBloc = GetIt.instance<AllCoursesBloc>();
-    //TODO: USE PAGINATION CONTROLLER
     allCoursesBloc.add(const AllCoursesRequested(1));
 
     return SizedBox(
