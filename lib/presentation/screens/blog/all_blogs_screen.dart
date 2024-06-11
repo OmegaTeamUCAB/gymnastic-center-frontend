@@ -24,7 +24,7 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
     super.initState();
     //! Buggy as hell
     paginationController = PaginationController(
-      requestNextPage: (page) => allBlogsBloc.add(const AllBlogsRequested(1)),
+      requestNextPage: (page) => allBlogsBloc.add(AllBlogsRequested(page)),
     );
   }
 

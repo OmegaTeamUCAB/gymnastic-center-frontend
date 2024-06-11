@@ -25,7 +25,8 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
     //! Buggy as hell
     paginationController = PaginationController(
       requestNextPage: (page) => coursesByCategoryBloc.add(
-          CoursesByCategoryRequested(categoryId: widget.categoryId, page: 1)),
+          CoursesByCategoryRequested(
+              categoryId: widget.categoryId, page: page)),
     );
   }
 

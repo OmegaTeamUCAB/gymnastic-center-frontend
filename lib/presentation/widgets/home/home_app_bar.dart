@@ -12,8 +12,6 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
-    print(
-        'THIS IS THE AUTH STATE ${(authBloc.state as Authenticated).user.fullName}');
     return CustomAppBar(
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),

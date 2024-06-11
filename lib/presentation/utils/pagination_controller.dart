@@ -5,16 +5,20 @@ class PaginationController {
   final Function(int) requestNextPage;
   int currentPage = 1;
   bool hasMore = true;
+  bool isLoading = false;
 
   PaginationController({required this.requestNextPage}) {
     scrollController.addListener(_onScroll);
   }
 
   void _onScroll() {
-    if (_isBottom && hasMore) {
-      currentPage++;
-      requestNextPage(currentPage);
-    }
+    // if (_isBottom && hasMore && !isLoading) {
+    //   currentPage++;
+    //   isLoading = true;
+    //   requestNextPage(currentPage).then((_) {
+    //     isLoading = false;
+    //   });
+    // }
   }
 
   bool get _isBottom {
