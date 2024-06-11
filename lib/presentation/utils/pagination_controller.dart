@@ -12,13 +12,12 @@ class PaginationController {
   }
 
   void _onScroll() {
-    // if (_isBottom && hasMore && !isLoading) {
-    //   currentPage++;
-    //   isLoading = true;
-    //   requestNextPage(currentPage).then((_) {
-    //     isLoading = false;
-    //   });
-    // }
+    if (_isBottom && hasMore && !isLoading) {
+      currentPage++;
+      isLoading = true;
+      requestNextPage(currentPage);
+      isLoading = false;
+    }
   }
 
   bool get _isBottom {

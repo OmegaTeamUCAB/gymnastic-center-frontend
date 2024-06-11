@@ -10,43 +10,17 @@ class CoursesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 24,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(
-            '${courses.length} Courses',
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onPrimary),
-          ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: ListView.builder(
-              shrinkWrap: false,
-              physics: const AlwaysScrollableScrollPhysics(),
-              controller: controller,
-              itemCount: courses.length,
-              itemBuilder: (context, index) {
-                return CourseTile(course: courses[index]);
-              },
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 60,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      child: ListView.builder(
+        shrinkWrap: false,
+        physics: const AlwaysScrollableScrollPhysics(),
+        controller: controller,
+        itemCount: courses.length,
+        itemBuilder: (context, index) {
+          return CourseTile(course: courses[index]);
+        },
+      ),
     );
   }
 }
