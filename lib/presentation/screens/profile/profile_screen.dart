@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/profile/profile_app_bar.dart';
-import 'package:gymnastic_center/presentation/screens/profile/statistics_header.dart';
-import 'package:gymnastic_center/presentation/screens/profile/statistics_profile.dart';
-import 'package:gymnastic_center/presentation/widgets/common/carousel_header.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/statistics_header.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/statistics_profile.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -88,7 +87,13 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              CarouselHeader(title: 'My Training', onButtonPressed: () {}),
+              Text(
+                'My training',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onPrimary),
+              ),
               const SizedBox(
                 height: 10,
               ),

@@ -15,9 +15,15 @@ class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
   Future<void> _getAllCourses(
       AllCoursesRequested event, Emitter<AllCoursesState> emit) async {
     emit(AllCoursesLoading());
-    final result = await getAllCoursesUseCase.execute(GetAllCoursesDto());
+    final result =
+        await getAllCoursesUseCase.execute(GetAllCoursesDto(event.page));
     if (result.isSuccessful) {
-      emit(AllCoursesSuccess(courses: result.unwrap()));
+      final previousCourses = state is AllCoursesSuccess
+          ? (state as AllCoursesSuccess).courses
+          : <Course>[];
+      final currentCourses = result.unwrap();
+      final allCourses = [...previousCourses, ...currentCourses];
+      emit(AllCoursesSuccess(courses: allCourses));
     } else {
       try {
         throw result.unwrap();

@@ -4,7 +4,9 @@ import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/domain/course/course_repository.dart';
 
 class GetAllCoursesDto {
-  GetAllCoursesDto();
+  final int page;
+
+  GetAllCoursesDto(this.page);
 }
 
 class GetAllCoursesUseCase extends IUseCase<GetAllCoursesDto, List<Course>> {
@@ -14,6 +16,6 @@ class GetAllCoursesUseCase extends IUseCase<GetAllCoursesDto, List<Course>> {
 
   @override
   Future<Result<List<Course>>> execute(GetAllCoursesDto dto) async {
-    return await courseRepository.getAllCourses();
+    return await courseRepository.getAllCourses(dto.page);
   }
 }

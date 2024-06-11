@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
-import 'package:gymnastic_center/presentation/screens/profile/edit_profile.dart';
+import 'package:gymnastic_center/presentation/screens/profile/edit_profile_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
@@ -25,7 +26,7 @@ class ProfileAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                const BackButton(
+                const BrandBackButton(
                   color: Colors.white,
                 ),
                 const SizedBox(
@@ -42,7 +43,7 @@ class ProfileAppBar extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EditProfile()),
+                            builder: (context) => const EditProfileScreen()),
                       );
                     },
                     icon: const Icon(

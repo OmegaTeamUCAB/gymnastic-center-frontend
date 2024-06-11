@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/data/dummy_courses.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/training/course_option_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -45,7 +46,7 @@ class _NewTrainingScreenState extends State<NewTrainingScreen> {
             left: 5,
             child: Row(
               children: [
-                BackButton(
+                BrandBackButton(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 const Text(

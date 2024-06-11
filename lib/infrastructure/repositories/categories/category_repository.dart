@@ -11,7 +11,7 @@ class CategoryRepository implements ICategoryRepository {
   @override
   Future<Result<List<Category>>> getAllCategories() async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'category/many?page=1&perPage=15',
+      urlPath: 'category/many?page=1&perPage=10',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Category> categories = [];

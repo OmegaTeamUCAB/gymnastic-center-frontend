@@ -11,7 +11,8 @@ class BlogCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allBlogsBloc = GetIt.instance<AllBlogsBloc>();
-    allBlogsBloc.add(AllBlogsRequested());
+    // TODO: Implement pagination
+    allBlogsBloc.add(const AllBlogsRequested(1));
     return BlocProvider<AllBlogsBloc>.value(
       value: allBlogsBloc,
       child: BlocBuilder<AllBlogsBloc, AllBlogsState>(

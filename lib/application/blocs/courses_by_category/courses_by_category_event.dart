@@ -6,6 +6,7 @@ sealed class CoursesByCategoryEvent {
 
 class CoursesByCategoryRequested extends CoursesByCategoryEvent {
   final String categoryId;
+  final int page;
 
-  CoursesByCategoryRequested({required this.categoryId});
+  CoursesByCategoryRequested({required this.categoryId, required this.page});
 }

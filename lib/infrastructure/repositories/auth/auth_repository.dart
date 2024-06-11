@@ -6,16 +6,16 @@ import 'package:gymnastic_center/application/repositories/auth/auth_repository.d
 import 'package:gymnastic_center/domain/auth/user.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
-class AuthResponse implements IAuthResponse {
+class LoginResponse implements ILoginResponse {
   @override
   final String token;
   @override
   final User user;
 
-  AuthResponse({required this.token, required this.user});
+  LoginResponse({required this.token, required this.user});
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
-    return AuthResponse(
+  factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    return LoginResponse(
       token: json['token'],
       user: User.fromJson(json['user']),
     );
@@ -42,14 +42,14 @@ class AuthRepository implements IAuthRepository {
   AuthRepository(this._httpConnectionManager, this._localDataSource);
 
   @override
-  Future<Result<AuthResponse>> login(
+  Future<Result<ILoginResponse>> login(
       {required String email, required String password}) async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: 'auth/login',
       httpMethod: 'POST',
       body: jsonEncode({'email': email, 'password': password}),
       mapperCallBack: (data) {
-        return AuthResponse.fromJson(data);
+        return LoginResponse.fromJson(data);
       },
     );
     final token = result.unwrap().token;
@@ -82,7 +82,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Result<AuthResponse>> verifyUser() async {
+  Future<Result<User>> verifyUser() async {
     final token = await _localDataSource.getValue('token');
     if (token == null) {
       return Result.failure(const UnauthorizedException());
@@ -93,7 +93,7 @@ class AuthRepository implements IAuthRepository {
       urlPath: 'auth/current',
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        return AuthResponse.fromJson(data);
+        return User.fromJson(data);
       },
     );
     if (result.isError) {

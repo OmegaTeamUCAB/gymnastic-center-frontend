@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
@@ -41,7 +42,7 @@ class SearchScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 24.0),
                   child: Row(
                     children: [
-                      BackButton(
+                      BrandBackButton(
                         color: Colors.white,
                       ),
                       Text(

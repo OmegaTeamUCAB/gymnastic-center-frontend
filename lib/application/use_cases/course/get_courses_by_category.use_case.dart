@@ -5,8 +5,9 @@ import 'package:gymnastic_center/domain/course/course_repository.dart';
 
 class GetCoursesByCategoryDto {
   final String categoryId;
+  final int page;
 
-  GetCoursesByCategoryDto(this.categoryId);
+  GetCoursesByCategoryDto(this.categoryId, this.page);
 }
 
 class GetCoursesByCategoryUseCase
@@ -17,6 +18,7 @@ class GetCoursesByCategoryUseCase
 
   @override
   Future<Result<List<Course>>> execute(GetCoursesByCategoryDto dto) async {
-    return await courseRepository.getCoursesByCategory(dto.categoryId);
+    return await courseRepository.getCoursesByCategory(
+        dto.categoryId, dto.page);
   }
 }

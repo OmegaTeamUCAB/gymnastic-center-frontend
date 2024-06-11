@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/edit_profile_from.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class EditProfile extends StatelessWidget {
-  const EditProfile({super.key});
+class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,9 @@ class EditProfile extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    BackButton(),
+                    BrandBackButton(
+                      color: Colors.white,
+                    ),
                     Text(
                       'Edit Profile',
                       style: TextStyle(
