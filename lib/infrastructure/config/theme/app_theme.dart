@@ -11,7 +11,7 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF4F14A0),
           primary: const Color(0xFF4F14A0),
-          secondary: const Color(0xFF8066FF),
+          secondary: const Color(0xFF4F14A0),
           background: const Color(0xFFF2F2F2),
           onBackground: Colors.white,
           onSurface: Colors.white, // content inside button

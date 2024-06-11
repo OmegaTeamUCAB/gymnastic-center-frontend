@@ -70,7 +70,7 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<Result<List<Course>>> getCoursesByInstructor(String id) async {
+  Future<Result<List<Course>>> getCoursesByTrainer(String id) async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: '/course/many?page=1&perPage=15&trainer=$id',
       httpMethod: 'GET',

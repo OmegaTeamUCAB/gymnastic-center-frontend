@@ -3,9 +3,9 @@ import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
-class ImprovedBlogSlide extends StatelessWidget {
+class BlogSlide extends StatelessWidget {
   final Blog blog;
-  const ImprovedBlogSlide({super.key, required this.blog});
+  const BlogSlide({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context) {
