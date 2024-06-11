@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
@@ -29,66 +30,28 @@ class HomeScreen extends StatelessWidget {
           ),
           const CategoryCarousel(),
           const SizedBox(height: 25),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Text(
-                  'Trending Courses',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AllCoursesScreen()),
-                    );
-                  },
-                  child: const Text(
-                    'Show all',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                )
-              ],
-            ),
-          ),
+          ContentHeader(
+              title: 'Trending Courses',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AllCoursesScreen()),
+                );
+              }),
           const HomeCourseCarousel(),
           const SizedBox(
             height: 25,
           ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Text(
-                  'Popular Blogs',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AllBlogsScreen()),
-                    );
-                  },
-                  child: const Text(
-                    'Show all',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                )
-              ],
-            ),
-          ),
+          ContentHeader(
+              title: 'Popular Blogs',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AllBlogsScreen()),
+                );
+              }),
           const BlogCarousel(),
           const SizedBox(
             height: 60,
