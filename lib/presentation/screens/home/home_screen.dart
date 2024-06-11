@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/home/blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => const AllBlogsScreen()),
                 );
               }),
-          const BlogCarousel(),
+          const HomeBlogCarousel(),
           const SizedBox(
             height: 60,
           )

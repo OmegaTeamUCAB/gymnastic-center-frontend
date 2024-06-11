@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
-import 'package:gymnastic_center/presentation/widgets/home/course_tile.dart';
+import 'package:gymnastic_center/presentation/widgets/course/courses_page_view.dart';
 
 class HomeCourseCarousel extends StatelessWidget {
   const HomeCourseCarousel({super.key});
@@ -32,27 +32,7 @@ class HomeCourseCarousel extends StatelessWidget {
               );
             }
             if (state is AllCoursesSuccess) {
-              return PageView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(
-                  (state.courses.length / 2)
-                      .ceil(), // Calculate the number of columns
-                  (index) {
-                    // Calculate the indices of the courses for this column
-                    int firstCourseIndex = index * 2;
-                    int secondCourseIndex = index * 2 + 1;
-
-                    return Column(
-                      children: [
-                        CourseTile(course: state.courses[firstCourseIndex]),
-                        // Check if there is a second course for this column
-                        if (secondCourseIndex < state.courses.length)
-                          CourseTile(course: state.courses[secondCourseIndex]),
-                      ],
-                    );
-                  },
-                ),
-              );
+              return CoursesPageView(courses: state.courses);
             } else {
               return const Center(
                 child: Text('Error'),
