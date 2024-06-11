@@ -13,14 +13,14 @@ class EditProfileScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 100),
           child: CustomAppBar(
             content: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.only(bottom: 15),
                 child: Row(
                   children: [
                     BrandBackButton(
                       color: Colors.white,
                     ),
                     Text(
-                      'Edit Profile',
+                      'Edit profile',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

@@ -58,12 +58,33 @@ class ProfileAppBar extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const CircleAvatar(
-                        backgroundImage: AssetImage('assets/test_user.jpeg'),
-                        radius: 40,
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: authBloc.state is Authenticated &&
+                            (authBloc.state as Authenticated).user.image != null
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              (authBloc.state as Authenticated).user.image!,
+                            ),
+                            radius: 35,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: const Color(0xFFe3dff1),
+                            radius: 35,
+                            child: Text(
+                                (authBloc.state as Authenticated)
+                                    .user
+                                    .fullName
+                                    .split(' ')
+                                    .map((l) => l[0])
+                                    .take(2)
+                                    .join(),
+                                style: const TextStyle(
+                                    color: Color(0xFF4F14A0),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                  ),
                   const SizedBox(width: 7),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
