@@ -26,7 +26,7 @@ class _BlogsByCategoryViewState extends State<BlogsByCategoryView> {
     //! Buggy as hell
     paginationController = PaginationController(
       requestNextPage: (page) => blogsByCategoryBloc.add(
-          BlogsByCategoryRequested(categoryId: widget.categoryId, page: page)),
+          BlogsByCategoryRequested(categoryId: widget.categoryId, page: 1)),
     );
   }
 

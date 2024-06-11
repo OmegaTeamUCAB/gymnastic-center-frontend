@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_event.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_state.dart';
+import 'package:gymnastic_center/presentation/screens/loading_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/training/course_page_view.dart';
 
 class TrainingScreen extends StatefulWidget {
@@ -32,12 +33,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         child: BlocBuilder<PlanCoursesBloc, PlanCoursesState>(
           builder: (context, state) {
             if (state is PlanCoursesLoading) {
-              return const Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 25),
-                  child: CircularProgressIndicator(),
-                ),
-              );
+              return const LoadingScreen();
             }
             if (state is PlanCoursesFailed) {
               return Center(
