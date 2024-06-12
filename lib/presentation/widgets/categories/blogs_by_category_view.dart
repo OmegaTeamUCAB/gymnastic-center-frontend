@@ -27,14 +27,14 @@ class _BlogsByCategoryViewState extends State<BlogsByCategoryView> {
     _paginationController = PaginationController(
       requestNextPage: (page) {
         _blogsByCategoryBloc.add(
-          BlogsByCategoryRequested(widget.categoryId),
+          BlogsByCategoryRequested(page: page, categoryId: widget.categoryId),
         );
       },
     );
 
     // Dispatch the first request
     _blogsByCategoryBloc.add(
-      BlogsByCategoryRequested(widget.categoryId),
+      BlogsByCategoryRequested(page: 1, categoryId: widget.categoryId),
     );
   }
 

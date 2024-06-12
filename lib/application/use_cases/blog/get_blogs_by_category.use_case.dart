@@ -3,20 +3,14 @@ import 'package:gymnastic_center/core/use_case.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 
-class GetBlogsByCategoryDto {
-  final String categoryId;
-
-  GetBlogsByCategoryDto(this.categoryId);
-}
-
-class GetBlogsByCategoryUseCase
-    extends IUseCase<GetBlogsByCategoryDto, List<Blog>> {
+class GetBlogsByCategoryUseCase extends IUseCase<GetBlogsDto, List<Blog>> {
   final IBlogRepository blogRepository;
 
   GetBlogsByCategoryUseCase(this.blogRepository);
 
   @override
-  Future<Result<List<Blog>>> execute(GetBlogsByCategoryDto dto) async {
-    return await blogRepository.getBlogsByCategory(dto.categoryId);
+  Future<Result<List<Blog>>> execute(GetBlogsDto dto) async {
+    return await blogRepository
+        .getBlogs(GetBlogsDto(page: dto.page, categoryId: dto.categoryId));
   }
 }
