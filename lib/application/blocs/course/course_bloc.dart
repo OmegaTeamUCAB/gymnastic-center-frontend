@@ -11,7 +11,6 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     on<AddCourses>(_addCourses);
     on<AddToPopularCourses>(_addToPopularCourses);
     on<GetCourseById>(_getCourseById);
-    add(GetMostPopularCourses());
   }
 
   _addToPopularCourses(AddToPopularCourses event, Emitter<CourseState> emit) {

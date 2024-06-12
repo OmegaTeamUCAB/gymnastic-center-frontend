@@ -5,7 +5,13 @@ class GetCoursesDto {
   final int page;
   final String? categoryId;
   final String? trainerId;
-  GetCoursesDto({this.categoryId, required this.page, this.trainerId});
+  final String? userId;
+  GetCoursesDto({
+    this.categoryId,
+    required this.page,
+    this.trainerId,
+    this.userId,
+  });
 }
 
 abstract class ICourseRepository {

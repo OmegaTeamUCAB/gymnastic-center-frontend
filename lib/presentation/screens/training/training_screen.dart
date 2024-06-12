@@ -26,7 +26,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
   @override
   Widget build(BuildContext context) {
     final planCoursesBloc = GetIt.instance<PlanCoursesBloc>();
-    planCoursesBloc.add(const PlanCoursesRequested(1));
+    planCoursesBloc.add(const PlanCoursesRequested(1, 'userId'));
     return Scaffold(
       body: BlocProvider<PlanCoursesBloc>.value(
         value: planCoursesBloc,

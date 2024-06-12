@@ -4,5 +4,6 @@ sealed class PlanCoursesEvent {
 
 class PlanCoursesRequested extends PlanCoursesEvent {
   final int page;
-  const PlanCoursesRequested(this.page);
+  final String userId;
+  const PlanCoursesRequested(this.page, this.userId);
 }
