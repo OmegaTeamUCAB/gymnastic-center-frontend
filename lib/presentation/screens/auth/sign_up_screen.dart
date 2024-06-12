@@ -69,7 +69,7 @@ class SignUpScreen extends StatelessWidget {
                                   child: BlocListener<AuthBloc, AuthState>(
                                     listener: (context, state) {
                                       if (state is Authenticated) {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>

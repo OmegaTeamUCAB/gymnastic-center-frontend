@@ -20,7 +20,6 @@ class HomeAppBar extends StatelessWidget {
             Row(
               children: [
                 Column(
-                  // should be aligned to the left
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     authBloc.state is Authenticated
@@ -43,17 +42,38 @@ class HomeAppBar extends StatelessWidget {
                 ),
                 const Spacer(),
                 IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfileScreen()),
-                      );
-                    },
-                    icon: const CircleAvatar(
-                      backgroundImage: AssetImage('assets/test_user.jpeg'),
-                      radius: 25,
-                    ))
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfileScreen()),
+                    );
+                  },
+                  icon: authBloc.state is Authenticated &&
+                          (authBloc.state as Authenticated).user.image != null
+                      ? CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            (authBloc.state as Authenticated).user.image!,
+                          ),
+                          radius: 25,
+                        )
+                      : CircleAvatar(
+                          backgroundColor: const Color(0xFFe3dff1),
+                          radius: 25,
+                          child: Text(
+                              (authBloc.state as Authenticated)
+                                  .user
+                                  .fullName
+                                  .split(' ')
+                                  .map((l) => l[0])
+                                  .take(2)
+                                  .join(),
+                              style: const TextStyle(
+                                  color: Color(0xFF4F14A0),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                )
               ],
             ),
             const Spacer(),

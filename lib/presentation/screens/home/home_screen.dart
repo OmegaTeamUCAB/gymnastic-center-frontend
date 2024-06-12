@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
+import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
+import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/home/blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
@@ -15,52 +13,46 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final popularCourses = context.watch<CourseBloc>().state.popularCourses;
-
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
       body: ListView(
         children: [
-          const CategoryCarousel(),
-          const SizedBox(height: 25),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Text(
-                  'Trending Courses',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Show all',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                )
-              ],
-            ),
-          ),
-          const HomeCourseCarousel(),
-          const SizedBox(
-            height: 25,
-          ),
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              'Popular Blogs',
+              'Categories',
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
-          const BlogCarousel(),
+          const CategoryCarousel(),
+          const SizedBox(height: 25),
+          ContentHeader(
+              title: 'Trending Courses',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AllCoursesScreen()),
+                );
+              }),
+          const HomeCourseCarousel(),
+          const SizedBox(
+            height: 25,
+          ),
+          ContentHeader(
+              title: 'Popular Blogs',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AllBlogsScreen()),
+                );
+              }),
+          const HomeBlogCarousel(),
           const SizedBox(
             height: 60,
           )

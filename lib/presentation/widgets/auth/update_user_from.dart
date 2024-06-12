@@ -66,18 +66,32 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                           _base64Image = '';
                         }
                       },
-                      icon: _newUserImage == null
-                          ? InteractiveViewer(
-                              child: const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/default_user_image.png')
-                                        as ImageProvider<Object>?,
-                                radius: 90,
+                      icon: authBloc.state is Authenticated &&
+                              (authBloc.state as Authenticated).user.image !=
+                                  null
+                          ? CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                (authBloc.state as Authenticated).user.image!,
                               ),
+                              radius: 60,
                             )
                           : CircleAvatar(
-                              backgroundImage: FileImage(_newUserImage!),
-                              radius: 90,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surfaceTint,
+                              radius: 60,
+                              child: Text(
+                                  (authBloc.state as Authenticated)
+                                      .user
+                                      .fullName
+                                      .split(' ')
+                                      .map((l) => l[0])
+                                      .take(2)
+                                      .join(),
+                                  style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.bold)),
                             ),
                     ),
                     if (_newUserImage != null)
@@ -93,8 +107,44 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                           },
                         ),
                       ),
+                    Positioned(
+                      right: 5,
+                      bottom: 5,
+                      child: CircleAvatar(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
+                // if (_newUserImage != null)
+                TextButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Remove profile photo',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Icon(
+                        Icons.delete,
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                    ],
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _newUserImage = null;
+                    });
+                  },
+                ),
+
                 const SizedBox(height: 35),
 
                 // Profile Name

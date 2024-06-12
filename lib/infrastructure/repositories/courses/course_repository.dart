@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/domain/course/course_repository.dart';
@@ -11,9 +10,9 @@ class CourseRepository extends ICourseRepository {
   CourseRepository(this._httpConnectionManager);
 
   @override
-  Future<Result<List<Course>>> getAllCourses() async {
+  Future<Result<List<Course>>> getAllCourses(int page) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'course/many?page=1&perPage=15',
+      urlPath: 'course/many?page=$page&perPage=15',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
@@ -47,9 +46,10 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<Result<List<Course>>> getCoursesByCategory(String categoryId) async {
+  Future<Result<List<Course>>> getCoursesByCategory(
+      String categoryId, int page) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'course/many?page=1&perPage=10&category=$categoryId',
+      urlPath: 'course/many?page=$page&perPage=10&category=$categoryId',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];
@@ -70,7 +70,7 @@ class CourseRepository extends ICourseRepository {
   }
 
   @override
-  Future<Result<List<Course>>> getCoursesByInstructor(String id) async {
+  Future<Result<List<Course>>> getCoursesByTrainer(String id) async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: '/course/many?page=1&perPage=15&trainer=$id',
       httpMethod: 'GET',

@@ -1,9 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
+import 'package:gymnastic_center/presentation/screens/loading_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_info.dart';
 
@@ -53,11 +53,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     final course = context.watch<CourseBloc>().state.course;
 
     if (courseIsLoading) {
-      return const Scaffold(
-          body: Center(
-              child: CircularProgressIndicator(
-        strokeWidth: 2,
-      )));
+      return const LoadingScreen();
     }
     if (course == null) {
       return const Center(
@@ -119,7 +115,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   color: Color(0xFF4F14A0),
                   shape: BoxShape.circle,
                 ),
-                child: const BackButton(
+                child: const BrandBackButton(
                   color: Colors.white,
                 ),
               )),

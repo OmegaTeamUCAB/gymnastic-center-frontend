@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/blogs_by_category_grid.dart';
-import 'package:gymnastic_center/presentation/widgets/categories/courses_by_category_list.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/blogs_by_category_view.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/courses_by_category_view.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_chip.dart';
 
@@ -27,7 +28,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             children: [
               Row(
                 children: [
-                  const BackButton(
+                  const BrandBackButton(
                     color: Colors.white,
                   ),
                   Text(
@@ -74,10 +75,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
       body: SingleChildScrollView(
         child: selectedChip == 'Blogs'
-            ? BlogsByCategoryGrid(
+            ? BlogsByCategoryView(
                 categoryId: widget.categoryId,
               )
-            : CoursesByCategoryList(categoryId: widget.categoryId),
+            : CoursesByCategoryView(categoryId: widget.categoryId),
       ),
     );
   }
