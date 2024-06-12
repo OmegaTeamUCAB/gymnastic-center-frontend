@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/edit_profile_from.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/update_user_from.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class EditProfile extends StatelessWidget {
-  const EditProfile({super.key});
+class UpdateUserScreen extends StatelessWidget {
+  const UpdateUserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class EditProfile extends StatelessWidget {
                   ],
                 )),
           )),
-      body: EditProfileFrom(),
+      body: UpdateUserForm(),
     );
   }
 }

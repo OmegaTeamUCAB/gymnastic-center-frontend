@@ -42,7 +42,7 @@ class ProfileAppBar extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EditProfile()),
+                            builder: (context) => const UpdateUserScreen()),
                       );
                     },
                     icon: const Icon(
