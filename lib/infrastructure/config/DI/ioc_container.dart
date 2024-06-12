@@ -21,20 +21,17 @@ import 'package:gymnastic_center/application/use_cases/auth/request_code.use_cas
 import 'package:gymnastic_center/application/use_cases/auth/reset_password.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_all_blogs.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/course/get_all_courses.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/course/get_plan_courses.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/local/secure_storage.dart';
 import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
@@ -68,26 +65,21 @@ class IoCContainer {
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
-    final getBlogsByCategoryUseCase = GetBlogsByCategoryUseCase(blogRepository);
+    final getBlogsUseCase = GetBlogsUseCase(blogRepository);
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
-    final getAllCoursesUseCase = GetAllCoursesUseCase(courseRepository);
-    final getPlanCoursesUseCase = GetPlanCoursesUseCase(courseRepository);
-    final getAllBlogsUseCase = GetAllBlogsUseCase(blogRepository);
+    final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
-    final getCoursesByCategoryUseCase =
-        GetCoursesByCategoryUseCase(courseRepository);
     //BLOCS
-    getIt.registerSingleton<BlogsByCategoryBloc>(BlogsByCategoryBloc(
-        getBlogsByCategoryUseCase: getBlogsByCategoryUseCase));
-    getIt.registerSingleton<AllCoursesBloc>(
-        AllCoursesBloc(getAllCoursesUseCase));
-    getIt.registerSingleton<PlanCoursesBloc>(
-        PlanCoursesBloc(getPlanCoursesUseCase));
+    getIt.registerSingleton<BlogsByCategoryBloc>(
+        BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
+    getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
+    getIt
+        .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(
-        CoursesByCategoryBloc(getCoursesByCategoryUseCase));
+        CoursesByCategoryBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCategoriesBloc>(
         AllCategoriesBloc(getAllCategoriesUseCase));
-    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getAllBlogsUseCase));
+    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getBlogsUseCase));
     getIt.registerSingleton<AuthBloc>(AuthBloc(
       logoutUseCase: logoutUseCase,
       loginUseCase: loginUseCase,

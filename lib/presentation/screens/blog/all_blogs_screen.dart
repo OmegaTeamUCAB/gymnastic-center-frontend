@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
+import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blogs_grid.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
@@ -16,21 +17,30 @@ class AllBlogsScreen extends StatefulWidget {
 }
 
 class _AllBlogsScreenState extends State<AllBlogsScreen> {
-  late final PaginationController paginationController;
-  final allBlogsBloc = GetIt.instance<AllBlogsBloc>();
+  late PaginationController _paginationController;
+  late AllBlogsBloc _allBlogsBloc;
 
   @override
   void initState() {
     super.initState();
-    //! Buggy as hell
-    paginationController = PaginationController(
-      requestNextPage: (page) => allBlogsBloc.add(AllBlogsRequested(page)),
+    _allBlogsBloc = GetIt.instance<AllBlogsBloc>();
+    _paginationController = PaginationController(
+      requestNextPage: (page) {
+        // _allBlogsBloc.add(
+        //   AllBlogsRequested(page),
+        // );
+      },
+    );
+
+    // Dispatch the first request
+    _allBlogsBloc.add(
+      const AllBlogsRequested(1),
     );
   }
 
   @override
   void dispose() {
-    paginationController.dispose();
+    _paginationController.dispose();
     super.dispose();
   }
 
@@ -57,7 +67,7 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
           ),
         ),
         body: BlocProvider<AllBlogsBloc>.value(
-          value: allBlogsBloc,
+          value: _allBlogsBloc,
           child: BlocBuilder<AllBlogsBloc, AllBlogsState>(
               builder: (context, state) {
             if (state is AllBlogsLoading) {
@@ -81,7 +91,7 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
               }
               return BlogsGrid(
                 blogs: state.blogs,
-                controller: paginationController.scrollController,
+                controller: _paginationController.scrollController,
               );
             } else {
               return const Center(

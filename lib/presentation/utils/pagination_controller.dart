@@ -11,11 +11,11 @@ class PaginationController {
     scrollController.addListener(_onScroll);
   }
 
-  void _onScroll() {
+  void _onScroll() async {
     if (_isBottom && hasMore && !isLoading) {
       currentPage++;
       isLoading = true;
-      requestNextPage(currentPage);
+      await requestNextPage(currentPage);
       isLoading = false;
     }
   }
