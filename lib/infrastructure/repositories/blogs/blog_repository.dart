@@ -40,28 +40,6 @@ class BlogsRepository implements IBlogRepository {
   }
 
   @override
-  Future<Result<List<Blog>>> getBlogsByCategory(String categoryId) async {
-    final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'blog/many?page=1&perPage=10&category=$categoryId',
-      httpMethod: 'GET',
-      mapperCallBack: (data) {
-        List<Blog> blogs = [];
-        for (var blog in data) {
-          blogs.add(Blog(
-            id: blog['id'],
-            images: [blog['image']],
-            title: blog['title'],
-            trainer: blog['trainer'],
-            uploadDate: blog['date'],
-          ));
-        }
-        return blogs;
-      },
-    );
-    return result;
-  }
-
-  @override
   Future<Result<Blog>> getBlogById(String blog) async {
     final result = await _httpConnectionManager.makeRequest(
       httpMethod: 'GET',

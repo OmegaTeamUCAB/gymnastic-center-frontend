@@ -10,6 +10,5 @@ class GetBlogsDto {
 
 abstract class IBlogRepository {
   Future<Result<List<Blog>>> getBlogs(GetBlogsDto dto);
-  Future<Result<List<Blog>>> getBlogsByCategory(String categoryId);
   Future<Result<Blog>> getBlogById(String blog);
 }
