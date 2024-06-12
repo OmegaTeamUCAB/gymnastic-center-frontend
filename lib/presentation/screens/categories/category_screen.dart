@@ -73,13 +73,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: selectedChip == 'Blogs'
-            ? BlogsByCategoryView(
-                categoryId: widget.categoryId,
-              )
-            : CoursesByCategoryView(categoryId: widget.categoryId),
-      ),
+      body: selectedChip == 'Blogs'
+          ? BlogsByCategoryView(
+              categoryId: widget.categoryId,
+            )
+          : CoursesByCategoryView(categoryId: widget.categoryId),
     );
   }
 }

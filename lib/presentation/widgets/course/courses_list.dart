@@ -13,9 +13,9 @@ class CoursesList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
       child: ListView.builder(
+        controller: controller,
         shrinkWrap: false,
         physics: const AlwaysScrollableScrollPhysics(),
-        controller: controller,
         itemCount: courses.length,
         itemBuilder: (context, index) {
           return CourseTile(course: courses[index]);

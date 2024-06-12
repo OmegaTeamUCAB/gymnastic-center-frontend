@@ -16,30 +16,37 @@ class CoursesByCategoryView extends StatefulWidget {
 }
 
 class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
-  final coursesByCategoryBloc = GetIt.instance<CoursesByCategoryBloc>();
-  late final PaginationController paginationController;
+  late PaginationController _paginationController;
+  late CoursesByCategoryBloc _coursesByCategoryBloc;
 
   @override
   void initState() {
     super.initState();
-    //! Buggy as hell
-    paginationController = PaginationController(
-      requestNextPage: (page) => coursesByCategoryBloc.add(
-          CoursesByCategoryRequested(
-              categoryId: widget.categoryId, page: page)),
+    _coursesByCategoryBloc = GetIt.instance<CoursesByCategoryBloc>();
+    _paginationController = PaginationController(
+      requestNextPage: (page) {
+        _coursesByCategoryBloc.add(
+          CoursesByCategoryRequested(categoryId: widget.categoryId, page: page),
+        );
+      },
+    );
+
+    // Dispatch the first request
+    _coursesByCategoryBloc.add(
+      CoursesByCategoryRequested(categoryId: widget.categoryId, page: 1),
     );
   }
 
   @override
   void dispose() {
-    paginationController.dispose();
+    _paginationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CoursesByCategoryBloc>.value(
-      value: coursesByCategoryBloc,
+      value: _coursesByCategoryBloc,
       child: BlocBuilder<CoursesByCategoryBloc, CoursesByCategoryState>(
         builder: (context, state) {
           if (state is CoursesByCategoryLoading) {
@@ -63,7 +70,7 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
             }
             return CoursesList(
               courses: state.courses,
-              controller: paginationController.scrollController,
+              controller: _paginationController.scrollController,
             );
           } else {
             return const Center(

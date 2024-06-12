@@ -49,7 +49,7 @@ class CourseRepository extends ICourseRepository {
   Future<Result<List<Course>>> getCoursesByCategory(
       String categoryId, int page) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'course/many?page=$page&perPage=10&category=$categoryId',
+      urlPath: '/course/many?category=$categoryId',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Course> courses = [];

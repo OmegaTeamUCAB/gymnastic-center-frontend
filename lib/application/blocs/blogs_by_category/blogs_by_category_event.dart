@@ -4,7 +4,6 @@ sealed class BlogsByCategoryEvent {
 
 class BlogsByCategoryRequested extends BlogsByCategoryEvent {
   final String categoryId;
-  final int page;
 
-  BlogsByCategoryRequested({required this.categoryId, required this.page});
+  BlogsByCategoryRequested(this.categoryId);
 }

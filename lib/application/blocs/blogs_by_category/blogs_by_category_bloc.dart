@@ -20,7 +20,12 @@ class BlogsByCategoryBloc
     final result = await getBlogsByCategoryUseCase
         .execute(GetBlogsByCategoryDto(event.categoryId));
     if (result.isSuccessful) {
-      emit(BlogsByCategorySuccess(blogs: result.unwrap()));
+      final previousBlogs = state is BlogsByCategorySuccess
+          ? (state as BlogsByCategorySuccess).blogs
+          : <Blog>[];
+      final currentBlogs = result.unwrap();
+      final allBlogs = [...previousBlogs, ...currentBlogs];
+      emit(BlogsByCategorySuccess(blogs: allBlogs));
     } else {
       try {
         throw result.unwrap();

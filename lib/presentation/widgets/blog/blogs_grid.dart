@@ -3,7 +3,7 @@ import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
 
 class BlogsGrid extends StatelessWidget {
-  final ScrollController controller;
+  final ScrollController? controller;
   final List<Blog> blogs;
   const BlogsGrid({super.key, required this.blogs, required this.controller});
 

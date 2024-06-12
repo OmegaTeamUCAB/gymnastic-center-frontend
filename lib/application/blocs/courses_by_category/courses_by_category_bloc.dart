@@ -20,12 +20,7 @@ class CoursesByCategoryBloc
     final result = await getCoursesByCategoryUseCase
         .execute(GetCoursesByCategoryDto(event.categoryId, event.page));
     if (result.isSuccessful) {
-      final previousCourses = state is CoursesByCategorySuccess
-          ? (state as CoursesByCategorySuccess).courses
-          : <Course>[];
-      final currentCourses = result.unwrap();
-      final allCourses = [...previousCourses, ...currentCourses];
-      emit(CoursesByCategorySuccess(courses: allCourses));
+      emit(CoursesByCategorySuccess(courses: result.unwrap()));
     } else {
       try {
         throw result.unwrap();
