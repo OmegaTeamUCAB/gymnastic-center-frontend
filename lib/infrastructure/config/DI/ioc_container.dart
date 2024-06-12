@@ -21,9 +21,8 @@ import 'package:gymnastic_center/application/use_cases/auth/request_code.use_cas
 import 'package:gymnastic_center/application/use_cases/auth/reset_password.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_all_blogs.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
@@ -66,14 +65,13 @@ class IoCContainer {
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
-    final getBlogsByCategoryUseCase = GetBlogsByCategoryUseCase(blogRepository);
+    final getBlogsUseCase = GetBlogsUseCase(blogRepository);
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     final getCoursesUseCase = GetCoursesUseCase(courseRepository);
-    final getAllBlogsUseCase = GetAllBlogsUseCase(blogRepository);
     final searchUseCase = SearchUseCase(searchRepository);
     //BLOCS
-    getIt.registerSingleton<BlogsByCategoryBloc>(BlogsByCategoryBloc(
-        getBlogsByCategoryUseCase: getBlogsByCategoryUseCase));
+    getIt.registerSingleton<BlogsByCategoryBloc>(
+        BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
     getIt
         .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
@@ -81,7 +79,7 @@ class IoCContainer {
         CoursesByCategoryBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCategoriesBloc>(
         AllCategoriesBloc(getAllCategoriesUseCase));
-    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getAllBlogsUseCase));
+    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getBlogsUseCase));
     getIt.registerSingleton<AuthBloc>(AuthBloc(
       logoutUseCase: logoutUseCase,
       loginUseCase: loginUseCase,
