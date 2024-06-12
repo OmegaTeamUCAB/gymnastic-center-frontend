@@ -1,33 +1,31 @@
 
-import 'package:dio/dio.dart';
-import 'package:gymnastic_center/domain/auth/user.dart';
+import 'package:gymnastic_center/application/use_cases/user/update_user.use_case.dart';
+import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/auth/user_repository.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
+import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
+
 
 class UserRepository extends IUserRepository{
 
-  final Dio dio = Dio(BaseOptions(
-    baseUrl: Environment.getApiUrl(),
-  ));
+  final IHttpManager _httpConnectionManager;
+
+  UserRepository(this._httpConnectionManager);
 
   @override
-  Future<User> editUser(Map<String, dynamic> user) async{
-   try{
-    const String url = '/users/update';
-    final response = await dio.put(url,data: user);
-    final users = User.fromJson(response.data);
-    return users;
-   } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        throw Exception(e.response?.data['message']);
+  Future<Result<void>> updateUser(UpdateUserDto dto)async{
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'course/many?page=1&perPage=15',
+      httpMethod: 'PUT',
+      mapperCallBack: (data) {
+        return data;
+      },
+      body: {
+        'name': dto.fullName,
+        'email': dto.email,
+        'phoneNumber':dto.phoneNumber,
+        'image':dto.image
       }
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('Connection Timeout');
-      }
-      throw Exception('Something wrong happened');
-    } catch (e) {
-      throw Exception('Something wrong happened');
-    }
+    );
+    return result;
   }
-
 }
