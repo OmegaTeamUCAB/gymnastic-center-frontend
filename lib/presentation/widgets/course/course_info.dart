@@ -50,7 +50,7 @@ class CourseInfo extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        'John Doe',
+                        course.trainer['name'],
                         style: TextStyle(
                             fontSize: 20,
                             color: Theme.of(context).colorScheme.secondary),

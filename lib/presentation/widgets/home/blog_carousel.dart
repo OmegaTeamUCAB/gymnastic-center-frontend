@@ -4,7 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_slide.dart';
 
 class HomeBlogCarousel extends StatelessWidget {
   const HomeBlogCarousel({super.key});
@@ -12,7 +11,6 @@ class HomeBlogCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allBlogsBloc = GetIt.instance<AllBlogsBloc>();
-    // TODO: Implement pagination
     allBlogsBloc.add(const AllBlogsRequested(1));
     return BlocProvider<AllBlogsBloc>.value(
       value: allBlogsBloc,

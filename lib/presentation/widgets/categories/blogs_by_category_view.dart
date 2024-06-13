@@ -17,29 +17,37 @@ class BlogsByCategoryView extends StatefulWidget {
 }
 
 class _BlogsByCategoryViewState extends State<BlogsByCategoryView> {
-  late final PaginationController paginationController;
-  final blogsByCategoryBloc = GetIt.instance<BlogsByCategoryBloc>();
+  late PaginationController _paginationController;
+  late BlogsByCategoryBloc _blogsByCategoryBloc;
 
   @override
   void initState() {
     super.initState();
-    //! Buggy as hell
-    paginationController = PaginationController(
-      requestNextPage: (page) => blogsByCategoryBloc.add(
-          BlogsByCategoryRequested(categoryId: widget.categoryId, page: page)),
+    _blogsByCategoryBloc = GetIt.instance<BlogsByCategoryBloc>();
+    _paginationController = PaginationController(
+      requestNextPage: (page) {
+        _blogsByCategoryBloc.add(
+          BlogsByCategoryRequested(page: page, categoryId: widget.categoryId),
+        );
+      },
+    );
+
+    // Dispatch the first request
+    _blogsByCategoryBloc.add(
+      BlogsByCategoryRequested(page: 1, categoryId: widget.categoryId),
     );
   }
 
   @override
   void dispose() {
-    paginationController.dispose();
+    _paginationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlogsByCategoryBloc>.value(
-      value: blogsByCategoryBloc,
+      value: _blogsByCategoryBloc,
       child: BlocBuilder<BlogsByCategoryBloc, BlogsByCategoryState>(
           builder: (context, state) {
         if (state is BlogsByCategoryLoading) {
@@ -62,12 +70,12 @@ class _BlogsByCategoryViewState extends State<BlogsByCategoryView> {
             );
           }
           return BlogsGrid(
+            controller: _paginationController.scrollController,
             blogs: state.blogs,
-            controller: paginationController.scrollController,
           );
         } else {
           return const Center(
-            child: Text('Error'),
+            child: Text('Error al cargar blogs'),
           );
         }
       }),
