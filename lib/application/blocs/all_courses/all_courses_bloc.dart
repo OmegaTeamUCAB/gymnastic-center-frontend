@@ -38,17 +38,17 @@ class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
 
   Future<void> loadNextPage() async {
     if(state is AllCoursesFailed || lastPage == true || loadingPage == true) return;
-    
     add(NextPageLoaded());
   }
 
   Future<void> _getAllCourses(
       AllCoursesRequested event, Emitter<AllCoursesState> emit) async {
     emit(AllCoursesLoading(courses: state.courses));
+    page = 1;
     final result = await getAllCoursesUseCase.execute(GetAllCoursesDto(page: page, perPage: perPage));
     if (result.isSuccessful) {
-      page = page + 1;
       emit(AllCoursesSuccess(courses: result.unwrap()));
+      page = page + 1;
     } else {
       try {
         throw result.unwrap();
