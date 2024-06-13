@@ -22,7 +22,7 @@ class CourseTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: Ink(
         height: 130,
-        width: 380,
+        width: 360,
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
@@ -40,7 +40,7 @@ class CourseTile extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(course.imageUrl,
-                        height: 110, width: 150, fit: BoxFit.cover),
+                        height: 110, width: 140, fit: BoxFit.cover),
                   ),
                   const Positioned(bottom: 5, left: 5, child: NewChip()),
                 ],
@@ -49,7 +49,7 @@ class CourseTile extends StatelessWidget {
                 width: 15,
               ),
               SizedBox(
-                width: 180,
+                width: 160,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,11 @@ class CourseTile extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text('${course.minutes} min | ${course.trainer}')
+                    Text(
+                      '${course.minutes} min | ${course.trainer}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    )
                   ],
                 ),
               ),

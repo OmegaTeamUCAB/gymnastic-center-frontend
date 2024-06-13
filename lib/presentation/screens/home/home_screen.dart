@@ -39,7 +39,10 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => const AllCoursesScreen()),
                 );
               }),
-          const HomeCourseCarousel(),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: HomeCourseCarousel(),
+          ),
           const SizedBox(
             height: 25,
           ),
