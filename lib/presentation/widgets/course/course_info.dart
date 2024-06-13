@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_card.dart';
 import 'package:gymnastic_center/presentation/widgets/course/lesson_list.dart';
+import 'package:gymnastic_center/presentation/screens/course/lesson_screen.dart';
 
 class CourseInfo extends StatelessWidget {
   final Course course;
@@ -76,7 +79,7 @@ class CourseInfo extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            CourseContentScreen(course: course)),
+                            LessonScreen(lessonId: course.lessons!.first.id,)),
                   );
                 },
               ),
