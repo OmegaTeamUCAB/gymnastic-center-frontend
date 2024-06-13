@@ -31,13 +31,3 @@ class Course {
     this.updatedAt,
   });
 }
-
-class Trainer {
-  final String id;
-  final String name;
-
-  Trainer({
-    required this.id,
-    required this.name,
-  });
-}
