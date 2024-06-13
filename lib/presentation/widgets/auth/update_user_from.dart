@@ -22,16 +22,17 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool? isTermsChecked = false;
   bool isObscured = true;
-  File? _newUserImage;
-  String? _newUserName;
-  String? _newUserEmail;
-  String? _newUserPhone;
-  String? _base64Image;
-
+  File? newUserImage;
+  String newUserName = '';
+  String newUserEmail = '';
+  String newUserPhone = '';
+  String? base64Image = '';
+  Uint8List? bytes;
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
     final updateUserBloc = GetIt.instance<UpdateUserBloc>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -55,15 +56,11 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                         final picker = ImagePicker();
                         final pickedFile =
                             await picker.pickImage(source: ImageSource.gallery);
-                        
 
                         if (pickedFile != null) {
                           setState(() {
-                            _newUserImage = File(pickedFile.path);
-                            _base64Image = transforImage(_newUserImage) as String?;
+                            newUserImage = File(pickedFile.path);
                           });
-                        }else {
-                          _base64Image = '';
                         }
                       },
                       icon: authBloc.state is Authenticated &&
@@ -94,16 +91,14 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                                       fontWeight: FontWeight.bold)),
                             ),
                     ),
-                    if (_newUserImage != null)
+                    if (newUserImage != null)
                       Positioned(
                         right: 0,
                         top: 0,
                         child: IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
-                            setState(() {
-                              _base64Image = '';
-                            });
+                            setState(() {});
                           },
                         ),
                       ),
@@ -140,7 +135,8 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _newUserImage = null;
+                      newUserImage = null;
+                      base64Image = '';
                     });
                   },
                 ),
@@ -158,12 +154,12 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                     if (value == null || value.isEmpty) return 'Required Field';
                     if (value.trim().isEmpty) return 'Required Field';
                     if (value.length < 3) return '3 characters minimum';
-                    _newUserName = value;
+
                     return null;
                   },
                   onChanged: (value) {
                     setState(() {
-                      _newUserName = value;
+                      newUserName = value;
                       _formKey.currentState!.validate();
                     });
                   },
@@ -188,13 +184,12 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                     if (!emailRegExp.hasMatch(value)) {
                       return 'Should be an email';
                     }
-                     _newUserEmail = value;
+
                     return null;
                   },
                   onChanged: (value) {
                     setState(() {
-                      _newUserEmail = value;
-            
+                      newUserEmail = value;
                       _formKey.currentState!.validate();
                     });
                   },
@@ -216,14 +211,12 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                     if (!RegExp(r'^\d{11}$').hasMatch(value)) {
                       return 'You must have a valid phone number';
                     }
-                    print('Valor $value');
-                    _newUserPhone = value;
+
                     return null;
-                    
                   },
                   onChanged: (value) {
                     setState(() {
-                      _newUserPhone = value;
+                      newUserPhone = value;
                       _formKey.currentState!.validate();
                     });
                   },
@@ -235,16 +228,36 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: BrandButton(
-                    onPressed: () {
-                        print(_newUserEmail);
-                        print(_newUserName);
-                        print(_newUserPhone);
-                        print(_base64Image);
-                        updateUserBloc.add(UpdateUser(fullName:_newUserName!, phoneNumber:_newUserPhone!, email: _newUserEmail!, image: _base64Image!));
-                      
+                    onPressed: () async {
+                      if (newUserImage != null) {
+                        bytes = await newUserImage!.readAsBytes();
+                        base64Image = base64Encode(bytes!);
+                      }
+                      if (newUserEmail == ''){
+                        newUserEmail = (authBloc.state as Authenticated).user.email;
+                      }
+                      if (newUserName == ''){
+                        newUserName = (authBloc.state as Authenticated).user.fullName;
+                      }
+                      if (newUserPhone == ''){
+                        newUserPhone = (authBloc.state as Authenticated).user.phoneNumber;
+                      }
+                      if (base64Image == ''){
+                        base64Image = (authBloc.state as Authenticated).user.image;
+                      }
+                      print(newUserEmail);
+                      print(newUserName);
+                      print(newUserPhone);
+                      print(base64Image);
+                      updateUserBloc.add(UpdateUser(
+                          fullName: newUserName,
+                          phoneNumber: newUserPhone,
+                          email: newUserEmail,
+                          image: base64Image!));
+
                       if (_formKey.currentState!.validate()) {
                         // Save the form
-                        }
+                      }
                     },
                     text: 'Save',
                   ),
@@ -255,12 +268,6 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
         ),
       ),
     );
-  }
-
-  Future<String?> transforImage(File? image)async{
-     Uint8List bytes = await _newUserImage!.readAsBytes();
-     _base64Image = base64Encode(bytes);
-     return _base64Image;
   }
 }
 
