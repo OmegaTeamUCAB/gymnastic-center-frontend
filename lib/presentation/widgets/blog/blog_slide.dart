@@ -56,7 +56,7 @@ class BlogSlide extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Categoría o Autor',
+                          blog.category!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.primary),

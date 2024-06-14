@@ -65,9 +65,12 @@ class CourseTile extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      '${course.minutes} min | ${course.trainer}',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      course.trainer,
+                    ),
+                    Text(
+                      course.category,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary),
                     )
                   ],
                 ),

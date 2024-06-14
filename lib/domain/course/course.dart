@@ -9,7 +9,7 @@ class Course {
   final int? weeks;
   final int? minutes;
   final String imageUrl;
-  final String categoryId;
+  final String category;
   final dynamic trainer;
   final List<Lesson>? lessons;
   final dynamic createdAt;
@@ -25,7 +25,7 @@ class Course {
     this.minutes,
     required this.imageUrl,
     required this.trainer,
-    required this.categoryId,
+    required this.category,
     this.lessons,
     this.createdAt,
     this.updatedAt,
