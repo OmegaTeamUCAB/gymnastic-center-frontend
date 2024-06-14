@@ -33,4 +33,5 @@ class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
       }
     }
   }
+
 }
