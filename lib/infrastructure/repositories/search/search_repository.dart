@@ -28,7 +28,7 @@ class SearchRepository implements ISearchRepository {
             imageUrl: course['imageUrl'],
             trainer: course['instructorName'],
             description: course['description'],
-            categoryId: course['categoryName'],
+            category: course['categoryName'],
             tags: course['tags'],
           ));
         }
