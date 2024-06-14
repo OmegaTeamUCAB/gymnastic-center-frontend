@@ -245,15 +245,21 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                       if (base64Image == ''){
                         base64Image = (authBloc.state as Authenticated).user.image;
                       }
-                      print(newUserEmail);
-                      print(newUserName);
-                      print(newUserPhone);
-                      print(base64Image);
-                      updateUserBloc.add(UpdateUser(
+                      if (base64Image == null || base64Image == ''){
+                        updateUserBloc.add(UpdateUser(
+                          fullName: newUserName,
+                          phoneNumber: newUserPhone,
+                          email: newUserEmail));
+                      }else {
+                        updateUserBloc.add(UpdateUser(
                           fullName: newUserName,
                           phoneNumber: newUserPhone,
                           email: newUserEmail,
-                          image: base64Image!));
+                          image: base64Image));
+                      }
+
+                      print((authBloc.state as Authenticated).user.fullName);
+                      
 
                       if (_formKey.currentState!.validate()) {
                         // Save the form
