@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
+import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -101,12 +102,10 @@ class BlogDetailScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          const Text(
-                                            //use timeago package
-                                            'some date',
-                                            // timeago
-                                            //     .format(state.blog.uploadDate),
-                                            style: TextStyle(
+                                          Text(
+                                            formatDateTime(DateTime.parse(
+                                                state.blog.uploadDate!)),
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
                                               shadows: <Shadow>[

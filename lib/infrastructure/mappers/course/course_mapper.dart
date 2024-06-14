@@ -13,7 +13,7 @@ class CourseMapper {
         weeks: json["durationWeeks"],
         minutes: json["durationMinutes"],
         imageUrl: json["image"],
-        categoryId: json["category"],
+        category: json["category"],
         trainer: json["trainer"],
         lessons: LessonMapper.fromJsonToList(json["lessons"]),
         createdAt: (json["createdAt"] != null)
@@ -34,7 +34,7 @@ class CourseMapper {
         "durationWeeks": course.weeks,
         "durationMinutes": course.minutes,
         "image": course.imageUrl,
-        "category": course.categoryId,
+        "category": course.category,
         "trainer": course.trainer,
         "lessons": List<dynamic>.from(
             course.lessons!.map((x) => LessonMapper.toJson(x))),

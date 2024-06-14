@@ -6,16 +6,16 @@ import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/training/course_option_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class CoursePageView extends StatefulWidget {
+class PlanCoursesPageView extends StatefulWidget {
   final List<Course> courses;
 
-  const CoursePageView({super.key, required this.courses});
+  const PlanCoursesPageView({super.key, required this.courses});
 
   @override
-  CoursePageViewState createState() => CoursePageViewState();
+  PlanCoursesPageViewState createState() => PlanCoursesPageViewState();
 }
 
-class CoursePageViewState extends State<CoursePageView> {
+class PlanCoursesPageViewState extends State<PlanCoursesPageView> {
   late final PageController _pageController;
   int _currentPage = 0;
 
