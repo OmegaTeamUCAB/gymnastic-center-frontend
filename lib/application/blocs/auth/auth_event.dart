@@ -46,7 +46,9 @@ class CodeVerified extends AuthEvent {
 
 class PasswordReset extends AuthEvent {
   final String email;
+  final String code;
   final String newPassword;
 
-  const PasswordReset({required this.email, required this.newPassword});
+  const PasswordReset(
+      {required this.email, required this.newPassword, required this.code});
 }
