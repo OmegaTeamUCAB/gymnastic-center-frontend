@@ -18,7 +18,7 @@ class CourseMediaViewer extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.onSurface,
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(60), topLeft: Radius.circular(20))),
         child: Padding(

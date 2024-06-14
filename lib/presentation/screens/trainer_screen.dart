@@ -3,8 +3,8 @@ import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.d
 import 'package:gymnastic_center/presentation/widgets/trainer/trainer_info.dart';
 
 class TrainerScreen extends StatefulWidget {
-  final String trainerId;
-  const TrainerScreen({super.key, required this.trainerId});
+  final Map trainer;
+  const TrainerScreen({super.key, required this.trainer});
 
   @override
   State<TrainerScreen> createState() => _TrainerScreenState();
@@ -61,7 +61,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
           ),
           TrainerInfo(
             scrollController: _scrollController,
-            trainer: widget.trainerId,
+            trainer: widget.trainer,
           ),
           AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
@@ -78,7 +78,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      widget.trainerId,
+                      widget.trainer['id'],
                       style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
