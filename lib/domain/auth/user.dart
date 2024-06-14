@@ -4,7 +4,7 @@ class User {
   User(this.data);
 
   String get id => data['id'];
-  String get fullName => data['fullName'];
+  String get fullName => data['name'];
   String get email => data['email'];
   String get phoneNumber => data['phone'];
   String? get image => data['image'];

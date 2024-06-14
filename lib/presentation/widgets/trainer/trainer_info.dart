@@ -3,7 +3,8 @@ import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
-import 'package:gymnastic_center/presentation/widgets/home/blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/home/home_blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
 
@@ -22,7 +23,7 @@ class TrainerInfo extends StatelessWidget {
     return Stack(
       children: [
         Image.network(
-          'https://images.unsplash.com/photo-1623200216581-969d9479cf7d?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
           height: 400,
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress != null) {
@@ -49,8 +50,32 @@ class TrainerInfo extends StatelessWidget {
             margin: const EdgeInsets.only(top: 365),
             child: Column(
               children: [
-                Center(child: Text('${trainer.name} fitness')),
-                const SizedBox(height: 25),
+                const SizedBox(
+                  height: 20,
+                ),
+                Center(
+                    child: Text(
+                  trainer.name!,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 30),
+                )),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'Followers: 365',
+                  style: TextStyle(fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: BrandButton(
+                    text: 'Seguir',
+                    onPressed: () {},
+                  ),
+                ),
                 ContentHeader(
                     title: '${trainer.name}\'s Courses',
                     onPressed: () {
@@ -60,7 +85,10 @@ class TrainerInfo extends StatelessWidget {
                             builder: (context) => const AllCoursesScreen()),
                       );
                     }),
-                const HomeCourseCarousel(),
+                const Padding(
+                  padding: EdgeInsets.only(left: 15.0),
+                  child: HomeCourseCarousel(),
+                ),
                 ContentHeader(
                     title: '${trainer.name}\'s Blogs',
                     onPressed: () {
