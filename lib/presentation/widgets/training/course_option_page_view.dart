@@ -29,7 +29,7 @@ class CourseOptionPageView extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Una categoría  |  Nombre del entrenador',
+              '${course.category}  |  ${course.trainer}',
               style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.onSecondary),

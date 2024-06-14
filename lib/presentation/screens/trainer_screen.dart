@@ -33,7 +33,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset >= 500) {
+    if (_scrollController.offset >= 100) {
       setState(() {
         _showFab = true;
       });

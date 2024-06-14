@@ -24,7 +24,7 @@ class TrainerInfo extends StatelessWidget {
       children: [
         Image.network(
           'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
-          height: 400,
+          height: 200,
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress != null) {
               return const Center(
@@ -47,7 +47,7 @@ class TrainerInfo extends StatelessWidget {
                 topRight: Radius.circular(30),
               ),
             ),
-            margin: const EdgeInsets.only(top: 365),
+            margin: const EdgeInsets.only(top: 165),
             child: Column(
               children: [
                 const SizedBox(
@@ -62,9 +62,19 @@ class TrainerInfo extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  'Followers: 365',
-                  style: TextStyle(fontSize: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      trainer.followers.toString(),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      ' ${trainer.followers == 1 ? 'follower' : 'followers'}',
+                      style: const TextStyle(fontSize: 18),
+                    )
+                  ],
                 ),
                 const SizedBox(
                   height: 15,
