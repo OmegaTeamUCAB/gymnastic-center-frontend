@@ -3,7 +3,7 @@ import 'package:gymnastic_center/presentation/screens/disability/disability_scre
 import 'package:gymnastic_center/presentation/screens/home/home_screen.dart';
 import 'package:gymnastic_center/presentation/screens/notifications/notifications_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/settings_screen.dart';
-import 'package:gymnastic_center/presentation/screens/training/new_training_screen.dart';
+import 'package:gymnastic_center/presentation/screens/training/training_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_bottom_navbar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_lightning_button.dart';
 import 'package:gymnastic_center/presentation/widgets/drawers/menu_side_nav.dart';
@@ -55,9 +55,9 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: CustomFloatingLightningButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const NewTrainingScreen(),
+                builder: (context) => const TrainingScreen(),
               ),
             );
           },

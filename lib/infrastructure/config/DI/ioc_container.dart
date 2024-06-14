@@ -12,6 +12,7 @@ import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
+import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
@@ -22,20 +23,18 @@ import 'package:gymnastic_center/application/use_cases/auth/request_code.use_cas
 import 'package:gymnastic_center/application/use_cases/auth/reset_password.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/sign_up.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_all_blogs.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_blogs_by_category.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/course/get_all_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/course/get_courses_by_category.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/local/secure_storage.dart';
 import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
-import 'package:gymnastic_center/infrastructure/repositories/blogs/blogs_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
@@ -61,8 +60,7 @@ class IoCContainer {
     final courseRepository = CourseRepository(httpConnectionManager);
     final searchRepository = SearchRepository(httpConnectionManager);
     //USE CASES
-    final getUserFromTokenUseCase =
-        GetUserFromTokenUseCase(authRepository, secureStorage);
+    final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
     final logoutUseCase = LogoutUseCase(authRepository);
     final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
@@ -70,25 +68,22 @@ class IoCContainer {
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
-    final getBlogsByCategoryUseCase = GetBlogsByCategoryUseCase(blogRepository);
+    final getBlogsUseCase = GetBlogsUseCase(blogRepository);
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
-    final getAllCoursesUseCase = GetAllCoursesUseCase(courseRepository);
-    final getAllBlogsUseCase = GetAllBlogsUseCase(blogRepository);
+    final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
-    final getCoursesByCategoryUseCase =
-        GetCoursesByCategoryUseCase(courseRepository);
-    final getCourseByIdUseCase = GetCourseByIdUseCase(courseRepository);
-    getIt.registerSingleton<GetCourseByIdUseCase>(getCourseByIdUseCase);
+    getIt.registerSingleton<GetCourseByIdUseCase>(GetCourseByIdUseCase(courseRepository));
     //BLOCS
-    getIt.registerSingleton<BlogsByCategoryBloc>(BlogsByCategoryBloc(
-        getBlogsByCategoryUseCase: getBlogsByCategoryUseCase));
-    getIt.registerSingleton<AllCoursesBloc>(
-        AllCoursesBloc(getAllCoursesUseCase));
+    getIt.registerSingleton<BlogsByCategoryBloc>(
+        BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
+    getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
+    getIt
+        .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(
-        CoursesByCategoryBloc(getCoursesByCategoryUseCase));
+        CoursesByCategoryBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCategoriesBloc>(
         AllCategoriesBloc(getAllCategoriesUseCase));
-    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getAllBlogsUseCase));
+    getIt.registerSingleton<AllBlogsBloc>(AllBlogsBloc(getBlogsUseCase));
     getIt.registerSingleton<AuthBloc>(AuthBloc(
       logoutUseCase: logoutUseCase,
       loginUseCase: loginUseCase,

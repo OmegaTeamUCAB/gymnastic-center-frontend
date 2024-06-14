@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/presentation/screens/course/course_content_screen.dart';
+import 'package:gymnastic_center/presentation/screens/trainer_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_card.dart';
 import 'package:gymnastic_center/presentation/widgets/course/lesson_list.dart';
@@ -41,10 +39,23 @@ class CourseInfo extends StatelessWidget {
                           fontSize: 30, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    const Text(
-                      'John Doe',
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TrainerScreen(trainerId: course.trainer['id']),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        course.trainer['name'],
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).colorScheme.secondary),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),

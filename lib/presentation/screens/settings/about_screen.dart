@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -14,7 +15,9 @@ class AboutScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    BackButton(),
+                    BrandBackButton(
+                      color: Colors.white,
+                    ),
                     Text(
                       'About',
                       style: TextStyle(

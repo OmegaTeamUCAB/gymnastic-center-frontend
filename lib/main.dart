@@ -7,6 +7,8 @@ import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/DI/ioc_container.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
+import 'package:gymnastic_center/presentation/screens/loading_screen.dart';
 
 void main() async {
   await IoCContainer.init();
@@ -33,7 +35,6 @@ class _MainAppState extends State<MainApp> {
         ),
         BlocProvider(create: (context) => getIt.get<ThemeBloc>()),
         BlocProvider(create: (context) => getIt.get<CourseBloc>()),
-        // BlocProvider(create: (context) => PlayerBloc())
       ],
       child: const App(),
     );
@@ -54,7 +55,17 @@ class App extends StatelessWidget {
       theme: getIt.get<ThemeBloc>().state.themeData,
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
-      home: const AuthOptionsScreen(),
+      home: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return const LoadingScreen();
+          } else if (state is Authenticated) {
+            return const MainScreen();
+          } else {
+            return const AuthOptionsScreen();
+          }
+        },
+      ),
     );
   }
 }

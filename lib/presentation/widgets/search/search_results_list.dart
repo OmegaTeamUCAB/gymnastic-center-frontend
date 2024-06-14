@@ -4,7 +4,7 @@ import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
-import 'package:gymnastic_center/presentation/screens/blog/blog_detail.screen.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/search/result_tile.dart';
 
 class SearchResultsList extends StatelessWidget {

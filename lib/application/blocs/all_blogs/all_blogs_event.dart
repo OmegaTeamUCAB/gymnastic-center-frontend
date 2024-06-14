@@ -5,5 +5,6 @@ sealed class AllBlogsEvent {
 }
 
 class AllBlogsRequested extends AllBlogsEvent {
-  AllBlogsRequested();
+  final int page;
+  const AllBlogsRequested(this.page);
 }

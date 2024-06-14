@@ -8,33 +8,9 @@ part 'course_state.dart';
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final CourseRepository courseRepository;
   CourseBloc(this.courseRepository) : super(CourseState()) {
-    on<AddCoursesByCategory>(_addByCategory);
-    on<AddPopularCourses>(_addPopularCourses);
-    on<GetMostPopularCourses>(_getMostPopular);
     on<AddCourses>(_addCourses);
     on<AddToPopularCourses>(_addToPopularCourses);
     on<GetCourseById>(_getCourseById);
-    // add(GetMostPopularCourses());
-  }
-
-  _addByCategory(AddCoursesByCategory event, Emitter<CourseState> emit) async {
-    emit(state.copyWith(isLoading: true, currentCategory: event.categoryId));
-    // final courses =
-        // await courseRepository.getCoursesByCategory(event.categoryId);
-    // add(AddCourses(courses: courses.unwrap()));
-  }
-
-  _addPopularCourses(AddPopularCourses event, Emitter<CourseState> emit) async {
-    emit(state.copyWith(isLoading: true, currentCategory: 'popular'));
-    final courses = await courseRepository.getAllCourses();
-    add(AddCourses(courses: courses.unwrap()));
-  }
-
-  _getMostPopular(
-      GetMostPopularCourses event, Emitter<CourseState> emit) async {
-    emit(state.copyWith(isLoading: true, currentCategory: 'empty'));
-    final courses = await courseRepository.getAllCourses();
-    add(AddToPopularCourses(courses: courses.unwrap()));
   }
 
   _addToPopularCourses(AddToPopularCourses event, Emitter<CourseState> emit) {

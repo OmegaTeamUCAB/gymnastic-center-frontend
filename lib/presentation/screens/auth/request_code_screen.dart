@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/request_code_form.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
 class RequestCodeScreen extends StatelessWidget {
@@ -33,7 +34,9 @@ class RequestCodeScreen extends StatelessWidget {
                       ),
                     )),
                 const Positioned(
-                    top: 50, left: 0, child: BackButton(color: Colors.white)),
+                    top: 50,
+                    left: 0,
+                    child: BrandBackButton(color: Colors.white)),
                 Stack(
                   alignment: Alignment.center,
                   children: [
