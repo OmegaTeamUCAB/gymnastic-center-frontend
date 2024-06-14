@@ -15,7 +15,7 @@ class UserRepository extends IUserRepository{
   @override
   Future<Result<void>> updateUser(UpdateUserDto dto)async{
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'user/update',
+      urlPath: '/user/update',
       httpMethod: 'PUT',
       mapperCallBack: (data) {
         return data;
@@ -23,7 +23,7 @@ class UserRepository extends IUserRepository{
       body:{
         'name': dto.fullName,
         'email': dto.email,
-        'phoneNumber':dto.phoneNumber,
+        'phone':dto.phoneNumber,
         'image':dto.image
       }
     );
