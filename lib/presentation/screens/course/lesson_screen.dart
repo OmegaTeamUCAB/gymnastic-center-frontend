@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
-import 'package:gymnastic_center/application/blocs/plan_setup/plan_setup_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
-import 'package:gymnastic_center/domain/course/course.dart';
-import 'package:gymnastic_center/presentation/screens/course/video_player_preview.dart';
+import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
+import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -26,7 +26,6 @@ class _LessonScreenState extends State<LessonScreen> {
   void initState() {
     super.initState();
     videoPlayerBloc = VideoPlayerBloc();
-    GetIt.instance<LessonBloc>()..add(ChangeLessonById(lessonId: widget.lessonId));
   }
 
   @override
@@ -40,7 +39,7 @@ class _LessonScreenState extends State<LessonScreen> {
     return MultiBlocProvider(
         providers: [
           BlocProvider.value(value: GetIt.instance<LessonBloc>()),
-          BlocProvider.value(value: videoPlayerBloc)
+          BlocProvider.value(value: videoPlayerBloc,)
         ],
         child: _LessonView(
           lessonId: widget.lessonId,
@@ -57,13 +56,21 @@ class _LessonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lessonBloc = context.read<LessonBloc>();
-    return BlocBuilder<LessonBloc, LessonState>(
+    final lessonBloc = context.read<LessonBloc>()..add(ChangeLessonById(lessonId: lessonId));
+    return BlocListener<VideoPlayerBloc, VideoPlayerState>(
+      listener: (context, state) {
+
+          if(state.videoStatus == PlayerStatus.completed){
+            lessonBloc.changeToNextLesson();
+          }
+      }
+      ,
+      child: BlocBuilder<LessonBloc, LessonState>(
       builder: (context, state) {
         if (state is LessonLoaded) {
           if(lessonBloc.state.lesson.videoUrl!.length > 2)
           context.read<VideoPlayerBloc>()
-            ..add(InitializePlayer(video: lessonBloc.state.lesson.videoUrl!));
+            ..add(VideoInitialized(video: lessonBloc.state.lesson.videoUrl!));
           return Scaffold(
             backgroundColor: Colors.white,
             body: Stack(
@@ -95,35 +102,13 @@ class _LessonView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        children: List.generate(
-                          20,
-                          (index) => Expanded(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 2),
-                              height: 10,
-                              color: index < 10
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey[300],
-                            ),
-                          ),
-                        ),
-                      ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: VideoProgressBar(),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('0:12',
-                              style: TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
-                    Padding(
+                    VideoDuration()
+  ,                 Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,6 +202,6 @@ class _LessonView extends StatelessWidget {
             child: Text('Error'),
           );
       },
-    );
+    ));
   }
 }
