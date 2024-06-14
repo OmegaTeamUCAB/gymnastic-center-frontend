@@ -103,14 +103,13 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Result<IPasswordResetResponse>> requestCode(
-      {required String email}) async {
+  Future<Result<dynamic>> requestCode({required String email}) async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: 'auth/forget/password',
       httpMethod: 'POST',
       body: jsonEncode({'email': email}),
       mapperCallBack: (data) {
-        return PasswordResetResponse.fromJson(data);
+        return Result.success('Successful');
       },
     );
     return result;

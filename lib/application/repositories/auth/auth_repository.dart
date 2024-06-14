@@ -39,7 +39,7 @@ abstract class IAuthRepository {
     required String password,
   });
   Future<Result<User>> verifyUser();
-  Future<Result<IPasswordResetResponse>> requestCode({required String email});
+  Future<Result<dynamic>> requestCode({required String email});
   Future<Result<IPasswordResetResponse>> verifyCode(
       {required String email, required String code});
   Future<Result<IPasswordResetResponse>> resetPassword(

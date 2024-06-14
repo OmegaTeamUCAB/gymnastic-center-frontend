@@ -100,7 +100,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       email: event.email,
       code: event.code,
     ));
-    if (result.isSuccessful) {
+    if (result.unwrap().success == true) {
       emit(CodeVerifiedSuccess());
     } else {
       emit(AuthError(result.error.message));
@@ -113,7 +113,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       email: event.email,
       newPassword: event.newPassword,
     ));
-    if (result.isSuccessful) {
+    if (result.unwrap().success == true) {
       emit(PasswordResetSuccess());
     } else {
       emit(AuthError(result.error.message));
