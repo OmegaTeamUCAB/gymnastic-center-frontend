@@ -7,7 +7,8 @@ import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.d
 
 class ResetPasswordForm extends StatefulWidget {
   final String email;
-  const ResetPasswordForm({super.key, required this.email});
+  final String code;
+  const ResetPasswordForm({super.key, required this.email, required this.code});
 
   @override
   State<ResetPasswordForm> createState() => ResetPasswordFormState();
@@ -26,8 +27,8 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
     void onSubmit() {
       final isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-      authBloc
-          .add(PasswordReset(email: widget.email, newPassword: newPassword));
+      authBloc.add(PasswordReset(
+          email: widget.email, newPassword: newPassword, code: widget.code));
     }
 
     return BlocListener<AuthBloc, AuthState>(
