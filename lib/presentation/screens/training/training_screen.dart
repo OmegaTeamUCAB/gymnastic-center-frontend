@@ -5,7 +5,7 @@ import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_blo
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_event.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_state.dart';
 import 'package:gymnastic_center/presentation/screens/loading_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/training/course_page_view.dart';
+import 'package:gymnastic_center/presentation/widgets/training/plan_courses_page_view.dart';
 
 class TrainingScreen extends StatefulWidget {
   const TrainingScreen({super.key});
@@ -41,7 +41,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               );
             }
             if (state is PlanCoursesSuccess) {
-              return CoursePageView(courses: state.courses);
+              return PlanCoursesPageView(courses: state.courses);
             } else {
               return const Center(
                 child: Text('Unexpected error'),

@@ -8,7 +8,7 @@ class Lesson {
   final String? imageUrl;
   final List<Comment> comments;
 
-  Lesson({
+  const Lesson({
     required this.id,
     required this.title,
     required this.content,

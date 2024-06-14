@@ -4,9 +4,11 @@ import 'package:gymnastic_center/application/repositories/auth/auth_repository.d
 
 class ResetPasswordDto {
   final String email;
+  final String code;
   final String newPassword;
 
-  ResetPasswordDto({required this.email, required this.newPassword});
+  ResetPasswordDto(
+      {required this.email, required this.code, required this.newPassword});
 }
 
 class ResetPasswordUseCase
@@ -22,6 +24,7 @@ class ResetPasswordUseCase
     final result = await _authRepository.resetPassword(
       email: dto.email,
       newPassword: dto.newPassword,
+      code: dto.code,
     );
     if (result.isSuccessful) {
       return Result.success(result.unwrap());

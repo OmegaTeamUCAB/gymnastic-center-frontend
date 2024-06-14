@@ -35,7 +35,6 @@ class _MainAppState extends State<MainApp> {
         ),
         BlocProvider(create: (context) => getIt.get<ThemeBloc>()),
         BlocProvider(create: (context) => getIt.get<CourseBloc>()),
-        // BlocProvider(create: (context) => PlayerBloc())
       ],
       child: const App(),
     );
