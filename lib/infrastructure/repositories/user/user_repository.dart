@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 
 import 'package:gymnastic_center/application/use_cases/user/update_user.use_case.dart';
 import 'package:gymnastic_center/core/result.dart';
@@ -21,12 +20,12 @@ class UserRepository extends IUserRepository{
       mapperCallBack: (data) {
         return data;
       },
-      body: jsonEncode({
+      body:{
         'name': dto.fullName,
         'email': dto.email,
         'phoneNumber':dto.phoneNumber,
         'image':dto.image
-      })
+      }
     );
     return result;
   }
