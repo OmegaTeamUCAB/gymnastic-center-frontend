@@ -18,7 +18,7 @@ class CourseInfo extends StatelessWidget {
       controller: scrollController,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
@@ -45,7 +45,7 @@ class CourseInfo extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                TrainerScreen(trainerId: course.trainer['id']),
+                                TrainerScreen(trainer: course.trainer),
                           ),
                         );
                       },

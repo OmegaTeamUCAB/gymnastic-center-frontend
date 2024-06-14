@@ -18,22 +18,27 @@ class AllCoursesByTrainerScreen extends StatefulWidget {
 }
 
 class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
-  final allCoursesByTrainerBloc = GetIt.instance<AllCourseByTrainerBloc>();
-  late final PaginationController paginationController;
+  // final allCoursesByTrainerBloc = GetIt.instance<AllCourseByTrainerBloc>();
+  late PaginationController _paginationController;
+  late AllCourseByTrainerBloc _allCoursesByTrainerBloc;
 
   @override
   void initState() {
     super.initState();
-    //! Buggy as hell
-    paginationController = PaginationController(
-      requestNextPage: (page) => allCoursesByTrainerBloc
-          .add(AllCourseByTrainerRequested(widget.trainer['id'], page)),
+    _allCoursesByTrainerBloc = GetIt.instance<AllCourseByTrainerBloc>();
+
+    _paginationController = PaginationController(
+      requestNextPage: (page) {},
+    );
+
+    _allCoursesByTrainerBloc.add(
+      AllCourseByTrainerRequested(widget.trainer['id'], 1),
     );
   }
 
   @override
   void dispose() {
-    paginationController.dispose();
+    _paginationController.dispose();
     super.dispose();
   }
 
@@ -62,7 +67,7 @@ class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
           ),
         ),
         body: BlocProvider<AllCourseByTrainerBloc>.value(
-          value: allCoursesByTrainerBloc,
+          value: _allCoursesByTrainerBloc,
           child: BlocBuilder<AllCourseByTrainerBloc, AllCourseByTrainerState>(
             builder: (context, state) {
               if (state is AllCourseByTrainerLoading) {
@@ -86,7 +91,7 @@ class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
                 }
                 return CoursesList(
                   courses: state.courses,
-                  controller: paginationController.scrollController,
+                  controller: _paginationController.scrollController,
                 );
               } else {
                 return const Center(

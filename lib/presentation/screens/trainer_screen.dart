@@ -78,7 +78,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      widget.trainer['id'],
+                      widget.trainer['name'],
                       style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,

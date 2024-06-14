@@ -4,8 +4,8 @@ sealed class AllBlogsByTrainerEvent {
   const AllBlogsByTrainerEvent();
 }
 
-class AllBlogsRequestedByTrainer extends AllBlogsByTrainerEvent {
-  final int trainerId;
+class AllBlogsByTrainerRequested extends AllBlogsByTrainerEvent {
+  final String trainerId;
   final int page;
-  const AllBlogsRequestedByTrainer(this.trainerId, this.page);
+  const AllBlogsByTrainerRequested(this.trainerId, this.page);
 }

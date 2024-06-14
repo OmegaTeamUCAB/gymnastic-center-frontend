@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
+import 'package:gymnastic_center/application/blocs/all_blogs_by_trainer/all_blogs_by_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_categories/all_categories_bloc.dart';
+import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_course_by_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
@@ -73,6 +75,10 @@ class IoCContainer {
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
+    getIt.registerSingleton<AllCourseByTrainerBloc>(
+        AllCourseByTrainerBloc(getCoursesUseCase));
+    getIt.registerSingleton<AllBlogsByTrainerBloc>(
+        AllBlogsByTrainerBloc(getBlogsUseCase));
     getIt
         .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(

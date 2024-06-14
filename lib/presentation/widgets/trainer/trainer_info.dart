@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/course/all_blogs_by_trainer_screen.dart';
+import 'package:gymnastic_center/presentation/screens/blog/all_blogs_by_trainer_screen.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_by_trainer_carousel.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_by_trainer_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_by_trainer_carousel.dart';
-import 'package:gymnastic_center/presentation/widgets/home/blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
 
 class TrainerInfo extends StatelessWidget {
   final Map trainer;
@@ -53,9 +52,9 @@ class TrainerInfo extends StatelessWidget {
                             AllBlogsByTrainerScreen(trainer: trainer)),
                   );
                 }),
-            const HomeBlogCarousel(),
+            BlogByTrainerCarousel(id),
             const SizedBox(
-              height: 60,
+              height: 210,
             ),
           ],
         ),
