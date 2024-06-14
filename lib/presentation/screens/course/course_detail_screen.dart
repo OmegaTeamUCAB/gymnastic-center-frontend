@@ -87,6 +87,7 @@ class _CourseViewState extends State<_CourseView> {
 
         if (state is CourseFetched) {
           final course = state.course;
+          lessonBloc.add(LoadCourseImage(course: course.imageUrl));
           lessonBloc.add((LoadLessons(lessons: course.lessons!)));
 
           return BlocProvider.value(

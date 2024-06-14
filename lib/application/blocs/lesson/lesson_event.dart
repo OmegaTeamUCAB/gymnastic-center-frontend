@@ -9,6 +9,13 @@ class LoadLessons extends LessonEvent {
   LoadLessons({required this.lessons});
 
 }
+
+class LoadCourseImage extends LessonEvent {
+  final String course;
+
+  LoadCourseImage({required this.course});
+}
+
 class ChangeToNextLesson extends LessonEvent {}
 class ChangeToPreviousLesson extends LessonEvent {}
 class ChangeLessonById extends LessonEvent {

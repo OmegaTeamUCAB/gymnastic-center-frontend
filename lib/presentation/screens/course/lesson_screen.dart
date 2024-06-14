@@ -169,7 +169,7 @@ class _LessonView extends StatelessWidget {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
-                                        'https://elestimulo.com/wp-content/uploads/2023/06/Foto-pa-ruti-pecho-pa%CC%81gina--1100x572.jpg',
+                                        lessonBloc.state.courseImage,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,

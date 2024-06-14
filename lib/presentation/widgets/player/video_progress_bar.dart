@@ -28,6 +28,7 @@ Stream<double> _videoProgressStream(BuildContext context) {
           progress: progress,
           segments: 20,
           seekPosition: context.read<VideoPlayerBloc>().seekPosition,
+          totalDuration: context.read<VideoPlayerBloc>().state.videoDuration,
         );
       },
     );
