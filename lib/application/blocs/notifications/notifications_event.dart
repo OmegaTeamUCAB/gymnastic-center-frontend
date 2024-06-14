@@ -14,3 +14,13 @@ class NotificationReceived extends NotificationsEvent {
 
   NotificationReceived(this.pushMessage);
 }
+
+class NotificationViewed extends NotificationsEvent {
+  final PushMessage pushMessage;
+
+  NotificationViewed(this.pushMessage);
+}
+
+class NotificationsCleared extends NotificationsEvent {
+  NotificationsCleared();
+}

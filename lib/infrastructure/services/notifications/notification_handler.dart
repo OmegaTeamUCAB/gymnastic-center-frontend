@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_template/application/models/push_message.dart';
-import 'package:flutter_template/application/services/notifications/notification_handler.dart';
+import 'package:gymnastic_center/application/models/push_message.dart';
+import 'package:gymnastic_center/application/ports/notifications/notification_handler.dart';
 
 class NotificationHandler implements INotificationHandler {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
@@ -37,9 +37,18 @@ class NotificationHandler implements INotificationHandler {
     const initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
 
-    const initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+    final initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: DarwinInitializationSettings(
+          onDidReceiveLocalNotification:
+              (int id, String? title, String? body, String? data) {
+            showLocalNotification(
+                id: id,
+                title: title,
+                body: body,
+                data: json.decode(data!) as Map<String, dynamic>);
+          },
+        ));
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);

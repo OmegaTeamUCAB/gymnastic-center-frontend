@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/application/blocs/sign_up/sign_up_bloc.dart';
-import 'package:flutter_template/infrastructure/presentation/screens/auth/verify_account_screen.dart';
-import 'package:flutter_template/presentation/widgets/ui/brand_button.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -13,15 +14,23 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String name = '';
-  String phone = '';
-  String email = '';
-  String password = '';
   bool? isTermsChecked = false;
+  bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
     final signUpBloc = context.watch<SignUpBloc>();
+    final authBloc = context.watch<AuthBloc>();
+    void onSubmit() {
+      final isValid = _formKey.currentState!.validate();
+      if (!isValid) return;
+      authBloc.add(SignedUp(
+          fullName: signUpBloc.state.fullName,
+          email: signUpBloc.state.email,
+          phoneNumber: signUpBloc.state.phoneNumber,
+          password: signUpBloc.state.password));
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -45,7 +54,7 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
             onChanged: (value) {
-              signUpBloc.add(NameChanged(value));
+              signUpBloc.add(FullNameChanged(value));
             },
             decoration: InputDecoration(
               errorStyle: TextStyle(color: Colors.red[100]),
@@ -83,6 +92,15 @@ class _SignUpFormState extends State<SignUpForm> {
               signUpBloc.add(EmailChanged(value));
             },
             decoration: InputDecoration(
+              prefixIcon: const Padding(
+                padding: EdgeInsets.only(
+                    left: 35, right: 15), // add padding to adjust icon
+                child: Icon(
+                  GymnasticCenter.email,
+                  size: 15,
+                ),
+              ),
+              prefixIconColor: const Color.fromARGB(106, 255, 255, 255),
               errorStyle: TextStyle(color: Colors.red[100]),
               labelStyle: const TextStyle(fontSize: 18, color: Colors.white),
               hintStyle: const TextStyle(color: Color(0xFFC4C4C4)),
@@ -112,7 +130,7 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
             onChanged: (value) {
-              signUpBloc.add(PhoneChanged(value));
+              signUpBloc.add(PhoneNumberChanged(value));
             },
             decoration: InputDecoration(
               errorStyle: TextStyle(color: Colors.red[100]),
@@ -135,13 +153,12 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 25),
           TextFormField(
             cursorColor: Colors.white,
-            obscureText: true,
+            obscureText: isObscured,
             style: const TextStyle(fontSize: 16, color: Colors.white),
             validator: (value) {
               if (value == null || value.isEmpty) return 'Required Field';
               if (value.trim().isEmpty) return 'Required Field';
-              if (value.length < 6) return '6 characters minimum';
-
+              if (value.length < 8) return '8 characters minimum';
               return null;
             },
             onChanged: (value) {
@@ -151,6 +168,15 @@ class _SignUpFormState extends State<SignUpForm> {
               errorStyle: TextStyle(color: Colors.red[100]),
               labelStyle: const TextStyle(fontSize: 18, color: Colors.white),
               hintStyle: const TextStyle(color: Color(0xFFC4C4C4)),
+              suffixIconColor: Colors.white,
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObscured = !isObscured;
+                    });
+                  },
+                  icon: Icon(
+                      isObscured ? Icons.visibility : Icons.visibility_off)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(100),
                 borderSide: const BorderSide(color: Colors.white),
@@ -162,7 +188,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 borderRadius: BorderRadius.circular(100),
               ),
               labelText: 'Password',
-              hintText: '6 digits minimum',
+              hintText: '8 digits minimum',
             ),
           ),
           const SizedBox(height: 25),
@@ -183,11 +209,13 @@ class _SignUpFormState extends State<SignUpForm> {
                     });
                   }),
               const Text(
-                'Yes! Agree all ',
+                'Yes! Agree with all ',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //todo: redirect to terms&conditions page
+                  },
                   style: TextButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: EdgeInsets.zero,
@@ -203,21 +231,13 @@ class _SignUpFormState extends State<SignUpForm> {
             ],
           ),
           const SizedBox(height: 25),
-          BrandButton(
-              isDarkMode: true,
-              width: double.infinity,
-              onPressed: () {
-                final isValid = _formKey.currentState!.validate();
-                if (!isValid) return;
-                signUpBloc.add(FormSubmitted(email, password, name, phone));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VerifyAccountScreen()),
-                );
-              },
-              child: const Text("Sign up",
-                  style: TextStyle(fontSize: 20, color: Color(0xFF4F14A0))))
+          authBloc.state is AuthLoading
+              ? const CircularProgressIndicator()
+              : BrandButton(
+                  isVariant: true,
+                  onPressed: onSubmit,
+                  text: 'Sign up',
+                )
         ],
       ),
     );

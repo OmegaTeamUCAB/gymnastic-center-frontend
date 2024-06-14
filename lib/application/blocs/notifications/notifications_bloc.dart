@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/application/models/push_message.dart';
-import 'package:flutter_template/application/services/notifications/notification_handler.dart';
+import 'package:gymnastic_center/application/models/push_message.dart';
+import 'package:gymnastic_center/application/ports/notifications/notification_handler.dart';
 part 'notifications_event.dart';
 part 'notifications_state.dart';
 
@@ -13,6 +13,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }) : super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
+    on<NotificationViewed>(viewNotification);
+    on<NotificationsCleared>(clearNotifications);
 
     // Verifies notifications state
     _initialStatusCheck();
@@ -60,5 +62,36 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   void requestPermission() async {
     final status = await handler.requestPermission();
     add(NotificationStatusChanged(status));
+  }
+
+  void viewNotification(
+    NotificationViewed event,
+    Emitter<NotificationsState> emit,
+  ) {
+    final currentState = state;
+    final updatedNotifications = currentState.notifications
+        .map(
+          (notification) =>
+              notification.messageId == event.pushMessage.messageId
+                  ? PushMessage(
+                      messageId: notification.messageId,
+                      title: notification.title,
+                      body: notification.body,
+                      sentDate: notification.sentDate,
+                      data: notification.data,
+                      isViewed: true,
+                      imageUrl: notification.imageUrl,
+                    )
+                  : notification,
+        )
+        .toList();
+    emit(state.copyWith(notifications: updatedNotifications));
+  }
+
+  void clearNotifications(
+    NotificationsCleared event,
+    Emitter<NotificationsState> emit,
+  ) {
+    emit(state.copyWith(notifications: []));
   }
 }
