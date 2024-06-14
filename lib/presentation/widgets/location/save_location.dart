@@ -2,12 +2,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../application/blocs/location/location_bloc.dart';
+// import 'location_bloc.dart';
+// import 'location_event.dart';
+// import 'location_state.dart';
+
 class SaveLocation extends StatelessWidget {
   const SaveLocation({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
+      // child: BlocProvider(
+      //   create: (context) => LocationBloc(),
+      // ),
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image.asset(
@@ -41,7 +51,7 @@ class SaveLocation extends StatelessWidget {
             width: double.infinity,
             text: 'Use your location',
             onPressed: () {
-              // TODO: Implement button functionality
+              // context.read<LocationBloc>().add(GetLocation());
             }),
         const SizedBox(
           height: 5,
