@@ -15,6 +15,7 @@ class UpdateUserBloc extends Bloc<UpdateUser, UpdateUserState> {
   }
 
   Future<void> _updateUser(UpdateUser event, Emitter<UpdateUserState> emit) async{
+    emit(UpdateUserLoading());
     final result = await updateUserUseCase.execute(UpdateUserDto(
       event.email, 
       event.image, 
