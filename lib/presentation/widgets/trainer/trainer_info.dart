@@ -41,7 +41,7 @@ class TrainerInfo extends StatelessWidget {
                             AllCoursesByTrainerScreen(trainer: trainer)),
                   );
                 }),
-            CourseByTrainerCarousel(id),
+            CourseByTrainerCarousel(trainerId: id),
             ContentHeader(
                 title: '$name\'s Blogs',
                 onPressed: () {
@@ -52,7 +52,7 @@ class TrainerInfo extends StatelessWidget {
                             AllBlogsByTrainerScreen(trainer: trainer)),
                   );
                 }),
-            BlogByTrainerCarousel(id),
+            BlogByTrainerCarousel(trainerId: id),
             const SizedBox(
               height: 210,
             ),

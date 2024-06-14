@@ -6,7 +6,7 @@ import 'package:gymnastic_center/presentation/widgets/course/courses_page_view.d
 
 class CourseByTrainerCarousel extends StatelessWidget {
   final String trainerId;
-  const CourseByTrainerCarousel(this.trainerId, {super.key});
+  const CourseByTrainerCarousel({super.key, required this.trainerId});
 
   @override
   Widget build(BuildContext context) {

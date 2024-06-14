@@ -7,7 +7,10 @@ import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
 
 class BlogByTrainerCarousel extends StatelessWidget {
   final String trainerId;
-  const BlogByTrainerCarousel(this.trainerId, {super.key});
+  const BlogByTrainerCarousel({
+    super.key,
+    required this.trainerId,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -25,8 +25,8 @@ class AllCourseByTrainerBloc
           ? (state as AllCoursesByTrainerSuccess).courses
           : <Course>[];
       final currentCourses = result.unwrap();
-      final allCoursesByTariner = [...previousCourses, ...currentCourses];
-      emit(AllCoursesByTrainerSuccess(courses: allCoursesByTariner));
+      final allCoursesByTrainer = [...previousCourses, ...currentCourses];
+      emit(AllCoursesByTrainerSuccess(courses: allCoursesByTrainer));
     } else {
       try {
         throw result.unwrap();
