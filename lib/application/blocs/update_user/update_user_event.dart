@@ -8,7 +8,7 @@ class UpdateUser extends UpdateUserEvent{
   final String fullName;
   final String phoneNumber;
   final String email;
-  final String image;
-  const UpdateUser({required this.fullName,required this.phoneNumber,required this.email,required this.image});
+  final String? image;
+  const UpdateUser({required this.fullName,required this.phoneNumber,required this.email, this.image});
 
 }
