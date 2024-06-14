@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:equatable/equatable.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'location_event.dart';
@@ -21,6 +21,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     if (status == PermissionStatus.granted) {
       emit(LocationPermissionGranted());
+      add(GetLocation());
     } else if (status == PermissionStatus.denied) {
       emit(LocationPermissionDenied());
     } else if (status == PermissionStatus.permanentlyDenied) {
