@@ -10,6 +10,8 @@ part 'video_player_state.dart';
 
 class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   late CachedVideoPlayerController videoPlayerController;
+  static const List<double> speeds = [1.0, 2.0];
+
   VideoPlayerBloc() : super(VideoPlayerState()) {
     on<VideoInitialized>(_initializePlayer);
     on<VideoCompleted>(_videoCompleted);
@@ -64,6 +66,15 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
     emit(state.copyWith(position: videoPlayerController.value.position));
   }
 
+  void togglePlay() {
+    if(state.isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+    emit(state.copyWith(isPlaying: !state.isPlaying));
+  }
+
   double getVideoProgress(){
     return state.position.inMicroseconds / state.videoDuration.inMicroseconds; 
   }
@@ -83,15 +94,21 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
 
   void play() {
     videoPlayerController.play();
-    add(VideoPaused());
   }
 
   void pause() {
     videoPlayerController.pause();
-    add(VideoPaused());
   }
 
-  void mute() {}
+  void toggleMute() {
+    videoPlayerController.setVolume(!state.isMuted ? 0 : 1);
+    emit(state.copyWith(isMuted: !state.isMuted));
+  }
+
+  void setVideoSpeed(double speed){
+    videoPlayerController.setPlaybackSpeed(speed);
+    emit(state.copyWith(currentSpeed: speed));
+  }
 
   void unmute() {}
 

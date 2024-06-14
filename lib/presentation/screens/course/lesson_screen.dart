@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
@@ -92,8 +93,8 @@ class _LessonView extends StatelessWidget {
                             top: 40,
                             right: 20,
                             child: IconButton(
-                              icon: Icon(Icons.close,
-                                  color: Colors.black, size: 30),
+                              icon: Icon(Icons.close_rounded,
+                                  color: Colors.white, size: 30),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
@@ -107,6 +108,21 @@ class _LessonView extends StatelessWidget {
                       height: 40,
                       child: VideoProgressBar(),
                     ),
+          //           Padding(
+          //   padding: const EdgeInsets.all(16.0),
+          //   child: ElevatedButton(
+          //     onPressed: () {
+          //       // Handle next exercise action
+          //     },
+          //     child: Text('NEXT EXERCISE'),
+          //     style: ButtonStyle(
+          //       minimumSize: MaterialStateProperty.all(Size(double.infinity, 48)),
+          //       backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
+          //       foregroundColor: MaterialStateProperty.all(Colors.black),
+          //     ),
+          //   ),
+          // ),
+          _VideoTitle(title: lessonBloc.state.lesson.title),
                     VideoDuration()
   ,                 Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -203,5 +219,29 @@ class _LessonView extends StatelessWidget {
           );
       },
     ));
+  }
+}
+
+class _VideoTitle extends StatelessWidget {
+  final String title;
+  
+  const _VideoTitle({
+    super.key,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      maxLines: 3,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.roboto(
+        textStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }
