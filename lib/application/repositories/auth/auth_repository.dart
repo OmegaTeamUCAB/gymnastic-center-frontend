@@ -43,6 +43,8 @@ abstract class IAuthRepository {
   Future<Result<IPasswordResetResponse>> verifyCode(
       {required String email, required String code});
   Future<Result<IPasswordResetResponse>> resetPassword(
-      {required String email, required String newPassword});
+      {required String email,
+      required String newPassword,
+      required String code});
   void logout();
 }

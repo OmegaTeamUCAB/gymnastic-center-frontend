@@ -112,6 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await resetPasswordUseCase.execute(ResetPasswordDto(
       email: event.email,
       newPassword: event.newPassword,
+      code: event.code,
     ));
     if (result.unwrap().success == true) {
       emit(PasswordResetSuccess());
