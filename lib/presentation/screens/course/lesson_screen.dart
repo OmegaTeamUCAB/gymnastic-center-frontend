@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
@@ -11,7 +12,8 @@ import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart
 class LessonScreen extends StatefulWidget {
   final String lessonId;
 
-  LessonScreen({
+  const LessonScreen({
+    super.key,
     required this.lessonId,
   });
 
@@ -20,7 +22,6 @@ class LessonScreen extends StatefulWidget {
 }
 
 class _LessonScreenState extends State<LessonScreen> {
-  
   late VideoPlayerBloc videoPlayerBloc;
 
   @override
@@ -34,13 +35,15 @@ class _LessonScreenState extends State<LessonScreen> {
     videoPlayerBloc.videoPlayerController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
           BlocProvider.value(value: GetIt.instance<LessonBloc>()),
-          BlocProvider.value(value: videoPlayerBloc,)
+          BlocProvider.value(
+            value: videoPlayerBloc,
+          )
         ],
         child: _LessonView(
           lessonId: widget.lessonId,
@@ -57,23 +60,21 @@ class _LessonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lessonBloc = context.read<LessonBloc>()..add(ChangeLessonById(lessonId: lessonId));
+    final lessonBloc = context.read<LessonBloc>()
+      ..add(ChangeLessonById(lessonId: lessonId));
     return BlocListener<VideoPlayerBloc, VideoPlayerState>(
-      listener: (context, state) {
-
-          if(state.videoStatus == PlayerStatus.completed){
-            lessonBloc.changeToNextLesson();
-          }
+        listener: (context, state) {
+      if (state.videoStatus == PlayerStatus.completed) {
+        lessonBloc.changeToNextLesson();
       }
-      ,
-      child: BlocBuilder<LessonBloc, LessonState>(
+    }, child: BlocBuilder<LessonBloc, LessonState>(
       builder: (context, state) {
         if (state is LessonLoaded) {
-          if(lessonBloc.state.lesson.videoUrl!.length > 2)
-          context.read<VideoPlayerBloc>()
-            ..add(VideoInitialized(video: lessonBloc.state.lesson.videoUrl!));
+          if (lessonBloc.state.lesson.videoUrl!.length > 2) {
+            context.read<VideoPlayerBloc>().add(
+                VideoInitialized(video: lessonBloc.state.lesson.videoUrl!));
+          }
           return Scaffold(
-            backgroundColor: Colors.white,
             body: Stack(
               children: [
                 Column(
@@ -83,17 +84,16 @@ class _LessonView extends StatelessWidget {
                         children: [
                           Container(
                             color: Colors.grey[200],
-                            child: Container(
-                              width: 600,
-                              height: 600,
-                              child: VideoPlayerView()
-                            ),
+                            child: const SizedBox(
+                                width: 600,
+                                height: 600,
+                                child: VideoPlayerView()),
                           ),
                           Positioned(
-                            top: 40,
-                            right: 20,
+                            top: 60,
+                            right: 10,
                             child: IconButton(
-                              icon: Icon(Icons.close_rounded,
+                              icon: const Icon(Icons.close_rounded,
                                   color: Colors.white, size: 30),
                               onPressed: () {
                                 Navigator.pop(context);
@@ -103,54 +103,36 @@ class _LessonView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: double.infinity,
                       height: 40,
                       child: VideoProgressBar(),
                     ),
-          //           Padding(
-          //   padding: const EdgeInsets.all(16.0),
-          //   child: ElevatedButton(
-          //     onPressed: () {
-          //       // Handle next exercise action
-          //     },
-          //     child: Text('NEXT EXERCISE'),
-          //     style: ButtonStyle(
-          //       minimumSize: MaterialStateProperty.all(Size(double.infinity, 48)),
-          //       backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
-          //       foregroundColor: MaterialStateProperty.all(Colors.black),
-          //     ),
-          //   ),
-          // ),
-          _VideoTitle(title: lessonBloc.state.lesson.title),
-                    VideoDuration()
-  ,                 Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      child: Row(
+                        children: [
+                          VideoTitle(title: lessonBloc.state.lesson.title),
+                          const Spacer(),
+                          const VideoDuration(),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ElevatedButton(
-                            onPressed: lessonBloc.changeToPreviousLesson,
-                            child: Text('PREV'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey[300],
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: lessonBloc.changeToNextLesson,
-                            child: Text('NEXT'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
+                          BrandButton(
+                              isVariant: true,
+                              text: 'Prev',
+                              width: 110,
+                              onPressed: lessonBloc.changeToPreviousLesson),
+                          BrandButton(
+                              text: 'Next',
+                              width: 210,
+                              onPressed: lessonBloc.changeToNextLesson)
                         ],
                       ),
                     ),
@@ -160,10 +142,12 @@ class _LessonView extends StatelessWidget {
                                 horizontal: 20.0, vertical: 10),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .tertiaryContainer,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
-                                padding: EdgeInsets.all(12),
+                                padding: const EdgeInsets.all(12),
                                 child: Row(
                                   children: [
                                     ClipRRect(
@@ -175,22 +159,25 @@ class _LessonView extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    SizedBox(width: 20),
+                                    const SizedBox(width: 20),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                              '${lessonBloc.getNextLesson().title}',
+                                          const Text('Coming up:'),
+                                          Text(lessonBloc.getNextLesson().title,
                                               maxLines: 2,
-                                              style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold)),
                                           Text('0:30',
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: Colors.grey)),
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimary)),
                                         ],
                                       ),
                                     ),
@@ -208,24 +195,25 @@ class _LessonView extends StatelessWidget {
         }
 
         if (state is LessonLoading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (state is LessonError) {
-          return Center(child: Text("Error"));
-        } else
-          return Center(
+          return const Center(child: Text("Error"));
+        } else {
+          return const Center(
             child: Text('Error'),
           );
+        }
       },
     ));
   }
 }
 
-class _VideoTitle extends StatelessWidget {
+class VideoTitle extends StatelessWidget {
   final String title;
-  
-  const _VideoTitle({
+
+  const VideoTitle({
     super.key,
     required this.title,
   });
@@ -236,11 +224,9 @@ class _VideoTitle extends StatelessWidget {
       title,
       maxLines: 3,
       textAlign: TextAlign.center,
-      style: GoogleFonts.roboto(
-        textStyle: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

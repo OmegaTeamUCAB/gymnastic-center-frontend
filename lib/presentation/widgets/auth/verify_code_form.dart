@@ -39,6 +39,7 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
               MaterialPageRoute(
                 builder: (context) => ResetPasswordScreen(
                   email: widget.email,
+                  code: verificationCode,
                 ),
               ));
         }
@@ -84,12 +85,6 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
               onCompleted: (value) {
                 authBloc.add(
                     CodeVerified(email: widget.email, code: verificationCode));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ResetPasswordScreen(email: widget.email)),
-                );
               },
             ),
             const SizedBox(height: 25),
