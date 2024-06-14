@@ -23,7 +23,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
     super.initState();
     _scrollController.addListener(_scrollListener);
     trainerDetailBloc
-        .add(TrainerDetailRequested(trainerId: widget.trainer['trainerId']));
+        .add(TrainerDetailRequested(trainerId: widget.trainer['id']));
   }
 
   @override
