@@ -28,7 +28,8 @@ class CourseRepository extends ICourseRepository {
           courses.add(Course(
             id: course['id'],
             imageUrl: course['image'],
-            categoryId: course['category'],
+            category: course['category'],
+            description: course['description'],
             name: course['title'],
             trainer: course['trainer'],
             createdAt: course['date'],

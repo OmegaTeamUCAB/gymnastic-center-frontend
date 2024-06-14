@@ -16,6 +16,7 @@ import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_blo
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
+import 'package:gymnastic_center/application/blocs/trainer_detail/trainer_detail_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/logout.use_case.dart';
@@ -29,6 +30,7 @@ import 'package:gymnastic_center/application/use_cases/category/get_all_categori
 import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/trainer/get_trainer_by_id.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
@@ -38,6 +40,7 @@ import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_reposito
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/trainer/trainer_repository.dart';
 import 'package:gymnastic_center/infrastructure/services/firebase/firebase_handler.dart';
 import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
 
@@ -59,6 +62,7 @@ class IoCContainer {
     final categoryRepository = CategoryRepository(httpConnectionManager);
     final courseRepository = CourseRepository(httpConnectionManager);
     final searchRepository = SearchRepository(httpConnectionManager);
+    final trainerRepository = TrainerRepository(httpConnectionManager);
     //USE CASES
     final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
@@ -73,6 +77,7 @@ class IoCContainer {
     final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
     getIt.registerSingleton<GetCourseByIdUseCase>(GetCourseByIdUseCase(courseRepository));
+    final getTrainerByIdUseCase = GetTrainerByIdUseCase(trainerRepository);
     //BLOCS
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
@@ -95,6 +100,7 @@ class IoCContainer {
     ));
     getIt.registerSingleton<SearchBloc>(SearchBloc(searchUseCase));
     getIt.registerSingleton<BlogDetailBloc>(BlogDetailBloc(getBlogByIdUseCase));
+    getIt.registerSingleton(TrainerDetailBloc(getTrainerByIdUseCase));
     getIt.registerSingleton<NotificationsBloc>(NotificationsBloc(
         handler: NotificationHandler()..initializeLocalNotifications()));
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
