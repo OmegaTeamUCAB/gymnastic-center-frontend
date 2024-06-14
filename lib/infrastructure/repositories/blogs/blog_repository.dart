@@ -29,7 +29,7 @@ class BlogsRepository implements IBlogRepository {
             id: blog['id'],
             images: [blog['image']],
             title: blog['title'],
-            trainer: blog['trainer'],
+            category: blog['category'],
             uploadDate: blog['date'],
           ));
         }

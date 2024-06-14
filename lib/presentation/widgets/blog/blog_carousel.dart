@@ -14,12 +14,16 @@ class BlogCarousel extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: blogs.length,
         itemBuilder: (context, index) {
-          if (index % 2 == 0) {
-            // Render a SizedBox for every even index
-            return const SizedBox(width: 15);
-          } else {
-            return BlogSlide(blog: blogs[index ~/ 2]);
+          if (index == 0) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: BlogSlide(blog: blogs[index]),
+            );
           }
+          return Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: BlogSlide(blog: blogs[index]),
+          );
         },
       ),
     );

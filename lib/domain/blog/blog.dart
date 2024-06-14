@@ -13,7 +13,7 @@ class Blog {
     required this.images,
     required this.title,
     this.content,
-    required this.trainer,
+    this.trainer,
     this.tags,
     this.uploadDate,
     this.category,
