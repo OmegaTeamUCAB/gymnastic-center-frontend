@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
+import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class BlogSlide extends StatelessWidget {
@@ -55,15 +56,14 @@ class BlogSlide extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Categoría o Autor',
+                          blog.category!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.primary),
                         ),
                         const Spacer(),
                         Text(
-                          'some date',
-                          // timeago.format(blog.uploadDate),
+                          formatDateTime(DateTime.parse(blog.uploadDate!)),
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),

@@ -18,6 +18,7 @@ class CoursesPageView extends StatelessWidget {
           int secondCourseIndex = index * 2 + 1;
 
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CourseTile(course: courses[firstCourseIndex]),
               // Check if there is a second course for this column
