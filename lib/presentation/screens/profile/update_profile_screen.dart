@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/update_user_from.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/update_user_form.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class UpdateUserScreen extends StatelessWidget {
-  const UpdateUserScreen({super.key});
+class UpdateProfileScreen extends StatelessWidget {
+  const UpdateProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,10 @@ class UpdateUserScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 100),
           child: CustomAppBar(
             content: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.only(bottom: 10),
                 child: Row(
                   children: [
-                    BackButton(),
+                    BrandBackButton(),
                     Text(
                       'Edit Profile',
                       style: TextStyle(

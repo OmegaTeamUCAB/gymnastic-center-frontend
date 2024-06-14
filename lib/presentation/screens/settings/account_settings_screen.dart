@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/profile/edit_profile_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
@@ -48,7 +48,8 @@ class AccountSettingsScreen extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const UpdateUserScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const UpdateProfileScreen()),
             );
           },
         ),

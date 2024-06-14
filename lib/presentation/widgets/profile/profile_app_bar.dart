@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
-import 'package:gymnastic_center/presentation/widgets/auth/update_user_from.dart';
+import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/auth/update_user_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
@@ -42,7 +43,7 @@ class ProfileAppBar extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const UpdateUserForm()),
+                            builder: (context) => const UpdateProfileScreen()),
                       );
                     },
                     icon: const Icon(

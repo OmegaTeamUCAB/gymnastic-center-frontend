@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/update_user/update_user_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,14 +17,25 @@ class UpdateUserForm extends StatefulWidget {
 
 class _UpdateUserFormState extends State<UpdateUserForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool? isTermsChecked = false;
   bool isObscured = true;
-  File? newUserImage;
-  String newUserName = '';
-  String newUserEmail = '';
-  String newUserPhone = '';
-  String? base64Image = '';
-  Uint8List? bytes;
+  late String name;
+  late String email;
+  late String phone;
+  late String? base64Image;
+  late String? image;
+
+  @override
+  void initState() {
+    super.initState();
+    final authBloc = context.read<AuthBloc>();
+    final user = (authBloc.state as Authenticated).user;
+    name = user.fullName;
+    email = user.email;
+    phone = user.phoneNumber;
+    image = user.image;
+    base64Image = '';
+  }
+
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
@@ -59,16 +67,14 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
 
                         if (pickedFile != null) {
                           setState(() {
-                            newUserImage = File(pickedFile.path);
+                            base64Image = File(pickedFile.path).toString();
                           });
                         }
                       },
-                      icon: authBloc.state is Authenticated &&
-                              (authBloc.state as Authenticated).user.image !=
-                                  null
+                      icon: image != null
                           ? CircleAvatar(
                               backgroundImage: NetworkImage(
-                                (authBloc.state as Authenticated).user.image!,
+                                image!,
                               ),
                               radius: 60,
                             )
@@ -91,17 +97,6 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                                       fontWeight: FontWeight.bold)),
                             ),
                     ),
-                    if (newUserImage != null)
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            setState(() {});
-                          },
-                        ),
-                      ),
                     Positioned(
                       right: 5,
                       bottom: 5,
@@ -115,40 +110,38 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                     ),
                   ],
                 ),
-                // if (_newUserImage != null)
-                TextButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Remove profile photo',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                if (image != null)
+                  TextButton(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Remove profile photo',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Icon(
-                        Icons.delete,
-                        color: Theme.of(context).colorScheme.primary,
-                      )
-                    ],
+                        const SizedBox(width: 10),
+                        Icon(
+                          Icons.delete,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                      ],
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        image = null;
+                        base64Image = '';
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      newUserImage = null;
-                      base64Image = '';
-                    });
-                  },
-                ),
 
                 const SizedBox(height: 35),
 
                 // Profile Name
                 const _CustomAlign(title: 'Name'),
                 CustomTextInput(
-                  initialValue: authBloc.state is Authenticated
-                      ? (authBloc.state as Authenticated).user.fullName
-                      : 'Full Name',
+                  initialValue: name,
                   hintText: 'Full Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Required Field';
@@ -159,7 +152,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   },
                   onChanged: (value) {
                     setState(() {
-                      newUserName = value;
+                      name = value;
                       _formKey.currentState!.validate();
                     });
                   },
@@ -170,9 +163,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 // Profile Email
                 const _CustomAlign(title: 'Email'),
                 CustomTextInput(
-                  initialValue: authBloc.state is Authenticated
-                      ? (authBloc.state as Authenticated).user.email
-                      : 'Email',
+                  initialValue: email,
                   hintText: 'Email',
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
@@ -189,7 +180,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   },
                   onChanged: (value) {
                     setState(() {
-                      newUserEmail = value;
+                      email = value;
                       _formKey.currentState!.validate();
                     });
                   },
@@ -200,9 +191,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 // Profile Phone
                 const _CustomAlign(title: 'Phone'),
                 CustomTextInput(
-                  initialValue: authBloc.state is Authenticated
-                      ? (authBloc.state as Authenticated).user.phoneNumber
-                      : 'Phone',
+                  initialValue: phone,
                   hintText: 'Phone',
                   keyboardType: TextInputType.phone,
                   validator: (value) {
@@ -216,7 +205,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   },
                   onChanged: (value) {
                     setState(() {
-                      newUserPhone = value;
+                      phone = value;
                       _formKey.currentState!.validate();
                     });
                   },
@@ -229,40 +218,12 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: BrandButton(
                     onPressed: () async {
-                      if (newUserImage != null) {
-                        bytes = await newUserImage!.readAsBytes();
-                        base64Image = base64Encode(bytes!);
-                      }
-                      if (newUserEmail == ''){
-                        newUserEmail = (authBloc.state as Authenticated).user.email;
-                      }
-                      if (newUserName == ''){
-                        newUserName = (authBloc.state as Authenticated).user.fullName;
-                      }
-                      if (newUserPhone == ''){
-                        newUserPhone = (authBloc.state as Authenticated).user.phoneNumber;
-                      }
-                      if (base64Image == ''){
-                        base64Image = (authBloc.state as Authenticated).user.image;
-                      }
-                      if (base64Image == null || base64Image == ''){
-                        updateUserBloc.add(UpdateUser(
-                          fullName: newUserName,
-                          phoneNumber: newUserPhone,
-                          email: newUserEmail));
-                      }else {
-                        updateUserBloc.add(UpdateUser(
-                          fullName: newUserName,
-                          phoneNumber: newUserPhone,
-                          email: newUserEmail,
-                          image: base64Image));
-                      }
-
-                      print((authBloc.state as Authenticated).user.fullName);
-                      
-
                       if (_formKey.currentState!.validate()) {
-                        // Save the form
+                        updateUserBloc.add(UpdateUser(
+                            fullName: name,
+                            phoneNumber: phone,
+                            email: email,
+                            image: base64Image));
                       }
                     },
                     text: 'Save',
