@@ -10,10 +10,12 @@ import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
+import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
+import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
 import 'package:gymnastic_center/application/blocs/trainer_detail/trainer_detail_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
@@ -25,6 +27,7 @@ import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/trainer/get_trainer_by_id.use_case.dart';
@@ -73,6 +76,7 @@ class IoCContainer {
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
+    getIt.registerSingleton<GetCourseByIdUseCase>(GetCourseByIdUseCase(courseRepository));
     final getTrainerByIdUseCase = GetTrainerByIdUseCase(trainerRepository);
     //BLOCS
     getIt.registerSingleton<BlogsByCategoryBloc>(
@@ -101,5 +105,7 @@ class IoCContainer {
         handler: NotificationHandler()..initializeLocalNotifications()));
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
     getIt.registerSingleton<CourseBloc>(CourseBloc(courseRepository));
+    getIt.registerSingleton<LessonBloc>(LessonBloc());
+    getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
   }
 }

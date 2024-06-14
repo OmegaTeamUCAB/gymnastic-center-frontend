@@ -1,6 +1,7 @@
 part of 'all_courses_bloc.dart';
 
 sealed class AllCoursesState extends Equatable {
+
   @override
   List<Object> get props => [];
 }
@@ -12,8 +13,6 @@ class AllCoursesSuccess extends AllCoursesState {
 
   AllCoursesSuccess({required this.courses});
 
-  @override
-  List<Object> get props => [courses];
 }
 
 class AllCoursesFailed extends AllCoursesState {

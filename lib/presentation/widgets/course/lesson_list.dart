@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/lesson/lesson.dart';
+import 'package:gymnastic_center/presentation/screens/course/lesson_screen.dart';
 
 class LessonList extends StatelessWidget {
   final List<Lesson> lessons;
@@ -22,7 +23,14 @@ class LessonList extends StatelessWidget {
             ),
             child: ListTile(
               onTap: () {
-                //navigate
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LessonScreen(
+                            lessonId: lesson.id
+                          )),
+                );
               },
               title: Text(
                 lesson.title,
