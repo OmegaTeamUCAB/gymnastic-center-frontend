@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class DisabilityScreen extends StatelessWidget {
-  const DisabilityScreen({super.key});
+class TrainersScreen extends StatelessWidget {
+  const TrainersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class DisabilityScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Disability',
+                      'Trainers',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
