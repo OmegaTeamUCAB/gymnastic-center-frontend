@@ -29,7 +29,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const CategoryCarousel(),
-          const SizedBox(height: 25),
+          const SizedBox(
+            height: 15,
+          ),
           ContentHeader(
               title: 'Trending Courses',
               onPressed: () {
@@ -55,6 +57,9 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => const AllBlogsScreen()),
                 );
               }),
+          const SizedBox(
+            height: 10,
+          ),
           const HomeBlogCarousel(),
           const SizedBox(
             height: 60,
