@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
@@ -17,9 +18,6 @@ class BlogDetailScreen extends StatelessWidget {
     final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
     blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
     return Scaffold(
-      bottomNavigationBar: AddCommentBar(
-        blogId: blogId,
-      ),
       body: BlocProvider<BlogDetailBloc>.value(
         value: blogDetailBloc,
         child: BlocBuilder<BlogDetailBloc, BlogDetailState>(
@@ -171,8 +169,44 @@ class BlogDetailScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          //TODO: FIGURE THIS OUT
-                          // CommentExpansionPanel(comments: state.blog.comments),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.favorite_border)),
+                              const Text('5'),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(25.0)),
+                                      ),
+                                      builder: (BuildContext context) {
+                                        return Column(children: [
+                                          const Text(
+                                            'Comments',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          BlogComments(blogId: blogId),
+                                          AddCommentBar(
+                                            blogId: blogId,
+                                          ),
+                                        ]);
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(Icons.comment_outlined)),
+                              const Text('16'),
+                            ],
+                          ),
                         ],
                       ),
                     ),
