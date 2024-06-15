@@ -82,7 +82,7 @@ class MenuSideNav extends StatelessWidget {
 
               // Cerrar sesión
               ListTile(
-                contentPadding: const EdgeInsets.fromLTRB(15, 100, 15, 10),
+                contentPadding: const EdgeInsets.only(bottom: 10, left: 15),
                 title: const Text('Logout',
                     style: TextStyle(
                       color: Colors.white,
