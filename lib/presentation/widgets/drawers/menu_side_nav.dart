@@ -5,6 +5,7 @@ import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class MenuSideNav extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -33,14 +34,34 @@ class MenuSideNav extends StatelessWidget {
               // Cerrar menu lateral
               Align(
                 alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.cancel_outlined,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).closeDrawer();
-                  },
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    ProfileAvatar(
+                      authBloc: authBloc,
+                      radius: 30,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          (authBloc.state as Authenticated).user.fullName,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          (authBloc.state as Authenticated).user.email,
+                          style: const TextStyle(color: Colors.white),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
               Expanded(

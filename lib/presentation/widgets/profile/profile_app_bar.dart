@@ -6,6 +6,7 @@ import 'package:gymnastic_center/presentation/screens/profile/edit_profile_scree
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({super.key});
@@ -59,32 +60,10 @@ class ProfileAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: authBloc.state is Authenticated &&
-                            (authBloc.state as Authenticated).user.image != null
-                        ? CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              (authBloc.state as Authenticated).user.image!,
-                            ),
-                            radius: 35,
-                          )
-                        : CircleAvatar(
-                            backgroundColor: const Color(0xFFe3dff1),
-                            radius: 35,
-                            child: Text(
-                                (authBloc.state as Authenticated)
-                                    .user
-                                    .fullName
-                                    .split(' ')
-                                    .map((l) => l[0])
-                                    .take(2)
-                                    .join(),
-                                style: const TextStyle(
-                                    color: Color(0xFF4F14A0),
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                  ),
+                      padding: const EdgeInsets.all(8),
+                      child: ProfileAvatar(
+                        authBloc: authBloc,
+                      )),
                   const SizedBox(width: 7),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -14,27 +14,12 @@ class HomeAppBar extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // IconButton(
-                //     onPressed: () {},
-                //     icon: const Icon(
-                //       Icons.menu,
-                //       color: Colors.white,
-                //     )),
                 Image.asset(
                   'assets/app-launcher/app_icon.png',
                   width: 50,
                   fit: BoxFit.contain,
                 ),
-
                 const Spacer(),
-
-                // IconButton(
-                //     onPressed: () {},
-                //     icon: const Icon(
-                //       GymnasticCenter.search,
-                //       size: 20,
-                //       color: Colors.white,
-                //     )),
                 InkWell(
                   onTap: () {
                     Navigator.push(
