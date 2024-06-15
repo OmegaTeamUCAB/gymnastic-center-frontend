@@ -9,37 +9,35 @@ class CommentsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        children: comments.map((Comment comment) {
-          return ListTile(
-            leading: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://www.example.com/path/to/your/generic/image.jpg'),
-            ),
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text('Usuario',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onPrimary)),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(timeago.format(comment.postedAt),
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Theme.of(context).colorScheme.onPrimary))
-              ],
-            ),
-            subtitle: Text(comment.content),
-          );
-        }).toList(),
-      ),
+    return ListView(
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      children: comments.map((Comment comment) {
+        return ListTile(
+          leading: const CircleAvatar(
+            backgroundImage: NetworkImage(
+                'https://www.example.com/path/to/your/generic/image.jpg'),
+          ),
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text('Usuario',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary)),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(timeago.format(comment.postedAt),
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.onPrimary))
+            ],
+          ),
+          subtitle: Text(comment.content),
+        );
+      }).toList(),
     );
   }
 }

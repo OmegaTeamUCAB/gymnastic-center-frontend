@@ -188,18 +188,25 @@ class BlogDetailScreen extends StatelessWidget {
                                             top: Radius.circular(25.0)),
                                       ),
                                       builder: (BuildContext context) {
-                                        return Column(children: [
-                                          const Text(
-                                            'Comments',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          BlogComments(blogId: blogId),
-                                          AddCommentBar(
-                                            blogId: blogId,
-                                          ),
-                                        ]);
+                                        return Column(
+                                          children: [
+                                            const Text(
+                                              'Comments',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Flexible(
+                                              child: SingleChildScrollView(
+                                                child: BlogComments(
+                                                    blogId: blogId),
+                                              ),
+                                            ),
+                                            AddCommentBar(
+                                              blogId: blogId,
+                                            ),
+                                          ],
+                                        );
                                       },
                                     );
                                   },
