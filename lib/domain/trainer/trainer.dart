@@ -4,6 +4,7 @@ class Trainer {
   final dynamic followers;
   final bool? userFollow;
   final String? location;
+  final String? image;
 
   Trainer({
     this.id,
@@ -11,5 +12,6 @@ class Trainer {
     this.followers,
     this.location,
     this.userFollow,
+    this.image,
   });
 }

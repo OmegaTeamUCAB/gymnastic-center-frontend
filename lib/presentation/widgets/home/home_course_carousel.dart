@@ -13,7 +13,7 @@ class HomeCourseCarousel extends StatelessWidget {
     allCoursesBloc.add(const AllCoursesRequested(1));
 
     return SizedBox(
-      height: 270,
+      height: 260,
       child: BlocProvider<AllCoursesBloc>.value(
         value: allCoursesBloc,
         child: BlocBuilder<AllCoursesBloc, AllCoursesState>(
