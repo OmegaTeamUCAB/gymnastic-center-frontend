@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/disability/disability_screen.dart';
+import 'package:gymnastic_center/presentation/screens/trainers/trainers_screen.dart';
 import 'package:gymnastic_center/presentation/screens/home/home_screen.dart';
 import 'package:gymnastic_center/presentation/screens/notifications/notifications_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/settings_screen.dart';
 import 'package:gymnastic_center/presentation/screens/training/training_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_bottom_navbar.dart';
@@ -20,9 +21,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final screens = <Widget>[
     const HomeScreen(),
-    const DisabilityScreen(),
-    const SettingsScreen(),
+    const TrainersScreen(),
     const NotificationsScreen(),
+    const ProfileScreen(),
   ];
 
   int selectedIndex = 0;

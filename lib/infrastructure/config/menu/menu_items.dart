@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/presentation/screens/profile/edit_profile_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/about_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/account_settings_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/faq_screen.dart';
@@ -23,7 +24,7 @@ final appMenuItems = <MenuItem>[
     title: 'Account',
     icon: GymnasticCenter.account,
     redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const AccountSettingsScreen())),
+        MaterialPageRoute(builder: (context) => const EditProfileScreen())),
   ),
   MenuItem(
     title: 'Notifications',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class BrandButton extends StatelessWidget {
   final String text;
+  final double? fontSize;
   final VoidCallback onPressed;
   final double? width;
   final bool isVariant;
@@ -12,6 +13,7 @@ class BrandButton extends StatelessWidget {
     required this.onPressed,
     this.width = double.infinity,
     this.isVariant = false,
+    this.fontSize = 20,
   });
 
   @override
@@ -25,6 +27,7 @@ class BrandButton extends StatelessWidget {
     if (isVariant) {
       return SizedBox(
         width: width,
+        height: fontSize! * 2.5,
         child: TextButton(
             style: const ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(Colors.white),
@@ -32,12 +35,14 @@ class BrandButton extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               text,
-              style: const TextStyle(fontSize: 20, color: Color(0xFF4F14A0)),
+              style:
+                  TextStyle(fontSize: fontSize, color: const Color(0xFF4F14A0)),
             )),
       );
     }
 
     return Container(
+      height: fontSize! * 2.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         boxShadow: Theme.of(context).brightness == Brightness.light
@@ -57,7 +62,7 @@ class BrandButton extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             text,
-            style: const TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: fontSize, color: Colors.white),
           )),
     );
   }

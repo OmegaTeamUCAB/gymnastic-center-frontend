@@ -1,4 +1,16 @@
 import 'package:gymnastic_center/core/result.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
+
+class GetCommentsDto {
+  final int page;
+  final String? blogId;
+  final String? lessonId;
+  GetCommentsDto({
+    required this.page,
+    this.blogId,
+    this.lessonId,
+  });
+}
 
 abstract class ICreateCommentResponse {
   final String id;
@@ -18,4 +30,5 @@ abstract class ICommentRepository {
     required String courseId,
     required String lessonId,
   });
+  Future<Result<List<Comment>>> getComments(GetCommentsDto dto);
 }
