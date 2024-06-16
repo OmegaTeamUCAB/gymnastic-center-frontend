@@ -173,13 +173,6 @@ class BlogDetailScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.favorite_border)),
-                              const Text('5'),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              IconButton(
                                   onPressed: () {
                                     showModalBottomSheet(
                                       context: context,

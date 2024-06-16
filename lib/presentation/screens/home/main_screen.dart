@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/disability/trainers_screen.dart';
+import 'package:gymnastic_center/presentation/screens/trainers/trainers_screen.dart';
 import 'package:gymnastic_center/presentation/screens/home/home_screen.dart';
 import 'package:gymnastic_center/presentation/screens/notifications/notifications_screen.dart';
 import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
