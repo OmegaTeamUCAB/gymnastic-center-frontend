@@ -45,12 +45,11 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Positioned(
                         bottom: -160,
-                        right: -140,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: 50, horizontal: 150),
-                          width: 685.0,
-                          height: 685.0,
+                          width: 660.0,
+                          height: 660.0,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Theme.of(context).colorScheme.onBackground,

@@ -52,8 +52,8 @@ class SignUpScreen extends StatelessWidget {
                       Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: 30, horizontal: 170),
-                          width: 720.0,
-                          height: 720.0,
+                          width: 700.0,
+                          height: 700.0,
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage('assets/particles.png'),
