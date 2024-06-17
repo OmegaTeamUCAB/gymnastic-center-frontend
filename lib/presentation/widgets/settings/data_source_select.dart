@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/application/blocs/select_data_source/select_data_source_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<dynamic> dataSources = [
   {
@@ -19,17 +21,12 @@ List<dynamic> dataSources = [
   },
 ];
 
-class DataSourceSelect extends StatefulWidget {
+class DataSourceSelect extends StatelessWidget {
   const DataSourceSelect({super.key});
 
   @override
-  State<DataSourceSelect> createState() => _DataSourceSelectState();
-}
-
-class _DataSourceSelectState extends State<DataSourceSelect> {
-  int selectedIndex = 0;
-  @override
   Widget build(BuildContext context) {
+    final dataSourceBloc = context.watch<SelectDataSourceBloc>();
     return SizedBox(
       height: 220,
       child: Padding(
@@ -39,7 +36,7 @@ class _DataSourceSelectState extends State<DataSourceSelect> {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(dataSources[index]['name']),
-                tileColor: index == selectedIndex
+                tileColor: index == dataSourceBloc.state.selectedDataSource
                     ? Theme.of(context).colorScheme.surfaceTint
                     : Theme.of(context).colorScheme.background,
                 titleTextStyle: TextStyle(
@@ -47,10 +44,8 @@ class _DataSourceSelectState extends State<DataSourceSelect> {
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
                 onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                    Navigator.of(context).pop();
-                  });
+                  dataSourceBloc.add(SelectedDataSource(index));
+                  Navigator.of(context).pop();
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
