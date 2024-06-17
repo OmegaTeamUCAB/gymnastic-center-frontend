@@ -22,7 +22,7 @@ class _TrainersScreenState extends State<TrainersScreen> {
   void initState() {
     super.initState();
     allTrainersBloc = GetIt.instance<AllTrainersBloc>();
-    allTrainersBloc.add(const AllTrainersRequested(0));
+    allTrainersBloc.add(const AllTrainersRequested(1));
     paginationController = PaginationController(
       requestNextPage: (page) =>
           allTrainersBloc.add(AllTrainersRequested(page)),
@@ -59,10 +59,7 @@ class _TrainersScreenState extends State<TrainersScreen> {
                     'Trainers',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
-                  const Text(
-                    'Our trainers are the best in the business and are dedicated to helping you achieve your fitness goals.',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  
                   const SizedBox(height: 15),
                   BlocProvider<AllTrainersBloc>.value(
                     value: allTrainersBloc,
