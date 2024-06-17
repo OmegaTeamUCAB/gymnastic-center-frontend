@@ -10,7 +10,7 @@ class Environment {
   }
 
   static String getApiUrl() {
-    switch (dataSourceBloc.state.selectedDataSource) {
+    switch (dataSourceBloc.state.dataSourceIndex) {
       case 0:
         return dotenv.env['API_URL'] ?? 'API_URL is not configured';
       case 1:

@@ -1,16 +1,16 @@
 part of 'select_data_source_bloc.dart';
 
 class SelectDataSourceState extends Equatable {
-  final int selectedDataSource;
-  const SelectDataSourceState({this.selectedDataSource = 0});
+  final int dataSourceIndex;
+  const SelectDataSourceState({this.dataSourceIndex = 0});
 
   SelectDataSourceState copyWith({
-    int? selectedDataSource,
+    int? dataSourceIndex,
   }) =>
       SelectDataSourceState(
-        selectedDataSource: selectedDataSource ?? this.selectedDataSource,
+        dataSourceIndex: dataSourceIndex ?? this.dataSourceIndex,
       );
 
   @override
-  List<Object> get props => [selectedDataSource];
+  List<Object> get props => [dataSourceIndex];
 }

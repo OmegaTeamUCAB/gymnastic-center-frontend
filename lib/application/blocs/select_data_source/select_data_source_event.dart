@@ -5,6 +5,6 @@ sealed class SelectDataSourceEvent {
 }
 
 class SelectedDataSource extends SelectDataSourceEvent {
-  final int selectedDataSource;
-  const SelectedDataSource(this.selectedDataSource);
+  final int dataSourceIndex;
+  const SelectedDataSource(this.dataSourceIndex);
 }

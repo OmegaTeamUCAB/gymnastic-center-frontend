@@ -106,12 +106,14 @@ class IoCContainer {
     getIt.registerSingleton<SearchBloc>(SearchBloc(searchUseCase));
     getIt.registerSingleton<BlogDetailBloc>(BlogDetailBloc(getBlogByIdUseCase));
     getIt.registerSingleton(TrainerDetailBloc(getTrainerByIdUseCase));
-    getIt.registerSingleton<AllTrainersBloc>(AllTrainersBloc(getTrainersUseCase));
+    getIt.registerSingleton<AllTrainersBloc>(
+        AllTrainersBloc(getTrainersUseCase));
     getIt.registerSingleton<NotificationsBloc>(NotificationsBloc(
         handler: NotificationHandler()..initializeLocalNotifications()));
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
     getIt.registerSingleton<CourseBloc>(CourseBloc(courseRepository));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
+    getIt.registerSingleton<SelectDataSourceBloc>(SelectDataSourceBloc());
   }
 }

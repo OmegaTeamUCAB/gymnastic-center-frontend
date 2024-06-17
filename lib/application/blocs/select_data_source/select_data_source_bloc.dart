@@ -13,9 +13,7 @@ class SelectDataSourceBloc
 
   void _onSelectDataSource(
       SelectedDataSource event, Emitter<SelectDataSourceState> emit) async {
-    emit(state.copyWith(selectedDataSource: event.selectedDataSource));
+    emit(state.copyWith(dataSourceIndex: event.dataSourceIndex));
     await Environment.initEnvironment(this);
-    var selectedApi = Environment.getApiUrl();
-    print('API URL SELECTED $selectedApi');
   }
 }

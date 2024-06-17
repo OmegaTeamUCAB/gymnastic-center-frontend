@@ -36,7 +36,7 @@ class DataSourceSelect extends StatelessWidget {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(dataSources[index]['name']),
-                tileColor: index == dataSourceBloc.state.selectedDataSource
+                tileColor: index == dataSourceBloc.state.dataSourceIndex
                     ? Theme.of(context).colorScheme.surfaceTint
                     : Theme.of(context).colorScheme.background,
                 titleTextStyle: TextStyle(
