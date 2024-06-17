@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 
 part 'select_data_source_event.dart';
 part 'select_data_source_state.dart';
@@ -12,7 +12,10 @@ class SelectDataSourceBloc
   }
 
   void _onSelectDataSource(
-      SelectedDataSource event, Emitter<SelectDataSourceState> emit) {
+      SelectedDataSource event, Emitter<SelectDataSourceState> emit) async {
     emit(state.copyWith(selectedDataSource: event.selectedDataSource));
+    await Environment.initEnvironment(this);
+    var selectedApi = Environment.getApiUrl();
+    print('API URL SELECTED $selectedApi');
   }
 }
