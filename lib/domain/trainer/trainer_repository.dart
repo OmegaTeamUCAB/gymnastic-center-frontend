@@ -3,9 +3,8 @@ import 'package:gymnastic_center/domain/trainer/trainer.dart';
 
 class GetTrainersDto {
   final int page;
-  final int? perPage;
   final String? filter;
-  GetTrainersDto({this.perPage, required this.page, this.filter});
+  GetTrainersDto({required this.page, this.filter});
 }
 
 abstract class ITrainerRepository {
