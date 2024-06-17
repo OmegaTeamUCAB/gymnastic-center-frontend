@@ -27,8 +27,32 @@ class TrainerRepository implements ITrainerRepository {
   }
 
   @override
-  Future<Result<List<Trainer>>> getTrainers() {
-    // TODO: implement getTrainers
-    throw UnimplementedError();
+  Future<Result<List<Trainer>>> getTrainers(GetTrainersDto dto) async {
+     var queryParameters = {
+      'page': dto.page.toString(),
+      'perPage': '15',
+      if (dto.filter != null) 'filter': dto.filter.toString(),
+    };
+
+    var queryString = Uri(queryParameters: queryParameters).query;
+
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'trainer/many?$queryString',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<Trainer> trainers = [];
+        for (var trainer in data) {
+          trainers.add(Trainer(
+            id: trainer['id'],
+            name: trainer['name'],
+            followers: trainer['followers'],
+            userFollow: trainer['userFollow'],
+            location: trainer['location'],
+          ));
+        }
+        return trainers;
+      },
+    );
+    return result;
   }
 }
