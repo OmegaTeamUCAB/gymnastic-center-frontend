@@ -12,8 +12,6 @@ class AllTrainersSuccess extends AllTrainersState {
 
   AllTrainersSuccess({required this.trainers});
 
-  @override
-  List<Object> get props => [trainers];
 }
 
 class AllTrainersFailed extends AllTrainersState {
