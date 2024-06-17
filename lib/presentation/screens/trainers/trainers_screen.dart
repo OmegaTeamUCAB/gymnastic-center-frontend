@@ -1,11 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:gymnastic_center/domain/trainer/trainer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
+import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/main_app_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/trainer/trainer_list.dart';
 
-class TrainersScreen extends StatelessWidget {
+class TrainersScreen extends StatefulWidget {
   const TrainersScreen({super.key});
+
+  @override
+  State<TrainersScreen> createState() => _TrainersScreenState();
+}
+
+class _TrainersScreenState extends State<TrainersScreen> {
+  late AllTrainersBloc allTrainersBloc;
+  late final PaginationController paginationController;
+
+  @override
+  void initState() {
+    super.initState();
+    allTrainersBloc = GetIt.instance<AllTrainersBloc>();
+    allTrainersBloc.add(const AllTrainersRequested(1));
+    paginationController = PaginationController(
+      requestNextPage: (page) =>
+          allTrainersBloc.add(AllTrainersRequested(page)),
+    );
+  }
+
+  @override
+  void dispose() {
+    paginationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,32 +59,40 @@ class TrainersScreen extends StatelessWidget {
                     'Trainers',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
-                  const Text(
-                    'Our trainers are the best in the business and are dedicated to helping you achieve your fitness goals.',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  
                   const SizedBox(height: 15),
-                  //TODO: use bloc logic
-                  TrainerList(
-                    trainers: [
-                      Trainer(
-                          name: 'Gianpiero Fusco',
-                          followers: 35,
-                          image:
-                              'https://avatarfiles.alphacoders.com/224/thumb-1920-224188.jpg',
-                          location: 'Venezuela',
-                          userFollow: true),
-                      Trainer(
-                          name: 'Carlos Villanueva',
-                          followers: 35,
-                          location: 'Chile',
-                          userFollow: false),
-                      Trainer(
-                          name: 'Jessie Jones',
-                          followers: 35,
-                          location: 'Argentina',
-                          userFollow: false),
-                    ],
+                  BlocProvider<AllTrainersBloc>.value(
+                    value: allTrainersBloc,
+                    child: BlocBuilder<AllTrainersBloc, AllTrainersState>(
+                        builder: (context, state) {
+                      if (state is AllTrainersLoading) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 25),
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      if (state is AllTrainersFailed) {
+                        return Center(
+                          child: Text(state.message),
+                        );
+                      }
+                      if (state is AllTrainersSuccess) {
+                        if (state.trainers.isEmpty) {
+                          return const Center(
+                            child: NoResults(),
+                          );
+                        }
+                        return TrainerList(
+                          trainers: state.trainers,
+                        );
+                      } else {
+                        return const Center(
+                          child: Text('Error'),
+                        );
+                      }
+                    }),
                   ),
                 ],
               ),
