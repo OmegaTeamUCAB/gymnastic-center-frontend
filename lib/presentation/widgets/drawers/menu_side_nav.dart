@@ -47,6 +47,7 @@ class MenuSideNav extends StatelessWidget {
                       width: 15,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           (authBloc.state as Authenticated).user.fullName,

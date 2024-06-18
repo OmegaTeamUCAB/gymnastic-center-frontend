@@ -5,7 +5,6 @@ import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
 import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({super.key});
@@ -26,6 +25,9 @@ class ProfileAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
+                const BackButton(
+                  color: Colors.white,
+                ),
                 const SizedBox(
                   width: 12,
                 ),
@@ -55,10 +57,11 @@ class ProfileAppBar extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ProfileAvatar(
-                        authBloc: authBloc,
+                  IconButton(
+                      onPressed: () {},
+                      icon: const CircleAvatar(
+                        backgroundImage: AssetImage('assets/test_user.jpeg'),
+                        radius: 40,
                       )),
                   const SizedBox(width: 7),
                   Column(

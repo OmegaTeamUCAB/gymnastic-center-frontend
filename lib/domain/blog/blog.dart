@@ -7,6 +7,7 @@ class Blog {
   final List<dynamic>? tags;
   final String? uploadDate;
   final String? category;
+  final int? comments;
 
   Blog({
     required this.id,
@@ -17,5 +18,6 @@ class Blog {
     this.tags,
     this.uploadDate,
     this.category,
+    this.comments,
   });
 }
