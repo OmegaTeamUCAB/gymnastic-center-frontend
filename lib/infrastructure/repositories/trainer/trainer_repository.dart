@@ -55,4 +55,14 @@ class TrainerRepository implements ITrainerRepository {
     );
     return result;
   }
+  
+  @override
+  Future<Result<void>> followTrainer(String id) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'trainer/toggle/follow/$id',
+      httpMethod: 'POST',
+      mapperCallBack: (_) => {}
+    );
+    return result;
+  }
 }
