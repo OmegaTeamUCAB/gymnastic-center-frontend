@@ -51,13 +51,14 @@ class IoCContainer {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     final getIt = GetIt.instance;
-    await Environment.initEnvironment(SelectDataSourceBloc());
+    final selectDataSourceBloc = SelectDataSourceBloc();
+    await Environment.initEnvironment(selectDataSourceBloc);
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     final httpConnectionManager =
-        HttpManagerImpl(baseUrl: Environment.getApiUrl());
+        HttpManagerImpl();
     final secureStorage = SecureStorage();
     //REPOSITORIES
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
@@ -114,6 +115,6 @@ class IoCContainer {
     getIt.registerSingleton<CourseBloc>(CourseBloc(courseRepository));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
-    getIt.registerSingleton<SelectDataSourceBloc>(SelectDataSourceBloc());
+    getIt.registerSingleton<SelectDataSourceBloc>(selectDataSourceBloc);
   }
 }

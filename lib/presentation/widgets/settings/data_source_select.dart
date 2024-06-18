@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<dynamic> dataSources = [
   {
-    'name': 'Omega',
+    'name': 'Omega (recommended)',
     'api': 'This is the Omega api',
   },
   {
