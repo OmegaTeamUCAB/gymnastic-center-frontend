@@ -30,11 +30,18 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   void initState() {
     super.initState();
     final authBloc = context.read<AuthBloc>();
-    final user = (authBloc.state as Authenticated).user;
-    name = user.fullName;
-    phone = user.phoneNumber;
-    image = user.image;
-    base64Image = '';
+    if (authBloc.state is Authenticated) {
+      final user = (authBloc.state as Authenticated).user;
+      name = user.fullName;
+      phone = user.phoneNumber;
+      image = user.image;
+      base64Image = '';
+    } else if (authBloc.state is AuthLoading) {
+      name = '';
+      phone = '';
+      image = '';
+      base64Image = '';
+    }
   }
 
   @override
@@ -77,11 +84,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                               backgroundImage: FileImage(newImage!),
                               radius: 60,
                             )
-                          : authBloc.state is Authenticated &&
-                                  (authBloc.state as Authenticated)
-                                          .user
-                                          .image !=
-                                      null
+                          : (authBloc.state as Authenticated).user.image != null
                               ? CircleAvatar(
                                   backgroundImage: MemoryImage(
                                     base64Decode(
