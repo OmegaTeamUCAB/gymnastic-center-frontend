@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -112,9 +113,9 @@ class _LessonView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 16),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           VideoTitle(title: lessonBloc.state.lesson.title),
-                          const Spacer(),
                           const VideoDuration(),
                         ],
                       ),
@@ -220,13 +221,16 @@ class VideoTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      maxLines: 3,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
+    return SizedBox(
+      width: 270,
+      child: Text(
+        title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
