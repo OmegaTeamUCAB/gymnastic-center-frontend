@@ -32,6 +32,8 @@ class BlogsRepository implements IBlogRepository {
             tags: blog['tags'],
             description: blog['description'],
             category: blog['category'],
+            trainer: blog['trainer'],
+            comments: blog['comments'],
             uploadDate: blog['date'],
           ));
         }

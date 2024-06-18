@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
 import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
-import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({super.key});
@@ -12,6 +12,12 @@ class ProfileAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
+    if (authBloc.state is! Authenticated && authBloc.state is! AuthLoading) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    }
     return CustomAppBar(
       content: Padding(
         padding: const EdgeInsets.only(left: 10, bottom: 20),
@@ -19,6 +25,9 @@ class ProfileAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
+                const BackButton(
+                  color: Colors.white,
+                ),
                 const SizedBox(
                   width: 12,
                 ),
@@ -48,12 +57,11 @@ class ProfileAppBar extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ProfileAvatar(
-                        image: (authBloc.state as Authenticated).user.image,
-                        fullName:
-                            (authBloc.state as Authenticated).user.fullName,
+                  IconButton(
+                      onPressed: () {},
+                      icon: const CircleAvatar(
+                        backgroundImage: AssetImage('assets/test_user.jpeg'),
+                        radius: 40,
                       )),
                   const SizedBox(width: 7),
                   Column(

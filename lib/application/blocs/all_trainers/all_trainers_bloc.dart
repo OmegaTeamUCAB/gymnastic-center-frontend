@@ -28,7 +28,6 @@ class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
       try {
         throw result.unwrap();
       } catch (e) {
-        print('fallo');
         emit(AllTrainersFailed(message: e.toString()));
       }
     }
