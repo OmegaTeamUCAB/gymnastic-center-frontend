@@ -18,7 +18,6 @@ class UpdateUserForm extends StatefulWidget {
 }
 
 class _UpdateUserFormState extends State<UpdateUserForm> {
-  late UpdateUserBloc updateUserBloc;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isObscured = true;
   late String name;
@@ -31,7 +30,6 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   void initState() {
     super.initState();
     final authBloc = context.read<AuthBloc>();
-    updateUserBloc = context.read<UpdateUserBloc>();
     final user = (authBloc.state as Authenticated).user;
     name = user.fullName;
     phone = user.phoneNumber;
@@ -42,6 +40,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
+    final updateUserBloc = context.watch<UpdateUserBloc>();
 
     return GestureDetector(
       onTap: () {

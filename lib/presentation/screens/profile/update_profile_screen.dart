@@ -38,8 +38,12 @@ class UpdateProfileScreen extends StatelessWidget {
             if (state is UpdateUserSuccess) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Profile updated successfully'),
-                duration: Duration(milliseconds: 1500),
+                content: Text(
+                  'Profile updated successfully',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Color(0xFF4F14A0),
+                duration: Duration(seconds: 3),
               ));
             }
             if (state is UpdateUserFailed) {
@@ -47,7 +51,7 @@ class UpdateProfileScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message),
                 backgroundColor: Colors.red,
-                duration: const Duration(milliseconds: 1500),
+                duration: const Duration(seconds: 3),
               ));
             }
           },
