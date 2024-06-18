@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/update_user/update_user_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +27,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   late String phone;
   late String? base64Image;
   late String? image;
+  File? newImage;
 
   @override
   void initState() {
@@ -67,76 +72,80 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
 
                         if (pickedFile != null) {
                           setState(() {
-                            base64Image = File(pickedFile.path).toString();
+                            newImage = File(pickedFile.path);
                           });
                         }
                       },
-                      icon: image != null
+                      icon: newImage != null
                           ? CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                image!,
-                              ),
+                              backgroundImage: FileImage(newImage!),
                               radius: 60,
                             )
-                          : CircleAvatar(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.surfaceTint,
-                              radius: 60,
-                              child: Text(
+                          : authBloc.state is Authenticated &&
                                   (authBloc.state as Authenticated)
-                                      .user
-                                      .fullName
-                                      .split(' ')
-                                      .map((l) => l[0])
-                                      .take(2)
-                                      .join(),
-                                  style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.bold)),
-                            ),
+                                          .user
+                                          .image !=
+                                      null
+                              ? CircleAvatar(
+                                  backgroundImage: MemoryImage(
+                                    base64Decode(
+                                        (authBloc.state as Authenticated)
+                                            .user
+                                            .image
+                                            .toString()),
+                                  ),
+                                  radius: 60,
+                                )
+                              : CircleAvatar(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.surfaceTint,
+                                  radius: 60,
+                                  child: Text(
+                                      (authBloc.state as Authenticated)
+                                          .user
+                                          .fullName
+                                          .split(' ')
+                                          .map((l) => l[0])
+                                          .take(2)
+                                          .join(),
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          fontSize: 36,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                     ),
                     Positioned(
                       right: 5,
                       bottom: 5,
                       child: CircleAvatar(
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        child: Icon(
-                          Icons.camera_alt,
-                          color: Theme.of(context).colorScheme.onSurface,
+                        child: IconButton(
+                          // Cambia esto a IconButton
+                          icon: Icon(
+                            Icons.camera_alt,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                          onPressed: () async {
+                            // Agrega este onPressed
+                            final picker = ImagePicker();
+                            final pickedFile = await picker.pickImage(
+                                source: ImageSource.camera);
+
+                            if (pickedFile != null) {
+                              setState(() {
+                                newImage = File(pickedFile.path);
+                              });
+                            }
+                          },
                         ),
                       ),
                     ),
                   ],
                 ),
-                if (image != null)
-                  TextButton(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Remove profile photo',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Icon(
-                          Icons.delete,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                      ],
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        image = null;
-                        base64Image = '';
-                      });
-                    },
-                  ),
 
-                const SizedBox(height: 35),
+                const SizedBox(height: 50),
 
                 // Profile Name
                 const _CustomAlign(title: 'Name'),
@@ -219,6 +228,20 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   child: BrandButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        if (newImage != null) {
+                          List<int> imageBytes = newImage!.readAsBytesSync();
+                          Uint8List uint8ListImageBytes =
+                              Uint8List.fromList(imageBytes);
+                          List<int> compressedImage =
+                              await FlutterImageCompress.compressWithList(
+                            uint8ListImageBytes,
+                            minWidth: 600,
+                            minHeight: 600,
+                            quality: 40,
+                          );
+                          base64Image = base64Encode(compressedImage);
+                        }
+
                         updateUserBloc.add(UpdateUser(
                             fullName: name,
                             phoneNumber: phone,
