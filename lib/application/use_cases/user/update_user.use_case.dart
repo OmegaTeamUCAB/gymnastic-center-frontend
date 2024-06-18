@@ -5,11 +5,9 @@ import 'package:gymnastic_center/domain/auth/user_repository.dart';
 class UpdateUserDto {
   final String? fullName;
   final String? phoneNumber;
-  final String? email;
   final String? image;
 
   UpdateUserDto(
-    this.email,
     this.image,
     this.fullName,
     this.phoneNumber,

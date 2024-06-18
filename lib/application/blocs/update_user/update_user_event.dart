@@ -1,14 +1,13 @@
 part of 'update_user_bloc.dart';
 
-class UpdateUserEvent{
+class UpdateUserEvent {
   const UpdateUserEvent();
 }
 
-class UpdateUser extends UpdateUserEvent{
+class UpdatedUser extends UpdateUserEvent {
   final String fullName;
   final String phoneNumber;
-  final String email;
   final String? image;
-  const UpdateUser({required this.fullName,required this.phoneNumber,required this.email, this.image});
-
+  const UpdatedUser(
+      {required this.fullName, required this.phoneNumber, this.image});
 }

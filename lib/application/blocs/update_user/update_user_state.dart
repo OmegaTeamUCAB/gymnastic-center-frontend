@@ -7,6 +7,8 @@ sealed class UpdateUserState extends Equatable {
 
 class UpdateUserLoading extends UpdateUserState{}
 
+class UpdateUserInitial extends UpdateUserState {}
+
 class UpdateUserSuccess extends UpdateUserState {}
 
 class UpdateUserFailed extends UpdateUserState {

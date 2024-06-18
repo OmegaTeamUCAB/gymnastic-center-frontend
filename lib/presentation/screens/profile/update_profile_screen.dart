@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/update_user/update_user_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/update_user_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -8,8 +11,9 @@ class UpdateProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
+    final updateUserBloc = GetIt.instance<UpdateUserBloc>();
+    return Scaffold(
+      appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 100),
           child: CustomAppBar(
             content: Padding(
@@ -27,7 +31,29 @@ class UpdateProfileScreen extends StatelessWidget {
                   ],
                 )),
           )),
-      body: UpdateUserForm(),
+      body: BlocProvider(
+        create: (context) => updateUserBloc,
+        child: BlocListener<UpdateUserBloc, UpdateUserState>(
+          listener: (context, state) {
+            if (state is UpdateUserSuccess) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Profile updated successfully'),
+                duration: Duration(milliseconds: 1500),
+              ));
+            }
+            if (state is UpdateUserFailed) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+                duration: const Duration(milliseconds: 1500),
+              ));
+            }
+          },
+          child: const UpdateUserForm(),
+        ),
+      ),
     );
   }
 }

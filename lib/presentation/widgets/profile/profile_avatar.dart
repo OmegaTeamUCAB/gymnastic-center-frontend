@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 
@@ -12,8 +14,9 @@ class ProfileAvatar extends StatelessWidget {
     return authBloc.state is Authenticated &&
             (authBloc.state as Authenticated).user.image != null
         ? CircleAvatar(
-            backgroundImage: NetworkImage(
-              (authBloc.state as Authenticated).user.image!,
+            backgroundImage: MemoryImage(
+              base64Decode(
+                  (authBloc.state as Authenticated).user.image.toString()),
             ),
             radius: radius,
           )

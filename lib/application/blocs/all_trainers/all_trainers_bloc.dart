@@ -12,8 +12,8 @@ class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
   AllTrainersBloc(this.getTrainersUseCase) : super(AllTrainersLoading()) {
     on<AllTrainersRequested>(_getAllTrainers);
   }
-  Future<void> _getAllTrainers(AllTrainersRequested event, Emitter<AllTrainersState> emit) async {
-    print('cargando');
+  Future<void> _getAllTrainers(
+      AllTrainersRequested event, Emitter<AllTrainersState> emit) async {
     emit(AllTrainersLoading());
     final result =
         await getTrainersUseCase.execute(GetTrainersDto(page: event.page));
@@ -23,13 +23,11 @@ class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
           : <Trainer>[];
       final currentCourses = result.unwrap();
       final allTrainers = [...previousCourses, ...currentCourses];
-      print('exitoso');
       emit(AllTrainersSuccess(trainers: allTrainers));
     } else {
       try {
         throw result.unwrap();
       } catch (e) {
-        print('fallo');
         emit(AllTrainersFailed(message: e.toString()));
       }
     }

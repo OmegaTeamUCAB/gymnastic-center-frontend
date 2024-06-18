@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-
-import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/update_user/update_user_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -20,10 +18,10 @@ class UpdateUserForm extends StatefulWidget {
 }
 
 class _UpdateUserFormState extends State<UpdateUserForm> {
+  late UpdateUserBloc updateUserBloc;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isObscured = true;
   late String name;
-  late String email;
   late String phone;
   late String? base64Image;
   late String? image;
@@ -33,9 +31,9 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   void initState() {
     super.initState();
     final authBloc = context.read<AuthBloc>();
+    updateUserBloc = context.read<UpdateUserBloc>();
     final user = (authBloc.state as Authenticated).user;
     name = user.fullName;
-    email = user.email;
     phone = user.phoneNumber;
     image = user.image;
     base64Image = '';
@@ -44,7 +42,6 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
-    final updateUserBloc = GetIt.instance<UpdateUserBloc>();
 
     return GestureDetector(
       onTap: () {
@@ -169,34 +166,6 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
 
                 const SizedBox(height: 25),
 
-                // Profile Email
-                const _CustomAlign(title: 'Email'),
-                CustomTextInput(
-                  initialValue: email,
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Required Field';
-                    if (value.trim().isEmpty) return 'Required Field';
-                    final emailRegExp = RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                    );
-                    if (!emailRegExp.hasMatch(value)) {
-                      return 'Should be an email';
-                    }
-
-                    return null;
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      email = value;
-                      _formKey.currentState!.validate();
-                    });
-                  },
-                ),
-
-                const SizedBox(height: 25),
-
                 // Profile Phone
                 const _CustomAlign(title: 'Phone'),
                 CustomTextInput(
@@ -223,35 +192,38 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 const SizedBox(height: 25),
 
                 // Save Button
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: BrandButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        if (newImage != null) {
-                          List<int> imageBytes = newImage!.readAsBytesSync();
-                          Uint8List uint8ListImageBytes =
-                              Uint8List.fromList(imageBytes);
-                          List<int> compressedImage =
-                              await FlutterImageCompress.compressWithList(
-                            uint8ListImageBytes,
-                            minWidth: 600,
-                            minHeight: 600,
-                            quality: 40,
-                          );
-                          base64Image = base64Encode(compressedImage);
-                        }
-
-                        updateUserBloc.add(UpdateUser(
-                            fullName: name,
-                            phoneNumber: phone,
-                            email: email,
-                            image: base64Image));
-                      }
-                    },
-                    text: 'Save',
-                  ),
-                ),
+                updateUserBloc.state is UpdateUserLoading
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: CircularProgressIndicator())
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: BrandButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              if (newImage != null) {
+                                List<int> imageBytes =
+                                    newImage!.readAsBytesSync();
+                                Uint8List uint8ListImageBytes =
+                                    Uint8List.fromList(imageBytes);
+                                List<int> compressedImage =
+                                    await FlutterImageCompress.compressWithList(
+                                  uint8ListImageBytes,
+                                  minWidth: 600,
+                                  minHeight: 600,
+                                  quality: 40,
+                                );
+                                base64Image = base64Encode(compressedImage);
+                              }
+                              updateUserBloc.add(UpdatedUser(
+                                  fullName: name,
+                                  phoneNumber: phone,
+                                  image: base64Image));
+                            }
+                          },
+                          text: 'Save',
+                        ),
+                      ),
               ],
             ),
           ),
