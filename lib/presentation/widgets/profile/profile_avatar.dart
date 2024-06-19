@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class ProfileAvatar extends StatelessWidget {
@@ -12,8 +14,8 @@ class ProfileAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return image != null
         ? CircleAvatar(
-            backgroundImage: NetworkImage(
-              image!,
+            backgroundImage: MemoryImage(
+              base64Decode(image.toString()),
             ),
             radius: radius,
           )
