@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/blog/comment_modal_sheet.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
@@ -175,31 +176,17 @@ class BlogDetailScreen extends StatelessWidget {
                               IconButton(
                                   onPressed: () {
                                     showModalBottomSheet(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                       context: context,
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(25.0)),
                                       ),
                                       builder: (BuildContext context) {
-                                        return Column(
-                                          children: [
-                                            const Text(
-                                              'Comments',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Flexible(
-                                              child: SingleChildScrollView(
-                                                child: BlogComments(
-                                                    blogId: blogId),
-                                              ),
-                                            ),
-                                            AddCommentBar(
-                                              blogId: blogId,
-                                            ),
-                                          ],
-                                        );
+                                        return CommentModalSheet(
+                                            blogId: blogId);
                                       },
                                     );
                                   },

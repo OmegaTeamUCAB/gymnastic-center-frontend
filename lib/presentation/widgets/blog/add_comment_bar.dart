@@ -7,6 +7,7 @@ import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_i
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class AddCommentBar extends StatefulWidget {
   final String blogId;
@@ -14,8 +15,8 @@ class AddCommentBar extends StatefulWidget {
 
   AddCommentBar({super.key, required this.blogId}) {
     bloc = CreateCommentBloc(
-        createBlogCommentUseCase: CreateBlogCommentUseCase(CommentRepository(
-            HttpManagerImpl())));
+        createBlogCommentUseCase:
+            CreateBlogCommentUseCase(CommentRepository(HttpManagerImpl())));
   }
 
   @override
@@ -48,6 +49,7 @@ class _AddCommentBarState extends State<AddCommentBar> {
 
     return Container(
       decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
         border: Border(
           top: BorderSide(
               color: Theme.of(context).colorScheme.outline, width: 1.0),
@@ -55,19 +57,22 @@ class _AddCommentBarState extends State<AddCommentBar> {
       ),
       child: Padding(
         padding: EdgeInsets.only(
-          left: 15.0,
-          right: 15.0,
-          top: 15.0,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 15.0,
-        ),
+            top: 10, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
         child: Form(
           key: _formKey,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                height: 56,
-                width: 300,
+              const SizedBox(
+                width: 10,
+              ),
+              ProfileAvatar(
+                fullName: (authBloc.state as Authenticated).user.fullName,
+                radius: 20,
+                image: (authBloc.state as Authenticated).user.image,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
                 child: TextFormField(
                   onChanged: (value) {
                     blogContent = value;
@@ -80,7 +85,8 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   },
                   controller: _controller,
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                     border: InputBorder.none,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -96,10 +102,12 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(
+                width: 10,
+              ),
               Container(
-                width: 56,
-                height: 56,
+                width: 45,
+                height: 45,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: brandGradient,
@@ -109,8 +117,11 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   shape: const CircleBorder(),
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  child: const Icon(Icons.send, color: Colors.white),
+                  child: const Icon(Icons.send, color: Colors.white, size: 20),
                 ),
+              ),
+              const SizedBox(
+                width: 10,
               ),
             ],
           ),
