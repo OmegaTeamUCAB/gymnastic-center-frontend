@@ -17,6 +17,7 @@ class TrainerRepository implements ITrainerRepository {
         return Trainer(
           id: data['id'],
           name: data['name'],
+          image: data['image'],
           followers: data['followers'],
           userFollow: data['userFollow'],
           location: data['location'],
@@ -28,7 +29,7 @@ class TrainerRepository implements ITrainerRepository {
 
   @override
   Future<Result<List<Trainer>>> getTrainers(GetTrainersDto dto) async {
-     var queryParameters = {
+    var queryParameters = {
       'page': dto.page.toString(),
       'perPage': '15',
       if (dto.filter != null) 'filter': dto.filter.toString(),
@@ -45,6 +46,7 @@ class TrainerRepository implements ITrainerRepository {
           trainers.add(Trainer(
             id: trainer['id'],
             name: trainer['name'],
+            image: trainer['image'],
             followers: trainer['followers'],
             userFollow: trainer['userFollow'],
             location: trainer['location'],

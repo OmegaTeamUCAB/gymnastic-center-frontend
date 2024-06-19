@@ -35,8 +35,8 @@ class TrainerList extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.onPrimary),
-            subtitle:
-                Text('${trainer.followers} followers | ${trainer.location}'),
+            subtitle: Text(
+                '${trainer.followers} ${trainer.followers == 1 ? 'follower' : 'followers'} | ${trainer.location}'),
             leading: trainer.image != null
                 ? CircleAvatar(
                     backgroundImage: NetworkImage(trainer.image!),
