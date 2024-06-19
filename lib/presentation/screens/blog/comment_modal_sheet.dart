@@ -10,12 +10,13 @@ class CommentModalSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Add your code here
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -24,16 +25,45 @@ class CommentModalSheet extends StatelessWidget {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(
                         Icons.close_rounded,
                         size: 30,
                       ))
                 ],
               ),
-              Expanded(child: BlogComments(blogId: blogId)),
-            ],
-          ),
+            ),
+            Divider(
+              color: Theme.of(context).colorScheme.outline,
+              height: 0,
+              thickness: 1,
+            ),
+            BlogComments(
+              blogId: blogId,
+              comments: [
+                Comment(
+                  imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
+                  comment: 'This is a great blog post!',
+                  author: 'User1',
+                  date: DateTime.now(),
+                ),
+                Comment(
+                  imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
+                  comment: 'I found this post very helpful.',
+                  author: 'User2',
+                  date: DateTime.now(),
+                ),
+                Comment(
+                  imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
+                  comment: 'Thanks for sharing this post.',
+                  author: 'User3',
+                  date: DateTime.now(),
+                ),
+              ],
+            ),
+          ],
         ),
         Align(
           alignment: Alignment.bottomCenter,

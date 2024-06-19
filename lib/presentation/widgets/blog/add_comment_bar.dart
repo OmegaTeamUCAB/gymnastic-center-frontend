@@ -86,7 +86,7 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   controller: _controller,
                   decoration: InputDecoration(
                     contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                     border: InputBorder.none,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide.none,
