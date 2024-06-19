@@ -45,7 +45,7 @@ class CourseInfo extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                TrainerScreen(trainer: course.trainer),
+                                TrainerScreen(trainerId: course.trainer['id']),
                           ),
                         );
                       },
@@ -89,8 +89,9 @@ class CourseInfo extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            LessonScreen(lessonId: course.lessons!.first.id,)),
+                        builder: (context) => LessonScreen(
+                              lessonId: course.lessons!.first.id,
+                            )),
                   );
                 },
               ),

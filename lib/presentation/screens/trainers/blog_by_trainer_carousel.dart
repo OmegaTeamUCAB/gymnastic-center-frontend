@@ -14,11 +14,12 @@ class BlogByTrainerCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allBlogsByTrainerBloc = GetIt.instance<AllBlogsByTrainerBloc>();
-    allBlogsByTrainerBloc.add(AllBlogsByTrainerRequested(trainerId, 1));
-
-    return BlocProvider<AllBlogsByTrainerBloc>.value(
-      value: allBlogsByTrainerBloc,
+    return BlocProvider<AllBlogsByTrainerBloc>(
+      create: (context) {
+        final allBlogsByTrainerBloc = GetIt.instance<AllBlogsByTrainerBloc>();
+        allBlogsByTrainerBloc.add(AllBlogsByTrainerRequested(trainerId, 1));
+        return allBlogsByTrainerBloc;
+      },
       child: BlocBuilder<AllBlogsByTrainerBloc, AllBlogsByTrainerState>(
         builder: (context, state) {
           if (state is AllBlogsByTrainerLoading) {
