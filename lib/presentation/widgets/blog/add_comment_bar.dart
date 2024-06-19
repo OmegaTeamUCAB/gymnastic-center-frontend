@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/create_comment/create_comment_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/comment/create_blog_comment.use_case.dart';
-import 'package:gymnastic_center/infrastructure/config/constants/environment.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 
@@ -16,7 +15,7 @@ class AddCommentBar extends StatefulWidget {
   AddCommentBar({super.key, required this.blogId}) {
     bloc = CreateCommentBloc(
         createBlogCommentUseCase: CreateBlogCommentUseCase(CommentRepository(
-            HttpManagerImpl(baseUrl: Environment.getApiUrl()))));
+            HttpManagerImpl())));
   }
 
   @override

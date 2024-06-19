@@ -11,7 +11,6 @@ class CustomNavigationBar extends StatelessWidget {
     super.key,
   });
 
-  //todo: add conditionally rendered underline
   @override
   Widget build(BuildContext context) {
     final colorAppBar = Theme.of(context).colorScheme.tertiaryContainer;
@@ -43,19 +42,17 @@ class CustomNavigationBar extends StatelessWidget {
                 onPressed: () {
                   onTap(1);
                 },
-                icon: Icon(GymnasticCenter.wheelchair,
-                    size: 32,
+                icon: Icon(Icons.groups_outlined,
+                    size: 40,
                     color: tabIndex == 1 ? activeColor : Colors.grey)),
             const Spacer(),
             IconButton(
                 onPressed: () {
                   onTap(2);
                 },
-                icon: Icon(
-                  GymnasticCenter.settings,
-                  size: 32,
-                  color: tabIndex == 2 ? activeColor : Colors.grey,
-                )),
+                icon: Icon(Icons.notifications_outlined,
+                    size: 35,
+                    color: tabIndex == 2 ? activeColor : Colors.grey)),
             const SizedBox(
               width: 32,
             ),
@@ -63,9 +60,11 @@ class CustomNavigationBar extends StatelessWidget {
                 onPressed: () {
                   onTap(3);
                 },
-                icon: Icon(Icons.notifications_outlined,
-                    size: 32,
-                    color: tabIndex == 3 ? activeColor : Colors.grey)),
+                icon: Icon(
+                  Icons.account_circle_outlined,
+                  size: 35,
+                  color: tabIndex == 3 ? activeColor : Colors.grey,
+                )),
           ],
         ),
       ),

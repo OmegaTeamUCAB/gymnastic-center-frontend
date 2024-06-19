@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/common/main_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,8 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 170), child: HomeAppBar()),
+      appBar: MainAppBar(openDrawer: () => Scaffold.of(context).openDrawer()),
       body: ListView(
         children: [
           Padding(
@@ -29,7 +28,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const CategoryCarousel(),
-          const SizedBox(height: 25),
+          const SizedBox(
+            height: 15,
+          ),
           ContentHeader(
               title: 'Trending Courses',
               onPressed: () {
@@ -39,7 +40,10 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => const AllCoursesScreen()),
                 );
               }),
-          const HomeCourseCarousel(),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: HomeCourseCarousel(),
+          ),
           const SizedBox(
             height: 25,
           ),
@@ -52,6 +56,9 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => const AllBlogsScreen()),
                 );
               }),
+          const SizedBox(
+            height: 10,
+          ),
           const HomeBlogCarousel(),
           const SizedBox(
             height: 60,

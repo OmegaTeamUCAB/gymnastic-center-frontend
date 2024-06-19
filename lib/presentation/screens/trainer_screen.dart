@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/trainer_detail/trainer_detail_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/loading_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/trainer/trainer_info.dart';
 
 class TrainerScreen extends StatefulWidget {
-  final Map trainer;
-  const TrainerScreen({super.key, required this.trainer});
+  final String trainerId;
+  const TrainerScreen({super.key, required this.trainerId});
 
   @override
   State<TrainerScreen> createState() => _TrainerScreenState();
@@ -13,11 +16,13 @@ class TrainerScreen extends StatefulWidget {
 class _TrainerScreenState extends State<TrainerScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _showFab = false;
+  late final trainerDetailBloc = GetIt.instance<TrainerDetailBloc>();
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    trainerDetailBloc.add(TrainerDetailRequested(trainerId: widget.trainerId));
   }
 
   @override
@@ -28,7 +33,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset >= 500) {
+    if (_scrollController.offset >= 100) {
       setState(() {
         _showFab = true;
       });
@@ -42,65 +47,24 @@ class _TrainerScreenState extends State<TrainerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.network(
-            'https://images.unsplash.com/photo-1623200216581-969d9479cf7d?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            height: 400,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress != null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+        body: BlocProvider<TrainerDetailBloc>.value(
+            value: trainerDetailBloc,
+            child: BlocBuilder<TrainerDetailBloc, TrainerDetailState>(
+                builder: (context, state) {
+              if (state is TrainerDetailLoading) {
+                return const LoadingScreen();
+              }
+              if (state is TrainerDetailLoaded) {
+                return TrainerInfo(
+                  trainer: state.trainer,
+                  scrollController: _scrollController,
+                  showFab: _showFab,
                 );
               } else {
-                return child;
+                return const Center(
+                  child: Text('Error loading trainer'),
+                );
               }
-            },
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          TrainerInfo(
-            scrollController: _scrollController,
-            trainer: widget.trainer,
-          ),
-          AnimatedPositioned(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeOut,
-              left: 0,
-              right: 0,
-              top: _showFab ? 0 : -140,
-              child: Container(
-                height: 110,
-                width: double.infinity,
-                color: const Color(0xFF4F14A0),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      widget.trainer['name'],
-                      style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-              )),
-          Positioned(
-              top: 60,
-              left: 10,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF4F14A0),
-                  shape: BoxShape.circle,
-                ),
-                child: const BrandBackButton(
-                  color: Colors.white,
-                ),
-              )),
-        ],
-      ),
-    );
+            })));
   }
 }

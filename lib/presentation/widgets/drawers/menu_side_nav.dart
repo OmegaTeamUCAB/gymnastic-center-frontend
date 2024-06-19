@@ -5,6 +5,7 @@ import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class MenuSideNav extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -30,19 +31,42 @@ class MenuSideNav extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(10, hasNotch ? 70 : 50, 0, 10),
           child: Column(
             children: <Widget>[
-              // Cerrar menu lateral
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.cancel_outlined,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).closeDrawer();
-                  },
-                ),
-              ),
+              authBloc.state is! Authenticated
+                  ? const SizedBox.shrink()
+                  : Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          ProfileAvatar(
+                            image: (authBloc.state as Authenticated).user.image,
+                            fullName:
+                                (authBloc.state as Authenticated).user.fullName,
+                            radius: 30,
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                (authBloc.state as Authenticated).user.fullName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                (authBloc.state as Authenticated).user.email,
+                                style: const TextStyle(color: Colors.white),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
               Expanded(
                 child: ListView.builder(
                   itemCount: appMenuItems.length,
@@ -61,7 +85,7 @@ class MenuSideNav extends StatelessWidget {
 
               // Cerrar sesión
               ListTile(
-                contentPadding: const EdgeInsets.fromLTRB(15, 100, 15, 10),
+                contentPadding: const EdgeInsets.only(bottom: 10, left: 15),
                 title: const Text('Logout',
                     style: TextStyle(
                       color: Colors.white,

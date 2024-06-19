@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/select_data_source/select_data_source_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/DI/ioc_container.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
@@ -35,7 +36,7 @@ class _MainAppState extends State<MainApp> {
         ),
         BlocProvider(create: (context) => getIt.get<ThemeBloc>()),
         BlocProvider(create: (context) => getIt.get<CourseBloc>()),
-        // BlocProvider(create: (context) => PlayerBloc())
+        BlocProvider(create: (context) => getIt.get<SelectDataSourceBloc>()),
       ],
       child: const App(),
     );

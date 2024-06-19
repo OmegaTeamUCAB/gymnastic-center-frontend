@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:gymnastic_center/core/result.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/domain/comment/comment_repository.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
@@ -21,6 +22,35 @@ class CommentRepository extends ICommentRepository {
   final IHttpManager _httpConnectionManager;
 
   CommentRepository(this._httpConnectionManager);
+
+  @override
+  Future<Result<List<Comment>>> getComments(GetCommentsDto dto) async {
+    var queryParameters = {
+      'page': dto.page.toString(),
+      'perPage': '15',
+      if (dto.blogId != null) 'blog': dto.blogId.toString(),
+      if (dto.lessonId != null) 'lesson': dto.lessonId.toString(),
+    };
+
+    var queryString = Uri(queryParameters: queryParameters).query;
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'comment/many?$queryString',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<Comment> courses = [];
+        for (var course in data) {
+          courses.add(Comment(
+            id: course['id'],
+            userId: course['userId'],
+            content: course['content'],
+            createdAt: course['date'],
+          ));
+        }
+        return courses;
+      },
+    );
+    return result;
+  }
 
   @override
   Future<Result<ICreateCommentResponse>> createCourseComment({
