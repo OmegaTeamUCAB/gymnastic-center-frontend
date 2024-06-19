@@ -1,36 +1,28 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  final AuthBloc authBloc;
+  final String fullName;
+  final String? image;
   final double? radius;
 
-  const ProfileAvatar({super.key, required this.authBloc, this.radius = 35});
+  const ProfileAvatar(
+      {super.key, required this.fullName, this.image, this.radius = 35});
 
   @override
   Widget build(BuildContext context) {
-    return authBloc.state is Authenticated &&
-            (authBloc.state as Authenticated).user.image != null
+    return image != null
         ? CircleAvatar(
             backgroundImage: MemoryImage(
-              base64Decode(
-                  (authBloc.state as Authenticated).user.image.toString()),
+              base64Decode(image.toString()),
             ),
             radius: radius,
           )
         : CircleAvatar(
             backgroundColor: const Color(0xFFe3dff1),
             radius: radius,
-            child: Text(
-                (authBloc.state as Authenticated)
-                    .user
-                    .fullName
-                    .split(' ')
-                    .map((l) => l[0])
-                    .take(2)
-                    .join(),
+            child: Text(fullName.split(' ').map((l) => l[0]).take(2).join(),
                 style: const TextStyle(
                     color: Color(0xFF4F14A0),
                     fontSize: 25,

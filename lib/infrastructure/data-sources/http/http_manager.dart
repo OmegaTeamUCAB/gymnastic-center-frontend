@@ -1,9 +1,7 @@
 import 'package:gymnastic_center/core/result.dart';
 
 abstract class IHttpManager {
-  final String baseUrl;
-
-  IHttpManager({required this.baseUrl});
+  IHttpManager();
 
   Future<Result<T>> makeRequest<T>({
     required String httpMethod,

@@ -15,6 +15,7 @@ import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
+import 'package:gymnastic_center/application/blocs/select_data_source/select_data_source_bloc.dart';
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
 import 'package:gymnastic_center/application/blocs/trainer_detail/trainer_detail_bloc.dart';
@@ -53,13 +54,14 @@ class IoCContainer {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     final getIt = GetIt.instance;
-    await Environment.initEnvironment();
+    final selectDataSourceBloc = SelectDataSourceBloc();
+    await Environment.initEnvironment(selectDataSourceBloc);
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     final httpConnectionManager =
-        HttpManagerImpl(baseUrl: Environment.getApiUrl());
+        HttpManagerImpl();
     final secureStorage = SecureStorage();
     //REPOSITORIES
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
@@ -120,5 +122,6 @@ class IoCContainer {
     getIt.registerSingleton<UpdateUserBloc>(UpdateUserBloc(updateUserUseCase));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
+    getIt.registerSingleton<SelectDataSourceBloc>(selectDataSourceBloc);
   }
 }
