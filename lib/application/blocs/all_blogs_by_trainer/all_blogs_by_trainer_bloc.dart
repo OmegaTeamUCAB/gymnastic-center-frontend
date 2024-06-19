@@ -21,12 +21,7 @@ class AllBlogsByTrainerBloc
     final result = await getAllBlogsByTrainerUseCase
         .execute(GetBlogsDto(page: event.page, trainerId: event.trainerId));
     if (result.isSuccessful) {
-      final previousBlogs = state is AllBlogsByTrainerSuccess
-          ? (state as AllBlogsByTrainerSuccess).blogs
-          : <Blog>[];
-      final currentBlogs = result.unwrap();
-      final allBlogs = [...previousBlogs, ...currentBlogs];
-      emit(AllBlogsByTrainerSuccess(blogs: allBlogs));
+      emit(AllBlogsByTrainerSuccess(blogs: result.unwrap()));
     } else {
       try {
         throw result.unwrap();

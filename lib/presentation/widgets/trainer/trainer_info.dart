@@ -6,7 +6,6 @@ import 'package:gymnastic_center/presentation/screens/trainers/blog_by_trainer_c
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/trainer/course_by_trainer_carousel.dart';
 
 class TrainerInfo extends StatelessWidget {

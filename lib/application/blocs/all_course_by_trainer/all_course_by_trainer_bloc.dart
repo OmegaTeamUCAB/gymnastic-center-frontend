@@ -21,12 +21,7 @@ class AllCourseByTrainerBloc
     final result = await getAllCoursesByTrainerUseCase
         .execute(GetCoursesDto(page: event.page, trainerId: event.trainerId));
     if (result.isSuccessful) {
-      final previousCourses = state is AllCoursesByTrainerSuccess
-          ? (state as AllCoursesByTrainerSuccess).courses
-          : <Course>[];
-      final currentCourses = result.unwrap();
-      final allCoursesByTrainer = [...previousCourses, ...currentCourses];
-      emit(AllCoursesByTrainerSuccess(courses: allCoursesByTrainer));
+      emit(AllCoursesByTrainerSuccess(courses: result.unwrap()));
     } else {
       try {
         throw result.unwrap();
