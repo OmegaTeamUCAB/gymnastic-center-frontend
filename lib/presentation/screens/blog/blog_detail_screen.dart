@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/blog/comment_modal_sheet.dart';
+import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -128,11 +129,11 @@ class BlogDetailScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const PreferredSize(
-                                preferredSize: Size(double.infinity, 100),
+                              PreferredSize(
+                                preferredSize: const Size(double.infinity, 100),
                                 child: CustomAppBar(
                                   content: Padding(
-                                    padding: EdgeInsets.only(bottom: 15),
+                                    padding: const EdgeInsets.only(bottom: 15),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -140,9 +141,17 @@ class BlogDetailScreen extends StatelessWidget {
                                           CrossAxisAlignment.center,
                                       children: [
                                         BrandBackButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainScreen()),
+                                            );
+                                          },
                                           color: Colors.white,
                                         ),
-                                        Text(
+                                        const Text(
                                           'Blog',
                                           style: TextStyle(
                                               color: Colors.white,
