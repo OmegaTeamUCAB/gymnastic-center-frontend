@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/course/courses_page_view.dart';
 
 class HomeCourseCarousel extends StatelessWidget {
@@ -32,6 +33,11 @@ class HomeCourseCarousel extends StatelessWidget {
               );
             }
             if (state is AllCoursesSuccess) {
+              if (state.courses.isEmpty) {
+                return const Center(
+                  child: NoResults(message: 'No courses found'),
+                );
+              }
               return CoursesPageView(courses: state.courses);
             } else {
               return const Center(

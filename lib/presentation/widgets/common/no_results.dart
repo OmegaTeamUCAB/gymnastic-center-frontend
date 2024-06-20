@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
 class NoResults extends StatelessWidget {
-  const NoResults({super.key});
+  final String message;
+  const NoResults({super.key, this.message = 'No results found'});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Image.asset(
-            'assets/triste.png',
-            height: 100,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            'No results found',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const Text(
-            'Try looking somewhere else or come back later.',
-            style: TextStyle(),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Image.asset(
+          'assets/triste.png',
+          height: 70,
+          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          message,
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8)),
+        ),
+        Text(
+          'Try looking somewhere else or come back later.',
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8)),
+        )
+      ],
     );
   }
 }

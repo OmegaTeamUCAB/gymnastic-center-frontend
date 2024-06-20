@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
+import 'package:gymnastic_center/presentation/screens/trainers/blog_by_trainer_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_blog_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
-import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/trainer/course_by_trainer_carousel.dart';
 
 class TrainerInfo extends StatelessWidget {
   final Trainer trainer;
@@ -23,8 +23,8 @@ class TrainerInfo extends StatelessWidget {
     return Stack(
       children: [
         Image.network(
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
-          height: 200,
+          trainer.image ??
+              'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress != null) {
               return const Center(
@@ -41,13 +41,13 @@ class TrainerInfo extends StatelessWidget {
           controller: scrollController,
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
             ),
-            margin: const EdgeInsets.only(top: 165),
+            margin: const EdgeInsets.only(top: 350),
             child: Column(
               children: [
                 const SizedBox(
@@ -95,9 +95,9 @@ class TrainerInfo extends StatelessWidget {
                             builder: (context) => const AllCoursesScreen()),
                       );
                     }),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: HomeCourseCarousel(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: CourseByTrainerCarousel(trainerId: trainer.id!),
                 ),
                 ContentHeader(
                     title: '${trainer.name}\'s Blogs',
@@ -108,7 +108,7 @@ class TrainerInfo extends StatelessWidget {
                             builder: (context) => const AllBlogsScreen()),
                       );
                     }),
-                const HomeBlogCarousel(),
+                BlogByTrainerCarousel(trainerId: trainer.id!),
                 const SizedBox(
                   height: 60,
                 ),

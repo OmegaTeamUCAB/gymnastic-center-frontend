@@ -31,39 +31,42 @@ class MenuSideNav extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(10, hasNotch ? 70 : 50, 0, 10),
           child: Column(
             children: <Widget>[
-              // Cerrar menu lateral
-              Align(
-                alignment: Alignment.topLeft,
-                child: Row(
-                  children: [
-                    const SizedBox(
-                      width: 16,
+              authBloc.state is! Authenticated
+                  ? const SizedBox.shrink()
+                  : Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          ProfileAvatar(
+                            image: (authBloc.state as Authenticated).user.image,
+                            fullName:
+                                (authBloc.state as Authenticated).user.fullName,
+                            radius: 30,
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                (authBloc.state as Authenticated).user.fullName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                (authBloc.state as Authenticated).user.email,
+                                style: const TextStyle(color: Colors.white),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    ProfileAvatar(
-                      authBloc: authBloc,
-                      radius: 30,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          (authBloc.state as Authenticated).user.fullName,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          (authBloc.state as Authenticated).user.email,
-                          style: const TextStyle(color: Colors.white),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: appMenuItems.length,

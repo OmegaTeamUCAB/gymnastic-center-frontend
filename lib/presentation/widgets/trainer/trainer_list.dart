@@ -36,43 +36,43 @@ class _TrainerListState extends State<TrainerList> {
         int index = entry.key;
         Trainer trainer = entry.value;
         return Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
-              borderRadius: BorderRadius.circular(10),
+          margin: const EdgeInsets.only(bottom: 12),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        TrainerScreen(trainerId: trainer.id!)),
+              );
+            },
+            title: Text(
+              trainer.name!,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          TrainerScreen(trainerId: trainer.id!)),
-                );
-              },
-              title: Text(
-                trainer.name!,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              titleTextStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onPrimary),
-              subtitle:
-                  Text('${followers[index]} followers | ${trainer.location}'),
-              leading: trainer.image != null
-                  ? CircleAvatar(
-                      backgroundImage: NetworkImage(trainer.image!),
-                    )
-                  : const Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        Icons.person,
-                        size: 30,
-                      ),
+            titleTextStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onPrimary),
+            subtitle:
+                Text('${followers[index]} followers | ${trainer.location}'),
+            leading: trainer.image != null
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(trainer.image!),
+                  )
+                : const Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      Icons.person,
+                      size: 30,
                     ),
-              trailing: BlocBuilder<FollowTrainerBloc, FollowTrainerState>(
+                  ),
+            trailing: BlocBuilder<FollowTrainerBloc, FollowTrainerState>(
                 builder: (context, state) {
                   if (state is FollowTrainerFailed) {
                     setState(() {
@@ -103,8 +103,8 @@ class _TrainerListState extends State<TrainerList> {
                     text: followStatus[index] ? 'following' : 'follow',
                   );
                 },
-              ),
-            ));
+          ),
+        ));
       }).toList(),
     );
   }

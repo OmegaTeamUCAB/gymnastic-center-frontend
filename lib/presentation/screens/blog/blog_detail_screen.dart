@@ -204,7 +204,7 @@ class BlogDetailScreen extends StatelessWidget {
                                     );
                                   },
                                   icon: const Icon(Icons.comment_outlined)),
-                              const Text('16'),
+                              Text(state.blog.comments.toString()),
                             ],
                           ),
                         ],
