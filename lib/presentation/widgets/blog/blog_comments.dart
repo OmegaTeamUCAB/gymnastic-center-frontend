@@ -34,84 +34,81 @@ class BlogComments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600,
-      child: ListView.builder(
-        itemCount: comments.length,
-        itemBuilder: (context, index) {
-          final comment = comments[index];
-          return Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ProfileAvatar(
-                  fullName: comment.author,
-                  radius: 20,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            '${comment.author} | ${formatDateTime(comment.date)}',
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
+    return ListView.builder(
+      itemCount: comments.length,
+      itemBuilder: (context, index) {
+        final comment = comments[index];
+        return Padding(
+          padding: const EdgeInsets.all(15),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ProfileAvatar(
+                fullName: comment.author,
+                radius: 20,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '${comment.author} | ${formatDateTime(comment.date)}',
+                          style: const TextStyle(
+                            fontSize: 12,
                           ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.more_vert_rounded,
-                              size: 20,
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        comment.comment,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 16,
                         ),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.more_vert_rounded,
+                            size: 20,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      comment.comment,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontSize: 16,
                       ),
-                      const SizedBox(height: 15),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.thumb_up_off_alt_outlined,
-                              size: 20,
-                            ),
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.thumb_up_off_alt_outlined,
+                            size: 20,
                           ),
-                          const SizedBox(width: 10),
-                          Text(comment.likes.toString()),
-                          const SizedBox(width: 20),
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.thumb_down_off_alt_outlined,
-                              size: 20,
-                            ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(comment.likes.toString()),
+                        const SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.thumb_down_off_alt_outlined,
+                            size: 20,
                           ),
-                          const SizedBox(width: 10),
-                          Text(comment.dislikes.toString()),
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(comment.dislikes.toString()),
+                      ],
+                    )
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

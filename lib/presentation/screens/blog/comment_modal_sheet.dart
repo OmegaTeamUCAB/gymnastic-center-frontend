@@ -40,29 +40,34 @@ class CommentModalSheet extends StatelessWidget {
               height: 0,
               thickness: 1,
             ),
-            BlogComments(
-              blogId: blogId,
-              comments: [
-                Comment(
-                  imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
-                  comment: 'This is a great blog post!',
-                  author: 'User1',
-                  date: DateTime.now(),
-                ),
-                Comment(
-                  imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
-                  comment: 'I found this post very helpful.',
-                  author: 'User2',
-                  date: DateTime.now(),
-                ),
-                Comment(
-                  imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
-                  comment: 'Thanks for sharing this post.',
-                  author: 'User3',
-                  date: DateTime.now(),
-                ),
-              ],
+            Expanded(
+              child: BlogComments(
+                blogId: blogId,
+                comments: [
+                  Comment(
+                    imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
+                    comment: 'This is a great blog post!',
+                    author: 'User1',
+                    date: DateTime.now(),
+                  ),
+                  Comment(
+                    imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
+                    comment: 'I found this post very helpful.',
+                    author: 'User2',
+                    date: DateTime.now(),
+                  ),
+                  Comment(
+                    imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
+                    comment: 'Thanks for sharing this post.',
+                    author: 'User3',
+                    date: DateTime.now(),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(
+              height: 80,
+            )
           ],
         ),
         Align(
