@@ -37,67 +37,69 @@ class _TrainersScreenState extends State<TrainersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(openDrawer: () => Scaffold.of(context).openDrawer()),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              'https://st.depositphotos.com/62628780/56781/i/450/depositphotos_567815914-stock-photo-every-step-taken-towards-fitness.jpg',
-              height: 210,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Trainers',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-                  
-                  const SizedBox(height: 15),
-                  BlocProvider<AllTrainersBloc>.value(
-                    value: allTrainersBloc,
-                    child: BlocBuilder<AllTrainersBloc, AllTrainersState>(
-                        builder: (context, state) {
-                      if (state is AllTrainersLoading) {
-                        return const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 25),
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      }
-                      if (state is AllTrainersFailed) {
-                        return Center(
-                          child: Text(state.message),
-                        );
-                      }
-                      if (state is AllTrainersSuccess) {
-                        if (state.trainers.isEmpty) {
+    return ScaffoldMessenger(
+      child: Scaffold(
+        appBar: MainAppBar(openDrawer: () => Scaffold.of(context).openDrawer()),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(
+                'https://st.depositphotos.com/62628780/56781/i/450/depositphotos_567815914-stock-photo-every-step-taken-towards-fitness.jpg',
+                height: 210,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Trainers',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    ),
+                    
+                    const SizedBox(height: 15),
+                    BlocProvider<AllTrainersBloc>.value(
+                      value: allTrainersBloc,
+                      child: BlocBuilder<AllTrainersBloc, AllTrainersState>(
+                          builder: (context, state) {
+                        if (state is AllTrainersLoading) {
                           return const Center(
-                            child: NoResults(),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 25),
+                              child: CircularProgressIndicator(),
+                            ),
                           );
                         }
-                        return TrainerList(
-                          trainers: state.trainers,
-                        );
-                      } else {
-                        return const Center(
-                          child: Text('Error'),
-                        );
-                      }
-                    }),
-                  ),
-                ],
-              ),
-            )
-          ],
+                        if (state is AllTrainersFailed) {
+                          return Center(
+                            child: Text(state.message),
+                          );
+                        }
+                        if (state is AllTrainersSuccess) {
+                          if (state.trainers.isEmpty) {
+                            return const Center(
+                              child: NoResults(),
+                            );
+                          }
+                          return TrainerList(
+                            trainers: state.trainers,
+                          );
+                        } else {
+                          return const Center(
+                            child: Text('Error'),
+                          );
+                        }
+                      }),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
