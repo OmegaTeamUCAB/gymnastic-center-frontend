@@ -4,8 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/blog/comment_modal_sheet.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
@@ -16,16 +14,23 @@ class BlogDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
-    blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
     return Scaffold(
-      body: BlocProvider<BlogDetailBloc>.value(
-        value: blogDetailBloc,
+      body: BlocProvider<BlogDetailBloc>(
+        create: (context) {
+          final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
+          blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
+          return blogDetailBloc;
+        },
         child: BlocBuilder<BlogDetailBloc, BlogDetailState>(
           builder: (context, state) {
             if (state is BlogDetailLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
+              );
+            }
+            if (state is BlogDetailFailed) {
+              return const Center(
+                child: Text('Error loading blog'),
               );
             }
             if (state is BlogDetailLoaded) {
