@@ -9,21 +9,29 @@ part 'all_blogs_state.dart';
 
 class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState> {
   final GetBlogsUseCase getBlogsUseCase;
+  final List<Blog> _cachedBlogs = [];
+
   AllBlogsBloc(this.getBlogsUseCase) : super(AllBlogsLoading()) {
     on<AllBlogsRequested>(_getAllBlogs);
   }
 
   Future<void> _getAllBlogs(
       AllBlogsRequested event, Emitter<AllBlogsState> emit) async {
-    emit(AllBlogsLoading());
-    final result = await getBlogsUseCase.execute(GetBlogsDto(page: event.page));
-    if (result.isSuccessful) {
-      emit(AllBlogsSuccess(blogs: result.unwrap()));
+    if (_cachedBlogs.isNotEmpty) {
+      emit(AllBlogsSuccess(blogs: _cachedBlogs));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(AllBlogsFailed(message: e.toString()));
+      emit(AllBlogsLoading());
+      final result =
+          await getBlogsUseCase.execute(GetBlogsDto(page: event.page));
+      if (result.isSuccessful) {
+        _cachedBlogs.addAll(result.unwrap());
+        emit(AllBlogsSuccess(blogs: _cachedBlogs));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(AllBlogsFailed(message: e.toString()));
+        }
       }
     }
   }

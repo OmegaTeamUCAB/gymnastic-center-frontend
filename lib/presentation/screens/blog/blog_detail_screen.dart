@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
+import 'package:gymnastic_center/presentation/screens/blog/custom_modal_sheet.dart';
+import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
@@ -15,16 +17,23 @@ class BlogDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
-    blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
     return Scaffold(
-      body: BlocProvider<BlogDetailBloc>.value(
-        value: blogDetailBloc,
+      body: BlocProvider<BlogDetailBloc>(
+        create: (context) {
+          final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
+          blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
+          return blogDetailBloc;
+        },
         child: BlocBuilder<BlogDetailBloc, BlogDetailState>(
           builder: (context, state) {
             if (state is BlogDetailLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
+              );
+            }
+            if (state is BlogDetailFailed) {
+              return const Center(
+                child: Text('Error loading blog'),
               );
             }
             if (state is BlogDetailLoaded) {
@@ -122,11 +131,11 @@ class BlogDetailScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const PreferredSize(
-                                preferredSize: Size(double.infinity, 100),
+                              PreferredSize(
+                                preferredSize: const Size(double.infinity, 100),
                                 child: CustomAppBar(
                                   content: Padding(
-                                    padding: EdgeInsets.only(bottom: 15),
+                                    padding: const EdgeInsets.only(bottom: 15),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -134,9 +143,17 @@ class BlogDetailScreen extends StatelessWidget {
                                           CrossAxisAlignment.center,
                                       children: [
                                         BrandBackButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainScreen()),
+                                            );
+                                          },
                                           color: Colors.white,
                                         ),
-                                        Text(
+                                        const Text(
                                           'Blog',
                                           style: TextStyle(
                                               color: Colors.white,
@@ -175,31 +192,43 @@ class BlogDetailScreen extends StatelessWidget {
                               IconButton(
                                   onPressed: () {
                                     showModalBottomSheet(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                       context: context,
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(25.0)),
                                       ),
                                       builder: (BuildContext context) {
-                                        return Column(
-                                          children: [
-                                            const Text(
-                                              'Comments',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Flexible(
-                                              child: SingleChildScrollView(
-                                                child: BlogComments(
-                                                    blogId: blogId),
-                                              ),
-                                            ),
-                                            AddCommentBar(
-                                              blogId: blogId,
-                                            ),
-                                          ],
-                                        );
+                                        return CustomModalSheet(
+                                            blogId: blogId,
+                                            child: BlogComments(
+                                              //TODO: Replace with comments from bloc
+                                              comments: [
+                                                Comment(
+                                                  id: '1',
+                                                  body:
+                                                      'This is a great blog post!',
+                                                  user: 'User1',
+                                                  date: DateTime.now(),
+                                                ),
+                                                Comment(
+                                                  id: '1',
+                                                  body:
+                                                      'I found this post very helpful.',
+                                                  user: 'User2',
+                                                  date: DateTime.now(),
+                                                ),
+                                                Comment(
+                                                  id: '1',
+                                                  body:
+                                                      'Thanks for sharing this post.',
+                                                  user: 'User3',
+                                                  date: DateTime.now(),
+                                                ),
+                                              ],
+                                            ));
                                       },
                                     );
                                   },

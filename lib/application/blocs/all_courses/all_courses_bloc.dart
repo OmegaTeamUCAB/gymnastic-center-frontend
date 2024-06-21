@@ -9,29 +9,30 @@ part 'all_courses_state.dart';
 
 class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
   final GetCoursesUseCase getCoursesUseCase;
+  final List<Course> _cachedCourses = [];
+
   AllCoursesBloc(this.getCoursesUseCase) : super(AllCoursesLoading()) {
     on<AllCoursesRequested>(_getAllCourses);
   }
 
   Future<void> _getAllCourses(
       AllCoursesRequested event, Emitter<AllCoursesState> emit) async {
-    emit(AllCoursesLoading());
-    final result =
-        await getCoursesUseCase.execute(GetCoursesDto(page: event.page));
-    if (result.isSuccessful) {
-      final previousCourses = state is AllCoursesSuccess
-          ? (state as AllCoursesSuccess).courses
-          : <Course>[];
-      final currentCourses = result.unwrap();
-      final allCourses = [...previousCourses, ...currentCourses];
-      emit(AllCoursesSuccess(courses: allCourses));
+    if (_cachedCourses.isNotEmpty) {
+      emit(AllCoursesSuccess(courses: _cachedCourses));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(AllCoursesFailed(message: e.toString()));
+      emit(AllCoursesLoading());
+      final result =
+          await getCoursesUseCase.execute(GetCoursesDto(page: event.page));
+      if (result.isSuccessful) {
+        _cachedCourses.addAll(result.unwrap());
+        emit(AllCoursesSuccess(courses: _cachedCourses));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(AllCoursesFailed(message: e.toString()));
+        }
       }
     }
   }
-
 }

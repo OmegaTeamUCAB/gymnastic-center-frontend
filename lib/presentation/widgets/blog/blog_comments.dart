@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/comment_tile.dart';
 
 class BlogComments extends StatelessWidget {
-  final String blogId;
-  const BlogComments({super.key, required this.blogId});
+  final List<Comment> comments;
+
+  const BlogComments({
+    super.key,
+    required this.comments,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      fallbackHeight: 300,
+    return ListView.builder(
+      itemCount: comments.length,
+      itemBuilder: (context, index) {
+        final comment = comments[index];
+        return Padding(
+            padding: const EdgeInsets.all(15),
+            child: CommentTile(
+              comment: comment,
+            ));
+      },
     );
   }
 }

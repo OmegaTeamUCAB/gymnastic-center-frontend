@@ -9,31 +9,29 @@ part 'all_trainers_state.dart';
 
 class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
   final GetTrainersUseCase getTrainersUseCase;
+  final List<Trainer> _cachedTrainers = [];
+
   AllTrainersBloc(this.getTrainersUseCase) : super(AllTrainersLoading()) {
     on<AllTrainersRequested>(_getAllTrainers);
   }
-
-  Future<void> _getAllTrainers(AllTrainersRequested event, Emitter<AllTrainersState> emit) async {
-
   Future<void> _getAllTrainers(
       AllTrainersRequested event, Emitter<AllTrainersState> emit) async {
-    emit(AllTrainersLoading());
-    final result =
-        await getTrainersUseCase.execute(GetTrainersDto(page: event.page));
-    if (result.isSuccessful) {
-      final previousCourses = state is AllTrainersSuccess
-          ? (state as AllTrainersSuccess).trainers
-          : <Trainer>[];
-      final currentCourses = result.unwrap();
-      final allTrainers = [...previousCourses, ...currentCourses];
-      emit(AllTrainersSuccess(trainers: allTrainers));
+    if (_cachedTrainers.isNotEmpty) {
+      emit(AllTrainersSuccess(trainers: _cachedTrainers));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(AllTrainersFailed(message: e.toString()));
+      emit(AllTrainersLoading());
+      final result =
+          await getTrainersUseCase.execute(GetTrainersDto(page: event.page));
+      if (result.isSuccessful) {
+        _cachedTrainers.addAll(result.unwrap());
+        emit(AllTrainersSuccess(trainers: _cachedTrainers));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(AllTrainersFailed(message: e.toString()));
+        }
       }
     }
   }
-}
 }

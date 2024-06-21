@@ -65,7 +65,10 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
           if (state is CoursesByCategorySuccess) {
             if (state.courses.isEmpty) {
               return const Center(
-                child: NoResults(),
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: NoResults(),
+                ),
               );
             }
             return CoursesList(

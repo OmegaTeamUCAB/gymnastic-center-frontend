@@ -10,6 +10,8 @@ part 'courses_by_category_state.dart';
 class CoursesByCategoryBloc
     extends Bloc<CoursesByCategoryEvent, CoursesByCategoryState> {
   final GetCoursesUseCase getCoursesUseCase;
+  final Map<String, List<Course>> _cachedCoursesByCategory = {};
+
   CoursesByCategoryBloc(this.getCoursesUseCase)
       : super(CoursesByCategoryLoading()) {
     on<CoursesByCategoryRequested>(_getCoursesByCategory);
@@ -17,16 +19,23 @@ class CoursesByCategoryBloc
 
   Future<void> _getCoursesByCategory(CoursesByCategoryRequested event,
       Emitter<CoursesByCategoryState> emit) async {
-    emit(CoursesByCategoryLoading());
-    final result = await getCoursesUseCase
-        .execute(GetCoursesDto(categoryId: event.categoryId, page: event.page));
-    if (result.isSuccessful) {
-      emit(CoursesByCategorySuccess(courses: result.unwrap()));
+    if (_cachedCoursesByCategory.containsKey(event.categoryId)) {
+      emit(CoursesByCategorySuccess(
+          courses: _cachedCoursesByCategory[event.categoryId]!));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(CoursesByCategoryFailed(message: e.toString()));
+      emit(CoursesByCategoryLoading());
+      final result = await getCoursesUseCase.execute(
+          GetCoursesDto(categoryId: event.categoryId, page: event.page));
+      if (result.isSuccessful) {
+        _cachedCoursesByCategory[event.categoryId] = result.unwrap();
+        emit(CoursesByCategorySuccess(
+            courses: _cachedCoursesByCategory[event.categoryId]!));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(CoursesByCategoryFailed(message: e.toString()));
+        }
       }
     }
   }
