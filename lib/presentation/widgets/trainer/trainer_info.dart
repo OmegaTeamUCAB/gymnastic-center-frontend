@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/all_blogs_by_trainer/all_blogs_by_trainer_bloc.dart';
+import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_course_by_trainer_bloc.dart';
 import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
@@ -97,7 +101,11 @@ class TrainerInfo extends StatelessWidget {
                     }),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
-                  child: CourseByTrainerCarousel(trainerId: trainer.id!),
+                  child: BlocProvider(
+                    create: (context) =>
+                        GetIt.instance<AllCourseByTrainerBloc>(),
+                    child: CourseByTrainerCarousel(trainerId: trainer.id!),
+                  ),
                 ),
                 ContentHeader(
                     title: '${trainer.name}\'s Blogs',
@@ -108,7 +116,10 @@ class TrainerInfo extends StatelessWidget {
                             builder: (context) => const AllBlogsScreen()),
                       );
                     }),
-                BlogByTrainerCarousel(trainerId: trainer.id!),
+                BlocProvider(
+                  create: (context) => GetIt.instance<AllBlogsByTrainerBloc>(),
+                  child: BlogByTrainerCarousel(trainerId: trainer.id!),
+                ),
                 const SizedBox(
                   height: 60,
                 ),

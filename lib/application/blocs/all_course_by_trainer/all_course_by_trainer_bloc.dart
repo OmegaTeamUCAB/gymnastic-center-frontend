@@ -10,6 +10,8 @@ part 'all_course_by_trainer_state.dart';
 class AllCourseByTrainerBloc
     extends Bloc<AllCourseByTrainerEvent, AllCourseByTrainerState> {
   final GetCoursesUseCase getAllCoursesByTrainerUseCase;
+  final Map<String, List<Course>> _cachedCoursesByTrainer = {};
+
   AllCourseByTrainerBloc(this.getAllCoursesByTrainerUseCase)
       : super(AllCourseByTrainerLoading()) {
     on<AllCourseByTrainerRequested>(_getAllCoursesByTrainer);
@@ -17,16 +19,23 @@ class AllCourseByTrainerBloc
 
   Future<void> _getAllCoursesByTrainer(AllCourseByTrainerRequested event,
       Emitter<AllCourseByTrainerState> emit) async {
-    emit(AllCourseByTrainerLoading());
-    final result = await getAllCoursesByTrainerUseCase
-        .execute(GetCoursesDto(page: event.page, trainerId: event.trainerId));
-    if (result.isSuccessful) {
-      emit(AllCoursesByTrainerSuccess(courses: result.unwrap()));
+    if (_cachedCoursesByTrainer.containsKey(event.trainerId)) {
+      emit(AllCoursesByTrainerSuccess(
+          courses: _cachedCoursesByTrainer[event.trainerId]!));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(AllCourseByTrainerFailed(message: e.toString()));
+      emit(AllCourseByTrainerLoading());
+      final result = await getAllCoursesByTrainerUseCase
+          .execute(GetCoursesDto(trainerId: event.trainerId, page: event.page));
+      if (result.isSuccessful) {
+        _cachedCoursesByTrainer[event.trainerId] = result.unwrap();
+        emit(AllCoursesByTrainerSuccess(
+            courses: _cachedCoursesByTrainer[event.trainerId]!));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(AllCourseByTrainerFailed(message: e.toString()));
+        }
       }
     }
   }

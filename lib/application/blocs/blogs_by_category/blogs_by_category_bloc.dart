@@ -10,6 +10,8 @@ part 'blogs_by_category_state.dart';
 class BlogsByCategoryBloc
     extends Bloc<BlogsByCategoryEvent, BlogsByCategoryState> {
   final GetBlogsUseCase getBlogsUseCase;
+  final Map<String, List<Blog>> _cachedBlogsByCategory = {};
+
   BlogsByCategoryBloc({required this.getBlogsUseCase})
       : super(BlogsByCategoryLoading()) {
     on<BlogsByCategoryRequested>(_getBlogsByCategory);
@@ -17,21 +19,23 @@ class BlogsByCategoryBloc
 
   Future<void> _getBlogsByCategory(BlogsByCategoryRequested event,
       Emitter<BlogsByCategoryState> emit) async {
-    emit(BlogsByCategoryLoading());
-    final result = await getBlogsUseCase
-        .execute(GetBlogsDto(page: event.page, categoryId: event.categoryId));
-    if (result.isSuccessful) {
-      final previousBlogs = state is BlogsByCategorySuccess
-          ? (state as BlogsByCategorySuccess).blogs
-          : <Blog>[];
-      final currentBlogs = result.unwrap();
-      final allBlogs = [...previousBlogs, ...currentBlogs];
-      emit(BlogsByCategorySuccess(blogs: allBlogs));
+    if (_cachedBlogsByCategory.containsKey(event.categoryId)) {
+      emit(BlogsByCategorySuccess(
+          blogs: _cachedBlogsByCategory[event.categoryId]!));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(BlogsByCategoryFailed(message: e.toString()));
+      emit(BlogsByCategoryLoading());
+      final result = await getBlogsUseCase
+          .execute(GetBlogsDto(categoryId: event.categoryId, page: event.page));
+      if (result.isSuccessful) {
+        _cachedBlogsByCategory[event.categoryId] = result.unwrap();
+        emit(BlogsByCategorySuccess(
+            blogs: _cachedBlogsByCategory[event.categoryId]!));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(BlogsByCategoryFailed(message: e.toString()));
+        }
       }
     }
   }
