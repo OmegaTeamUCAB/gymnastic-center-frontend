@@ -36,16 +36,20 @@ class CommentRepository extends ICommentRepository {
       urlPath: 'comment/many?$queryString',
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        List<Comment> courses = [];
-        for (var course in data) {
-          courses.add(Comment(
-            id: course['id'],
-            userId: course['userId'],
-            content: course['content'],
-            createdAt: course['date'],
+        List<Comment> comments = [];
+        for (var comment in data) {
+          comments.add(Comment(
+            id: comment['id'],
+            user: comment['user'],
+            body: comment['body'],
+            countLikes: comment['countLikes'],
+            countDislikes: comment['countDislikes'],
+            userDisliked: comment['userDisliked'],
+            userLiked: comment['userDisliked'],
+            date: comment['date'],
           ));
         }
-        return courses;
+        return comments;
       },
     );
     return result;

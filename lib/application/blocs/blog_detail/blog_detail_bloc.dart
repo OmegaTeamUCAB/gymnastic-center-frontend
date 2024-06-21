@@ -7,6 +7,7 @@ part 'blog_detail_state.dart';
 
 class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
   final GetBlogByIdUseCase getBlogUseCase;
+  final Map<String, Blog> _cachedBlogs = {};
 
   BlogDetailBloc(this.getBlogUseCase) : super(BlogDetailLoading()) {
     on<BlogDetailRequested>(_getBlogDetail);
@@ -14,15 +15,20 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
 
   Future<void> _getBlogDetail(
       BlogDetailRequested event, Emitter<BlogDetailState> emit) async {
-    emit(BlogDetailLoading());
-    final result = await getBlogUseCase.execute(GetBlogByIdDto(event.blogId));
-    if (result.isSuccessful) {
-      emit(BlogDetailLoaded(blog: result.unwrap()));
+    if (_cachedBlogs.containsKey(event.blogId)) {
+      emit(BlogDetailLoaded(blog: _cachedBlogs[event.blogId]!));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(BlogDetailFailed(message: e.toString()));
+      emit(BlogDetailLoading());
+      final result = await getBlogUseCase.execute(GetBlogByIdDto(event.blogId));
+      if (result.isSuccessful) {
+        _cachedBlogs[event.blogId] = result.unwrap();
+        emit(BlogDetailLoaded(blog: _cachedBlogs[event.blogId]!));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(BlogDetailFailed(message: e.toString()));
+        }
       }
     }
   }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class BrandBackButton extends StatelessWidget {
   final Color color;
-  const BrandBackButton({super.key, this.color = Colors.white});
+  final VoidCallback? onPressed;
+  const BrandBackButton({super.key, this.color = Colors.white, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +12,10 @@ class BrandBackButton extends StatelessWidget {
           Icons.arrow_back_rounded,
           size: 30,
         ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: onPressed ??
+            () {
+              Navigator.pop(context);
+            },
         color: color);
   }
 }
