@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 
-class CommentModalSheet extends StatelessWidget {
+class CustomModalSheet extends StatelessWidget {
   final String blogId;
-  const CommentModalSheet({super.key, required this.blogId});
+  final String title;
+  final Widget child;
+  const CustomModalSheet(
+      {super.key,
+      required this.blogId,
+      this.title = 'Comments',
+      required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +25,10 @@ class CommentModalSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Comments',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                       onPressed: () {
@@ -40,31 +46,7 @@ class CommentModalSheet extends StatelessWidget {
               height: 0,
               thickness: 1,
             ),
-            Expanded(
-              child: BlogComments(
-                blogId: blogId,
-                comments: [
-                  Comment(
-                    imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
-                    comment: 'This is a great blog post!',
-                    author: 'User1',
-                    date: DateTime.now(),
-                  ),
-                  Comment(
-                    imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
-                    comment: 'I found this post very helpful.',
-                    author: 'User2',
-                    date: DateTime.now(),
-                  ),
-                  Comment(
-                    imageUrl: 'https://art.pixilart.com/c7e394b256b37bc.png',
-                    comment: 'Thanks for sharing this post.',
-                    author: 'User3',
-                    date: DateTime.now(),
-                  ),
-                ],
-              ),
-            ),
+            Expanded(child: child),
             const SizedBox(
               height: 80,
             )

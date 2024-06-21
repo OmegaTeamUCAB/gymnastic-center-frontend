@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
-import 'package:gymnastic_center/presentation/screens/blog/comment_modal_sheet.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
+import 'package:gymnastic_center/presentation/screens/blog/custom_modal_sheet.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
@@ -199,8 +201,34 @@ class BlogDetailScreen extends StatelessWidget {
                                             top: Radius.circular(25.0)),
                                       ),
                                       builder: (BuildContext context) {
-                                        return CommentModalSheet(
-                                            blogId: blogId);
+                                        return CustomModalSheet(
+                                            blogId: blogId,
+                                            child: BlogComments(
+                                              //TODO: Replace with comments from bloc
+                                              comments: [
+                                                Comment(
+                                                  id: '1',
+                                                  body:
+                                                      'This is a great blog post!',
+                                                  user: 'User1',
+                                                  date: DateTime.now(),
+                                                ),
+                                                Comment(
+                                                  id: '1',
+                                                  body:
+                                                      'I found this post very helpful.',
+                                                  user: 'User2',
+                                                  date: DateTime.now(),
+                                                ),
+                                                Comment(
+                                                  id: '1',
+                                                  body:
+                                                      'Thanks for sharing this post.',
+                                                  user: 'User3',
+                                                  date: DateTime.now(),
+                                                ),
+                                              ],
+                                            ));
                                       },
                                     );
                                   },
