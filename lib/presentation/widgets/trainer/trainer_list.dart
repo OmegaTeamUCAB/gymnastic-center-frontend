@@ -109,28 +109,4 @@ class _TrainerListState extends State<TrainerList> {
     );
   }
 
-  StreamBuilder<FollowTrainerState> _buildFollowSnackbar(
-      Stream<FollowTrainerState> stream) {
-    return StreamBuilder<FollowTrainerState>(
-      stream: stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data is FollowTrainerSuccess) {
-            return SnackBar(
-              content: Text("You're now following !"),
-              backgroundColor: Colors.green,
-            );
-          } else if (snapshot.data is FollowTrainerFailed) {
-            return SnackBar(
-              content: Text("Failed to follow. Please try again."),
-              backgroundColor: Colors.red,
-            );
-          }
-        }
-        return const SnackBar(
-            content: Text(
-                'Processing')); // Show loading Snackbar while awaiting event
-      },
-    );
-  }
 }
