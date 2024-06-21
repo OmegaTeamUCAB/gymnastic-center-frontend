@@ -63,7 +63,49 @@ class CommentTile extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                builder: (BuildContext context) {
+                  return SizedBox(
+                    height: 120,
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                          child: Text(
+                            'Comment',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        TextButton.icon(
+                          onPressed: () {
+                            // Add your delete logic here
+                          },
+                          icon: Icon(Icons.delete_outline_rounded,
+                              size: 20,
+                              color: Theme.of(context).colorScheme.onPrimary),
+                          label: Text(
+                            'Delete comment',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                });
+          },
           icon: const Icon(
             Icons.delete_outline_rounded,
             size: 20,
