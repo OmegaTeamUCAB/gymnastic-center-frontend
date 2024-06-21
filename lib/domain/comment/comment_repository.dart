@@ -31,4 +31,9 @@ abstract class ICommentRepository {
     required String lessonId,
   });
   Future<Result<List<Comment>>> getComments(GetCommentsDto dto);
+
+  Future<Result<ICreateCommentResponse>> likeOrDislikeCommentById({
+    required String commentId,
+    required bool like,
+  });
 }
