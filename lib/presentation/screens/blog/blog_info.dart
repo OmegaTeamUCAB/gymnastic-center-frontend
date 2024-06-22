@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
+import 'package:gymnastic_center/presentation/utils/calculate_reading_time.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 import 'package:timeago/timeago.dart';
 
@@ -42,7 +43,7 @@ class BlogInfo extends StatelessWidget {
                           fontSize: 18,
                         )),
                     Text(
-                        '13 min read | ${format(DateTime.parse(blog.uploadDate!))}')
+                        '${calculateReadingTime(blog.content!)} min read | ${format(DateTime.parse(blog.uploadDate!))}')
                   ],
                 ),
               ],
@@ -70,6 +71,9 @@ class BlogInfo extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            height: 100,
           ),
         ],
       ),
