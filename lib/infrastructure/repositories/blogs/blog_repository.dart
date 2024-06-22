@@ -54,6 +54,7 @@ class BlogsRepository implements IBlogRepository {
           title: data['title'],
           images: data['images'],
           trainer: data['trainer'],
+          category: data['category'],
           content: data['description'],
           uploadDate: data['date'],
           tags: data['tags'],

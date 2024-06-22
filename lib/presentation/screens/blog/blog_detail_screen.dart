@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/domain/comment/comment.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_info.dart';
 import 'package:gymnastic_center/presentation/screens/blog/custom_modal_sheet.dart';
-import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
-import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
+import 'package:gymnastic_center/presentation/widgets/blog/blog_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
-import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
-import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class BlogDetailScreen extends StatelessWidget {
   final String blogId;
@@ -18,6 +16,7 @@ class BlogDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const BlogAppBar(),
       body: BlocProvider<BlogDetailBloc>(
         create: (context) {
           final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
@@ -37,210 +36,59 @@ class BlogDetailScreen extends StatelessWidget {
               );
             }
             if (state is BlogDetailLoaded) {
-              return LayoutBuilder(
-                builder:
-                    (BuildContext context, BoxConstraints viewportConstraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: viewportConstraints.maxHeight,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Stack(
-                            children: [
-                              Transform.translate(
-                                offset: const Offset(0, 20),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 0.0),
-                                      child: Center(
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            bottomRight: Radius.circular(40.0),
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              Image.network(
-                                                state.blog.images.first,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: 400,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: 400,
-                                                color: Colors.black
-                                                    .withOpacity(0.3),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 10,
-                                      left: 10,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 300,
-                                            child: Text(
-                                              state.blog.title,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                    offset: Offset(1.0, 1.0),
-                                                    blurRadius: 3.0,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            formatDateTime(DateTime.parse(
-                                                state.blog.uploadDate!)),
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              shadows: <Shadow>[
-                                                Shadow(
-                                                  offset: Offset(1.0, 1.0),
-                                                  blurRadius: 3.0,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              PreferredSize(
-                                preferredSize: const Size(double.infinity, 100),
-                                child: CustomAppBar(
-                                  content: Padding(
-                                    padding: const EdgeInsets.only(bottom: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        BrandBackButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const MainScreen()),
-                                            );
-                                          },
-                                          color: Colors.white,
-                                        ),
-                                        const Text(
-                                          'Blog',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                                Text(
-                                  state.blog.content!,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
+              return Stack(
+                children: [
+                  BlogInfo(blog: state.blog),
+                  Positioned(
+                      bottom: 20,
+                      right: 20,
+                      child: FloatingActionButton(
+                        shape: const CircleBorder(),
+                        backgroundColor: const Color(0xFF4F14A0),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.background,
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(25.0)),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25.0)),
+                            builder: (BuildContext context) {
+                              return CustomModalSheet(
+                                  blogId: blogId,
+                                  child: BlogComments(
+                                    //TODO: Replace with comments from bloc
+                                    comments: [
+                                      Comment(
+                                        id: '1',
+                                        body: 'This is a great blog post!',
+                                        user: 'User1',
+                                        date: DateTime.now(),
                                       ),
-                                      builder: (BuildContext context) {
-                                        return CustomModalSheet(
-                                            blogId: blogId,
-                                            child: BlogComments(
-                                              //TODO: Replace with comments from bloc
-                                              comments: [
-                                                Comment(
-                                                  id: '1',
-                                                  body:
-                                                      'This is a great blog post!',
-                                                  user: 'User1',
-                                                  date: DateTime.now(),
-                                                ),
-                                                Comment(
-                                                  id: '1',
-                                                  body:
-                                                      'I found this post very helpful.',
-                                                  user: 'User2',
-                                                  date: DateTime.now(),
-                                                ),
-                                                Comment(
-                                                  id: '1',
-                                                  body:
-                                                      'Thanks for sharing this post.',
-                                                  user: 'User3',
-                                                  date: DateTime.now(),
-                                                ),
-                                              ],
-                                            ));
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(Icons.comment_outlined)),
-                              Text(state.blog.comments.toString()),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                                      Comment(
+                                        id: '1',
+                                        body: 'I found this post very helpful.',
+                                        user: 'User2',
+                                        date: DateTime.now(),
+                                      ),
+                                      Comment(
+                                        id: '1',
+                                        body: 'Thanks for sharing this post.',
+                                        user: 'User3',
+                                        date: DateTime.now(),
+                                      ),
+                                    ],
+                                  ));
+                            },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.comment_outlined,
+                          color: Colors.white,
+                        ),
+                      )),
+                ],
               );
             } else {
               return const Center(
