@@ -8,21 +8,29 @@ import 'package:gymnastic_center/presentation/screens/blog/custom_modal_sheet.da
 import 'package:gymnastic_center/presentation/widgets/blog/blog_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 
-class BlogDetailScreen extends StatelessWidget {
+class BlogDetailScreen extends StatefulWidget {
   final String blogId;
 
   const BlogDetailScreen({super.key, required this.blogId});
 
   @override
+  State<BlogDetailScreen> createState() => _BlogDetailScreenState();
+}
+
+class _BlogDetailScreenState extends State<BlogDetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    GetIt.instance<BlogDetailBloc>()
+        .add(BlogDetailRequested(blogId: widget.blogId));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BlogAppBar(),
-      body: BlocProvider<BlogDetailBloc>(
-        create: (context) {
-          final blogDetailBloc = GetIt.instance<BlogDetailBloc>();
-          blogDetailBloc.add(BlogDetailRequested(blogId: blogId));
-          return blogDetailBloc;
-        },
+      body: BlocProvider.value(
+        value: GetIt.instance<BlogDetailBloc>(),
         child: BlocBuilder<BlogDetailBloc, BlogDetailState>(
           builder: (context, state) {
             if (state is BlogDetailLoading) {
@@ -56,7 +64,7 @@ class BlogDetailScreen extends StatelessWidget {
                             ),
                             builder: (BuildContext context) {
                               return CustomModalSheet(
-                                  blogId: blogId,
+                                  blogId: widget.blogId,
                                   child: BlogComments(
                                     //TODO: Replace with comments from bloc
                                     comments: [

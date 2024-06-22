@@ -11,7 +11,7 @@ class AllBlogsByTrainerBloc
     extends Bloc<AllBlogsByTrainerEvent, AllBlogsByTrainerState> {
   final GetBlogsUseCase getAllBlogsByTrainerUseCase;
   AllBlogsByTrainerBloc(this.getAllBlogsByTrainerUseCase)
-      : super(AllBlogsByTrainerLoading()) {
+      : super(AllBlogsByTrainerInitial()) {
     on<AllBlogsByTrainerRequested>(_getAllBlogsByTrainer);
   }
 

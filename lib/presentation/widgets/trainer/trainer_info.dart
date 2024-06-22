@@ -101,11 +101,7 @@ class TrainerInfo extends StatelessWidget {
                     }),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
-                  child: BlocProvider(
-                    create: (context) =>
-                        GetIt.instance<AllCourseByTrainerBloc>(),
-                    child: CourseByTrainerCarousel(trainerId: trainer.id!),
-                  ),
+                  child: CourseByTrainerCarousel(trainerId: trainer.id!),
                 ),
                 ContentHeader(
                     title: '${trainer.name}\'s Blogs',
@@ -116,10 +112,7 @@ class TrainerInfo extends StatelessWidget {
                             builder: (context) => const AllBlogsScreen()),
                       );
                     }),
-                BlocProvider(
-                  create: (context) => GetIt.instance<AllBlogsByTrainerBloc>(),
-                  child: BlogByTrainerCarousel(trainerId: trainer.id!),
-                ),
+                BlogByTrainerCarousel(trainerId: trainer.id!),
                 const SizedBox(
                   height: 60,
                 ),

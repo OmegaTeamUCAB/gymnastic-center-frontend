@@ -5,6 +5,8 @@ sealed class AllCourseByTrainerState extends Equatable {
   List<Object> get props => [];
 }
 
+final class AllCourseByTrainerInitial extends AllCourseByTrainerState {}
+
 final class AllCourseByTrainerLoading extends AllCourseByTrainerState {}
 
 class AllCoursesByTrainerSuccess extends AllCourseByTrainerState {
