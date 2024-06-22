@@ -12,6 +12,18 @@ class GetCommentsDto {
   });
 }
 
+class CreateCommentDto {
+  final String lessonOrBlogId;
+  final String targetType;
+  final String content;
+
+  CreateCommentDto({
+    required this.content,
+    required this.lessonOrBlogId,
+    required this.targetType,
+  });
+}
+
 abstract class ICreateCommentResponse {
   final String id;
 
@@ -19,16 +31,6 @@ abstract class ICreateCommentResponse {
 }
 
 abstract class ICommentRepository {
-  Future<Result<ICreateCommentResponse>> createBlogComment({
-    required String userId,
-    required String content,
-    required String blogId,
-  });
-  Future<Result<ICreateCommentResponse>> createCourseComment({
-    required String userId,
-    required String content,
-    required String courseId,
-    required String lessonId,
-  });
+  Future<Result<ICreateCommentResponse>> createComment(CreateCommentDto dto);
   Future<Result<List<Comment>>> getComments(GetCommentsDto dto);
 }
