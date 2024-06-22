@@ -36,12 +36,7 @@ class ResetPasswordScreen extends StatelessWidget {
                         width: 420,
                       ),
                     )),
-                const Positioned(
-                    top: 50,
-                    left: 0,
-                    child: BrandBackButton(
-                      color: Colors.white,
-                    )),
+                const Positioned(top: 50, left: 0, child: BrandBackButton()),
                 Stack(
                   alignment: Alignment.center,
                   children: [

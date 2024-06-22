@@ -65,29 +65,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                             builder: (BuildContext context) {
                               return CustomModalSheet(
                                   blogId: widget.blogId,
-                                  child: BlogComments(
-                                    //TODO: Replace with comments from bloc
-                                    comments: [
-                                      Comment(
-                                        id: '1',
-                                        body: 'This is a great blog post!',
-                                        user: 'User1',
-                                        date: DateTime.now(),
-                                      ),
-                                      Comment(
-                                        id: '1',
-                                        body: 'I found this post very helpful.',
-                                        user: 'User2',
-                                        date: DateTime.now(),
-                                      ),
-                                      Comment(
-                                        id: '1',
-                                        body: 'Thanks for sharing this post.',
-                                        user: 'User3',
-                                        date: DateTime.now(),
-                                      ),
-                                    ],
-                                  ));
+                                  child: BlogComments(blogId: widget.blogId));
                             },
                           );
                         },

@@ -28,9 +28,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             children: [
               Row(
                 children: [
-                  const BrandBackButton(
-                    color: Colors.white,
-                  ),
+                  const BrandBackButton(),
                   Text(
                     widget.categoryName,
                     style: const TextStyle(
