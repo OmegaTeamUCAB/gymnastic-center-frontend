@@ -5,14 +5,14 @@ class CommentMapper {
         id: json["id"],
         body: json["body"],
         user: json["user"],
-        date: DateTime.parse(json["date"]),
+        date: json["date"],
       );
 
   static Map<String, dynamic> toJson(Comment comment) => {
         "id": comment.id,
         "body": comment.body,
         "user": comment.user,
-        "date": comment.date.toIso8601String(),
+        "date": comment.date,
       };
 
   static List<Comment> fromJsonToList(dynamic jsonList) {

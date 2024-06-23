@@ -6,5 +6,6 @@ sealed class AllTrainersEvent {
 
 class AllTrainersRequested extends AllTrainersEvent {
   final int page;
-  const AllTrainersRequested(this.page);
+  final bool? overrideCache;
+  const AllTrainersRequested({required this.page, this.overrideCache = false});
 }

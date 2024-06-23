@@ -28,26 +28,36 @@ class _TrainingScreenState extends State<TrainingScreen> {
     final planCoursesBloc = GetIt.instance<PlanCoursesBloc>();
     planCoursesBloc.add(const PlanCoursesRequested(1, 'userId'));
     return Scaffold(
-      body: BlocProvider<PlanCoursesBloc>.value(
-        value: planCoursesBloc,
-        child: BlocBuilder<PlanCoursesBloc, PlanCoursesState>(
-          builder: (context, state) {
-            if (state is PlanCoursesLoading) {
-              return const LoadingScreen();
-            }
-            if (state is PlanCoursesFailed) {
-              return Center(
-                child: Text(state.message),
-              );
-            }
-            if (state is PlanCoursesSuccess) {
-              return PlanCoursesPageView(courses: state.courses);
-            } else {
-              return const Center(
-                child: Text('Unexpected error'),
-              );
-            }
-          },
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          image: const DecorationImage(
+            image: AssetImage(
+                "assets/particles.png"), // Replace with your image path
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: BlocProvider<PlanCoursesBloc>.value(
+          value: planCoursesBloc,
+          child: BlocBuilder<PlanCoursesBloc, PlanCoursesState>(
+            builder: (context, state) {
+              if (state is PlanCoursesLoading) {
+                return const LoadingScreen();
+              }
+              if (state is PlanCoursesFailed) {
+                return Center(
+                  child: Text(state.message),
+                );
+              }
+              if (state is PlanCoursesSuccess) {
+                return PlanCoursesPageView(courses: state.courses);
+              } else {
+                return const Center(
+                  child: Text('Unexpected error'),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

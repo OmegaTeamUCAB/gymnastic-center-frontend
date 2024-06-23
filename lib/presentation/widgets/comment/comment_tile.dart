@@ -22,7 +22,7 @@ class CommentTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${comment.user} | ${formatDateTime(comment.date)}',
+                '${comment.user} \u2022 ${formatDateTime(comment.date)}',
                 style: const TextStyle(
                   fontSize: 12,
                 ),

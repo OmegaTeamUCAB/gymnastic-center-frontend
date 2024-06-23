@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:gymnastic_center/application/models/comment.dart';
 
 class CommentsList extends StatelessWidget {
   final List<Comment> comments;
@@ -29,13 +29,13 @@ class CommentsList extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text(timeago.format(comment.postedAt),
+              Text(timeago.format(comment.date),
                   style: TextStyle(
                       fontSize: 12,
                       color: Theme.of(context).colorScheme.onPrimary))
             ],
           ),
-          subtitle: Text(comment.content),
+          subtitle: Text(comment.body),
         );
       }).toList(),
     );

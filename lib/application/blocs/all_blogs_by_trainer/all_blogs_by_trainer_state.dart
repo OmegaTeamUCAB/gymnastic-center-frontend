@@ -5,6 +5,8 @@ sealed class AllBlogsByTrainerState extends Equatable {
   List<Object> get props => [];
 }
 
+final class AllBlogsByTrainerInitial extends AllBlogsByTrainerState {}
+
 final class AllBlogsByTrainerLoading extends AllBlogsByTrainerState {}
 
 class AllBlogsByTrainerSuccess extends AllBlogsByTrainerState {

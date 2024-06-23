@@ -25,22 +25,21 @@ class CourseOptionPageView extends StatelessWidget {
             Text(
               course.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Text(
-              '${course.category}  |  ${course.trainer}',
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onSecondary),
+              '${course.category}  \u2022  ${course.trainer}',
+              style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 24),
             Text(
               course.description!,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onSecondary),
+              style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],
         ));

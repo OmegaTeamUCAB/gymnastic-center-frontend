@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
-import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
+import 'package:timeago/timeago.dart';
 
 class BlogSlide extends StatelessWidget {
   final Blog blog;
@@ -63,7 +63,7 @@ class BlogSlide extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          formatDateTime(DateTime.parse(blog.uploadDate!)),
+                          format(DateTime.parse(blog.uploadDate!)),
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),
@@ -74,8 +74,11 @@ class BlogSlide extends StatelessWidget {
                 ),
               ),
             ),
-            // if (DateTime.now().difference(blog.uploadDate).inDays < 90)
-            const Positioned(top: 5, left: 5, child: NewChip()),
+            if (DateTime.now()
+                    .difference(DateTime.parse(blog.uploadDate!))
+                    .inDays <
+                5)
+              const Positioned(top: 5, left: 5, child: NewChip()),
           ])),
     );
   }
