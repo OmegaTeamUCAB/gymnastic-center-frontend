@@ -16,7 +16,7 @@ class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
   }
   Future<void> _getAllTrainers(
       AllTrainersRequested event, Emitter<AllTrainersState> emit) async {
-    if (_cachedTrainers.isNotEmpty) {
+    if (event.overrideCache == false & _cachedTrainers.isNotEmpty) {
       emit(AllTrainersSuccess(trainers: _cachedTrainers));
     } else {
       emit(AllTrainersLoading());

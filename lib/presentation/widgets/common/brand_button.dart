@@ -6,6 +6,7 @@ class BrandButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double? width;
   final bool isVariant;
+  final Color? color;
 
   const BrandButton({
     super.key,
@@ -13,6 +14,7 @@ class BrandButton extends StatelessWidget {
     required this.onPressed,
     this.width = double.infinity,
     this.isVariant = false,
+    this.color = Colors.white,
     this.fontSize = 20,
   });
 
@@ -29,8 +31,8 @@ class BrandButton extends StatelessWidget {
         width: width,
         height: fontSize! * 2.5,
         child: TextButton(
-            style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.white),
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(color),
             ),
             onPressed: onPressed,
             child: Text(

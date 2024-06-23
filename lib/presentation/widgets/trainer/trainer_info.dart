@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs_by_trainer/all_blogs_by_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_course_by_trainer_bloc.dart';
+import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/bloc/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
@@ -64,7 +65,7 @@ class _TrainerInfoState extends State<TrainerInfo> {
           controller: widget.scrollController,
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
@@ -104,40 +105,31 @@ class _TrainerInfoState extends State<TrainerInfo> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: BlocConsumer<FollowTrainerBloc, FollowTrainerState>(
-                    listener: (context, state) {
-                      if (state is FollowTrainerFailed) {
-                        setState(() {
-                          followStatus = !followStatus;
-                          followStatus ? followers++ : followers--;
-                        });
+                  child: BlocListener<FollowTrainerBloc, FollowTrainerState>(
+                      listener: (context, state) {
+                        if (state is FollowTrainerFailed) {
+                          setState(() {
+                            followStatus = !followStatus;
+                            followStatus ? followers++ : followers--;
+                          });
 
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                            followStatus
-                                ? "Failed to unfollow. Please try again."
-                                : "Failed to follow. Please try again.",
-                          ),
-                          backgroundColor: Colors.red,
-                          duration: const Duration(seconds: 3),
-                        ));
-                      } else if (state is FollowTrainerSuccess) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                            followStatus
-                                ? "Added trainer to your following list."
-                                : "Removed trainer from your following list.",
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          backgroundColor: const Color(0xFF4F14A0),
-                          duration: const Duration(seconds: 3),
-                        ));
-                      }
-                    },
-                    builder: (context, state) {
-                      return BrandButton(
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                              followStatus
+                                  ? "Failed to unfollow. Please try again."
+                                  : "Failed to follow. Please try again.",
+                            ),
+                            backgroundColor: Colors.red,
+                            duration: const Duration(seconds: 3),
+                          ));
+                        } else if (state is FollowTrainerSuccess) {
+                          GetIt.instance<AllTrainersBloc>().add(
+                              const AllTrainersRequested(
+                                  page: 1, overrideCache: true));
+                        }
+                      },
+                      child: BrandButton(
                         onPressed: () {
                           setState(() {
                             followStatus = !followStatus;
@@ -147,12 +139,11 @@ class _TrainerInfoState extends State<TrainerInfo> {
                               .add(FollowRequested(id: widget.trainer.id!));
                         },
                         isVariant: followStatus,
-                        fontSize: 14,
-                        width: 280,
                         text: followStatus ? 'following' : 'follow',
-                      );
-                    },
-                  ),
+                      )),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 ContentHeader(
                     title: '${widget.trainer.name}\'s Courses',
