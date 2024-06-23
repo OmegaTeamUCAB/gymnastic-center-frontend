@@ -9,11 +9,12 @@ import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_cou
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
-import 'package:gymnastic_center/application/blocs/blog_comments/blog_comments_bloc.dart';
+import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
+import 'package:gymnastic_center/application/blocs/create_comment/create_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_bloc.dart';
@@ -33,6 +34,7 @@ import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/comment/create_comment.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/comment/get_comments.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
@@ -96,9 +98,12 @@ class IoCContainer {
     final updateUserUseCase = UpdateUserUseCase(userRepository);
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
+    final createCommentUseCase = CreateCommentUseCase(commentRepository);
     //BLOCS
-    getIt.registerSingleton<BlogCommentsBloc>(
-        BlogCommentsBloc(getBlogCommentsUseCase));
+    getIt.registerSingleton<GetCommentsBloc>(
+        GetCommentsBloc(getBlogCommentsUseCase));
+    getIt.registerSingleton<CreateCommentBloc>(
+        CreateCommentBloc(createCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));

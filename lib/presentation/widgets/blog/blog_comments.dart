@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gymnastic_center/application/blocs/blog_comments/blog_comments_bloc.dart';
-import 'package:gymnastic_center/domain/comment/comment.dart';
+import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/comment/comment_tile.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
@@ -18,21 +17,21 @@ class BlogComments extends StatefulWidget {
 }
 
 class _BlogCommentsState extends State<BlogComments> {
-  late final BlogCommentsBloc _commentsBloc;
+  late final GetCommentsBloc _commentsBloc;
   @override
   void initState() {
     super.initState();
-    _commentsBloc = GetIt.instance<BlogCommentsBloc>();
-    _commentsBloc.add(BlogCommentsRequested(blogId: widget.blogId, page: 1));
+    _commentsBloc = GetIt.instance<GetCommentsBloc>();
+    _commentsBloc.add(CommentsRequested(blogId: widget.blogId, page: 1));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _commentsBloc,
-      child: BlocBuilder<BlogCommentsBloc, BlogCommentsState>(
+      child: BlocBuilder<GetCommentsBloc, GetCommentsState>(
         builder: (context, state) {
-          if (state is BlogCommentsLoading) {
+          if (state is GetCommentsLoading) {
             return const Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 25),
@@ -40,12 +39,12 @@ class _BlogCommentsState extends State<BlogComments> {
               ),
             );
           }
-          if (state is BlogCommentsFailed) {
+          if (state is GetCommentsFailed) {
             return Center(
               child: Text(state.message),
             );
           }
-          if (state is BlogCommentsSuccess) {
+          if (state is GetCommentsSuccess) {
             if (state.comments.isEmpty) {
               return const Padding(
                 padding: EdgeInsets.all(20),

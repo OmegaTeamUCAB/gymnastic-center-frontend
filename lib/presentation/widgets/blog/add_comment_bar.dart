@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/create_comment/create_comment_bloc.dart';
-import 'package:gymnastic_center/application/use_cases/comment/create_comment.use_case.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
@@ -14,8 +12,7 @@ class AddCommentBar extends StatefulWidget {
   late final CreateCommentBloc bloc;
 
   AddCommentBar({super.key, required this.blogId}) {
-    bloc = CreateCommentBloc(
-        CreateCommentUseCase(CommentRepository(HttpManagerImpl())));
+    bloc = GetIt.instance<CreateCommentBloc>();
   }
 
   @override
@@ -25,7 +22,7 @@ class AddCommentBar extends StatefulWidget {
 class _AddCommentBarState extends State<AddCommentBar> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
-  String blogContent = '';
+  String content = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,7 @@ class _AddCommentBarState extends State<AddCommentBar> {
         FocusScope.of(context).unfocus();
         widget.bloc.add(CreatedBlogComment(
           userId: userId!,
-          content: blogContent,
+          content: content,
           blogId: widget.blogId,
         ));
       }
@@ -74,7 +71,7 @@ class _AddCommentBarState extends State<AddCommentBar> {
               Expanded(
                 child: TextFormField(
                   onChanged: (value) {
-                    blogContent = value;
+                    content = value;
                   },
                   validator: (value) {
                     if (value == null || value.length < 4) {
