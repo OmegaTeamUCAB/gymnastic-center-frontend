@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/like_or_dislike_comment/like_or_dislike_comment_bloc.dart';
 import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
@@ -20,15 +19,21 @@ class CommentTileState extends State<CommentTile> {
   late LikeOrDislikeCommentBloc likeOrDislikeCommentBloc;
   late int countLikes;
   late int countDislikes;
-  bool hasLiked = false;
-  bool hasDisliked = false;
+  late bool hasLiked;
+  late bool hasDisliked;
+  late AuthBloc authBloc;
 
   @override
   void initState() {
     super.initState();
     likeOrDislikeCommentBloc = GetIt.instance<LikeOrDislikeCommentBloc>();
+    hasLiked = widget.comment.userLiked;
+    hasDisliked = widget.comment.userDisliked;
     countLikes = widget.comment.countLikes;
     countDislikes = widget.comment.countDislikes;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      authBloc = context.read<AuthBloc>();
+    });
   }
 
   @override
@@ -40,6 +45,7 @@ class CommentTileState extends State<CommentTile> {
         children: [
           ProfileAvatar(
             fullName: widget.comment.user,
+            image: widget.comment.userImage,
             radius: 20,
           ),
           const SizedBox(width: 10),
@@ -70,16 +76,18 @@ class CommentTileState extends State<CommentTile> {
                   },
                   child: Row(
                     children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.thumb_up_off_alt_outlined,
+                      GestureDetector(
+                        child: Icon(
+                          hasLiked
+                              ? Icons.thumb_up_alt_rounded
+                              : Icons.thumb_up_off_alt_outlined,
                           size: 20,
                         ),
-                        onPressed: () {
+                        onTap: () {
                           setState(() {
                             if (hasDisliked) {
                               countDislikes -= 1;
-                              hasDisliked = false;
+                              hasDisliked;
                             }
                             if (!hasLiked) {
                               countLikes += 1;
@@ -97,16 +105,18 @@ class CommentTileState extends State<CommentTile> {
                       const SizedBox(width: 10),
                       _CountDisplay(count: countLikes),
                       const SizedBox(width: 20),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.thumb_down_off_alt_outlined,
+                      GestureDetector(
+                        child: Icon(
+                          hasDisliked
+                              ? Icons.thumb_down_alt_rounded
+                              : Icons.thumb_down_off_alt_outlined,
                           size: 20,
                         ),
-                        onPressed: () {
+                        onTap: () {
                           setState(() {
                             if (hasLiked) {
                               countLikes -= 1;
-                              hasLiked = false;
+                              hasLiked;
                             }
                             if (!hasDisliked) {
                               countDislikes += 1;
@@ -155,20 +165,24 @@ class CommentTileState extends State<CommentTile> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          TextButton.icon(
-                            onPressed: () {
-                              // Add your delete logic here
-                            },
-                            icon: Icon(Icons.delete_outline_rounded,
-                                size: 20,
-                                color: Theme.of(context).colorScheme.onPrimary),
-                            label: Text(
-                              'Delete comment',
-                              style: TextStyle(
+                          if (widget.comment.userId ==
+                              (authBloc.state as Authenticated).user.id)
+                            TextButton.icon(
+                              onPressed: () {
+                                // Add your delete logic here
+                              },
+                              icon: Icon(Icons.delete_outline_rounded,
+                                  size: 20,
                                   color:
                                       Theme.of(context).colorScheme.onPrimary),
-                            ),
-                          )
+                              label: Text(
+                                'Delete comment',
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                              ),
+                            )
                         ],
                       ),
                     );
