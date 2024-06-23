@@ -34,12 +34,12 @@ class _AddCommentBarState extends State<AddCommentBar> {
     void onSubmit() {
       if (_formKey.currentState!.validate()) {
         _controller.clear();
-        FocusScope.of(context).unfocus();
         widget.bloc.add(CreatedBlogComment(
           userId: userId!,
           content: content,
           blogId: widget.blogId,
         ));
+        FocusScope.of(context).unfocus();
       }
     }
 
@@ -73,6 +73,11 @@ class _AddCommentBarState extends State<AddCommentBar> {
                   onChanged: (value) {
                     content = value;
                   },
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onPrimary, // Specify the color you want here
+                  ),
                   validator: (value) {
                     if (value == null || value.length < 4) {
                       return 'Comment must be at least 4 characters long';
