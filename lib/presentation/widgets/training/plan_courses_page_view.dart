@@ -49,19 +49,15 @@ class PlanCoursesPageViewState extends State<PlanCoursesPageView> {
         ),
 
         // back button
-        Positioned(
+        const Positioned(
           top: 60,
           left: 5,
           child: Row(
             children: [
-              BrandBackButton(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-              const Text(
+              BrandBackButton(),
+              Text(
                 'Choose a workout',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ],
           ),
@@ -81,7 +77,7 @@ class PlanCoursesPageViewState extends State<PlanCoursesPageView> {
                 dotHeight: 12,
                 dotWidth: 12,
                 dotColor: Theme.of(context).colorScheme.outline,
-                activeDotColor: Colors.deepPurple,
+                activeDotColor: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),
@@ -96,6 +92,7 @@ class PlanCoursesPageViewState extends State<PlanCoursesPageView> {
               width: 330,
               height: 60,
               child: BrandButton(
+                isVariant: Theme.of(context).brightness == Brightness.light,
                 onPressed: () {
                   Navigator.push(
                     context,

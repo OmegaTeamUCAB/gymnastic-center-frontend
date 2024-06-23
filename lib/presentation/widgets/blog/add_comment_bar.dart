@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/create_comment/create_comment_bloc.dart';
-import 'package:gymnastic_center/application/use_cases/comment/create_blog_comment.use_case.dart';
-import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
-import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class AddCommentBar extends StatefulWidget {
-  final String blogId;
+  final String targetType; //! 'BLOG' or 'LESSON'
+  final String lessonOrBlogId;
   late final CreateCommentBloc bloc;
 
-  AddCommentBar({super.key, required this.blogId}) {
-    bloc = CreateCommentBloc(
-        createBlogCommentUseCase:
-            CreateBlogCommentUseCase(CommentRepository(HttpManagerImpl())));
+  AddCommentBar(
+      {super.key, required this.lessonOrBlogId, required this.targetType}) {
+    bloc = GetIt.instance<CreateCommentBloc>();
   }
 
   @override
@@ -26,24 +24,21 @@ class AddCommentBar extends StatefulWidget {
 class _AddCommentBarState extends State<AddCommentBar> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
-  String blogContent = '';
+  String content = '';
 
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
-    final userId = (authBloc.state is Authenticated)
-        ? (authBloc.state as Authenticated).user.id
-        : null;
 
     void onSubmit() {
       if (_formKey.currentState!.validate()) {
         _controller.clear();
-        FocusScope.of(context).unfocus();
-        widget.bloc.add(CreatedBlogComment(
-          userId: userId!,
-          content: blogContent,
-          blogId: widget.blogId,
+        widget.bloc.add(CreatedComment(
+          content: content,
+          targetType: widget.targetType.toString(),
+          lessonOrBlogId: widget.lessonOrBlogId,
         ));
+        FocusScope.of(context).unfocus();
       }
     }
 
@@ -75,8 +70,13 @@ class _AddCommentBarState extends State<AddCommentBar> {
               Expanded(
                 child: TextFormField(
                   onChanged: (value) {
-                    blogContent = value;
+                    content = value;
                   },
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onPrimary, // Specify the color you want here
+                  ),
                   validator: (value) {
                     if (value == null || value.length < 4) {
                       return 'Comment must be at least 4 characters long';

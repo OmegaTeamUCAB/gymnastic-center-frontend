@@ -47,7 +47,7 @@ class CommentRepository extends ICommentRepository {
             countDislikes: comment['countDislikes'],
             userDisliked: comment['userDisliked'],
             userLiked: comment['userDisliked'],
-            date: comment['date'],
+            date: DateTime.parse(comment['date']),
           ));
         }
         return comments;
@@ -57,41 +57,15 @@ class CommentRepository extends ICommentRepository {
   }
 
   @override
-  Future<Result<ICreateCommentResponse>> createCourseComment({
-    required String userId,
-    required String content,
-    required String courseId,
-    required String lessonId,
-  }) async {
+  Future<Result<ICreateCommentResponse>> createComment(
+      CreateCommentDto dto) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'courses/comment',
+      urlPath: 'comment/release',
       httpMethod: 'POST',
       body: jsonEncode({
-        'userId': userId,
-        'content': content,
-        'courseId': courseId,
-        'lessonId': lessonId,
-      }),
-      mapperCallBack: (data) {
-        return CreateCommentResponse.fromJson(data);
-      },
-    );
-    return result;
-  }
-
-  @override
-  Future<Result<ICreateCommentResponse>> createBlogComment({
-    required String userId,
-    required String content,
-    required String blogId,
-  }) async {
-    final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'blog/create-comment',
-      httpMethod: 'POST',
-      body: jsonEncode({
-        'userId': userId,
-        'content': content,
-        'blogId': blogId,
+        'body': dto.content,
+        'target': dto.lessonOrBlogId,
+        'targetType': dto.targetType,
       }),
       mapperCallBack: (data) {
         return CreateCommentResponse.fromJson(data);

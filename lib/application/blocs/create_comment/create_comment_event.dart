@@ -4,24 +4,13 @@ sealed class CreateCommentEvent {
   const CreateCommentEvent();
 }
 
-class CreatedBlogComment extends CreateCommentEvent {
-  final String blogId;
-  final String userId;
+class CreatedComment extends CreateCommentEvent {
+  final String lessonOrBlogId;
   final String content;
+  final String targetType;
 
-  const CreatedBlogComment(
-      {required this.blogId, required this.userId, required this.content});
-}
-
-class CreatedCourseComment extends CreateCommentEvent {
-  final String courseId;
-  final String lessonId;
-  final String userId;
-  final String content;
-
-  const CreatedCourseComment(
-      {required this.courseId,
-      required this.lessonId,
-      required this.userId,
-      required this.content});
+  const CreatedComment(
+      {required this.lessonOrBlogId,
+      required this.content,
+      required this.targetType});
 }

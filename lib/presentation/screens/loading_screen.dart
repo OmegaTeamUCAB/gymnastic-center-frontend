@@ -5,19 +5,20 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Image.asset(
-          'assets/splash_background.png',
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        image: const DecorationImage(
+          image: AssetImage(
+              "assets/particles.png"), // Replace with your image path
           fit: BoxFit.cover,
         ),
-        const Center(
-          child: CircularProgressIndicator(
-            color: Colors.white,
-          ),
+      ),
+      child: const Center(
+        child: CircularProgressIndicator(
+          color: Colors.white,
         ),
-      ],
+      ),
     );
   }
 }

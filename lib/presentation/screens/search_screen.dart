@@ -42,9 +42,7 @@ class SearchScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 24.0),
                   child: Row(
                     children: [
-                      BrandBackButton(
-                        color: Colors.white,
-                      ),
+                      BrandBackButton(),
                       Text(
                         'Popular Search',
                         style: TextStyle(

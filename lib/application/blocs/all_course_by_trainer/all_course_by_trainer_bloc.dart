@@ -13,7 +13,7 @@ class AllCourseByTrainerBloc
   final Map<String, List<Course>> _cachedCoursesByTrainer = {};
 
   AllCourseByTrainerBloc(this.getAllCoursesByTrainerUseCase)
-      : super(AllCourseByTrainerLoading()) {
+      : super(AllCourseByTrainerInitial()) {
     on<AllCourseByTrainerRequested>(_getAllCoursesByTrainer);
   }
 

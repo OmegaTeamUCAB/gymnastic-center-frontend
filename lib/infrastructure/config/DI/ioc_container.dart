@@ -9,11 +9,13 @@ import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_cou
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
 import 'package:gymnastic_center/application/blocs/bloc/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
+import 'package:gymnastic_center/application/blocs/create_comment/create_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/plan_courses/plan_courses_bloc.dart';
@@ -33,6 +35,8 @@ import 'package:gymnastic_center/application/use_cases/auth/verify_code.use_case
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blog_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/comment/create_comment.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/comment/get_comments.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
@@ -47,6 +51,7 @@ import 'package:gymnastic_center/infrastructure/data-sources/local/secure_storag
 import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/trainer/trainer_repository.dart';
@@ -64,8 +69,7 @@ class IoCContainer {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    final httpConnectionManager =
-        HttpManagerImpl();
+    final httpConnectionManager = HttpManagerImpl();
     final secureStorage = SecureStorage();
     //REPOSITORIES
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
@@ -75,6 +79,7 @@ class IoCContainer {
     final searchRepository = SearchRepository(httpConnectionManager);
     final userRepository = UserRepository(httpConnectionManager);
     final trainerRepository = TrainerRepository(httpConnectionManager);
+    final commentRepository = CommentRepository(httpConnectionManager);
 
     //USE CASES
     final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
@@ -94,8 +99,14 @@ class IoCContainer {
     final getTrainerByIdUseCase = GetTrainerByIdUseCase(trainerRepository);
     final updateUserUseCase = UpdateUserUseCase(userRepository);
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
+    final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
+    final createCommentUseCase = CreateCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
     //BLOCS
+    getIt.registerSingleton<GetCommentsBloc>(
+        GetCommentsBloc(getBlogCommentsUseCase));
+    getIt.registerSingleton<CreateCommentBloc>(
+        CreateCommentBloc(createCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
@@ -122,8 +133,10 @@ class IoCContainer {
     getIt.registerSingleton<SearchBloc>(SearchBloc(searchUseCase));
     getIt.registerSingleton<BlogDetailBloc>(BlogDetailBloc(getBlogByIdUseCase));
     getIt.registerSingleton(TrainerDetailBloc(getTrainerByIdUseCase));
-    getIt.registerSingleton<AllTrainersBloc>(AllTrainersBloc(getTrainersUseCase));
-    getIt.registerSingleton<FollowTrainerBloc>(FollowTrainerBloc(followTrainerUseCase));
+    getIt.registerSingleton<AllTrainersBloc>(
+        AllTrainersBloc(getTrainersUseCase));
+    getIt.registerSingleton<FollowTrainerBloc>(
+        FollowTrainerBloc(followTrainerUseCase));
     getIt.registerSingleton<NotificationsBloc>(NotificationsBloc(
         handler: NotificationHandler()..initializeLocalNotifications()));
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
