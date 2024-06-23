@@ -11,7 +11,7 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF4F14A0),
           primary: const Color(0xFF4F14A0),
-          secondary: const Color(0xFF4F14A0),
+          secondary: const Color.fromARGB(255, 114, 45, 211),
           background: const Color(0xFFF2F2F2),
           onBackground: Colors.white,
           onSurface: Colors.white, // content inside button
@@ -39,7 +39,7 @@ class AppTheme {
           seedColor: const Color(0xFF4F14A0),
           primary: Colors.white,
           background: const Color(0xff2D2D3A),
-          secondary: const Color(0xFF8066FF),
+          secondary: const Color(0xff2D2D3A),
           onSecondary: Colors.white,
           onSurface: const Color(0xFF4F14A0),
           outline: Colors.white,

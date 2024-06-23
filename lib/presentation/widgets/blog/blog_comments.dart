@@ -48,8 +48,7 @@ class _BlogCommentsState extends State<BlogComments> {
             if (state.comments.isEmpty) {
               return const Padding(
                 padding: EdgeInsets.all(20),
-                child: Center(
-                    child: NoResults(message: 'This blog has no comments')),
+                child: Center(child: NoResults(message: 'No comments')),
               );
             }
             return ListView.builder(

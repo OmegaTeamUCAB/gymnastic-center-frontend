@@ -47,7 +47,7 @@ class CommentRepository extends ICommentRepository {
             countDislikes: comment['countDislikes'],
             userDisliked: comment['userDisliked'],
             userLiked: comment['userDisliked'],
-            date: comment['date'],
+            date: DateTime.parse(comment['date']),
           ));
         }
         return comments;

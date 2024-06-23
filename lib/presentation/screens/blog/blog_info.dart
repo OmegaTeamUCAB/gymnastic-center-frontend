@@ -43,7 +43,7 @@ class BlogInfo extends StatelessWidget {
                           fontSize: 18,
                         )),
                     Text(
-                        '${calculateReadingTime(blog.content!)} min read | ${format(DateTime.parse(blog.uploadDate!))}')
+                        '${calculateReadingTime(blog.content!)} min read \u2022 ${format(DateTime.parse(blog.uploadDate!))}')
                   ],
                 ),
               ],
