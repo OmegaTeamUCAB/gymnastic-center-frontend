@@ -10,4 +10,5 @@ class GetTrainersDto {
 abstract class ITrainerRepository {
   Future<Result<Trainer>> getTrainerById(String id);
   Future<Result<List<Trainer>>> getTrainers(GetTrainersDto dto);
+  Future<Result<void>> followTrainer(String id);
 }

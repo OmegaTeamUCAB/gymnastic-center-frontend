@@ -10,6 +10,7 @@ import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
+import 'package:gymnastic_center/application/blocs/bloc/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
@@ -39,6 +40,7 @@ import 'package:gymnastic_center/application/use_cases/comment/get_comments.use_
 import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/trainer/follow_trainer.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/trainer/get_trainer_by_id.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/user/update_user.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/trainer/get_trainers.use_case.dart';
@@ -99,6 +101,7 @@ class IoCContainer {
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
+    final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
     //BLOCS
     getIt.registerSingleton<GetCommentsBloc>(
         GetCommentsBloc(getBlogCommentsUseCase));
@@ -132,6 +135,8 @@ class IoCContainer {
     getIt.registerSingleton(TrainerDetailBloc(getTrainerByIdUseCase));
     getIt.registerSingleton<AllTrainersBloc>(
         AllTrainersBloc(getTrainersUseCase));
+    getIt.registerSingleton<FollowTrainerBloc>(
+        FollowTrainerBloc(followTrainerUseCase));
     getIt.registerSingleton<NotificationsBloc>(NotificationsBloc(
         handler: NotificationHandler()..initializeLocalNotifications()));
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
