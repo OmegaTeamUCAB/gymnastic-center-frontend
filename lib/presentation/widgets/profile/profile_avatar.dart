@@ -6,13 +6,18 @@ class ProfileAvatar extends StatelessWidget {
   final String fullName;
   final String? image;
   final double? radius;
+  final dynamic onPressed;
 
   const ProfileAvatar(
-      {super.key, required this.fullName, this.image, this.radius = 35});
+      {super.key,
+      required this.fullName,
+      this.image,
+      this.radius = 35,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return image != null
+    Widget avatar = image != null
         ? CircleAvatar(
             backgroundImage: MemoryImage(
               base64Decode(image.toString()),
@@ -24,9 +29,16 @@ class ProfileAvatar extends StatelessWidget {
             radius: radius,
             child: Text(fullName.split(' ').map((l) => l[0]).take(2).join(),
                 style: TextStyle(
-                    color: const Color(0xFF4F14A0),
-                    fontSize: radius! / 1.2,
-                    fontWeight: FontWeight.bold)),
+                  color: const Color(0xFF4F14A0),
+                  fontSize: radius! / 1.2,
+                )),
           );
+
+    return onPressed != null
+        ? InkWell(
+            onTap: onPressed,
+            child: avatar,
+          )
+        : avatar;
   }
 }

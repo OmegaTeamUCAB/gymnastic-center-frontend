@@ -44,7 +44,7 @@ class SearchScreen extends StatelessWidget {
                     children: [
                       BrandBackButton(),
                       Text(
-                        'Popular Search',
+                        'Search',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
