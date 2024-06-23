@@ -33,4 +33,9 @@ abstract class ICreateCommentResponse {
 abstract class ICommentRepository {
   Future<Result<ICreateCommentResponse>> createComment(CreateCommentDto dto);
   Future<Result<List<Comment>>> getComments(GetCommentsDto dto);
+
+  Future<Result<ICreateCommentResponse>> likeOrDislikeCommentById({
+    required String commentId,
+    required bool like,
+  });
 }

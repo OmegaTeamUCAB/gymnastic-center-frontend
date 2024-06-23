@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/domain/comment/comment_repository.dart';
@@ -67,6 +66,23 @@ class CommentRepository extends ICommentRepository {
         'target': dto.lessonOrBlogId,
         'targetType': dto.targetType,
       }),
+      mapperCallBack: (data) {
+        return CreateCommentResponse.fromJson(data);
+      },
+    );
+    return result;
+  }
+
+  @override
+  Future<Result<ICreateCommentResponse>> likeOrDislikeCommentById({
+    required String commentId,
+    required bool like,
+  }) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: like
+          ? 'comment/toggle/like/$commentId'
+          : 'comment/toggle/dislike/$commentId',
+      httpMethod: 'POST',
       mapperCallBack: (data) {
         return CreateCommentResponse.fromJson(data);
       },
