@@ -31,7 +31,7 @@ class TrainerInfo extends StatefulWidget {
 class _TrainerInfoState extends State<TrainerInfo> {
   late FollowTrainerBloc followTrainerBloc;
   late bool followStatus;
-  late dynamic followers;
+  late int followers;
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _TrainerInfoState extends State<TrainerInfo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      widget.trainer.followers.toString(),
+                      followers.toString(),
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
