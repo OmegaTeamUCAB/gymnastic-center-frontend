@@ -65,7 +65,7 @@ class _TrainerInfoState extends State<TrainerInfo> {
           controller: widget.scrollController,
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.onTertiaryContainer,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
@@ -138,7 +138,7 @@ class _TrainerInfoState extends State<TrainerInfo> {
                           followTrainerBloc
                               .add(FollowRequested(id: widget.trainer.id!));
                         },
-                        isVariant: followStatus,
+                        isSecondVariant: followStatus,
                         text: followStatus ? 'following' : 'follow',
                       )),
                 ),

@@ -16,15 +16,16 @@ class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
   }
   Future<void> _getAllTrainers(
       AllTrainersRequested event, Emitter<AllTrainersState> emit) async {
-    if (event.overrideCache == false & _cachedTrainers.isNotEmpty) {
+    if (event.overrideCache == false && _cachedTrainers.isNotEmpty) {
       emit(AllTrainersSuccess(trainers: _cachedTrainers));
     } else {
       emit(AllTrainersLoading());
       final result =
           await getTrainersUseCase.execute(GetTrainersDto(page: event.page));
       if (result.isSuccessful) {
+        _cachedTrainers.clear();
         _cachedTrainers.addAll(result.unwrap());
-        emit(AllTrainersSuccess(trainers: _cachedTrainers));
+        emit(AllTrainersSuccess(trainers: result.unwrap()));
       } else {
         try {
           throw result.unwrap();
