@@ -79,11 +79,10 @@ class CommentRepository extends ICommentRepository {
     required bool like,
   }) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: like ? 'comment/toggle/like' : 'comment/toggle/dislike',
+      urlPath: like
+          ? 'comment/toggle/like/$commentId'
+          : 'comment/toggle/dislike/$commentId',
       httpMethod: 'POST',
-      body: jsonEncode({
-        'commentId': commentId,
-      }),
       mapperCallBack: (data) {
         return CreateCommentResponse.fromJson(data);
       },

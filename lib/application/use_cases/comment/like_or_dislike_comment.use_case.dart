@@ -11,14 +11,14 @@ class LikeOrDislikeCommentByIdDto {
 
 class LikeOrDislikeCommentUseCase
     extends IUseCase<LikeOrDislikeCommentByIdDto, ICreateCommentResponse> {
-  final ICommentRepository commentRepository;
+  final ICommentRepository _commentRepository;
 
-  LikeOrDislikeCommentUseCase(this.commentRepository);
+  LikeOrDislikeCommentUseCase(this._commentRepository);
 
   @override
   Future<Result<ICreateCommentResponse>> execute(
       LikeOrDislikeCommentByIdDto dto) async {
-    final result = await commentRepository.likeOrDislikeCommentById(
+    final result = await _commentRepository.likeOrDislikeCommentById(
       commentId: dto.commentId,
       like: dto.like,
     );
