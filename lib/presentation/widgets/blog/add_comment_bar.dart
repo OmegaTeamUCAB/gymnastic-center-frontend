@@ -8,10 +8,12 @@ import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class AddCommentBar extends StatefulWidget {
-  final String blogId;
+  final String targetType; //! 'BLOG' or 'LESSON'
+  final String lessonOrBlogId;
   late final CreateCommentBloc bloc;
 
-  AddCommentBar({super.key, required this.blogId}) {
+  AddCommentBar(
+      {super.key, required this.lessonOrBlogId, required this.targetType}) {
     bloc = GetIt.instance<CreateCommentBloc>();
   }
 
@@ -27,17 +29,14 @@ class _AddCommentBarState extends State<AddCommentBar> {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
-    final userId = (authBloc.state is Authenticated)
-        ? (authBloc.state as Authenticated).user.id
-        : null;
 
     void onSubmit() {
       if (_formKey.currentState!.validate()) {
         _controller.clear();
-        widget.bloc.add(CreatedBlogComment(
-          userId: userId!,
+        widget.bloc.add(CreatedComment(
           content: content,
-          blogId: widget.blogId,
+          targetType: widget.targetType.toString(),
+          lessonOrBlogId: widget.lessonOrBlogId,
         ));
         FocusScope.of(context).unfocus();
       }

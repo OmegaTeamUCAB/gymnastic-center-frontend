@@ -11,32 +11,16 @@ class CreateCommentBloc extends Bloc<CreateCommentEvent, CreateCommentState> {
   CreateCommentBloc(
     this.createCommentUseCase,
   ) : super(CreateCommentLoading()) {
-    on<CreatedBlogComment>(_createBlogComment);
-    on<CreatedCourseComment>(_createCourseComment);
+    on<CreatedComment>(_createComment);
   }
 
-  Future<void> _createBlogComment(
-      CreatedBlogComment event, Emitter<CreateCommentState> emit) async {
+  Future<void> _createComment(
+      CreatedComment event, Emitter<CreateCommentState> emit) async {
     emit(CreateCommentLoading());
     final result = await createCommentUseCase.execute(CreateCommentDto(
-      lessonOrBlogId: event.blogId,
+      lessonOrBlogId: event.lessonOrBlogId,
       content: event.content,
-      targetType: 'BLOG',
-    ));
-    if (result.isSuccessful) {
-      emit(CreateCommentSuccess());
-    } else {
-      emit(CreateCommentFailed(message: result.error.message));
-    }
-  }
-
-  Future<void> _createCourseComment(
-      CreatedCourseComment event, Emitter<CreateCommentState> emit) async {
-    emit(CreateCommentLoading());
-    final result = await createCommentUseCase.execute(CreateCommentDto(
-      lessonOrBlogId: event.courseId,
-      content: event.content,
-      targetType: 'COURSE',
+      targetType: event.targetType,
     ));
     if (result.isSuccessful) {
       emit(CreateCommentSuccess());

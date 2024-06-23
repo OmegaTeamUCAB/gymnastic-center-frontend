@@ -70,7 +70,8 @@ class CustomModalSheet extends StatelessWidget {
                 }
               },
               child: AddCommentBar(
-                blogId: blogId,
+                targetType: 'BLOG',
+                lessonOrBlogId: blogId,
               ),
             ),
           ),
