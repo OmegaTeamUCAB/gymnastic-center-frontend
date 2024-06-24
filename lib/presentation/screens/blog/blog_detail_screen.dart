@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
-import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_info.dart';
-import 'package:gymnastic_center/presentation/screens/blog/custom_modal_sheet.dart';
+import 'package:gymnastic_center/presentation/screens/blog/comments_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_app_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
 
 class BlogDetailScreen extends StatefulWidget {
   final String blogId;
@@ -50,30 +48,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                   Positioned(
                       bottom: 20,
                       right: 20,
-                      child: FloatingActionButton(
-                        shape: const CircleBorder(),
-                        backgroundColor: const Color(0xFF4F14A0),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.background,
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(25.0)),
-                            ),
-                            builder: (BuildContext context) {
-                              return CustomModalSheet(
-                                  blogId: widget.blogId,
-                                  child: BlogComments(blogId: widget.blogId));
-                            },
-                          );
-                        },
-                        child: const Icon(
-                          Icons.comment_outlined,
-                          color: Colors.white,
-                        ),
-                      )),
+                      child: CommentsFAB(blogId: widget.blogId)),
                 ],
               );
             } else {
