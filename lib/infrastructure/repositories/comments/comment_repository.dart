@@ -91,4 +91,13 @@ class CommentRepository extends ICommentRepository {
     );
     return result;
   }
+  
+  @override
+  Future<Result<void>> deleteComment(String commentId) async{
+    final result = await _httpConnectionManager.makeRequest(
+      httpMethod: 'DELETE', 
+      urlPath: 'comment/delete/$commentId', 
+      mapperCallBack: (_) => {});
+    return result;
+  }
 }
