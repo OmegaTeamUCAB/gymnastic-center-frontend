@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
+import 'package:gymnastic_center/presentation/screens/trainer_screen.dart';
 import 'package:gymnastic_center/presentation/utils/calculate_reading_time.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 import 'package:timeago/timeago.dart';
@@ -32,6 +33,16 @@ class BlogInfo extends StatelessWidget {
               children: [
                 ProfileAvatar(
                   fullName: blog.trainer!['name'],
+                  urlImage: blog.trainer!['image'],
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TrainerScreen(
+                                trainerId: blog.trainer['id'],
+                              )),
+                    );
+                  },
                   radius: 25,
                 ),
                 const SizedBox(width: 10),

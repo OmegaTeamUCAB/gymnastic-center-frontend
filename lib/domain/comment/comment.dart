@@ -1,6 +1,8 @@
 class Comment {
   final String id;
   final String user;
+  final String? userImage;
+  final String? userId;
   final int countLikes;
   final int countDislikes;
   final String body;
@@ -14,8 +16,10 @@ class Comment {
     required this.body,
     required this.date,
     this.countLikes = 0,
+    this.userImage,
+    this.userId,
     this.countDislikes = 0,
-    this.userLiked = false,
-    this.userDisliked = false,
+    required this.userLiked,
+    required this.userDisliked,
   });
 }

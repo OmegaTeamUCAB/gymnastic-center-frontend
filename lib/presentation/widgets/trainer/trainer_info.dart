@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs_by_trainer/all_blogs_by_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_course_by_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
-import 'package:gymnastic_center/application/blocs/bloc/follow_trainer_bloc.dart';
+import 'package:gymnastic_center/application/blocs/follow_trainer/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';

@@ -48,4 +48,23 @@ class SearchRepository implements ISearchRepository {
     );
     return result;
   }
+
+  @override
+  Future<Result<dynamic>> getSearchTags() async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'search/popular/tags',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<dynamic> searchTags = [];
+        for (var tag in searchTags) {
+          //TODO: FIX
+          // searchTags.add(SearchTags(
+          //   tag
+          // ));
+        }
+        return searchTags;
+      },
+    );
+    return result;
+  }
 }

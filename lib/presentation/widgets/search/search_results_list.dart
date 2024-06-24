@@ -20,21 +20,6 @@ class SearchResultsList extends StatelessWidget {
 
     if (searchTerm.isEmpty) return const SizedBox.shrink();
     return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFF2F2F2),
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xff2D2D3A).withOpacity(0.1),
-            spreadRadius: 0.5,
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline,
-        ),
-      ),
       child: isLoading
           ? const Center(
               child: Padding(

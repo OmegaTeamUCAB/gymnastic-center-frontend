@@ -33,7 +33,7 @@ class CommentRepository extends ICommentRepository {
 
     var queryString = Uri(queryParameters: queryParameters).query;
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'comment/many?$queryString',
+      urlPath: 'comment/many?$queryString&sort=LIKES',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<Comment> comments = [];
@@ -41,11 +41,13 @@ class CommentRepository extends ICommentRepository {
           comments.add(Comment(
             id: comment['id'],
             user: comment['user'],
+            userId: comment['userId'],
+            userImage: comment['userImage'],
             body: comment['body'],
             countLikes: comment['countLikes'],
             countDislikes: comment['countDislikes'],
             userDisliked: comment['userDisliked'],
-            userLiked: comment['userDisliked'],
+            userLiked: comment['userLiked'],
             date: DateTime.parse(comment['date']),
           ));
         }
