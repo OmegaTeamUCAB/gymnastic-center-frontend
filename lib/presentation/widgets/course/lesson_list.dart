@@ -26,10 +26,7 @@ class LessonList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          LessonScreen(
-                            lessonId: lesson.id
-                          )),
+                      builder: (context) => LessonScreen(lessonId: lesson.id)),
                 );
               },
               title: Text(
@@ -41,7 +38,11 @@ class LessonList extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onPrimary),
-              subtitle: const Text('Some description or info'),
+              subtitle: Text(
+                lesson.content!,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
               trailing: const Icon(Icons.info_outline),
             ),
           );
