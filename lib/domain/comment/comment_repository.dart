@@ -38,4 +38,6 @@ abstract class ICommentRepository {
     required String commentId,
     required bool like,
   });
+
+  Future<Result<void>> deleteComment(String commentId);
 }
