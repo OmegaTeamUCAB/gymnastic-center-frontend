@@ -25,49 +25,102 @@ class CustomNavigationBar extends StatelessWidget {
       shadowColor: Colors.grey,
       elevation: 25,
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
         child: Row(
           children: [
-            IconButton(
-                onPressed: () {
-                  onTap(0);
-                },
-                icon: Icon(GymnasticCenter.home,
-                    size: 32,
-                    color: tabIndex == 0 ? activeColor : Colors.grey)),
+                    _CustomNavButton(
+              iconData: GymnasticCenter.home, 
+              isSelected: tabIndex == 0, 
+              activeColor: activeColor, 
+              unactiveColor: Colors.grey,  
+              onPressed: () {
+                onTap(0);
+              },),
             const SizedBox(
               width: 30,
             ),
-            IconButton(
-                onPressed: () {
-                  onTap(1);
-                },
-                icon: Icon(Icons.groups_outlined,
-                    size: 40,
-                    color: tabIndex == 1 ? activeColor : Colors.grey)),
+            _CustomNavButton(
+              iconData: GymnasticCenter.wheelchair, 
+              isSelected: tabIndex == 1, 
+              activeColor: activeColor, 
+              unactiveColor: Colors.grey,  
+              onPressed: () {
+                onTap(1);
+              },),
+                    
             const Spacer(),
-            IconButton(
-                onPressed: () {
-                  onTap(2);
-                },
-                icon: Icon(Icons.notifications_outlined,
-                    size: 35,
-                    color: tabIndex == 2 ? activeColor : Colors.grey)),
+                        _CustomNavButton(
+              iconData: GymnasticCenter.settings, 
+              isSelected: tabIndex == 2, 
+              activeColor: activeColor, 
+              unactiveColor: Colors.grey,  
+              onPressed: () {
+                onTap(2);
+              },),
             const SizedBox(
               width: 32,
             ),
-            IconButton(
-                onPressed: () {
-                  onTap(3);
-                },
-                icon: Icon(
-                  Icons.account_circle_outlined,
-                  size: 35,
-                  color: tabIndex == 3 ? activeColor : Colors.grey,
-                )),
+            _CustomNavButton(
+              iconData: Icons.notifications_outlined, 
+              isSelected: tabIndex == 3, 
+              activeColor: activeColor, 
+              unactiveColor: Colors.grey,  
+              onPressed: () {
+                onTap(3);
+              },)
           ],
         ),
       ),
     );
   }
 }
+
+class _CustomNavButton extends StatelessWidget {
+  final IconData iconData;
+  final bool isSelected;
+  final Color activeColor;
+  final Color unactiveColor;
+  final void Function()? onPressed;
+  final double size;
+
+  const _CustomNavButton({
+      required this.iconData,
+      required this.isSelected,
+      required this.activeColor,
+      required this.unactiveColor,
+      this.size = 32,
+      required this.onPressed
+    });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          child: IconButton(
+            icon: Icon(
+              iconData,
+              color: (isSelected) ? activeColor : unactiveColor,
+              size: size,
+            ),
+            onPressed: onPressed,
+            splashColor: Colors.white,
+          ),
+        ),
+         if (isSelected)
+               if (isSelected)
+            Container(
+              margin: const EdgeInsets.only(top: 4),
+              height: 3,
+              width: 40,
+              decoration: BoxDecoration(
+                color: activeColor,
+                borderRadius: BorderRadius.circular(1.5),
+              ),
+            ),
+      ],
+    );
+  }
+}
+
