@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
 import 'package:gymnastic_center/presentation/widgets/search/search_results_list.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -41,13 +42,15 @@ class SearchScreen extends StatelessWidget {
             child: const CustomSearchBar(),
           ),
         ),
-        body: Column(
-          children: [
-            BlocProvider.value(
-              value: searchBloc,
-              child: SearchResultsList(courses: courses, blogs: blogs),
-            )
-          ],
+        body: BlocProvider.value(
+          value: searchBloc,
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              const SearchChips(),
+              SearchResultsList(courses: courses, blogs: blogs),
+            ],
+          ),
         ),
       ),
     );
