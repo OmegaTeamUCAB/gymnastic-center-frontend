@@ -26,14 +26,14 @@ class CommentTileState extends State<CommentTile> {
   @override
   void initState() {
     super.initState();
+    authBloc = GetIt.instance<AuthBloc>();
+    print((authBloc.state as Authenticated).user.id);
+    print('${widget.comment.body} userId: ${widget.comment.userId}');
     likeOrDislikeCommentBloc = GetIt.instance<LikeOrDislikeCommentBloc>();
     hasLiked = widget.comment.userLiked;
     hasDisliked = widget.comment.userDisliked;
     countLikes = widget.comment.countLikes;
     countDislikes = widget.comment.countDislikes;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      authBloc = context.read<AuthBloc>();
-    });
   }
 
   @override
@@ -85,14 +85,16 @@ class CommentTileState extends State<CommentTile> {
                         ),
                         onTap: () {
                           setState(() {
-                            if (hasDisliked) {
-                              countDislikes -= 1;
-                              hasDisliked;
+                            if (hasLiked) {
+                              countLikes--;
+                            } else {
+                              countLikes++;
+                              if (hasDisliked) {
+                                hasDisliked = false;
+                                countDislikes--;
+                              }
                             }
-                            if (!hasLiked) {
-                              countLikes += 1;
-                              hasLiked = true;
-                            }
+                            hasLiked = !hasLiked;
                           });
                           likeOrDislikeCommentBloc.add(
                             LikeOrDislikeCommentRequested(
@@ -114,14 +116,16 @@ class CommentTileState extends State<CommentTile> {
                         ),
                         onTap: () {
                           setState(() {
-                            if (hasLiked) {
-                              countLikes -= 1;
-                              hasLiked;
+                            if (hasDisliked) {
+                              countDislikes--;
+                            } else {
+                              countDislikes++;
+                              if (hasLiked) {
+                                hasLiked = false;
+                                countLikes--;
+                              }
                             }
-                            if (!hasDisliked) {
-                              countDislikes += 1;
-                              hasDisliked = true;
-                            }
+                            hasDisliked = !hasDisliked;
                           });
                           likeOrDislikeCommentBloc.add(
                             LikeOrDislikeCommentRequested(
@@ -139,34 +143,34 @@ class CommentTileState extends State<CommentTile> {
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+          if (widget.comment.userId ==
+              (authBloc.state as Authenticated).user.id)
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
                     ),
-                  ),
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      height: 120,
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                            child: Text(
-                              'Comment',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        height: 120,
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                              child: Text(
+                                'Comment',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                          if (widget.comment.userId ==
-                              (authBloc.state as Authenticated).user.id)
                             TextButton.icon(
                               onPressed: () {
                                 // Add your delete logic here
@@ -183,16 +187,16 @@ class CommentTileState extends State<CommentTile> {
                                         .onPrimary),
                               ),
                             )
-                        ],
-                      ),
-                    );
-                  });
-            },
-            icon: const Icon(
-              Icons.delete_outline_rounded,
-              size: 20,
-            ),
-          )
+                          ],
+                        ),
+                      );
+                    });
+              },
+              icon: const Icon(
+                Icons.delete_outline_rounded,
+                size: 20,
+              ),
+            )
         ],
       ),
     );

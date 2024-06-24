@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/application/models/search_filter.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
@@ -70,9 +68,9 @@ class _FAQScreenState extends State<FAQScreen> {
 
   void seeAll() {
     searchFilters.clear();
-    filterChips.forEach((element) {
+    for (var element in filterChips) {
       searchFilters.add(element.value);
-    });
+    }
     faqFilter();
     setState(() {});
   }
@@ -80,7 +78,7 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 120),
           child: CustomAppBar(
             content: Padding(
@@ -106,7 +104,7 @@ class _FAQScreenState extends State<FAQScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               'Frequently Asked Questions:',
               style: TextStyle(
@@ -120,47 +118,44 @@ class _FAQScreenState extends State<FAQScreen> {
             child: SizedBox(
               width: double.infinity,
               height: 50,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: filterChips.length,
-                  itemBuilder: (context, index) {
-                    final filter = filterChips[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: FilterChip(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surfaceTint,
-                          selectedColor: Theme.of(context).colorScheme.primary,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          showCheckmark: false,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                color: searchFilters.contains(filter.value)
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).colorScheme.surfaceTint,
-                              ),
-                              borderRadius: BorderRadius.circular(60)),
-                          label: Text(
-                            filter.label,
-                          ),
-                          labelStyle: TextStyle(
-                            color: searchFilters.contains(filter.value)
-                                ? Theme.of(context).colorScheme.onSurface
-                                : Theme.of(context).colorScheme.primary,
-                          ),
-                          selected: searchFilters.contains(filter.value),
-                          onSelected: (bool selected) {
-                            if (selected) {
-                              addFilter(filter.value);
-                            } else {
-                              removeFilter(filter.value);
-                            }
-                          }),
-                    );
-                  },
-                ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: filterChips.length,
+                itemBuilder: (context, index) {
+                  final filter = filterChips[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: FilterChip(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.surfaceTint,
+                        selectedColor: Theme.of(context).colorScheme.primary,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        showCheckmark: false,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: searchFilters.contains(filter.value)
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.surfaceTint,
+                            ),
+                            borderRadius: BorderRadius.circular(60)),
+                        label: Text(
+                          filter.label,
+                        ),
+                        labelStyle: TextStyle(
+                          color: searchFilters.contains(filter.value)
+                              ? Theme.of(context).colorScheme.onSurface
+                              : Theme.of(context).colorScheme.primary,
+                        ),
+                        selected: searchFilters.contains(filter.value),
+                        onSelected: (bool selected) {
+                          if (selected) {
+                            addFilter(filter.value);
+                          } else {
+                            removeFilter(filter.value);
+                          }
+                        }),
+                  );
+                },
               ),
             ),
           ),

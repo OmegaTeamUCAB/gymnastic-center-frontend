@@ -42,7 +42,7 @@ class _TrainersScreenState extends State<TrainersScreen> {
         appBar: MainAppBar(openDrawer: () => Scaffold.of(context).openDrawer()),
         body: SingleChildScrollView(
             child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
