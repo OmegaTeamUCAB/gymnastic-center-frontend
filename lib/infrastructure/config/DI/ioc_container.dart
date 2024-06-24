@@ -67,6 +67,10 @@ class IoCContainer {
     final httpConnectionManager =
         HttpManagerImpl();
     final secureStorage = SecureStorage();
+    getIt.registerSingleton<SecureStorage>(secureStorage);
+    final String? onBoardingValue = await secureStorage.getValue('onboarding');
+    final bool hasCompletedOnBoarding =  (onBoardingValue == null) ? false : true;
+    getIt.registerSingleton<bool>(hasCompletedOnBoarding);
     //REPOSITORIES
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
     final blogRepository = BlogsRepository(httpConnectionManager);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
+import 'package:gymnastic_center/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/login_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
@@ -64,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MainScreen()),
+                                            (GetIt.instance.get<bool>() == false) ? OnBoardingPageScreen() : const MainScreen()),
                                   );
                                 }
                                 if (state is AuthError) {
