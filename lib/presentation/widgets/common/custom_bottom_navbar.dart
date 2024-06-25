@@ -15,7 +15,6 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorAppBar = Theme.of(context).colorScheme.tertiaryContainer;
-    final activeColor = Theme.of(context).colorScheme.onPrimaryContainer;
     final Size size = MediaQuery.of(context).size;
 
     return BottomAppBar(
@@ -24,7 +23,7 @@ class CustomNavigationBar extends StatelessWidget {
       shape: const CircularNotchedRectangle(),
       clipBehavior: Clip.antiAlias,
       padding: EdgeInsets.zero,
-      shadowColor: Colors.grey,
+      shadowColor: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
       elevation: 25,
       child: Padding(
         padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
@@ -34,17 +33,15 @@ class CustomNavigationBar extends StatelessWidget {
             _CustomNavButton(
               iconData: GymnasticCenter.home,
               isSelected: tabIndex == 0,
-              activeColor: activeColor,
-              unactiveColor: Colors.grey,
+              size: 30,
               onPressed: () {
                 onTap(0);
               },
             ),
             _CustomNavButton(
-              iconData: GymnasticCenter.wheelchair,
+              iconData: Icons.groups_outlined,
               isSelected: tabIndex == 1,
-              activeColor: activeColor,
-              unactiveColor: Colors.grey,
+              size: 40,
               onPressed: () {
                 onTap(1);
               },
@@ -53,23 +50,24 @@ class CustomNavigationBar extends StatelessWidget {
               width: size.width * 0.19,
             ),
             _CustomNavButton(
-              iconData: GymnasticCenter.settings,
+              customWidget: NotificationIcon(
+                  notificationNumber: 1.toString(),
+                  size: 33,
+                  color: tabIndex == 2
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context)
+                          .colorScheme
+                          .onPrimary
+                          .withOpacity(0.5)),
               isSelected: tabIndex == 2,
-              activeColor: activeColor,
-              unactiveColor: Colors.grey,
               onPressed: () {
                 onTap(2);
               },
             ),
             _CustomNavButton(
-              customWidget: NotificationIcon(
-                notificationNumber: 1.toString(),
-                size: 33,
-                color: tabIndex == 3 ? activeColor : Colors.grey
-              ),
+              iconData: Icons.account_circle_outlined,
               isSelected: tabIndex == 3,
-              activeColor: activeColor,
-              unactiveColor: Colors.grey,
+              size: 35,
               onPressed: () {
                 onTap(3);
               },
@@ -85,16 +83,12 @@ class _CustomNavButton extends StatelessWidget {
   final IconData? iconData;
   final bool isSelected;
   final Widget? customWidget;
-  final Color activeColor;
-  final Color unactiveColor;
   final void Function()? onPressed;
   final double size;
 
   const _CustomNavButton({
     this.iconData,
     required this.isSelected,
-    required this.activeColor,
-    required this.unactiveColor,
     this.size = 32,
     required this.onPressed,
     this.customWidget,
@@ -105,13 +99,18 @@ class _CustomNavButton extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
+        SizedBox(
           child: IconButton(
             icon: (iconData == null)
                 ? customWidget!
                 : Icon(
                     iconData,
-                    color: (isSelected) ? activeColor : unactiveColor,
+                    color: (isSelected)
+                        ? Theme.of(context).colorScheme.onPrimaryContainer
+                        : Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(0.5),
                     size: size,
                   ),
             onPressed: onPressed,
@@ -124,7 +123,7 @@ class _CustomNavButton extends StatelessWidget {
             height: 3,
             width: 40,
             decoration: BoxDecoration(
-              color: activeColor,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               borderRadius: BorderRadius.circular(1.5),
             ),
           ),

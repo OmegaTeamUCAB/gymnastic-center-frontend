@@ -24,16 +24,15 @@ class NotificationIcon extends StatelessWidget {
           color: color,
         ),
         Positioned(
-          right: -3,
-          top: -3,
+          right: -1,
+          top: -1,
           child: Container(
             height: 16,
             width: 16,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               shape: BoxShape.circle,
               border: Border.all(
-                width: 1.2,
                 color: color,
               ),
             ),
@@ -41,7 +40,7 @@ class NotificationIcon extends StatelessWidget {
               child: Text(
                 notificationNumber,
                 style: TextStyle(
-                  color: color,
+                  color: Theme.of(context).colorScheme.tertiaryContainer,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
