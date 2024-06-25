@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/like_or_dislike_comment/like_or_dislike_comment_bloc.dart';
 import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/delete_button.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class CommentTile extends StatefulWidget {
@@ -22,13 +24,13 @@ class CommentTileState extends State<CommentTile> {
   late bool hasLiked;
   late bool hasDisliked;
   late AuthBloc authBloc;
+  late DeleteCommentBloc deleteCommentBloc;
 
   @override
   void initState() {
     super.initState();
     authBloc = GetIt.instance<AuthBloc>();
-    print((authBloc.state as Authenticated).user.id);
-    print('${widget.comment.body} userId: ${widget.comment.userId}');
+    deleteCommentBloc = GetIt.instance<DeleteCommentBloc>();
     likeOrDislikeCommentBloc = GetIt.instance<LikeOrDislikeCommentBloc>();
     hasLiked = widget.comment.userLiked;
     hasDisliked = widget.comment.userDisliked;
@@ -145,63 +147,18 @@ class CommentTileState extends State<CommentTile> {
           ),
           if (widget.comment.userId ==
               (authBloc.state as Authenticated).user.id)
-            IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    builder: (BuildContext context) {
-                      return SizedBox(
-                        height: 120,
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                              child: Text(
-                                'Comment',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            TextButton.icon(
-                              onPressed: () {
-                                // Add your delete logic here
-                              },
-                              icon: Icon(Icons.delete_outline_rounded,
-                                  size: 20,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
-                              label: Text(
-                                'Delete comment',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    });
-              },
-              icon: const Icon(
-                Icons.delete_outline_rounded,
-                size: 20,
-              ),
+            DeleteButton(
+              modalTitle: 'Comment',
+              buttonLabel: 'Delete comment', 
+              deleteCommentBloc: deleteCommentBloc,
+              commentId: widget.comment.id
             )
         ],
       ),
     );
   }
 }
+
 
 class _CountDisplay extends StatelessWidget {
   final int count;
