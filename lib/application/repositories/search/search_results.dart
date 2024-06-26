@@ -1,9 +1,21 @@
-import 'package:gymnastic_center/domain/blog/blog.dart';
-import 'package:gymnastic_center/domain/course/course.dart';
-
 class SearchResults {
-  final List<Course> courses;
-  final List<Blog> blogs;
+  final List<SearchHit> courses;
+  final List<SearchHit> blogs;
 
   const SearchResults({this.courses = const [], this.blogs = const []});
+}
+
+class SearchHit {
+  final String id;
+  final String title;
+  final String image;
+  final String category;
+  final String trainer;
+
+  const SearchHit(
+      {required this.id,
+      required this.title,
+      required this.category,
+      required this.trainer,
+      required this.image});
 }

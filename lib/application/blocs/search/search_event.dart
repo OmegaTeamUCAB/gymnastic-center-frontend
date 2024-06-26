@@ -9,6 +9,10 @@ class QueryStringChanged extends SearchEvent {
   const QueryStringChanged(this.searchTerm);
 }
 
+class FormSubmitted extends SearchEvent {
+  const FormSubmitted();
+}
+
 class FilterSelected extends SearchEvent {
   final dynamic selectedFilter;
   const FilterSelected(this.selectedFilter);

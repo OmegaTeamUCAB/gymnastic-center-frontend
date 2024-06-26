@@ -37,6 +37,10 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       onChanged: (value) {
         searchBloc.add(QueryStringChanged(value));
       },
+      textInputAction: TextInputAction.go,
+      onFieldSubmitted: (value) async {
+        searchBloc.add(const FormSubmitted());
+      },
       decoration: InputDecoration(
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,

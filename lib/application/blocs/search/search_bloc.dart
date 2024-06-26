@@ -10,19 +10,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchUseCase searchUseCase;
   SearchBloc(this.searchUseCase) : super(const SearchState()) {
     on<QueryStringChanged>(_onQueryStringChange);
+    on<FormSubmitted>(_onFormSubmitted);
     on<FilterSelected>(_onFilterSelect);
     on<FilterDeselected>(_onFilterDeselect);
   }
 
   void _onQueryStringChange(
       QueryStringChanged event, Emitter<SearchState> emit) async {
-    emit(state.copyWith(searchTerm: event.searchTerm, isLoading: true));
-
+    emit(state.copyWith(
+        searchTerm: event.searchTerm, isLoading: true, isSubmitted: false));
     if (state.searchTerm.isNotEmpty) {
       final results = await searchUseCase
           .execute(SearchDto(state.searchTerm, state.filters, 1, 10));
-      emit(state.copyWith(results: results.unwrap(), isLoading: false));
+      emit(state.copyWith(
+          results: results.unwrap(), isLoading: false, isSubmitted: false));
     }
+  }
+
+  void _onFormSubmitted(FormSubmitted event, Emitter<SearchState> emit) async {
+    emit(state.copyWith(isSubmitted: true, isLoading: false));
   }
 
   void _onFilterSelect(FilterSelected event, Emitter<SearchState> emit) {
