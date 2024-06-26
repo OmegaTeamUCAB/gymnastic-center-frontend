@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
@@ -42,6 +43,14 @@ class MenuSideNav extends StatelessWidget {
                           ),
                           ProfileAvatar(
                             image: (authBloc.state as Authenticated).user.image,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ProfileScreen()),
+                              );
+                            },
                             fullName:
                                 (authBloc.state as Authenticated).user.fullName,
                             radius: 30,
@@ -50,6 +59,7 @@ class MenuSideNav extends StatelessWidget {
                             width: 15,
                           ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 (authBloc.state as Authenticated).user.fullName,

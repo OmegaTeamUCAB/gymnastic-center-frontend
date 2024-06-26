@@ -3,6 +3,8 @@ import 'package:gymnastic_center/domain/comment/comment.dart';
 class CommentMapper {
   static Comment fromJson(Map<String, dynamic> json) => Comment(
         id: json["id"],
+        userLiked: json["userLiked"],
+        userDisliked: json["userDisliked"],
         body: json["body"],
         user: json["user"],
         date: json["date"],

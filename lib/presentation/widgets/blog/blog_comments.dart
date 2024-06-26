@@ -58,6 +58,7 @@ class _BlogCommentsState extends State<BlogComments> {
                 return Padding(
                     padding: const EdgeInsets.all(15),
                     child: CommentTile(
+                      blogId: widget.blogId,
                       comment: comment,
                     ));
               },

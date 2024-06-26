@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/application/models/search_filter.dart';
+import 'package:gymnastic_center/presentation/widgets/search/search_filter_chip.dart';
 
 final filterChips = [
-  //todo: should come from backend
   const SearchFilter(label: 'Prenatal', value: 'prenatal'),
   const SearchFilter(label: 'For Women', value: 'for_women'),
   const SearchFilter(label: 'Training', value: 'training'),
@@ -21,42 +21,33 @@ class SearchChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchBloc = context.watch<SearchBloc>();
-    return Wrap(
-      children: filterChips.map((filter) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: FilterChip(
-              backgroundColor: Theme.of(context).colorScheme.surfaceTint,
-              selectedColor: Theme.of(context).colorScheme.primary,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              showCheckmark: false,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: searchBloc.state.filters.contains(filter.value)
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.surfaceTint,
-                  ),
-                  borderRadius: BorderRadius.circular(60)),
-              label: Text(
-                filter.label,
+    return SizedBox(
+      height: 40,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: filterChips.length,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 8,
               ),
-              labelStyle: TextStyle(
-                color: searchBloc.state.filters.contains(filter.value)
-                    ? Theme.of(context).colorScheme.onSurface
-                    : Theme.of(context).colorScheme.primary,
+              child: SearchFilterChip(
+                filter: filterChips[index],
+                searchBloc: searchBloc,
               ),
-              selected: searchBloc.state.filters.contains(filter.value),
-              onSelected: (bool selected) {
-                if (selected) {
-                  BlocProvider.of<SearchBloc>(context)
-                      .add(FilterSelected(filter.value));
-                } else {
-                  BlocProvider.of<SearchBloc>(context)
-                      .add(FilterDeselected(filter.value));
-                }
-              }),
-        );
-      }).toList(),
+            );
+          }
+          return Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: SearchFilterChip(
+              filter: filterChips[index],
+              searchBloc: searchBloc,
+            ),
+          );
+        },
+      ),
     );
   }
 }

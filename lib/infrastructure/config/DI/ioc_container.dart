@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/comment/delete_comment.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
@@ -12,7 +14,7 @@ import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_blo
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/trainer_user_follow/trainer_user_follow_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
-import 'package:gymnastic_center/application/blocs/bloc/follow_trainer_bloc.dart';
+import 'package:gymnastic_center/application/blocs/follow_trainer/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
@@ -111,6 +113,7 @@ class IoCContainer {
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
+    final deleteCommentUseCase = DeleteCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
     final likeOrDislikeCommentUseCase =
         LikeOrDislikeCommentUseCase(commentRepository);
@@ -120,6 +123,7 @@ class IoCContainer {
         GetCommentsBloc(getBlogCommentsUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
         CreateCommentBloc(createCommentUseCase));
+    getIt.registerSingleton<DeleteCommentBloc>(DeleteCommentBloc(deleteCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));

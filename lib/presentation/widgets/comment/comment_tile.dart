@@ -1,16 +1,18 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/like_or_dislike_comment/like_or_dislike_comment_bloc.dart';
 import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/delete_button.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class CommentTile extends StatefulWidget {
   final Comment comment;
-  const CommentTile({super.key, required this.comment});
+  final String blogId;
+  const CommentTile({super.key, required this.comment, required this.blogId});
 
   @override
   CommentTileState createState() => CommentTileState();
@@ -20,13 +22,19 @@ class CommentTileState extends State<CommentTile> {
   late LikeOrDislikeCommentBloc likeOrDislikeCommentBloc;
   late int countLikes;
   late int countDislikes;
-  bool hasLiked = false;
-  bool hasDisliked = false;
+  late bool hasLiked;
+  late bool hasDisliked;
+  late AuthBloc authBloc;
+  late DeleteCommentBloc deleteCommentBloc;
 
   @override
   void initState() {
     super.initState();
+    authBloc = GetIt.instance<AuthBloc>();
+    deleteCommentBloc = GetIt.instance<DeleteCommentBloc>();
     likeOrDislikeCommentBloc = GetIt.instance<LikeOrDislikeCommentBloc>();
+    hasLiked = widget.comment.userLiked;
+    hasDisliked = widget.comment.userDisliked;
     countLikes = widget.comment.countLikes;
     countDislikes = widget.comment.countDislikes;
   }
@@ -40,6 +48,7 @@ class CommentTileState extends State<CommentTile> {
         children: [
           ProfileAvatar(
             fullName: widget.comment.user,
+            image: widget.comment.userImage,
             radius: 20,
           ),
           const SizedBox(width: 10),
@@ -70,21 +79,25 @@ class CommentTileState extends State<CommentTile> {
                   },
                   child: Row(
                     children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.thumb_up_off_alt_outlined,
+                      GestureDetector(
+                        child: Icon(
+                          hasLiked
+                              ? Icons.thumb_up_alt_rounded
+                              : Icons.thumb_up_off_alt_outlined,
                           size: 20,
                         ),
-                        onPressed: () {
+                        onTap: () {
                           setState(() {
-                            if (hasDisliked) {
-                              countDislikes -= 1;
-                              hasDisliked = false;
+                            if (hasLiked) {
+                              countLikes--;
+                            } else {
+                              countLikes++;
+                              if (hasDisliked) {
+                                hasDisliked = false;
+                                countDislikes--;
+                              }
                             }
-                            if (!hasLiked) {
-                              countLikes += 1;
-                              hasLiked = true;
-                            }
+                            hasLiked = !hasLiked;
                           });
                           likeOrDislikeCommentBloc.add(
                             LikeOrDislikeCommentRequested(
@@ -97,21 +110,25 @@ class CommentTileState extends State<CommentTile> {
                       const SizedBox(width: 10),
                       _CountDisplay(count: countLikes),
                       const SizedBox(width: 20),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.thumb_down_off_alt_outlined,
+                      GestureDetector(
+                        child: Icon(
+                          hasDisliked
+                              ? Icons.thumb_down_alt_rounded
+                              : Icons.thumb_down_off_alt_outlined,
                           size: 20,
                         ),
-                        onPressed: () {
+                        onTap: () {
                           setState(() {
-                            if (hasLiked) {
-                              countLikes -= 1;
-                              hasLiked = false;
+                            if (hasDisliked) {
+                              countDislikes--;
+                            } else {
+                              countDislikes++;
+                              if (hasLiked) {
+                                hasLiked = false;
+                                countLikes--;
+                              }
                             }
-                            if (!hasDisliked) {
-                              countDislikes += 1;
-                              hasDisliked = true;
-                            }
+                            hasDisliked = !hasDisliked;
                           });
                           likeOrDislikeCommentBloc.add(
                             LikeOrDislikeCommentRequested(
@@ -129,61 +146,20 @@ class CommentTileState extends State<CommentTile> {
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      height: 120,
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                            child: Text(
-                              'Comment',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              // Add your delete logic here
-                            },
-                            icon: Icon(Icons.delete_outline_rounded,
-                                size: 20,
-                                color: Theme.of(context).colorScheme.onPrimary),
-                            label: Text(
-                              'Delete comment',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  });
-            },
-            icon: const Icon(
-              Icons.delete_outline_rounded,
-              size: 20,
-            ),
-          )
+          if (widget.comment.userId ==
+              (authBloc.state as Authenticated).user.id)
+            DeleteButton(
+              blogId: widget.blogId,
+              modalTitle: 'Comment',
+              buttonLabel: 'Delete comment', 
+              commentId: widget.comment.id
+            )
         ],
       ),
     );
   }
 }
+
 
 class _CountDisplay extends StatelessWidget {
   final int count;
