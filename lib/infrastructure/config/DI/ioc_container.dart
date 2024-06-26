@@ -10,6 +10,7 @@ import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_cou
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/trainer_user_follow/trainer_user_follow_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
 import 'package:gymnastic_center/application/blocs/bloc/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
@@ -51,6 +52,7 @@ import 'package:gymnastic_center/infrastructure/config/constants/environment.dar
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/local/secure_storage.dart';
 import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
+import 'package:gymnastic_center/application/use_cases/user/trainer_user_follow.use_case.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
@@ -75,7 +77,8 @@ class IoCContainer {
     final secureStorage = SecureStorage();
     getIt.registerSingleton<SecureStorage>(secureStorage);
     final String? onBoardingValue = await secureStorage.getValue('onboarding');
-    final bool hasCompletedOnBoarding =  (onBoardingValue == null) ? false : true;
+    final bool hasCompletedOnBoarding =
+        (onBoardingValue == null) ? false : true;
     getIt.registerSingleton<bool>(hasCompletedOnBoarding);
     //REPOSITORIES
     final authRepository = AuthRepository(httpConnectionManager, secureStorage);
@@ -104,6 +107,7 @@ class IoCContainer {
         GetCourseByIdUseCase(courseRepository));
     final getTrainerByIdUseCase = GetTrainerByIdUseCase(trainerRepository);
     final updateUserUseCase = UpdateUserUseCase(userRepository);
+    final trainerUserFollowUseCase = TrainerUserFollowUseCase(userRepository);
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
@@ -153,6 +157,8 @@ class IoCContainer {
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
     getIt.registerSingleton<CourseBloc>(CourseBloc(courseRepository));
     getIt.registerSingleton<UpdateUserBloc>(UpdateUserBloc(updateUserUseCase));
+    getIt.registerSingleton<TrainerUserFollowBloc>(
+        TrainerUserFollowBloc(trainerUserFollowUseCase));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
     getIt.registerSingleton<SelectDataSourceBloc>(selectDataSourceBloc);
