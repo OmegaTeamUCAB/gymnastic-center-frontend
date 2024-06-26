@@ -11,7 +11,8 @@ import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dar
 
 class CommentTile extends StatefulWidget {
   final Comment comment;
-  const CommentTile({super.key, required this.comment});
+  final String blogId;
+  const CommentTile({super.key, required this.comment, required this.blogId});
 
   @override
   CommentTileState createState() => CommentTileState();
@@ -148,9 +149,9 @@ class CommentTileState extends State<CommentTile> {
           if (widget.comment.userId ==
               (authBloc.state as Authenticated).user.id)
             DeleteButton(
+              blogId: widget.blogId,
               modalTitle: 'Comment',
               buttonLabel: 'Delete comment', 
-              deleteCommentBloc: deleteCommentBloc,
               commentId: widget.comment.id
             )
         ],
