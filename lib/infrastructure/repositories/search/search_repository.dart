@@ -12,7 +12,7 @@ class SearchRepository implements ISearchRepository {
   @override
   Future<Result<SearchResults>> search(SearchDto dto) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'search/all?term=${dto.searchTerm}',
+      urlPath: 'search/all?term=${dto.searchTerm}&tags=${dto.tags.join(',')}',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<SearchHit> blogs = [];
