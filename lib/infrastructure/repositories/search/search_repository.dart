@@ -42,17 +42,14 @@ class SearchRepository implements ISearchRepository {
   }
 
   @override
-  Future<Result<dynamic>> getSearchTags() async {
+  Future<Result<List<String>>> getSearchTags() async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: 'search/popular/tags',
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        List<dynamic> searchTags = [];
-        for (var tag in searchTags) {
-          //TODO: FIX
-          // searchTags.add(SearchTags(
-          //   tag
-          // ));
+        List<String> searchTags = [];
+        for (var tag in data) {
+          searchTags.add(tag);
         }
         return searchTags;
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
