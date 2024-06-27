@@ -15,7 +15,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<FilterDeselected>(_onFilterDeselect);
   }
 
-  void _onQueryStringChange(
+  Future _onQueryStringChange(
       QueryStringChanged event, Emitter<SearchState> emit) async {
     emit(state.copyWith(
         searchTerm: event.searchTerm, isLoading: true, isSubmitted: false));
@@ -31,15 +31,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(state.copyWith(isSubmitted: true, isLoading: false));
   }
 
-  void _onFilterSelect(FilterSelected event, Emitter<SearchState> emit) {
+  void _onFilterSelect(FilterSelected event, Emitter<SearchState> emit) async {
     List<String> updatedFilters = List.from(state.filters);
     updatedFilters.add(event.selectedFilter);
     emit(state.copyWith(filters: updatedFilters));
+    await _onQueryStringChange(QueryStringChanged(state.searchTerm), emit);
   }
 
-  void _onFilterDeselect(FilterDeselected event, Emitter<SearchState> emit) {
+  void _onFilterDeselect(
+      FilterDeselected event, Emitter<SearchState> emit) async {
     List<String> updatedFilters = List.from(state.filters);
     updatedFilters.remove(event.deselectedFilter);
     emit(state.copyWith(filters: updatedFilters));
+    await _onQueryStringChange(QueryStringChanged(state.searchTerm), emit);
   }
 }

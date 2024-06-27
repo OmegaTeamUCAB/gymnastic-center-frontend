@@ -11,8 +11,14 @@ class SearchRepository implements ISearchRepository {
 
   @override
   Future<Result<SearchResults>> search(SearchDto dto) async {
+    print('TRIGGERED SEARCH');
+    String urlPath = 'search/all?term=${dto.searchTerm}&perPage=10';
+
+    if (dto.tags.isNotEmpty) {
+      urlPath += '&tag=${dto.tags.join(',')}';
+    }
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'search/all?term=${dto.searchTerm}&tags=${dto.tags.join(',')}',
+      urlPath: urlPath,
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<SearchHit> blogs = [];
