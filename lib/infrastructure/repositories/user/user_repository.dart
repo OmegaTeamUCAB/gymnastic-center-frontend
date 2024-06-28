@@ -23,4 +23,20 @@ class UserRepository extends IUserRepository {
         });
     return result;
   }
+
+  @override
+  Future<Result<int>> trainerUserFollow() async {
+    final result = await _httpConnectionManager.makeRequest(
+        urlPath: '/trainer/user/follow',
+        httpMethod: 'GET',
+        mapperCallBack: (data) {
+          final count = data['count'] as int;
+          return count;
+        });
+    if (result.isSuccessful) {
+      return Result.success(result.unwrap());
+    } else {
+      return Result.failure(result.error);
+    }
+  }
 }

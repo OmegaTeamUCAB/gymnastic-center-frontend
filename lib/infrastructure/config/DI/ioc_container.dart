@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
+import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/comment/delete_comment.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs/all_blogs_bloc.dart';
@@ -12,6 +14,7 @@ import 'package:gymnastic_center/application/blocs/all_course_by_trainer/all_cou
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
+import 'package:gymnastic_center/application/blocs/trainer_user_follow/trainer_user_follow_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_comments/get_comments_bloc.dart';
 import 'package:gymnastic_center/application/blocs/follow_trainer/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
@@ -53,6 +56,7 @@ import 'package:gymnastic_center/infrastructure/config/constants/environment.dar
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager_impl.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/local/secure_storage.dart';
 import 'package:gymnastic_center/infrastructure/repositories/auth/auth_repository.dart';
+import 'package:gymnastic_center/application/use_cases/user/trainer_user_follow.use_case.dart';
 import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
@@ -107,10 +111,12 @@ class IoCContainer {
         GetCourseByIdUseCase(courseRepository));
     final getTrainerByIdUseCase = GetTrainerByIdUseCase(trainerRepository);
     final updateUserUseCase = UpdateUserUseCase(userRepository);
+    final trainerUserFollowUseCase = TrainerUserFollowUseCase(userRepository);
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
     final getSearchTagsUseCase = GetSearchTagsUseCase(searchRepository);
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
+    final deleteCommentUseCase = DeleteCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
     final likeOrDislikeCommentUseCase =
         LikeOrDislikeCommentUseCase(commentRepository);
@@ -120,6 +126,8 @@ class IoCContainer {
         GetCommentsBloc(getBlogCommentsUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
         CreateCommentBloc(createCommentUseCase));
+    getIt.registerSingleton<DeleteCommentBloc>(
+        DeleteCommentBloc(deleteCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
@@ -159,6 +167,8 @@ class IoCContainer {
     getIt.registerSingleton<ThemeBloc>(ThemeBloc());
     getIt.registerSingleton<CourseBloc>(CourseBloc(courseRepository));
     getIt.registerSingleton<UpdateUserBloc>(UpdateUserBloc(updateUserUseCase));
+    getIt.registerSingleton<TrainerUserFollowBloc>(
+        TrainerUserFollowBloc(trainerUserFollowUseCase));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
     getIt.registerSingleton<SelectDataSourceBloc>(selectDataSourceBloc);
