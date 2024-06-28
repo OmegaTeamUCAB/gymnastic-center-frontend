@@ -7,21 +7,28 @@ part 'search_tags_state.dart';
 
 class GetSearchTagsBloc extends Bloc<GetSearchTagsEvent, GetSearchTagsState> {
   final GetSearchTagsUseCase getSearchTagsUseCase;
+  final List<String> _cachedSearchTags = [];
+
   GetSearchTagsBloc(this.getSearchTagsUseCase) : super(SearchTagsLoading()) {
-    on<SearchTagsRequested>(_getSearchTags);
+    on<SearchTagsRequested>(_getGetSearchTags);
   }
 
-  Future<void> _getSearchTags(
+  Future<void> _getGetSearchTags(
       SearchTagsRequested event, Emitter<GetSearchTagsState> emit) async {
-    emit(SearchTagsLoading());
-    final result = await getSearchTagsUseCase.execute(SearchTagsDto());
-    if (result.isSuccessful) {
-      emit(GetSearchTagsSuccess(searchTags: result.unwrap()));
+    if (_cachedSearchTags.isNotEmpty) {
+      emit(GetSearchTagsSuccess(searchTags: _cachedSearchTags));
     } else {
-      try {
-        throw result.unwrap();
-      } catch (e) {
-        emit(GetSearchTagsFailed(message: e.toString()));
+      emit(SearchTagsLoading());
+      final result = await getSearchTagsUseCase.execute(SearchTagsDto());
+      if (result.isSuccessful) {
+        _cachedSearchTags.addAll(result.unwrap());
+        emit(GetSearchTagsSuccess(searchTags: _cachedSearchTags));
+      } else {
+        try {
+          throw result.unwrap();
+        } catch (e) {
+          emit(GetSearchTagsFailed(message: e.toString()));
+        }
       }
     }
   }

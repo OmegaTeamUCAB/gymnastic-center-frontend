@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/comment/delete_comment.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
@@ -112,6 +114,7 @@ class IoCContainer {
     final trainerUserFollowUseCase = TrainerUserFollowUseCase(userRepository);
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
+    final getSearchTagsUseCase = GetSearchTagsUseCase(searchRepository);
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
     final deleteCommentUseCase = DeleteCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
@@ -123,7 +126,8 @@ class IoCContainer {
         GetCommentsBloc(getBlogCommentsUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
         CreateCommentBloc(createCommentUseCase));
-    getIt.registerSingleton<DeleteCommentBloc>(DeleteCommentBloc(deleteCommentUseCase));
+    getIt.registerSingleton<DeleteCommentBloc>(
+        DeleteCommentBloc(deleteCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
@@ -131,6 +135,8 @@ class IoCContainer {
         AllCourseByTrainerBloc(getCoursesUseCase));
     getIt.registerSingleton<AllBlogsByTrainerBloc>(
         AllBlogsByTrainerBloc(getBlogsUseCase));
+    getIt.registerSingleton<GetSearchTagsBloc>(
+        GetSearchTagsBloc(getSearchTagsUseCase));
     getIt
         .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(
