@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/application/repositories/search/search_results.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
@@ -62,6 +63,10 @@ class SearchResultsList extends StatelessWidget {
                         category: courses[index].category,
                         isFirst: index == 0,
                         onTap: () {
+                          final courseBloc =
+                              BlocProvider.of<CourseBloc>(context);
+                          courseBloc
+                              .add(CourseClicked(courseId: courses[index].id));
                           Navigator.push(
                             context,
                             MaterialPageRoute(
