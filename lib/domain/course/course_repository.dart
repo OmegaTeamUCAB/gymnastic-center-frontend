@@ -3,10 +3,12 @@ import 'package:gymnastic_center/domain/course/course.dart';
 
 class GetCoursesDto {
   final int page;
+  final String? filter;
   final String? categoryId;
   final String? trainerId;
   final String? userId;
   GetCoursesDto({
+    this.filter,
     this.categoryId,
     required this.page,
     this.trainerId,
