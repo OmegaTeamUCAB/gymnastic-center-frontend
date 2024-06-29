@@ -51,9 +51,9 @@ class CourseInfo extends StatelessWidget {
                       },
                       child: Text(
                         course.trainer['name'],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: Color.fromARGB(255, 114, 45, 211)),
                         textAlign: TextAlign.center,
                       ),
                     ),
