@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
@@ -131,6 +132,7 @@ class IoCContainer {
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
+    getIt.registerSingleton<FeatureCoursesBloc>(FeatureCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCourseByTrainerBloc>(
         AllCourseByTrainerBloc(getCoursesUseCase));
     getIt.registerSingleton<AllBlogsByTrainerBloc>(
