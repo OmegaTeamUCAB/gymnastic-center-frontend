@@ -56,7 +56,7 @@ class _CourseViewState extends State<_CourseView> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset >= 500) {
+    if (_scrollController.offset >= 440) {
       setState(() {
         _showFab = true;
       });
