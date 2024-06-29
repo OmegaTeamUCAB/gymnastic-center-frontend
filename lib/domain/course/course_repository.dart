@@ -17,4 +17,5 @@ class GetCoursesDto {
 abstract class ICourseRepository {
   Future<Result<Course>> getCourseById(String id);
   Future<Result<List<Course>>> getCourses(GetCoursesDto dto);
+  Future<Result<void>> courseClicked(String courseId);
 }

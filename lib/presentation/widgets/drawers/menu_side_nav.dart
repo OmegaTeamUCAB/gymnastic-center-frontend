@@ -70,6 +70,7 @@ class MenuSideNav extends StatelessWidget {
                               ),
                               Text(
                                 (authBloc.state as Authenticated).user.email,
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(color: Colors.white),
                               )
                             ],

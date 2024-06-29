@@ -10,6 +10,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   CourseBloc(this.courseRepository) : super(CourseState()) {
     on<AddCourses>(_addCourses);
     on<AddToPopularCourses>(_addToPopularCourses);
+    on<CourseClicked>(_clickCourse);
     on<GetCourseById>(_getCourseById);
   }
 
@@ -19,6 +20,10 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
   _addCourses(AddCourses event, Emitter<CourseState> emit) {
     emit(state.copyWith(isLoading: false, currentCourses: event.courses));
+  }
+
+  _clickCourse(CourseClicked event, Emitter<CourseState> emit) async {
+    await courseRepository.courseClicked(event.courseId);
   }
 
   _getCourseById(GetCourseById event, Emitter<CourseState> emit) async {
