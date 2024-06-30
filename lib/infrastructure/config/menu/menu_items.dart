@@ -34,22 +34,10 @@ final appMenuItems = <MenuItem>[
             builder: (context) => const NotificationSettingsScreen())),
   ),
   MenuItem(
-    title: 'Privacy',
-    icon: GymnasticCenter.lock,
-    redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PrivacySettingsScreen())),
-  ),
-  MenuItem(
     title: 'FAQ',
     icon: GymnasticCenter.question,
     redirect: (context) => Navigator.push(
         context, MaterialPageRoute(builder: (context) => const FAQScreen())),
-  ),
-  MenuItem(
-    title: 'Statistics',
-    icon: GymnasticCenter.statistics,
-    redirect: (context) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const StatisticsScreen())),
   ),
   MenuItem(
     title: 'Language',
@@ -58,12 +46,6 @@ final appMenuItems = <MenuItem>[
         context,
         MaterialPageRoute(
             builder: (context) => const LanguageSettingsScreen())),
-  ),
-  MenuItem(
-    title: 'Rate Us',
-    icon: GymnasticCenter.rate,
-    redirect: (context) => Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const RateUsScreen())),
   ),
   MenuItem(
     title: 'About',
