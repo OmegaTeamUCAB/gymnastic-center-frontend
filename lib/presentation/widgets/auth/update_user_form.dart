@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateUserForm extends StatefulWidget {
   const UpdateUserForm({super.key});
@@ -147,10 +148,10 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 const SizedBox(height: 50),
 
                 // Profile Name
-                const _CustomAlign(title: 'Name'),
+                _CustomAlign(title: AppLocalizations.of(context)!.name),
                 CustomTextInput(
                   initialValue: name,
-                  hintText: 'Full Name',
+                  hintText: AppLocalizations.of(context)!.name,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Required Field';
                     if (value.trim().isEmpty) return 'Required Field';
@@ -169,10 +170,10 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 const SizedBox(height: 25),
 
                 // Profile Phone
-                const _CustomAlign(title: 'Phone'),
+                _CustomAlign(title: AppLocalizations.of(context)!.phone),
                 CustomTextInput(
                   initialValue: phone,
-                  hintText: 'Phone',
+                  hintText: AppLocalizations.of(context)!.phone,
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Required Field';
@@ -223,7 +224,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                                   image: base64Image));
                             }
                           },
-                          text: 'Save',
+                          text: AppLocalizations.of(context)!.save,
                         ),
                       ),
               ],

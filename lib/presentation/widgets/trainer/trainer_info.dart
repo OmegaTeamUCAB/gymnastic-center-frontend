@@ -13,6 +13,7 @@ import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.d
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 import 'package:gymnastic_center/presentation/widgets/trainer/course_by_trainer_carousel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrainerInfo extends StatefulWidget {
   final Trainer trainer;
@@ -95,7 +96,7 @@ class _TrainerInfoState extends State<TrainerInfo> {
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      ' ${followers == 1 ? 'follower' : 'followers'}',
+                      ' ${followers == 1 ? AppLocalizations.of(context)!.follower : AppLocalizations.of(context)!.followers}',
                       style: const TextStyle(fontSize: 18),
                     )
                   ],
@@ -139,7 +140,9 @@ class _TrainerInfoState extends State<TrainerInfo> {
                               .add(FollowRequested(id: widget.trainer.id!));
                         },
                         isSecondVariant: followStatus,
-                        text: followStatus ? 'following' : 'follow',
+                        text: followStatus
+                            ? AppLocalizations.of(context)!.following
+                            : AppLocalizations.of(context)!.follow,
                       )),
                 ),
                 const SizedBox(
