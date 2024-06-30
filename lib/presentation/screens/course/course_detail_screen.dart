@@ -71,146 +71,137 @@ class _CourseViewState extends State<_CourseView> {
   @override
   Widget build(BuildContext context) {
     final lessonBloc = GetIt.instance<LessonBloc>();
-    return Localizations.override(
-      context: context,
-      locale: const Locale('es', ''),
-      child: Builder(builder: (context) {
-        return BlocBuilder<CourseDetailBloc, CourseDetailState>(
-          builder: (context, state) {
-            if (state is CourseLoading) {
-              return const Scaffold(
-                  body: Center(
-                      child: CircularProgressIndicator(
-                strokeWidth: 2,
-              )));
-            }
-            if (state is CourseError) {
-              return Center(
-                child: Text(state.message),
-              );
-            }
 
-            if (state is CourseFetched) {
-              final course = state.course;
-              lessonBloc.add(LoadCourseImage(course: course.imageUrl));
-              lessonBloc.add((LoadLessons(lessons: course.lessons!)));
+    return BlocBuilder<CourseDetailBloc, CourseDetailState>(
+      builder: (context, state) {
+        if (state is CourseLoading) {
+          return const Scaffold(
+              body: Center(
+                  child: CircularProgressIndicator(
+            strokeWidth: 2,
+          )));
+        }
+        if (state is CourseError) {
+          return Center(
+            child: Text(state.message),
+          );
+        }
 
-              return BlocProvider.value(
-                  value: lessonBloc,
-                  child: BlocBuilder<LessonBloc, LessonState>(
-                    builder: (context, state) {
-                      if (state is LessonLoading) {
-                        return const Scaffold(
-                            body: Center(
-                                child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        )));
-                      }
+        if (state is CourseFetched) {
+          final course = state.course;
+          lessonBloc.add(LoadCourseImage(course: course.imageUrl));
+          lessonBloc.add((LoadLessons(lessons: course.lessons!)));
 
-                      if (state is LessonError) {
-                        return Center(
-                          child: Text(state.message),
-                        );
-                      }
+          return BlocProvider.value(
+              value: lessonBloc,
+              child: BlocBuilder<LessonBloc, LessonState>(
+                builder: (context, state) {
+                  if (state is LessonLoading) {
+                    return const Scaffold(
+                        body: Center(
+                            child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    )));
+                  }
 
-                      if (state is LessonLoaded) {
-                        return Scaffold(
-                          body: Stack(
-                            children: [
-                              Image.network(
-                                course.imageUrl,
-                                height: 400,
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress != null) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  } else {
-                                    return child;
-                                  }
-                                },
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                              CourseInfo(
-                                course: course,
-                                scrollController: _scrollController,
-                              ),
-                              AnimatedPositioned(
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeOut,
-                                  left: 0,
-                                  right: 0,
-                                  top: _showFab ? 0 : -140,
-                                  child: Container(
-                                    height: 110,
-                                    width: double.infinity,
-                                    color: const Color(0xFF4F14A0),
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 10),
-                                        child: Text(
-                                          course.name,
-                                          style: const TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                              Positioned(
-                                  top: 60,
-                                  left: 10,
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF4F14A0),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const BackButton(
-                                      color: Colors.white,
-                                    ),
-                                  )),
-                              AnimatedPositioned(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeOut,
-                                left: 10,
-                                right: 10,
-                                bottom: _showFab ? 30 : -100,
-                                child: BrandButton(
-                                  text:
-                                      AppLocalizations.of(context)!.startCourse,
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LessonScreen(
-                                                lessonId:
-                                                    course.lessons!.first.id,
-                                              )),
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
+                  if (state is LessonError) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  }
+
+                  if (state is LessonLoaded) {
+                    return Scaffold(
+                      body: Stack(
+                        children: [
+                          Image.network(
+                            course.imageUrl,
+                            height: 400,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress != null) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                return child;
+                              }
+                            },
+                            width: double.infinity,
+                            fit: BoxFit.cover,
                           ),
-                        );
-                      } else {
-                        return const Center(
-                          child: Text('Error'),
-                        );
-                      }
-                    },
-                  ));
-            } else {
-              return const Center(child: Text('Error'));
-            }
-          },
-        );
-      }),
+                          CourseInfo(
+                            course: course,
+                            scrollController: _scrollController,
+                          ),
+                          AnimatedPositioned(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeOut,
+                              left: 0,
+                              right: 0,
+                              top: _showFab ? 0 : -140,
+                              child: Container(
+                                height: 110,
+                                width: double.infinity,
+                                color: const Color(0xFF4F14A0),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      course.name,
+                                      style: const TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              )),
+                          Positioned(
+                              top: 60,
+                              left: 10,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF4F14A0),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const BackButton(
+                                  color: Colors.white,
+                                ),
+                              )),
+                          AnimatedPositioned(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut,
+                            left: 10,
+                            right: 10,
+                            bottom: _showFab ? 30 : -100,
+                            child: BrandButton(
+                              text: AppLocalizations.of(context)!.startCourse,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LessonScreen(
+                                            lessonId: course.lessons!.first.id,
+                                          )),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                },
+              ));
+        } else {
+          return const Center(child: Text('Error'));
+        }
+      },
     );
   }
 }

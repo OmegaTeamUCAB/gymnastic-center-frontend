@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnastic_center/main.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,6 +10,30 @@ class LanguageSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Column(
+        children: [
+          ListTile(
+            title: Text(
+              'Español',
+              style: TextStyle(
+                  fontSize: 20, color: Theme.of(context).colorScheme.primary),
+            ),
+            onTap: () {
+              MainApp.setLocale(context, const Locale('es', ''));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'English',
+              style: TextStyle(
+                  fontSize: 20, color: Theme.of(context).colorScheme.primary),
+            ),
+            onTap: () {
+              MainApp.setLocale(context, const Locale('en', ''));
+            },
+          ),
+        ],
+      ),
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 100),
           child: CustomAppBar(
