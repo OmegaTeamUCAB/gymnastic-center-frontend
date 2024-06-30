@@ -2,6 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
+import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_popular_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/comment/delete_comment.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -102,6 +104,7 @@ class IoCContainer {
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
     final getBlogsUseCase = GetBlogsUseCase(blogRepository);
+    final getPopularBlogsUseCase = GetPopularBlogsUseCase(blogRepository);
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
@@ -123,9 +126,12 @@ class IoCContainer {
         GetCommentsBloc(getBlogCommentsUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
         CreateCommentBloc(createCommentUseCase));
-    getIt.registerSingleton<DeleteCommentBloc>(DeleteCommentBloc(deleteCommentUseCase));
+    getIt.registerSingleton<DeleteCommentBloc>(
+        DeleteCommentBloc(deleteCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
+    getIt.registerSingleton<PopularBlogsBloc>(
+        PopularBlogsBloc(getPopularBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCourseByTrainerBloc>(
         AllCourseByTrainerBloc(getCoursesUseCase));

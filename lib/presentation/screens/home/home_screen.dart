@@ -7,6 +7,7 @@ import 'package:gymnastic_center/presentation/widgets/common/content_header.dart
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/home/popular_blog_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -59,7 +60,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const HomeBlogCarousel(),
+          const PopularBlogCarousel(),
           const SizedBox(
             height: 60,
           )
