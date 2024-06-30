@@ -25,5 +25,9 @@
   "startCourse": "Empezar curso",
   "comments": "Comentarios",
   "deleteComment": "Borrar comentario",
-  "faq": "Preguntas Frecuentes"
+  "faq": "Preguntas Frecuentes",
+  "login": "Iniciar sesión",
+  "signUp": "Crear cuenta",
+  "password": "Contraseña",
+  "email": "Correo electrónico"
 }

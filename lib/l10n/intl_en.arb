@@ -25,5 +25,9 @@
   "startCourse": "Start Course",
   "comments": "Comments",
   "deleteComment": "Delete Comment",
-  "faq": "FAQ"
+  "faq": "FAQ",
+  "login": "Login",
+  "signUp": "Sign up",
+  "password": "Password",
+  "email": "Email"
 }

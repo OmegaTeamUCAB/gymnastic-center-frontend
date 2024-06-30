@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
-import 'package:gymnastic_center/application/blocs/select_data_source/select_data_source_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
 import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/settings/data_source_select.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthOptionsScreen extends StatelessWidget {
   const AuthOptionsScreen({super.key});
@@ -54,7 +54,7 @@ class AuthOptionsScreen extends StatelessWidget {
                       : [
                           Expanded(
                             child: BrandButton(
-                                text: 'Login',
+                                text: AppLocalizations.of(context)!.login,
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -98,7 +98,7 @@ class AuthOptionsScreen extends StatelessWidget {
                                     );
                                   },
                                   child: Text(
-                                    'Sign up',
+                                    AppLocalizations.of(context)!.signUp,
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Theme.of(context)
