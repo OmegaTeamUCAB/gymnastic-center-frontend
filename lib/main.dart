@@ -55,29 +55,21 @@ class App extends StatelessWidget {
         ? context.watch<ThemeBloc>().add(ToggleToDark())
         : context.watch<ThemeBloc>().add(ToggleToLight());
     return MaterialApp(
-      theme: getIt.get<ThemeBloc>().state.themeData,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      title: 'Gymnastic Center',
-      home: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          return Localizations.override(
-              context: context,
-              locale: const Locale('es', ''),
-              child: Builder(
-                builder: (context) {
-                  if (state is AuthLoading) {
-                    return const LoadingScreen();
-                  } else if (state is Authenticated) {
-                    return const MainScreen();
-                  } else {
-                    return const AuthOptionsScreen();
-                  }
-                },
-              ));
-        },
-      ),
-    );
+        theme: getIt.get<ThemeBloc>().state.themeData,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        title: 'Gymnastic Center',
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthLoading) {
+              return const LoadingScreen();
+            } else if (state is Authenticated) {
+              return const MainScreen();
+            } else {
+              return const AuthOptionsScreen();
+            }
+          },
+        ));
   }
 }
