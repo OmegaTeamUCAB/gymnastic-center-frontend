@@ -18,7 +18,7 @@ class LessonList extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.only(bottom: 12),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
+              color: Theme.of(context).colorScheme.surfaceTint,
               borderRadius: BorderRadius.circular(10),
             ),
             child: ListTile(
@@ -31,7 +31,6 @@ class LessonList extends StatelessWidget {
               },
               title: Text(
                 lesson.title,
-                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
               titleTextStyle: TextStyle(
@@ -41,7 +40,6 @@ class LessonList extends StatelessWidget {
               subtitle: Text(
                 lesson.content!,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 2,
               ),
               trailing: const Icon(Icons.info_outline),
             ),

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/follow_trainer/follow_trainer_bloc.dart';
 import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/presentation/screens/trainer_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrainerList extends StatefulWidget {
   final List<Trainer> trainers;
@@ -55,9 +56,9 @@ class _TrainerListState extends State<TrainerList> {
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               trailing: trainer.userFollow!
-                  ? const Text('Following')
+                  ? Text(AppLocalizations.of(context)!.following)
                   : Text(
-                      '${trainer.followers} ${trainer.followers == 1 ? 'follower' : 'followers'}'),
+                      '${trainer.followers} ${trainer.followers == 1 ? AppLocalizations.of(context)!.follower : AppLocalizations.of(context)!.followers}'),
               subtitle: Text(trainer.location!),
               leading: trainer.image != null
                   ? CircleAvatar(

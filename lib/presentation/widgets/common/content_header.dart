@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContentHeader extends StatelessWidget {
   final String title;
@@ -21,9 +22,9 @@ class ContentHeader extends StatelessWidget {
           const Spacer(),
           TextButton(
             onPressed: onPressed,
-            child: const Text(
-              'Show all',
-              style: TextStyle(fontSize: 16),
+            child: Text(
+              AppLocalizations.of(context)!.showAll,
+              style: const TextStyle(fontSize: 16),
             ),
           )
         ],

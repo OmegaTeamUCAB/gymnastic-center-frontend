@@ -8,7 +8,6 @@ import 'package:gymnastic_center/presentation/widgets/common/custom_bottom_navba
 import 'package:gymnastic_center/presentation/widgets/common/custom_lightning_button.dart';
 import 'package:gymnastic_center/presentation/widgets/drawers/menu_side_nav.dart';
 
-// ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
   final int pageIndex;
   const MainScreen({this.pageIndex = 0, super.key});
@@ -30,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
+
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
