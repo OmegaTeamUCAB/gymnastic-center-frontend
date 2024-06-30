@@ -24,5 +24,6 @@
   "save": "Guardar",
   "startCourse": "Empezar curso",
   "comments": "Comentarios",
-  "deleteComment": "Borrar comentario"
+  "deleteComment": "Borrar comentario",
+  "faq": "Preguntas Frecuentes"
 }

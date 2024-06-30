@@ -7,6 +7,7 @@ import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.u
 import 'package:gymnastic_center/presentation/screens/course/lesson_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_info.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseDetailScreen extends StatelessWidget {
   final String courseId;
@@ -174,7 +175,7 @@ class _CourseViewState extends State<_CourseView> {
                             right: 10,
                             bottom: _showFab ? 30 : -100,
                             child: BrandButton(
-                              text: 'Start Course',
+                              text: AppLocalizations.of(context)!.startCourse,
                               onPressed: () {
                                 Navigator.push(
                                   context,

@@ -64,7 +64,7 @@ class App extends StatelessWidget {
         builder: (context, state) {
           return Localizations.override(
               context: context,
-              locale: const Locale('es'),
+              locale: const Locale('es', ''),
               child: Builder(
                 builder: (context) {
                   if (state is AuthLoading) {

@@ -24,5 +24,6 @@
   "save": "Save",
   "startCourse": "Start Course",
   "comments": "Comments",
-  "deleteComment": "Delete Comment"
+  "deleteComment": "Delete Comment",
+  "faq": "FAQ"
 }
