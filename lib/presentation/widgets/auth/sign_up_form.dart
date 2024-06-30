@@ -4,6 +4,7 @@ import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/sign_up/sign_up_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -37,9 +38,9 @@ class _SignUpFormState extends State<SignUpForm> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            "Sign Up",
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.signUp,
+            style: const TextStyle(
                 color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 25),
@@ -70,7 +71,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 borderSide: const BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100),
               ),
-              labelText: 'Full Name',
+              labelText: AppLocalizations.of(context)!.name,
               hintText: 'Enter your name',
             ),
           ),
@@ -114,7 +115,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 borderSide: const BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100),
               ),
-              labelText: 'Email',
+              labelText: AppLocalizations.of(context)!.email,
               hintText: 'email@email.com',
             ),
           ),
@@ -146,7 +147,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 borderSide: const BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100),
               ),
-              labelText: 'Phone',
+              labelText: AppLocalizations.of(context)!.phone,
               hintText: '0412 3333333',
             ),
           ),
@@ -187,50 +188,11 @@ class _SignUpFormState extends State<SignUpForm> {
                 borderSide: const BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100),
               ),
-              labelText: 'Password',
+              labelText: AppLocalizations.of(context)!.password,
               hintText: '8 digits minimum',
             ),
           ),
-          const SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Checkbox(
-                  value: isTermsChecked,
-                  checkColor: Colors.white,
-                  activeColor: Colors.transparent,
-                  side: MaterialStateBorderSide.resolveWith(
-                    (states) =>
-                        const BorderSide(width: 1.0, color: Colors.white),
-                  ),
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      isTermsChecked = newValue;
-                    });
-                  }),
-              const Text(
-                'Yes! Agree with all ',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              TextButton(
-                  onPressed: () {
-                    //todo: redirect to terms&conditions page
-                  },
-                  style: TextButton.styleFrom(
-                    minimumSize: Size.zero,
-                    padding: EdgeInsets.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: const Text(
-                    'Terms & Conditions',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ))
-            ],
-          ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 35),
           authBloc.state is AuthLoading
               ? const CircularProgressIndicator()
               : BrandButton(

@@ -4,6 +4,5 @@ import 'package:gymnastic_center/core/result.dart';
 
 abstract class ISearchRepository {
   Future<Result<SearchResults>> search(SearchDto searchDto);
-  //TODO: add type
-  Future<Result<dynamic>> getSearchTags();
+  Future<Result<List<String>>> getSearchTags();
 }

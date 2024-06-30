@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
@@ -11,6 +13,8 @@ class CourseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        final courseBloc = BlocProvider.of<CourseBloc>(context);
+        courseBloc.add(CourseClicked(courseId: course.id));
         Navigator.push(
           context,
           MaterialPageRoute(

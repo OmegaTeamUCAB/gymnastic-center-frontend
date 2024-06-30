@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({super.key});
@@ -37,13 +38,17 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       onChanged: (value) {
         searchBloc.add(QueryStringChanged(value));
       },
+      textInputAction: TextInputAction.go,
+      onFieldSubmitted: (value) async {
+        searchBloc.add(const FormSubmitted());
+      },
       decoration: InputDecoration(
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,
         hintStyle: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8)),
         suffixIconColor: Theme.of(context).colorScheme.outline,
-        hintText: 'What are you looking for?',
+        hintText: AppLocalizations.of(context)!.searchMessage,
         contentPadding: const EdgeInsets.symmetric(vertical: 6),
         suffixIcon: searchController.text.isNotEmpty
             ? IconButton(

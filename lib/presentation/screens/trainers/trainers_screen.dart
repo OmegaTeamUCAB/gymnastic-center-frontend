@@ -6,6 +6,7 @@ import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/main_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/trainer/trainer_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrainersScreen extends StatefulWidget {
   const TrainersScreen({super.key});
@@ -46,9 +47,10 @@ class _TrainersScreenState extends State<TrainersScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Trainers',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              Text(
+                AppLocalizations.of(context)!.trainers,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               const SizedBox(height: 15),
               BlocProvider<AllTrainersBloc>.value(

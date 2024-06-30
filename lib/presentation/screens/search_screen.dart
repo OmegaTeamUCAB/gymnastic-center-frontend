@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
+import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
@@ -12,8 +16,6 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchBloc = GetIt.instance<SearchBloc>();
-    final courses = searchBloc.state.results.courses;
-    final blogs = searchBloc.state.results.blogs;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -30,7 +32,7 @@ class SearchScreen extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Cancel',
+                    AppLocalizations.of(context)!.cancel,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 16),
@@ -48,7 +50,43 @@ class SearchScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
               const SearchChips(),
-              SearchResultsList(courses: courses, blogs: blogs),
+              Divider(
+                color: Theme.of(context).colorScheme.surfaceTint,
+              ),
+              BlocBuilder<SearchBloc, SearchState>(
+                builder: (context, state) {
+                  return BlocListener<SearchBloc, SearchState>(
+                    listener: (context, state) {
+                      if (state.isSubmitted) {
+                        if (state.results.courses.isNotEmpty) {
+                          final courseBloc =
+                              BlocProvider.of<CourseBloc>(context);
+                          courseBloc.add(CourseClicked(
+                              courseId: state.results.courses.first.id));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CourseDetailScreen(
+                                  courseId: state.results.courses.first.id),
+                            ),
+                          );
+                        } else if (state.results.blogs.isNotEmpty) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlogDetailScreen(
+                                  blogId: state.results.blogs.first.id),
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    child: SearchResultsList(
+                        courses: state.results.courses,
+                        blogs: state.results.blogs),
+                  );
+                },
+              ),
             ],
           ),
         ),

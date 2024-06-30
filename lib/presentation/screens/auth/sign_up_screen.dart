@@ -53,9 +53,9 @@ class SignUpScreen extends StatelessWidget {
                     children: [
                       Container(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 30, horizontal: 170),
-                          width: 700.0,
-                          height: 700.0,
+                              vertical: 50, horizontal: 170),
+                          width: 680.0,
+                          height: 680.0,
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage('assets/particles.png'),
@@ -75,7 +75,10 @@ class SignUpScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  (GetIt.instance.get<bool>() == false) ? OnBoardingPageScreen() : const MainScreen()),
+                                                  (GetIt.instance.get<bool>() ==
+                                                          false)
+                                                      ? OnBoardingPageScreen()
+                                                      : const MainScreen()),
                                         );
                                       }
                                       if (state is AuthError) {

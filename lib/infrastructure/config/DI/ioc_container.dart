@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_popular_blogs.use_case.dart';
@@ -115,6 +117,7 @@ class IoCContainer {
     final trainerUserFollowUseCase = TrainerUserFollowUseCase(userRepository);
     final getTrainersUseCase = GetTrainersUseCase(trainerRepository);
     final getBlogCommentsUseCase = GetCommentsUseCase(commentRepository);
+    final getSearchTagsUseCase = GetSearchTagsUseCase(searchRepository);
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
     final deleteCommentUseCase = DeleteCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
@@ -137,6 +140,8 @@ class IoCContainer {
         AllCourseByTrainerBloc(getCoursesUseCase));
     getIt.registerSingleton<AllBlogsByTrainerBloc>(
         AllBlogsByTrainerBloc(getBlogsUseCase));
+    getIt.registerSingleton<GetSearchTagsBloc>(
+        GetSearchTagsBloc(getSearchTagsUseCase));
     getIt
         .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(

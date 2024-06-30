@@ -5,6 +5,7 @@ import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_card.dart';
 import 'package:gymnastic_center/presentation/widgets/course/lesson_list.dart';
 import 'package:gymnastic_center/presentation/screens/course/lesson_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseInfo extends StatelessWidget {
   final Course course;
@@ -51,9 +52,9 @@ class CourseInfo extends StatelessWidget {
                       },
                       child: Text(
                         course.trainer['name'],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: Color.fromARGB(255, 114, 45, 211)),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -84,7 +85,7 @@ class CourseInfo extends StatelessWidget {
                 height: 24,
               ),
               BrandButton(
-                text: 'Start course',
+                text: AppLocalizations.of(context)!.startCourse,
                 onPressed: () {
                   Navigator.push(
                     context,
