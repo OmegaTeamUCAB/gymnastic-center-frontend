@@ -7,6 +7,7 @@ import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dar
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuSideNav extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -83,7 +84,7 @@ class MenuSideNav extends StatelessWidget {
                   itemCount: appMenuItems.length,
                   itemBuilder: (context, i) => ListTile(
                       contentPadding: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-                      title: Text(appMenuItems[i].title,
+                      title: Text(appMenuItems[i].title(context),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 20)),
                       leading: Icon(appMenuItems[i].icon, color: Colors.white),
@@ -97,8 +98,8 @@ class MenuSideNav extends StatelessWidget {
               // Cerrar sesión
               ListTile(
                 contentPadding: const EdgeInsets.only(bottom: 10, left: 15),
-                title: const Text('Logout',
-                    style: TextStyle(
+                title: Text(AppLocalizations.of(context)!.logout,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

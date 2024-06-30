@@ -6,6 +6,7 @@ import 'package:gymnastic_center/presentation/widgets/home/home_blog_carousel.da
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
 
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              'Categories',
+              AppLocalizations.of(context)!.categories,
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
             height: 15,
           ),
           ContentHeader(
-              title: 'Trending Courses',
+              title: AppLocalizations.of(context)!.trendingCourses,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
             height: 25,
           ),
           ContentHeader(
-              title: 'Popular Blogs',
+              title: AppLocalizations.of(context)!.popularBlogs,
               onPressed: () {
                 Navigator.push(
                   context,

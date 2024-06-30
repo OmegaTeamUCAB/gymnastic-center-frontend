@@ -4,13 +4,11 @@ import 'package:gymnastic_center/presentation/screens/settings/about_screen.dart
 import 'package:gymnastic_center/presentation/screens/settings/faq/faq_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/language_settings_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/notification_settings_screen.dart';
-import 'package:gymnastic_center/presentation/screens/settings/privacy_settings_screen.dart';
-import 'package:gymnastic_center/presentation/screens/settings/rate_screen.dart';
-import 'package:gymnastic_center/presentation/screens/settings/statistics_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuItem {
-  final String title;
+  final String Function(BuildContext) title;
   final IconData icon;
   final void Function(BuildContext) redirect;
 
@@ -20,13 +18,13 @@ class MenuItem {
 
 final appMenuItems = <MenuItem>[
   MenuItem(
-    title: 'Account',
+    title: (context) => AppLocalizations.of(context)!.account,
     icon: GymnasticCenter.account,
     redirect: (context) => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const UpdateProfileScreen())),
   ),
   MenuItem(
-    title: 'Notifications',
+    title: (context) => AppLocalizations.of(context)!.notifications,
     icon: Icons.notifications_on,
     redirect: (context) => Navigator.push(
         context,
@@ -34,13 +32,13 @@ final appMenuItems = <MenuItem>[
             builder: (context) => const NotificationSettingsScreen())),
   ),
   MenuItem(
-    title: 'FAQ',
+    title: (context) => AppLocalizations.of(context)!.notifications,
     icon: GymnasticCenter.question,
     redirect: (context) => Navigator.push(
         context, MaterialPageRoute(builder: (context) => const FAQScreen())),
   ),
   MenuItem(
-    title: 'Language',
+    title: (context) => AppLocalizations.of(context)!.language,
     icon: Icons.translate,
     redirect: (context) => Navigator.push(
         context,
@@ -48,7 +46,7 @@ final appMenuItems = <MenuItem>[
             builder: (context) => const LanguageSettingsScreen())),
   ),
   MenuItem(
-    title: 'About',
+    title: (context) => AppLocalizations.of(context)!.about,
     icon: GymnasticCenter.about,
     redirect: (context) => Navigator.push(
         context, MaterialPageRoute(builder: (context) => const AboutScreen())),

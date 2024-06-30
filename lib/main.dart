@@ -10,6 +10,7 @@ import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.d
 import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/screens/loading_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await IoCContainer.init();
@@ -55,17 +56,26 @@ class App extends StatelessWidget {
         : context.watch<ThemeBloc>().add(ToggleToLight());
     return MaterialApp(
       theme: getIt.get<ThemeBloc>().state.themeData,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: 'Gymnastic Center',
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          if (state is AuthLoading) {
-            return const LoadingScreen();
-          } else if (state is Authenticated) {
-            return const MainScreen();
-          } else {
-            return const AuthOptionsScreen();
-          }
+          return Localizations.override(
+              context: context,
+              locale: const Locale('es'),
+              child: Builder(
+                builder: (context) {
+                  if (state is AuthLoading) {
+                    return const LoadingScreen();
+                  } else if (state is Authenticated) {
+                    return const MainScreen();
+                  } else {
+                    return const AuthOptionsScreen();
+                  }
+                },
+              ));
         },
       ),
     );
