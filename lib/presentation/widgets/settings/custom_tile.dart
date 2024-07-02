@@ -43,7 +43,9 @@ class _CustomTileState extends State<CustomTile> {
               (isSelected)
                   ? Icons.keyboard_arrow_down
                   : Icons.keyboard_arrow_right,
-              color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).colorScheme.onPrimary : Colors.grey,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).colorScheme.onPrimary
+                  : Colors.grey,
               size: 30,
             ),
             children: [
@@ -64,7 +66,7 @@ class _CustomTileState extends State<CustomTile> {
             ],
           ),
         ),
-        Divider(
+        const Divider(
           thickness: 1,
           color: Colors.grey,
           indent: 16,

@@ -8,8 +8,7 @@ sealed class GetSearchTagsState extends Equatable {
 final class SearchTagsLoading extends GetSearchTagsState {}
 
 class GetSearchTagsSuccess extends GetSearchTagsState {
-  //TODO: Add search tags type
-  final List<dynamic> searchTags;
+  final List<String> searchTags;
 
   GetSearchTagsSuccess({required this.searchTags});
 
