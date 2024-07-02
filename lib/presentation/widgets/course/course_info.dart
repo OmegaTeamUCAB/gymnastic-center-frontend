@@ -16,7 +16,6 @@ class CourseInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(course.trainer['imageUrl']);
     return SingleChildScrollView(
       controller: scrollController,
       child: Container(

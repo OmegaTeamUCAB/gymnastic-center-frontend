@@ -44,7 +44,6 @@ class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String id = widget.trainer['id'];
     String name = widget.trainer['name'];
     return Scaffold(
         appBar: PreferredSize(

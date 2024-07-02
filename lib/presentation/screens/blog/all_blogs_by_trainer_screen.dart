@@ -43,7 +43,6 @@ class _AllBlogsByTrainerScreenState extends State<AllBlogsByTrainerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String id = widget.trainer['id'];
     String name = widget.trainer['name'];
     return Scaffold(
         appBar: PreferredSize(
