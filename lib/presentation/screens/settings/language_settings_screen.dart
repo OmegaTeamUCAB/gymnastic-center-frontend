@@ -9,6 +9,7 @@ class LanguageSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
     return Scaffold(
       body: Column(
         children: [
@@ -18,6 +19,9 @@ class LanguageSettingsScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 20, color: Theme.of(context).colorScheme.primary),
             ),
+            subtitle: currentLocale.languageCode == 'es'
+                ? const Text('Selected')
+                : null,
             onTap: () {
               MainApp.setLocale(context, const Locale('es', ''));
             },
@@ -28,6 +32,9 @@ class LanguageSettingsScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 20, color: Theme.of(context).colorScheme.primary),
             ),
+            subtitle: currentLocale.languageCode == 'en'
+                ? const Text('Selected')
+                : null,
             onTap: () {
               MainApp.setLocale(context, const Locale('en', ''));
             },

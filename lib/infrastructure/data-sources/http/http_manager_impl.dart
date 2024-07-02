@@ -7,8 +7,7 @@ import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.d
 class HttpManagerImpl extends IHttpManager {
   final Dio _dio;
 
-  HttpManagerImpl()
-      : _dio = Dio();
+  HttpManagerImpl() : _dio = Dio();
 
   @override
   Future<Result<T>> makeRequest<T>(
@@ -20,8 +19,7 @@ class HttpManagerImpl extends IHttpManager {
     try {
       final path = urlPath.substring(0, 1) == '/' ? urlPath : '/$urlPath';
       final url = Environment.getApiUrl() + path;
-      final response = await _dio.request(
-          url,
+      final response = await _dio.request(url,
           data: body,
           options: Options(
             method: httpMethod,
@@ -29,7 +27,7 @@ class HttpManagerImpl extends IHttpManager {
           queryParameters: queryParams);
       return Result.success<T>(mapperCallBack(response.data));
     } on DioException catch (e) {
-      print('DioException: ${e}');
+      print('DioException: $e');
       return Result.failure<T>(const NetworkException());
     } catch (e) {
       print('Exception: $e');

@@ -33,7 +33,7 @@ class CourseDetailScreen extends StatelessWidget {
 class _CourseView extends StatefulWidget {
   final String courseId;
 
-  const _CourseView({super.key, required this.courseId});
+  const _CourseView({required this.courseId});
 
   @override
   State<_CourseView> createState() => _CourseViewState();
