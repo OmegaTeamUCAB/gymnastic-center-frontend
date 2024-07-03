@@ -8,7 +8,6 @@ part 'trainer_user_follow_state.dart';
 class TrainerUserFollowBloc
     extends Bloc<TrainerUserFollowEvent, TrainerUserFollowState> {
   final TrainerUserFollowUseCase _trainerUserFollowUseCase;
-  // late int _count;
 
   TrainerUserFollowBloc(this._trainerUserFollowUseCase)
       : super(TrainerUserFollowLoading()) {

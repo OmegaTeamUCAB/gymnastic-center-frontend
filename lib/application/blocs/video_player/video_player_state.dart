@@ -16,16 +16,16 @@ class VideoPlayerState extends Equatable {
   final PlayerStatus videoStatus;
   final Duration position;
   final String video;
-  VideoPlayerState({
+  const VideoPlayerState({
     this.message = '',
-    this.isPlaying = false, 
-    this.isMuted = false, 
-    this.videoDuration = Duration.zero, 
-    this.currentSpeed = 1, 
+    this.isPlaying = false,
+    this.isMuted = false,
+    this.videoDuration = Duration.zero,
+    this.currentSpeed = 1,
     this.videoStatus = PlayerStatus.loading,
     this.position = Duration.zero,
-    this.video = '', 
-    });
+    this.video = '',
+  });
 
   VideoPlayerState copyWith({
     bool? isPlaying,
@@ -36,20 +36,27 @@ class VideoPlayerState extends Equatable {
     Duration? position,
     String? message,
     String? video,
-  }) => VideoPlayerState(
-      isPlaying: isPlaying ?? this.isPlaying,
-      isMuted: isMuted ?? this.isMuted,
-      videoDuration: videoDuration ?? this.videoDuration,
-      currentSpeed: currentSpeed ?? this.currentSpeed,
-      videoStatus: videoStatus ?? this.videoStatus,
-      position: position ?? this.position,
-      message: message ?? this.message,
-      video: video ?? this.video,
-    );
-    
-      @override
-      // TODO: implement props
-      List<Object> get props => [isPlaying, isMuted, videoDuration, currentSpeed, videoStatus, position, video];
-  
+  }) =>
+      VideoPlayerState(
+        isPlaying: isPlaying ?? this.isPlaying,
+        isMuted: isMuted ?? this.isMuted,
+        videoDuration: videoDuration ?? this.videoDuration,
+        currentSpeed: currentSpeed ?? this.currentSpeed,
+        videoStatus: videoStatus ?? this.videoStatus,
+        position: position ?? this.position,
+        message: message ?? this.message,
+        video: video ?? this.video,
+      );
 
+  @override
+  // TODO: implement props
+  List<Object> get props => [
+        isPlaying,
+        isMuted,
+        videoDuration,
+        currentSpeed,
+        videoStatus,
+        position,
+        video
+      ];
 }

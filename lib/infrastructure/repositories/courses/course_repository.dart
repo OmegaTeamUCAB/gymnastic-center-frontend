@@ -54,5 +54,13 @@ class CourseRepository extends ICourseRepository {
     );
     return response;
   }
-  
+   @override
+  Future<Result<void>> courseClicked(String courseId) async {
+    final response = await _httpConnectionManager.makeRequest(
+      urlPath: '/click/$courseId',
+      httpMethod: 'POST',
+      mapperCallBack: (data) => null,
+    );
+    return response;
+  }
 }

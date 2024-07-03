@@ -4,7 +4,7 @@ class CustomCallToActionButton extends StatelessWidget {
   final String content;
   final Icon icon;
   final void Function()? onTap;
-  
+
   const CustomCallToActionButton({
     super.key,
     required this.onTap,
@@ -12,15 +12,14 @@ class CustomCallToActionButton extends StatelessWidget {
     required this.icon,
   });
 
-
   @override
   Widget build(BuildContext context) {
-      const LinearGradient gradient = LinearGradient(
+    const LinearGradient gradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [Color(0xFF4F14A0), Color(0xFF8066FF)],
     );
-    
+
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
@@ -37,7 +36,7 @@ class CustomCallToActionButton extends StatelessWidget {
         children: [
           Text(
             content,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 16,
             ),

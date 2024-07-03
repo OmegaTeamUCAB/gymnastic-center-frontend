@@ -108,11 +108,10 @@ class _SpeedOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
-            child: Text(
+    return Center(
+        child: Text(
       '$speed',
       style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 14),
-    )));
+    ));
   }
 }

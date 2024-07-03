@@ -8,6 +8,7 @@ import 'package:gymnastic_center/domain/comment/comment.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/comment/delete_button.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommentTile extends StatefulWidget {
   final Comment comment;
@@ -149,17 +150,15 @@ class CommentTileState extends State<CommentTile> {
           if (widget.comment.userId ==
               (authBloc.state as Authenticated).user.id)
             DeleteButton(
-              blogId: widget.blogId,
-              modalTitle: 'Comment',
-              buttonLabel: 'Delete comment', 
-              commentId: widget.comment.id
-            )
+                blogId: widget.blogId,
+                modalTitle: AppLocalizations.of(context)!.comments,
+                buttonLabel: AppLocalizations.of(context)!.deleteComment,
+                commentId: widget.comment.id)
         ],
       ),
     );
   }
 }
-
 
 class _CountDisplay extends StatelessWidget {
   final int count;

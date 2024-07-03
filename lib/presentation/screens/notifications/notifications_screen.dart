@@ -4,6 +4,7 @@ import 'package:gymnastic_center/application/blocs/notifications/notifications_b
 import 'package:gymnastic_center/presentation/widgets/notifications/empty_notifications.dart';
 import 'package:gymnastic_center/presentation/widgets/notifications/notifications_list.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -20,9 +21,9 @@ class NotificationsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 18, right: 18, bottom: 15),
             child: Row(
               children: [
-                const Text(
-                  'Notifications',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.notifications,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -38,9 +39,9 @@ class NotificationsScreen extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                const Text(
-                  'Inbox',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.inbox,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                   ),

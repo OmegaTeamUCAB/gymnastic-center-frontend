@@ -6,6 +6,7 @@ import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_followings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({super.key});
@@ -23,8 +24,8 @@ class ProfileAppBar extends StatelessWidget {
                 const SizedBox(
                   width: 12,
                 ),
-                const Text('Profile',
-                    style: TextStyle(
+                Text(AppLocalizations.of(context)!.profile,
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold)),
@@ -69,27 +70,7 @@ class ProfileAppBar extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             )
                           : const CircularProgressIndicator(),
-                      const Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('1750',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold)),
-                              Text('followers',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal)),
-                            ],
-                          ),
-                          SizedBox(width: 45),
-                          ProfileFollowings()
-                        ],
-                      ),
+                      const ProfileFollowings(),
                       const SizedBox(height: 11),
                       const Row(
                         children: [

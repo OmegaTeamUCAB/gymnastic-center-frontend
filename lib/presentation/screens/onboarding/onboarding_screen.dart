@@ -8,7 +8,7 @@ import 'package:gymnastic_center/presentation/widgets/onboarding/onboarding_page
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingPageScreen extends StatefulWidget {
-  OnBoardingPageScreen({super.key});
+  const OnBoardingPageScreen({super.key});
   @override
   OnBoardingPageScreenState createState() => OnBoardingPageScreenState();
 }
@@ -73,49 +73,53 @@ class OnBoardingPageScreenState extends State<OnBoardingPageScreen> {
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
-        child: (lastPage) ? SizedBox() : Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-                const Divider(
-                  thickness: 0.4,
-                  color: Colors.grey,
+        child: (lastPage)
+            ? const SizedBox()
+            : Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Divider(
+                      thickness: 0.4,
+                      color: Colors.grey,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: skipToPage,
+                          child: Text(
+                            'Skip',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black54
+                                  : Colors.white,
+                            ),
+                          ),
+                        ),
+                        SmoothPageIndicator(
+                          controller: _pageController,
+                          count: onboardingInfo.length,
+                          onDotClicked: (index) =>
+                              _pageController.animateToPage(index,
+                                  duration: const Duration(milliseconds: 800),
+                                  curve: Curves.easeOut),
+                          effect: SwapEffect(
+                            dotHeight: 12,
+                            dotWidth: 12,
+                            dotColor: Theme.of(context).colorScheme.outline,
+                            activeDotColor: Colors.deepPurple,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: skipToPage,
-                    child: Text(
-                      'Skip',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.black54
-                            : Colors.white,
-                      ),
-                    ),
-                  ),
-                  SmoothPageIndicator(
-                    controller: _pageController,
-                    count: onboardingInfo.length,
-                    onDotClicked: (index) => _pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 800),
-                        curve: Curves.easeOut),
-                    effect: SwapEffect(
-                      dotHeight: 12,
-                      dotWidth: 12,
-                      dotColor: Theme.of(context).colorScheme.outline,
-                      activeDotColor: Colors.deepPurple,
-                    ),
-                  )
-                ],
               ),
-            ],
-          ),
-        ),
       ),
     );
   }

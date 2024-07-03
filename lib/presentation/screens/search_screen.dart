@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
+import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
@@ -31,7 +32,7 @@ class SearchScreen extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Cancel',
+                    AppLocalizations.of(context)!.cancel,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 16),
@@ -58,6 +59,10 @@ class SearchScreen extends StatelessWidget {
                     listener: (context, state) {
                       if (state.isSubmitted) {
                         if (state.results.courses.isNotEmpty) {
+                          final courseBloc =
+                              BlocProvider.of<CourseBloc>(context);
+                          courseBloc.add(CourseClicked(
+                              courseId: state.results.courses.first.id));
                           Navigator.push(
                             context,
                             MaterialPageRoute(
