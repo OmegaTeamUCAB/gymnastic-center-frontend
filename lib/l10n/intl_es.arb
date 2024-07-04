@@ -1,5 +1,39 @@
 {
   "categories": "Categorías",
+  "level": "Nivel {level}",
+  "@level": {
+        "description": "Course level",
+        "placeholders": {
+            "level": {
+                "type": "String",
+                "example": "5"
+            }
+        }
+    },
+  "weeks": "{weeksAmount} Semanas",
+  "@weeks": {
+      "description": "Course weeks",
+      "placeholders": {
+          "weeksAmount": {
+              "type": "String",
+              "example": "7"
+          }
+      }
+  },
+  "lessons": "{lessons} Lecciones",
+  "@lessons": {
+      "description": "Course lessons",
+      "placeholders": {
+          "name": {
+              "type": "String",
+              "example": "7"
+          }
+      }
+  },
+  "next": "Siguiente",
+  "prev": "Previo",
+  "allBlogs": "Todos los Blogs",
+  "allCourses": "Todos los Cursos",
   "trendingCourses": "Cursos Populares",
   "popularBlogs": "Blogs Populares",
   "account": "Cuenta",

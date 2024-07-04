@@ -91,11 +91,13 @@ class CourseInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CourseDetailInfoCard(
-                    label: 'Level ${course.level.toString()}',
+                    label: AppLocalizations.of(context)!
+                        .level(course.level.toString()),
                     iconData: Icons.menu,
                   ),
                   CourseDetailInfoCard(
-                    label: '${course.weeks.toString()} Weeks',
+                    label: AppLocalizations.of(context)!
+                        .weeks(course.weeks.toString()),
                     iconData: Icons.calendar_month_sharp,
                   ),
                   CourseDetailInfoCard(
@@ -130,7 +132,9 @@ class CourseInfo extends StatelessWidget {
               const Divider(
                 height: 30,
               ),
-              Text('${course.lessons!.length} Lessons',
+              Text(
+                  AppLocalizations.of(context)!
+                      .lessons(course.lessons!.length.toString()),
                   style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.onPrimary)),

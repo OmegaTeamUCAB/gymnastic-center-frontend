@@ -5,6 +5,7 @@ import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
 
@@ -124,11 +125,11 @@ class _LessonView extends StatelessWidget {
                         children: [
                           BrandButton(
                               isVariant: true,
-                              text: 'Prev',
+                              text: AppLocalizations.of(context)!.prev,
                               width: 110,
                               onPressed: lessonBloc.changeToPreviousLesson),
                           BrandButton(
-                              text: 'Next',
+                              text: AppLocalizations.of(context)!.next,
                               width: 210,
                               onPressed: lessonBloc.changeToNextLesson)
                         ],

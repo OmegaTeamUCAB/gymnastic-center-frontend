@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/course/courses_list.dart';
@@ -37,17 +38,17 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 100),
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, 100),
           child: CustomAppBar(
             content: Padding(
-                padding: EdgeInsets.only(bottom: 15),
+                padding: const EdgeInsets.only(bottom: 15),
                 child: Row(
                   children: [
-                    BrandBackButton(),
+                    const BrandBackButton(),
                     Text(
-                      'All Courses',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.allCourses,
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
