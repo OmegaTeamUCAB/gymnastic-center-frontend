@@ -1,9 +1,10 @@
+import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
+import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
+import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
 
 class PopularBlogCarousel extends StatelessWidget {
   const PopularBlogCarousel({super.key});
@@ -11,7 +12,7 @@ class PopularBlogCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final popularBlogsBloc = GetIt.instance<PopularBlogsBloc>();
-    popularBlogsBloc.add(const PopularBlogsRequested(1));
+    popularBlogsBloc.add(const PopularBlogsRequested(1, BlogSorting.popular));
     return BlocProvider<PopularBlogsBloc>.value(
       value: popularBlogsBloc,
       child: BlocBuilder<PopularBlogsBloc, PopularBlogsState>(

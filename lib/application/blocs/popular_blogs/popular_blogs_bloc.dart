@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_popular_blogs.use_case.dart';
 
 part 'popular_blogs_event.dart';
 part 'popular_blogs_state.dart';
 
 class PopularBlogsBloc extends Bloc<PopularBlogsEvent, PopularBlogsState> {
-  final GetPopularBlogsUseCase getPopularBlogsUseCase;
+  final GetBlogsUseCase getBlogsUseCase;
   final List<Blog> _cachedBlogs = [];
 
-  PopularBlogsBloc(this.getPopularBlogsUseCase) : super(PopularBlogsLoading()) {
+  PopularBlogsBloc(this.getBlogsUseCase) : super(PopularBlogsLoading()) {
     on<PopularBlogsRequested>(_getAllBlogs);
   }
 
@@ -21,8 +21,8 @@ class PopularBlogsBloc extends Bloc<PopularBlogsEvent, PopularBlogsState> {
       emit(PopularBlogsSuccess(blogs: _cachedBlogs));
     } else {
       emit(PopularBlogsLoading());
-      final result =
-          await getPopularBlogsUseCase.execute(GetBlogsDto(page: event.page));
+      final result = await getBlogsUseCase
+          .execute(GetBlogsDto(page: event.page, sorting: event.filter));
       if (result.isSuccessful) {
         _cachedBlogs.addAll(result.unwrap());
         emit(PopularBlogsSuccess(blogs: _cachedBlogs));

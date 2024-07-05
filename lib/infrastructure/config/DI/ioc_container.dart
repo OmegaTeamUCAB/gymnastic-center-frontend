@@ -5,7 +5,6 @@ import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_ta
 import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
-import 'package:gymnastic_center/application/use_cases/blog/get_popular_blogs.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/comment/delete_comment.use_case.dart';
 import 'package:gymnastic_center/firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -106,7 +105,6 @@ class IoCContainer {
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
     final getBlogByIdUseCase = GetBlogByIdUseCase(blogRepository);
     final getBlogsUseCase = GetBlogsUseCase(blogRepository);
-    final getPopularBlogsUseCase = GetPopularBlogsUseCase(blogRepository);
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
@@ -133,8 +131,8 @@ class IoCContainer {
         DeleteCommentBloc(deleteCommentUseCase));
     getIt.registerSingleton<BlogsByCategoryBloc>(
         BlogsByCategoryBloc(getBlogsUseCase: getBlogsUseCase));
-    getIt.registerSingleton<PopularBlogsBloc>(
-        PopularBlogsBloc(getPopularBlogsUseCase));
+    getIt
+        .registerSingleton<PopularBlogsBloc>(PopularBlogsBloc(getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCourseByTrainerBloc>(
         AllCourseByTrainerBloc(getCoursesUseCase));

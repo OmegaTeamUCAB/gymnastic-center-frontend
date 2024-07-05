@@ -6,5 +6,6 @@ sealed class PopularBlogsEvent {
 
 class PopularBlogsRequested extends PopularBlogsEvent {
   final int page;
-  const PopularBlogsRequested(this.page);
+  final BlogSorting filter;
+  const PopularBlogsRequested(this.page, this.filter);
 }
