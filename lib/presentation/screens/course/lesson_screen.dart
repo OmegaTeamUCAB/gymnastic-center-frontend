@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/comments_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -188,6 +189,10 @@ class _LessonView extends StatelessWidget {
                         : Container(),
                   ],
                 ),
+                Positioned(
+                    bottom: 20,
+                    right: 20,
+                    child: CommentsFAB(blogId: lessonId)),
               ],
             ),
           );

@@ -5,18 +5,18 @@ import 'package:gymnastic_center/application/blocs/get_comments/get_comments_blo
 import 'package:gymnastic_center/presentation/widgets/comment/comment_tile.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
-class BlogComments extends StatefulWidget {
+class BlogCommentsList extends StatefulWidget {
   final String blogId;
-  const BlogComments({
+  const BlogCommentsList({
     super.key,
     required this.blogId,
   });
 
   @override
-  State<BlogComments> createState() => _BlogCommentsState();
+  State<BlogCommentsList> createState() => _BlogCommentsListState();
 }
 
-class _BlogCommentsState extends State<BlogComments> {
+class _BlogCommentsListState extends State<BlogCommentsList> {
   late final GetCommentsBloc _commentsBloc;
   @override
   void initState() {

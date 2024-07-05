@@ -6,7 +6,6 @@ sealed class GetCommentsEvent {
 
 class CommentsRequested extends GetCommentsEvent {
   final int page;
-  final String? lessonId;
   final String? blogId;
-  const CommentsRequested({required this.page, this.lessonId, this.blogId});
+  const CommentsRequested({required this.page, this.blogId});
 }

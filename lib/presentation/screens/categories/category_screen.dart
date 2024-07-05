@@ -4,6 +4,7 @@ import 'package:gymnastic_center/presentation/widgets/categories/courses_by_cate
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_chip.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryScreen extends StatefulWidget {
   final String categoryName;
@@ -45,7 +46,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomChip(
-                    label: "Courses",
+                    label: AppLocalizations.of(context)!.courses,
                     isSelected: selectedChip == 'Courses',
                     onTap: (isSelected) {
                       setState(() {

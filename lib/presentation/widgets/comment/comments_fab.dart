@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_modal_sheet.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/comments_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommentsFAB extends StatelessWidget {
@@ -21,9 +21,9 @@ class CommentsFAB extends StatelessWidget {
           ),
           builder: (BuildContext context) {
             return CustomModalSheet(
-              blogId: blogId,
+              blogOrLessonId: blogId,
               title: AppLocalizations.of(context)!.comments,
-              child: BlogComments(blogId: blogId),
+              child: CommentsList(blogId: blogId),
             );
           },
         );
