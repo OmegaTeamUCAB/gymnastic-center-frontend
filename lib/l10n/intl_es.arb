@@ -1,4 +1,7 @@
 {
+  "comments": "Comentarios",
+  "questions": "Preguntas",
+  "selected": "Seleccionado",
   "categories": "Categorías",
   "level": "Nivel {level}",
   "@level": {

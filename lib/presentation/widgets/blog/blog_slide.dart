@@ -56,14 +56,14 @@ class BlogSlide extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          blog.category!,
+                          blog.trainer!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.primary),
                         ),
                         const Spacer(),
                         Text(
-                          format(DateTime.parse(blog.uploadDate!)),
+                          blog.category!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),

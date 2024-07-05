@@ -1,4 +1,7 @@
 {
+  "comments": "Comments",
+  "questions": "Questions",
+  "selected": "Selected",
   "level": "Level {level}",
   "@level": {
         "description": "Course level",
