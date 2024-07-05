@@ -9,7 +9,6 @@ import 'package:gymnastic_center/presentation/widgets/player/video_player_previe
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -80,35 +79,28 @@ class _LessonView extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          Container(
-                            color: Colors.grey[200],
-                            child: const SizedBox(
-                                width: 600,
-                                height: 600,
-                                child: VideoPlayerView()),
+                    Stack(
+                      children: [
+                        Container(
+                          color: Colors.grey[200],
+                          child: const SizedBox(
+                              height: 500, child: VideoPlayerView()),
+                        ),
+                        Positioned(
+                          top: 60,
+                          right: 10,
+                          child: IconButton(
+                            icon: const Icon(Icons.close_rounded,
+                                color: Colors.white, size: 30),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
-                          Positioned(
-                            top: 60,
-                            right: 10,
-                            child: IconButton(
-                              icon: const Icon(Icons.close_rounded,
-                                  color: Colors.white, size: 30),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: VideoProgressBar(),
-                    ),
+                    const SizedBox(height: 20),
+                    const VideoProgressBar(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 16),

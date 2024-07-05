@@ -23,5 +23,3 @@ class Comment {
     required this.userDisliked,
   });
 }
-
-enum TargetType { BLOG, LESSON }
