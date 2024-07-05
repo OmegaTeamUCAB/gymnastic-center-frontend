@@ -64,7 +64,8 @@ class _CommentsListState extends State<CommentsList> {
                 return Padding(
                     padding: const EdgeInsets.all(15),
                     child: CommentTile(
-                      blogOrLessonId: widget.blogId ?? widget.lessonId ?? '',
+                      blogId: widget.blogId,
+                      lessonId: widget.lessonId,
                       comment: comment,
                     ));
               },
