@@ -79,4 +79,5 @@ flutter:
     - assets/location/
     - assets/onboarding/
     - assets/app-launcher/
+    - assets/team/
     - .env

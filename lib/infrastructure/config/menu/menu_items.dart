@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
-import 'package:gymnastic_center/presentation/screens/settings/about_screen.dart';
+import 'package:gymnastic_center/presentation/about/about_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/faq/faq_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/language_settings_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/notification_settings_screen.dart';
