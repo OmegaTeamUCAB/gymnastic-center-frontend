@@ -12,8 +12,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommentTile extends StatefulWidget {
   final Comment comment;
-  final String blogId;
-  const CommentTile({super.key, required this.comment, required this.blogId});
+  final String blogOrLessonId;
+  const CommentTile(
+      {super.key, required this.comment, required this.blogOrLessonId});
 
   @override
   CommentTileState createState() => CommentTileState();
@@ -150,7 +151,7 @@ class CommentTileState extends State<CommentTile> {
           if (widget.comment.userId ==
               (authBloc.state as Authenticated).user.id)
             DeleteButton(
-                blogId: widget.blogId,
+                blogId: widget.blogOrLessonId,
                 modalTitle: AppLocalizations.of(context)!.comments,
                 buttonLabel: AppLocalizations.of(context)!.deleteComment,
                 commentId: widget.comment.id)

@@ -9,6 +9,7 @@ import 'package:gymnastic_center/presentation/widgets/player/video_player_previe
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -192,7 +193,9 @@ class _LessonView extends StatelessWidget {
                 Positioned(
                     bottom: 20,
                     right: 20,
-                    child: CommentsFAB(blogId: lessonId)),
+                    child: CommentsFAB(
+                      lessonId: lessonId,
+                    )),
               ],
             ),
           );

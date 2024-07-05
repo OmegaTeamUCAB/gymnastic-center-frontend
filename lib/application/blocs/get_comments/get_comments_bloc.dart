@@ -16,8 +16,8 @@ class GetCommentsBloc extends Bloc<GetCommentsEvent, GetCommentsState> {
   Future<void> _getComments(
       CommentsRequested event, Emitter<GetCommentsState> emit) async {
     emit(GetCommentsLoading());
-    final result = await getCommentsUseCase
-        .execute(GetCommentsDto(page: event.page, blogId: event.blogId));
+    final result = await getCommentsUseCase.execute(GetCommentsDto(
+        page: event.page, blogId: event.blogId, lessonId: event.lessonId));
     if (result.isSuccessful) {
       final previousComments = state is GetCommentsSuccess
           ? (state as GetCommentsSuccess).comments

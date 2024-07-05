@@ -48,7 +48,9 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                   Positioned(
                       bottom: 20,
                       right: 20,
-                      child: CommentsFAB(blogId: widget.blogId)),
+                      child: CommentsFAB(
+                        blogId: widget.blogId,
+                      )),
                 ],
               );
             } else {
