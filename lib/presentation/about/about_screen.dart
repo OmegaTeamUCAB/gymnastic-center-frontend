@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/about/developer_avatar.dart';
 import 'package:gymnastic_center/presentation/about/team_members.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_footer.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -64,6 +65,10 @@ class AboutScreen extends StatelessWidget {
                         ))
                     .toList(),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              const BrandFooter(),
             ],
           ),
         ),

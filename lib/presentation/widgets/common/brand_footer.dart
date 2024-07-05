@@ -5,6 +5,11 @@ class BrandFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Text(
+      'Designed and developed by Omega Technologies \u00a9',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontSize: 12, color: Theme.of(context).colorScheme.onSecondary),
+    );
   }
 }

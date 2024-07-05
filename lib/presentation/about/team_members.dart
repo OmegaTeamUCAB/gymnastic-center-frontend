@@ -18,7 +18,7 @@ List<TeamMember> teamMembers = [
   TeamMember(
       name: "Sandro Portanova",
       role: "Frontend",
-      imageUrl: "images/charlie.jpg"),
+      imageUrl: "assets/team/andres.png"),
   TeamMember(
       name: "Andrés Arispe",
       role: "Frontend",
@@ -26,13 +26,17 @@ List<TeamMember> teamMembers = [
   TeamMember(
       name: "Renato Torrela",
       role: "Frontend",
-      imageUrl: "assets/team/andres.png"),
+      imageUrl: "assets/team/renato.png"),
   TeamMember(
-      name: "Luis Elian", role: "Backend", imageUrl: "assets/team/andres.png"),
+      name: "Luis Elian", role: "Backend", imageUrl: "assets/team/elian.png"),
   TeamMember(
-      name: "Jose ?", role: "Backend", imageUrl: "assets/team/andres.png"),
+      name: "Jose Pérez", role: "Backend", imageUrl: "assets/team/andres.png"),
   TeamMember(
       name: "El Censurado",
       role: "Backend",
+      imageUrl: "assets/team/andres.png"),
+  TeamMember(
+      name: "Roselyn Medeiro",
+      role: "Frontend",
       imageUrl: "assets/team/andres.png"),
 ];
