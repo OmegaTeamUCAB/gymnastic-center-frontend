@@ -30,7 +30,7 @@ List<TeamMember> teamMembers = [
   TeamMember(
       name: "Luis Elian", role: "Backend", imageUrl: "assets/team/elian.png"),
   TeamMember(
-      name: "Jose Pérez", role: "Backend", imageUrl: "assets/team/andres.png"),
+      name: "Jose Pérez", role: "Backend", imageUrl: "assets/team/jose.jpeg"),
   TeamMember(
       name: "El Censurado",
       role: "Backend",
