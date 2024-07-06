@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 
 class LastCoursePercentage extends StatelessWidget {
@@ -51,9 +50,9 @@ class LastCoursePercentage extends StatelessWidget {
                   value: percentage / 100,
                   strokeWidth: 50,
                   backgroundColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(Color(0xFF4F14A0)),
+                      Theme.of(context).colorScheme.onSecondaryContainer,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.onPrimaryContainer),
                 ),
                 Center(
                   child: Container(
@@ -70,10 +69,11 @@ class LastCoursePercentage extends StatelessWidget {
                     children: [
                       Text(
                         '${percentage.toStringAsFixed(0)}%',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22, // Specify the font size
-                          color: Color(0xFF4F14A0),
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
                       ),
                       Text(

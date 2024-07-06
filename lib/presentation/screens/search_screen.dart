@@ -44,7 +44,7 @@ class SearchScreen extends StatelessWidget {
               ],
               title: const CustomSearchBar(),
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(40),
+                preferredSize: const Size.fromHeight(60),
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border(
