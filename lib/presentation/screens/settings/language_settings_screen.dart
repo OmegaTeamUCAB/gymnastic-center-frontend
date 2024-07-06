@@ -20,7 +20,7 @@ class LanguageSettingsScreen extends StatelessWidget {
                   fontSize: 20, color: Theme.of(context).colorScheme.primary),
             ),
             subtitle: currentLocale.languageCode == 'es'
-                ? const Text('Selected')
+                ? Text(AppLocalizations.of(context)!.selected)
                 : null,
             onTap: () {
               MainApp.setLocale(context, const Locale('es', ''));
@@ -33,7 +33,7 @@ class LanguageSettingsScreen extends StatelessWidget {
                   fontSize: 20, color: Theme.of(context).colorScheme.primary),
             ),
             subtitle: currentLocale.languageCode == 'en'
-                ? const Text('Selected')
+                ? Text(AppLocalizations.of(context)!.selected)
                 : null,
             onTap: () {
               MainApp.setLocale(context, const Locale('en', ''));

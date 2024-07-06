@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/blog/custom_modal_sheet.dart';
-import 'package:gymnastic_center/presentation/widgets/blog/blog_comments.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_modal_sheet.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/comments_list.dart';
 
 class CommentsFAB extends StatelessWidget {
-  final String blogId;
-  const CommentsFAB({super.key, required this.blogId});
+  final String? blogId;
+  final String? lessonId;
+  const CommentsFAB({super.key, this.blogId, this.lessonId});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,11 @@ class CommentsFAB extends StatelessWidget {
           builder: (BuildContext context) {
             return CustomModalSheet(
               blogId: blogId,
-              child: BlogComments(blogId: blogId),
+              lessonId: lessonId,
+              child: CommentsList(
+                blogId: blogId,
+                lessonId: lessonId,
+              ),
             );
           },
         );

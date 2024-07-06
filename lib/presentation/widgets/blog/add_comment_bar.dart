@@ -3,17 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/create_comment/create_comment_bloc.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
 
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class AddCommentBar extends StatefulWidget {
-  final String targetType; //! 'BLOG' or 'LESSON'
-  final String lessonOrBlogId;
+  final String? lessonId;
+  final String? blogId;
   late final CreateCommentBloc bloc;
 
-  AddCommentBar(
-      {super.key, required this.lessonOrBlogId, required this.targetType}) {
+  AddCommentBar({super.key, this.lessonId, this.blogId}) {
     bloc = GetIt.instance<CreateCommentBloc>();
   }
 
@@ -33,11 +33,19 @@ class _AddCommentBarState extends State<AddCommentBar> {
     void onSubmit() {
       if (_formKey.currentState!.validate()) {
         _controller.clear();
-        widget.bloc.add(CreatedComment(
-          content: content,
-          targetType: widget.targetType.toString(),
-          lessonOrBlogId: widget.lessonOrBlogId,
-        ));
+        if (widget.blogId != null) {
+          widget.bloc.add(CreatedComment(
+            content: content,
+            targetType: 'BLOG',
+            lessonOrBlogId: widget.blogId!,
+          ));
+        } else {
+          widget.bloc.add(CreatedComment(
+            content: content,
+            targetType: 'LESSON',
+            lessonOrBlogId: widget.lessonId!,
+          ));
+        }
         FocusScope.of(context).unfocus();
       }
     }
@@ -98,7 +106,9 @@ class _AddCommentBarState extends State<AddCommentBar> {
                     ),
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.surfaceTint,
-                    hintText: 'Add a comment...',
+                    hintText: widget.blogId != null
+                        ? 'Add a comment...'
+                        : 'Ask a question...',
                   ),
                 ),
               ),

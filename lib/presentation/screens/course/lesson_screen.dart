@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/comments_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
 
@@ -77,35 +79,28 @@ class _LessonView extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          Container(
-                            color: Colors.grey[200],
-                            child: const SizedBox(
-                                width: 600,
-                                height: 600,
-                                child: VideoPlayerView()),
+                    Stack(
+                      children: [
+                        Container(
+                          color: Colors.grey[200],
+                          child: const SizedBox(
+                              height: 500, child: VideoPlayerView()),
+                        ),
+                        Positioned(
+                          top: 60,
+                          right: 10,
+                          child: IconButton(
+                            icon: const Icon(Icons.close_rounded,
+                                color: Colors.white, size: 30),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
-                          Positioned(
-                            top: 60,
-                            right: 10,
-                            child: IconButton(
-                              icon: const Icon(Icons.close_rounded,
-                                  color: Colors.white, size: 30),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: VideoProgressBar(),
-                    ),
+                    const SizedBox(height: 20),
+                    const VideoProgressBar(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 16),
@@ -124,11 +119,11 @@ class _LessonView extends StatelessWidget {
                         children: [
                           BrandButton(
                               isVariant: true,
-                              text: 'Prev',
+                              text: AppLocalizations.of(context)!.prev,
                               width: 110,
                               onPressed: lessonBloc.changeToPreviousLesson),
                           BrandButton(
-                              text: 'Next',
+                              text: AppLocalizations.of(context)!.next,
                               width: 210,
                               onPressed: lessonBloc.changeToNextLesson)
                         ],
@@ -187,6 +182,12 @@ class _LessonView extends StatelessWidget {
                         : Container(),
                   ],
                 ),
+                Positioned(
+                    bottom: 20,
+                    right: 20,
+                    child: CommentsFAB(
+                      lessonId: lessonId,
+                    )),
               ],
             ),
           );
