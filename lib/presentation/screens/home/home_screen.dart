@@ -10,7 +10,11 @@ import 'package:gymnastic_center/presentation/widgets/common/content_header.dart
 import 'package:gymnastic_center/presentation/widgets/home/category_carousel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/presentation/widgets/home/home_course_carousel.dart';
+<<<<<<< HEAD
 import 'package:gymnastic_center/presentation/widgets/home/last_course_percentage.dart';
+=======
+import 'package:gymnastic_center/presentation/widgets/home/popular_blog_carousel.dart';
+>>>>>>> a1bef8bcc67b41805fbe27d4349b84b77360723f
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -79,7 +83,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const HomeBlogCarousel(),
+          const PopularBlogCarousel(),
           const SizedBox(
             height: 60,
           )

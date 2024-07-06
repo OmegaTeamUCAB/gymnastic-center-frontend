@@ -14,6 +14,7 @@ class CourseRepository extends ICourseRepository {
     var queryParameters = {
       'page': dto.page.toString(),
       'perPage': '15',
+      if(dto.filter != null) 'filter':dto.filter.toString(),
       if (dto.categoryId != null) 'category': dto.categoryId.toString(),
       if (dto.trainerId != null) 'trainer': dto.trainerId.toString(),
     };
@@ -53,8 +54,7 @@ class CourseRepository extends ICourseRepository {
     );
     return response;
   }
-
-  @override
+   @override
   Future<Result<void>> courseClicked(String courseId) async {
     final response = await _httpConnectionManager.makeRequest(
       urlPath: '/click/$courseId',
