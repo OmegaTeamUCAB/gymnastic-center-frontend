@@ -30,7 +30,7 @@ class LastCoursePercentage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 10),
                 Text(
                   course.trainer,
                   style: TextStyle(
