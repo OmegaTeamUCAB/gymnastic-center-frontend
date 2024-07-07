@@ -28,7 +28,7 @@ class BlogsRepository implements IBlogRepository {
         for (var blog in data) {
           blogs.add(Blog(
             id: blog['id'],
-            images: blog['images'],
+            images: [blog['image']],
             title: blog['title'],
             tags: blog['tags'],
             description: blog['description'],

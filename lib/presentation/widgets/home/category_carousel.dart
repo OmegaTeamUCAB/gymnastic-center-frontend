@@ -38,7 +38,9 @@ class CategoryCarousel extends StatelessWidget {
                     child: Text('No categories found'),
                   );
                 }
-                final theme = context.watch<ThemeBloc>().state.themeData.colorScheme;
+                final theme =
+                    context.watch<ThemeBloc>().state.themeData.colorScheme;
+
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.categories.length,
@@ -76,8 +78,7 @@ class CategoryCarousel extends StatelessWidget {
                               width: 40,
                               child: ColorFiltered(
                                   colorFilter: ColorFilter.mode(
-                                      theme.primary,
-                                      BlendMode.srcIn),
+                                      theme.primary, BlendMode.srcIn),
                                   child: Image.network(currentCategory.icon)),
                             ),
                             const SizedBox(height: 10.0),

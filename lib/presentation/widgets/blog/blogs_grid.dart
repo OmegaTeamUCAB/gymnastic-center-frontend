@@ -18,7 +18,7 @@ class BlogsGrid extends StatelessWidget {
       itemCount: blogs.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 5 / 6,
+        childAspectRatio: 4 / 5,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
@@ -42,6 +42,8 @@ class BlogsGrid extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
                   blogs[i].images.first,
+                  width: double.infinity,
+                  height: 150,
                   fit: BoxFit.cover,
                 ),
               ),

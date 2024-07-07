@@ -47,6 +47,8 @@ class BlogSlide extends StatelessWidget {
                   children: [
                     Text(
                       blog.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
