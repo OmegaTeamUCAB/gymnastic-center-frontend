@@ -16,11 +16,11 @@ class Comment {
     required this.user,
     required this.body,
     required this.date,
-    this.countLikes = 0,
+    this.countLikes,
     this.userImage,
     this.userId,
     this.answer,
-    this.countDislikes = 0,
+    this.countDislikes,
     this.userLiked,
     this.userDisliked,
   });

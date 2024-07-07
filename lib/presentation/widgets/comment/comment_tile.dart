@@ -73,10 +73,11 @@ class CommentTileState extends State<CommentTile> {
                       ),
                       const SizedBox(height: 15),
                       if (widget.blogId != null)
-                        LikeAndDislikeButtons(
-                          comment: widget.comment,
-                          likeOrDislikeCommentBloc: likeOrDislikeCommentBloc,
-                        )
+                        if (widget.comment.countLikes != null)
+                          LikeAndDislikeButtons(
+                            comment: widget.comment,
+                            likeOrDislikeCommentBloc: likeOrDislikeCommentBloc,
+                          )
                     ],
                   ),
                 ),

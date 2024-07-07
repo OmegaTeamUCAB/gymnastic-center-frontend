@@ -84,7 +84,7 @@ class _LessonView extends StatelessWidget {
                         Container(
                           color: Colors.grey[200],
                           child: const SizedBox(
-                              height: 500, child: VideoPlayerView()),
+                              height: 400, child: VideoPlayerView()),
                         ),
                         Positioned(
                           top: 60,
