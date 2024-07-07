@@ -19,6 +19,7 @@ class HttpManagerImpl extends IHttpManager {
     try {
       final path = urlPath.substring(0, 1) == '/' ? urlPath : '/$urlPath';
       final url = Environment.getApiUrl() + path;
+      print(url);
       final response = await _dio.request(url,
           data: body,
           options: Options(

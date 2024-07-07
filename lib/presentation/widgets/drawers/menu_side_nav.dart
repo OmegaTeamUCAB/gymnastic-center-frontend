@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
-import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
@@ -49,7 +49,7 @@ class MenuSideNav extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const ProfileScreen()),
+                                        const UpdateProfileScreen()),
                               );
                             },
                             fullName:

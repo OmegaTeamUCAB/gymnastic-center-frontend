@@ -41,7 +41,9 @@ class ProfileAvatar extends StatelessWidget {
         radius: radius,
         child: Text(
           fullName.split(' ').map((l) => l[0]).take(2).join(),
-          style: TextStyle(fontSize: radius! * 0.8),
+          style: TextStyle(
+              fontSize: radius! * 0.8,
+              color: Theme.of(context).colorScheme.primary),
         ),
       );
     }

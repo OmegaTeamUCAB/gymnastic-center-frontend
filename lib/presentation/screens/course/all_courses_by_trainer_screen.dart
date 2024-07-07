@@ -18,7 +18,6 @@ class AllCoursesByTrainerScreen extends StatefulWidget {
 }
 
 class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
-  // final allCoursesByTrainerBloc = GetIt.instance<AllCourseByTrainerBloc>();
   late PaginationController _paginationController;
   late AllCourseByTrainerBloc _allCoursesByTrainerBloc;
 

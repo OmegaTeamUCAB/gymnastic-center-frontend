@@ -54,6 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await loginUseCase
         .execute(LoginDto(email: event.email, password: event.password));
     if (result.isSuccessful) {
+      print('Logged in');
       emit(Authenticated(result.unwrap()));
     } else {
       emit(AuthError(result.error.message));
@@ -69,6 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       phoneNumber: event.phoneNumber,
     ));
     if (result.isSuccessful) {
+      print('Signed up');
       emit(Authenticated(result.unwrap()));
     } else {
       emit(AuthError(result.error.message));
