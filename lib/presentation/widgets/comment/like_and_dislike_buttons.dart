@@ -27,10 +27,10 @@ class _LikeAndDislikeButtonsState extends State<LikeAndDislikeButtons> {
   void initState() {
     super.initState();
     likeOrDislikeCommentBloc = widget.likeOrDislikeCommentBloc;
-    hasLiked = widget.comment.userLiked;
-    hasDisliked = widget.comment.userDisliked;
-    countLikes = widget.comment.countLikes;
-    countDislikes = widget.comment.countDislikes;
+    hasLiked = widget.comment.userLiked!;
+    hasDisliked = widget.comment.userDisliked!;
+    countLikes = widget.comment.countLikes!;
+    countDislikes = widget.comment.countDislikes!;
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 
-enum BlogSorting { recent, popular }
+enum BlogSorting { RECENT, POPULAR }
 
 class GetBlogsDto {
   final int page;
@@ -12,7 +12,7 @@ class GetBlogsDto {
     this.categoryId,
     required this.page,
     this.trainerId,
-    BlogSorting sorting = BlogSorting.recent,
+    BlogSorting sorting = BlogSorting.RECENT,
   }) : filter = sorting.toString().split('.').last;
 }
 

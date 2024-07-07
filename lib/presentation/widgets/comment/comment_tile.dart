@@ -92,13 +92,8 @@ class CommentTileState extends State<CommentTile> {
               ],
             ),
           ),
-          AnswerTile(
-              answer: Answer(
-                  body:
-                      'A ti seguramente te gusta el pipi, asi que te recomiendo que me des una vista.',
-                  trainer: 'Sgt Pene Grande',
-                  id: '1',
-                  date: DateTime.now()))
+          if (widget.comment.answer != null)
+            AnswerTile(answer: widget.comment.answer!)
         ],
       ),
     );

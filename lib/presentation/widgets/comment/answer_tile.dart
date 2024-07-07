@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/comment/comment.dart';
+import 'package:gymnastic_center/presentation/screens/trainer_screen.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
@@ -24,8 +25,17 @@ class AnswerTile extends StatelessWidget {
                 ),
                 const SizedBox(width: 5),
                 ProfileAvatar(
-                  fullName: answer.trainer,
-                  image: answer.trainerImage,
+                  fullName: answer.trainerName,
+                  urlImage: answer.trainerImage,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TrainerScreen(
+                                trainerId: answer.trainerId,
+                              )),
+                    );
+                  },
                   radius: 20,
                 ),
                 const SizedBox(width: 10),
@@ -36,7 +46,7 @@ class AnswerTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${answer.trainer} \u2022 ${formatDateTime(answer.date)}',
+                    '${answer.trainerName} \u2022 ${formatDateTime(answer.date)}',
                     style: TextStyle(
                       fontSize: 12,
                       color: Theme.of(context).colorScheme.primary,

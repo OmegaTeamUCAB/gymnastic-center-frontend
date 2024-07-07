@@ -15,7 +15,7 @@ class BlogsRepository implements IBlogRepository {
       'perPage': '15',
       if (dto.categoryId != null) 'category': dto.categoryId.toString(),
       if (dto.trainerId != null) 'trainer': dto.trainerId.toString(),
-      if (dto.filter != null) 'Blog Sorting': dto.filter,
+      if (dto.filter != null) 'filter': dto.filter,
     };
 
     var queryString = Uri(queryParameters: queryParameters).query;
