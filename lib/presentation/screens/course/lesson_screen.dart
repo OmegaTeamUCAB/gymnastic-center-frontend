@@ -3,12 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
-import 'package:gymnastic_center/presentation/widgets/comment/comments_fab.dart';
-import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/course/lesson_info.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -75,119 +71,33 @@ class _LessonView extends StatelessWidget {
                 VideoInitialized(video: lessonBloc.state.lesson.videoUrl!));
           }
           return Scaffold(
-            body: Stack(
+            body: Column(
               children: [
-                Column(
+                Stack(
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          color: Colors.grey[200],
-                          child: const SizedBox(
-                              height: 400, child: VideoPlayerView()),
-                        ),
-                        Positioned(
-                          top: 60,
-                          right: 10,
-                          child: IconButton(
-                            icon: const Icon(Icons.close_rounded,
-                                color: Colors.white, size: 30),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
+                    Container(
+                      color: Colors.grey[200],
+                      child:
+                          const SizedBox(height: 680, child: VideoPlayerView()),
                     ),
-                    const SizedBox(height: 20),
-                    const VideoProgressBar(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          VideoTitle(title: lessonBloc.state.lesson.title),
-                          const VideoDuration(),
-                        ],
+                    Positioned(
+                      top: 60,
+                      right: 10,
+                      child: IconButton(
+                        icon: const Icon(Icons.close_rounded,
+                            color: Colors.white, size: 30),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BrandButton(
-                              isVariant: true,
-                              text: AppLocalizations.of(context)!.prev,
-                              width: 110,
-                              onPressed: lessonBloc.changeToPreviousLesson),
-                          BrandButton(
-                              text: AppLocalizations.of(context)!.next,
-                              width: 210,
-                              onPressed: lessonBloc.changeToNextLesson)
-                        ],
-                      ),
-                    ),
-                    !state.lastLesson
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .tertiaryContainer,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        lessonBloc.state.courseImage,
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 20),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text('Coming up:'),
-                                          Text(lessonBloc.getNextLesson().title,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text('0:30',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onPrimary)),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        : Container(),
                   ],
                 ),
-                Positioned(
-                    bottom: 20,
-                    right: 20,
-                    child: CommentsFAB(
-                      lessonId: lessonId,
-                    )),
+                LessonInfo(
+                  lessonBloc: lessonBloc,
+                  state: state,
+                  lessonId: lessonId,
+                ),
               ],
             ),
           );
