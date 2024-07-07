@@ -7,7 +7,8 @@ import 'package:gymnastic_center/domain/course/course_repository.dart';
 part 'feature_courses_event.dart';
 part 'feature_courses_state.dart';
 
-class FeatureCoursesBloc extends Bloc<FeatureCoursesEvent, FeatureCoursesState> {
+class FeatureCoursesBloc
+    extends Bloc<FeatureCoursesEvent, FeatureCoursesState> {
   final GetCoursesUseCase getCoursesUseCase;
   final List<Course> _cachedCourses = [];
 
@@ -21,8 +22,8 @@ class FeatureCoursesBloc extends Bloc<FeatureCoursesEvent, FeatureCoursesState> 
       emit(FeatureCoursesSuccess(courses: _cachedCourses));
     } else {
       emit(FeatureCoursesLoading());
-      final result =
-          await getCoursesUseCase.execute(GetCoursesDto(page: event.page,filter: 'popular'));
+      final result = await getCoursesUseCase
+          .execute(GetCoursesDto(page: event.page, filter: 'POPULAR'));
       if (result.isSuccessful) {
         _cachedCourses.addAll(result.unwrap());
         emit(FeatureCoursesSuccess(courses: _cachedCourses));

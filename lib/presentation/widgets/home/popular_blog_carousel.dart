@@ -12,7 +12,7 @@ class PopularBlogCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final popularBlogsBloc = GetIt.instance<PopularBlogsBloc>();
-    popularBlogsBloc.add(const PopularBlogsRequested(1, BlogSorting.popular));
+    popularBlogsBloc.add(const PopularBlogsRequested(1, BlogSorting.POPULAR));
     return BlocProvider<PopularBlogsBloc>.value(
       value: popularBlogsBloc,
       child: BlocBuilder<PopularBlogsBloc, PopularBlogsState>(

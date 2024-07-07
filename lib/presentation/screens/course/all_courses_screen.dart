@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
@@ -17,16 +18,16 @@ class AllCoursesScreen extends StatefulWidget {
 }
 
 class _AllCoursesScreenState extends State<AllCoursesScreen> {
-  final featureCoursesBloc = GetIt.instance<FeatureCoursesBloc>();
+  final allCoursesBloc = GetIt.instance<AllCoursesBloc>();
   late final PaginationController paginationController;
 
   @override
   void initState() {
     super.initState();
-    //! Buggy as hell
     paginationController = PaginationController(
-      requestNextPage: (page) => featureCoursesBloc.add(FeatureCoursesRequested(page)),
+      requestNextPage: (page) => allCoursesBloc.add(AllCoursesRequested(page)),
     );
+    allCoursesBloc.add(const AllCoursesRequested(1));
   }
 
   @override
@@ -57,11 +58,11 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                 )),
           ),
         ),
-        body: BlocProvider<FeatureCoursesBloc>.value(
-          value: featureCoursesBloc,
-          child: BlocBuilder<FeatureCoursesBloc, FeatureCoursesState>(
+        body: BlocProvider<AllCoursesBloc>.value(
+          value: allCoursesBloc,
+          child: BlocBuilder<AllCoursesBloc, AllCoursesState>(
             builder: (context, state) {
-              if (state is FeatureCoursesLoading) {
+              if (state is AllCoursesLoading) {
                 return const Center(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 25),
@@ -69,12 +70,12 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                   ),
                 );
               }
-              if (state is FeatureCoursesFailed) {
+              if (state is AllCoursesFailed) {
                 return Center(
                   child: Text(state.message),
                 );
               }
-              if (state is FeatureCoursesSuccess) {
+              if (state is AllCoursesSuccess) {
                 if (state.courses.isEmpty) {
                   return const Center(
                     child: NoResults(),

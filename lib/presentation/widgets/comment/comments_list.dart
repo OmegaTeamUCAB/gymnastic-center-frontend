@@ -61,13 +61,11 @@ class _CommentsListState extends State<CommentsList> {
               itemCount: state.comments.length,
               itemBuilder: (context, index) {
                 final comment = state.comments[index];
-                return Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: CommentTile(
-                      blogId: widget.blogId,
-                      lessonId: widget.lessonId,
-                      comment: comment,
-                    ));
+                return CommentTile(
+                  blogId: widget.blogId,
+                  lessonId: widget.lessonId,
+                  comment: comment,
+                );
               },
             );
           } else {

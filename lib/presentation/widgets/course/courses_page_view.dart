@@ -10,10 +10,10 @@ class CoursesPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       scrollDirection: Axis.horizontal,
+      controller: PageController(viewportFraction: 0.90),
       children: List.generate(
-        (courses.length / 2).ceil(), // Calculate the number of columns
+        (courses.length / 2).ceil(),
         (index) {
-          // Calculate the indices of the courses for this column
           int firstCourseIndex = index * 2;
           int secondCourseIndex = index * 2 + 1;
 
@@ -21,7 +21,6 @@ class CoursesPageView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CourseTile(course: courses[firstCourseIndex]),
-              // Check if there is a second course for this column
               if (secondCourseIndex < courses.length)
                 CourseTile(course: courses[secondCourseIndex]),
             ],

@@ -72,7 +72,8 @@ class AuthRepository implements IAuthRepository {
         'email': email,
         'name': fullName,
         'phone': phoneNumber,
-        'password': password
+        'password': password,
+        'type': 'CLIENT'
       }),
       mapperCallBack: (data) {
         return null;

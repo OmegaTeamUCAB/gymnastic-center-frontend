@@ -3,11 +3,12 @@ class Comment {
   final String user;
   final String? userImage;
   final String? userId;
-  final int countLikes;
-  final int countDislikes;
+  final int? countLikes;
+  final int? countDislikes;
+  final Answer? answer;
   final String body;
-  final bool userLiked;
-  final bool userDisliked;
+  final bool? userLiked;
+  final bool? userDisliked;
   final DateTime date;
 
   Comment({
@@ -18,8 +19,27 @@ class Comment {
     this.countLikes = 0,
     this.userImage,
     this.userId,
+    this.answer,
     this.countDislikes = 0,
-    required this.userLiked,
-    required this.userDisliked,
+    this.userLiked,
+    this.userDisliked,
+  });
+}
+
+class Answer {
+  final String id;
+  final String trainerName;
+  final String trainerImage;
+  final String trainerId;
+  final String body;
+  final DateTime date;
+
+  Answer({
+    required this.id,
+    required this.trainerId,
+    required this.trainerName,
+    required this.trainerImage,
+    required this.body,
+    required this.date,
   });
 }

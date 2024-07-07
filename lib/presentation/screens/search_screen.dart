@@ -43,20 +43,16 @@ class SearchScreen extends StatelessWidget {
                 ),
               ],
               title: const CustomSearchBar(),
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(60),
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(
-                      color: Theme.of(context).colorScheme.outline,
-                      width: 1.0,
+              bottom: const PreferredSize(
+                preferredSize: Size.fromHeight(60),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: SearchChips(),
                     ),
-                  )),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: SearchChips(),
-                  ),
+                    Divider()
+                  ],
                 ),
               )),
           body: SingleChildScrollView(
