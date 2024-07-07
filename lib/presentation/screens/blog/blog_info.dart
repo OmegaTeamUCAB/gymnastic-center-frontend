@@ -33,7 +33,7 @@ class BlogInfo extends StatelessWidget {
               children: [
                 ProfileAvatar(
                   fullName: blog.trainer!['name'],
-                  urlImage: blog.trainer!['image'],
+                  urlImage: blog.trainer['image'],
                   onPressed: () {
                     Navigator.push(
                       context,
