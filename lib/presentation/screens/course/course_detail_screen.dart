@@ -20,7 +20,6 @@ class CourseDetailScreen extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (_) => CourseDetailBloc(
-                getCourseByIdUseCase:
                     GetIt.instance.get<GetCourseByIdUseCase>())
               ..add(CourseRequested(id: courseId))),
         BlocProvider.value(

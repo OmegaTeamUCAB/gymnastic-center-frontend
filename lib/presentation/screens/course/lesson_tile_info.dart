@@ -21,6 +21,8 @@ class LessonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    
     return ListTile(
       selected: selected,
       onTap: (context.watch<ProgressBloc>().state.progressStatus == ProgressStatus.unitialized) ? null : () {
@@ -31,7 +33,8 @@ class LessonTile extends StatelessWidget {
         );
       },
       leading: (GetIt.instance<ProgressBloc>().state.progress.lessonProgress.isEmpty) ? null :  _MarkLessonIcon(
-            iconData: Icons.check_box_outline_blank_sharp,
+            iconUnmarked: Icons.check_box_outline_blank_sharp,
+            iconMarked: Icons.check_box_rounded,
             marked: GetIt.instance<ProgressBloc>().getLessonById(lesson.id).percent == 100.0,
             onTap: (marked) async {
               GetIt.instance<ProgressBloc>().updateAndLoadProgress(ProgressLessonUpdated(
@@ -79,13 +82,15 @@ class LessonTile extends StatelessWidget {
 
 class _MarkLessonIcon extends StatelessWidget {
   final void Function(bool) onTap;
-  final IconData iconData;
+  final IconData iconMarked;
+  final IconData iconUnmarked;
   final bool marked;
 
   const _MarkLessonIcon({
     super.key,
     required this.onTap,
-    required this.iconData,
+    required this.iconMarked,
+    required this.iconUnmarked,
     required this.marked,
   });
 
@@ -95,7 +100,7 @@ class _MarkLessonIcon extends StatelessWidget {
       onTap: () {
         onTap(marked);
       },
-      child: Container(child: Icon(iconData)),
+      child: Container(child: Icon((marked) ? iconMarked : iconUnmarked)),
     );
   }
 }
