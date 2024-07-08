@@ -149,27 +149,15 @@ class _TrainerInfoState extends State<TrainerInfo> {
                   height: 20,
                 ),
                 ContentHeader(
-                    title: '${widget.trainer.name}\'s Courses',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AllCoursesScreen()),
-                      );
-                    }),
+                  title: '${widget.trainer.name}\'s Courses',
+                ),
                 BlocProvider(
                   create: (context) => GetIt.instance<AllCourseByTrainerBloc>(),
                   child: CourseByTrainerCarousel(trainerId: widget.trainer.id!),
                 ),
                 ContentHeader(
-                    title: '${widget.trainer.name}\'s Blogs',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AllBlogsScreen()),
-                      );
-                    }),
+                  title: '${widget.trainer.name}\'s Blogs',
+                ),
                 BlocProvider(
                   create: (context) => GetIt.instance<AllBlogsByTrainerBloc>(),
                   child: BlogByTrainerCarousel(trainerId: widget.trainer.id!),

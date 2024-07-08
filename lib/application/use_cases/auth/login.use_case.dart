@@ -4,6 +4,7 @@ import 'package:gymnastic_center/core/use_case.dart';
 import 'package:gymnastic_center/application/repositories/auth/auth_repository.dart';
 import 'package:gymnastic_center/domain/auth/user.dart';
 import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
+import 'package:gymnastic_center/infrastructure/services/notifications/notification_handler.dart';
 
 class LoginDto {
   final String email;
@@ -31,12 +32,17 @@ class LoginUseCase extends IUseCase<LoginDto, User> {
     );
     if (result.isSuccessful) {
       _localDataSource.setKeyValue('token', result.unwrap().token);
-      final saveTokenResult = await _notificationRepository.saveToken();
-      if (!saveTokenResult.isSuccessful) {
-        print('Error al guardar token');
-        return Result.failure(saveTokenResult.error);
+      final token = await NotificationHandler().token;
+      if (token != null) {
+        final saveTokenResult = await _notificationRepository.saveToken(token);
+        if (saveTokenResult.isError) {
+          print('Error al guardar token');
+          return Result.failure(saveTokenResult.error);
+        }
+        return Result.success(result.unwrap().user);
+      } else {
+        print('Token is null');
       }
-      return Result.success(result.unwrap().user);
     }
     return Result.failure(result.error);
   }

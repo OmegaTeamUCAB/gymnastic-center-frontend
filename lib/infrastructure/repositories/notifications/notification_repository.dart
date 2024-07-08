@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
@@ -72,10 +74,10 @@ class NotificationRepository implements INotificationRepository {
   }
 
   @override
-  Future<Result<void>> saveToken() async {
+  Future<Result<void>> saveToken(String token) async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: 'notifications/savetoken',
-      body: {},
+      body: jsonEncode({'token': token}),
       httpMethod: 'POST',
       mapperCallBack: (data) {
         return null;
