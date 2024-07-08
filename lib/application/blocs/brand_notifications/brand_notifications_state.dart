@@ -1,10 +1,22 @@
 part of 'brand_notifications_bloc.dart';
 
-sealed class BrandNotificationsState extends Equatable {
-  const BrandNotificationsState();
-  
-  @override
-  List<Object> get props => [];
-}
+class BrandNotificationsState extends Equatable {
+  final List<BrandNotification> notifications;
+  final bool isLoading;
 
-final class BrandNotificationsInitial extends BrandNotificationsState {}
+  const BrandNotificationsState(
+      {required this.notifications, required this.isLoading});
+
+  BrandNotificationsState copyWith({
+    List<BrandNotification>? notifications,
+    bool? isLoading,
+  }) {
+    return BrandNotificationsState(
+      notifications: notifications ?? this.notifications,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+
+  @override
+  List<Object> get props => [notifications, isLoading];
+}
