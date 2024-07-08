@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/auth/bloc_reset_handler.dart';
 import 'package:gymnastic_center/application/use_cases/auth/get_user_from_token.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/login.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/auth/logout.use_case.dart';
@@ -81,7 +82,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final result = await logoutUseCase.execute(null);
     if (result.isSuccessful) {
-      emit(AuthState());
+      final resetHandler = BlocResetHandler();
+      resetHandler.resetBlocs();
+      emit(Unauthenticated());
     }
   }
 

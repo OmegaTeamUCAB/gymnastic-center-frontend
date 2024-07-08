@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_courses.use_case.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/domain/course/course_repository.dart';
@@ -7,8 +8,8 @@ import 'package:gymnastic_center/domain/course/course_repository.dart';
 part 'feature_courses_event.dart';
 part 'feature_courses_state.dart';
 
-class FeatureCoursesBloc
-    extends Bloc<FeatureCoursesEvent, FeatureCoursesState> {
+class FeatureCoursesBloc extends Bloc<FeatureCoursesEvent, FeatureCoursesState>
+    implements ResettableBloc {
   final GetCoursesUseCase getCoursesUseCase;
   final List<Course> _cachedCourses = [];
 
@@ -35,5 +36,10 @@ class FeatureCoursesBloc
         }
       }
     }
+  }
+
+  @override
+  void reset() {
+    _cachedCourses.clear();
   }
 }

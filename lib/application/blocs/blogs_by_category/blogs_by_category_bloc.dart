@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_event.dart';
+import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
@@ -8,7 +9,8 @@ import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 part 'blogs_by_category_state.dart';
 
 class BlogsByCategoryBloc
-    extends Bloc<BlogsByCategoryEvent, BlogsByCategoryState> {
+    extends Bloc<BlogsByCategoryEvent, BlogsByCategoryState>
+    implements ResettableBloc {
   final GetBlogsUseCase getBlogsUseCase;
   final Map<String, List<Blog>> _cachedBlogsByCategory = {};
 
@@ -38,5 +40,10 @@ class BlogsByCategoryBloc
         }
       }
     }
+  }
+
+  @override
+  void reset() {
+    _cachedBlogsByCategory.clear();
   }
 }

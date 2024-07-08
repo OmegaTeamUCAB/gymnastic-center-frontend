@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
@@ -7,7 +8,8 @@ import 'package:gymnastic_center/domain/blog/blog_repository.dart';
 part 'all_blogs_event.dart';
 part 'all_blogs_state.dart';
 
-class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState> {
+class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState>
+    implements ResettableBloc {
   final GetBlogsUseCase getBlogsUseCase;
   final List<Blog> _cachedBlogs = [];
 
@@ -34,5 +36,10 @@ class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState> {
         }
       }
     }
+  }
+
+  @override
+  void reset() {
+    _cachedBlogs.clear();
   }
 }

@@ -1,17 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/course/get_course_by_id.use_case.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 
 part 'course_detail_event.dart';
 part 'course_detail_state.dart';
 
-class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
+class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState>
+    implements ResettableBloc {
   final GetCourseByIdUseCase getCourseByIdUseCase;
   final Map<String, Course> _cachedCourses = {};
 
-  CourseDetailBloc({required this.getCourseByIdUseCase})
-      : super(CourseLoading()) {
+  CourseDetailBloc(this.getCourseByIdUseCase) : super(CourseLoading()) {
     on<CourseRequested>(_getCourseRequested);
   }
 
@@ -34,5 +35,10 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
         }
       }
     }
+  }
+
+  @override
+  void reset() {
+    _cachedCourses.clear();
   }
 }

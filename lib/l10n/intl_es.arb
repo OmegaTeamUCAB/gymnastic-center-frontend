@@ -1,4 +1,7 @@
 {
+  "selectDataSource": "Seleccione la fuente de datos",
+  "fitnessCompanion": "Tu nuevo compañero de entrenamiento",
+  "footer": "Diseñado y desarrollado por Omega Technologies \u00a9",
   "courses": "Cursos",
   "comments": "Comentarios",
   "questions": "Preguntas",

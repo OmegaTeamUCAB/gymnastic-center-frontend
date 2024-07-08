@@ -32,9 +32,9 @@ List<TeamMember> teamMembers = [
   TeamMember(
       name: "Jose Pérez", role: "Backend", imageUrl: "assets/team/jose.jpeg"),
   TeamMember(
-      name: "El Censurado",
+      name: "Luis Díaz",
       role: "Backend",
-      imageUrl: "assets/team/andres.png"),
+      imageUrl: "assets/team/luisDiaz.jpeg"),
   TeamMember(
       name: "Roselyn Medeiro",
       role: "Frontend",

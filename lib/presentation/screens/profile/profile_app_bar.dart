@@ -46,66 +46,68 @@ class ProfileAppBar extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 6),
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ProfileAvatar(
-                        image: (authBloc.state as Authenticated).user.image,
-                        fullName:
-                            (authBloc.state as Authenticated).user.fullName,
-                      )),
-                  const SizedBox(width: 7),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      authBloc.state is Authenticated
-                          ? Text(
+            if (authBloc.state is Authenticated)
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: ProfileAvatar(
+                          image: (authBloc.state as Authenticated).user.image,
+                          fullName:
                               (authBloc.state as Authenticated).user.fullName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          : const CircularProgressIndicator(),
-                      const ProfileFollowings(),
-                      const SizedBox(height: 11),
-                      const Row(
-                        children: [
-                          Icon(
-                            Icons.emoji_emotions,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 107),
-                          Text('90',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                          Text(' hrs',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal))
-                        ],
-                      ),
-                      const Spacer(),
-                      const SizedBox(
-                          width: 190,
-                          height: 6,
-                          child: LinearProgressIndicator(
-                            value: 0.7,
-                            color: Colors.green,
-                            backgroundColor: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ))
-                    ],
-                  ),
-                ],
+                        )),
+                    const SizedBox(width: 7),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        authBloc.state is Authenticated
+                            ? Text(
+                                (authBloc.state as Authenticated).user.fullName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            : const CircularProgressIndicator(),
+                        const ProfileFollowings(),
+                        const SizedBox(height: 11),
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.emoji_emotions,
+                              color: Colors.white,
+                            ),
+                            SizedBox(width: 107),
+                            Text('90',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text(' hrs',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal))
+                          ],
+                        ),
+                        const Spacer(),
+                        const SizedBox(
+                            width: 190,
+                            height: 6,
+                            child: LinearProgressIndicator(
+                              value: 0.7,
+                              color: Colors.green,
+                              backgroundColor: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),

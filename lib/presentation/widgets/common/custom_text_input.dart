@@ -6,9 +6,11 @@ class CustomTextInput extends StatelessWidget {
   final String hintText;
   final String? errorText;
   final bool obscureText;
-  final TextInputType keyboardType; // Added keyboardType parameter
+  final TextInputType keyboardType;
   final TextEditingController? controller;
   final Function(String)? onChanged;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onFieldSubmitted;
   final String? Function(String?)? validator;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -20,6 +22,8 @@ class CustomTextInput extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
+    this.textInputAction = TextInputAction.done,
+    this.onFieldSubmitted,
     this.controller,
     this.onChanged,
     this.prefixIcon,
@@ -32,6 +36,8 @@ class CustomTextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(
@@ -41,7 +47,7 @@ class CustomTextInput extends StatelessWidget {
         errorText: errorText,
         hintStyle: TextStyle(
             color: Theme.of(context).colorScheme.onSecondaryContainer),
-        prefixIconColor: const Color.fromRGBO(200, 204, 217, 1),
+        prefixIconColor: Theme.of(context).colorScheme.outline,
         prefixIcon: prefixIcon,
         suffixIconColor: Theme.of(context).colorScheme.primary,
         suffixIcon: suffixIcon,
