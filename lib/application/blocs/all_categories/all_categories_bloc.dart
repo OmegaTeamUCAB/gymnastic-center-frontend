@@ -1,12 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/category/get_all_categories.use_case.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
 
 part 'all_categories_event.dart';
 part 'all_categories_state.dart';
 
-class AllCategoriesBloc extends Bloc<AllCategoriesEvent, AllCategoriesState> {
+class AllCategoriesBloc extends Bloc<AllCategoriesEvent, AllCategoriesState>
+    implements ResettableBloc {
   final GetAllCategoriesUseCase getAllCategoriesUseCase;
   final List<Category> _cachedCategories = [];
 
@@ -34,5 +36,10 @@ class AllCategoriesBloc extends Bloc<AllCategoriesEvent, AllCategoriesState> {
         }
       }
     }
+  }
+
+  @override
+  void reset() {
+    _cachedCategories.clear();
   }
 }

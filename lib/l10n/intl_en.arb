@@ -1,4 +1,7 @@
 {
+  "selectDataSource": "Select data source",
+  "fitnessCompanion": "Your new fitness companion",
+  "footer": "Designed and developed by Omega Technologies \u00a9",
   "courses": "Courses",
   "comments": "Comments",
   "questions": "Questions",

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/course_detail/course_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
@@ -106,6 +107,7 @@ class IoCContainer {
     final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
     final loginUseCase = LoginUseCase(authRepository, secureStorage);
     final logoutUseCase = LogoutUseCase(authRepository);
+    final getCourseByIdUseCase = GetCourseByIdUseCase(courseRepository);
     final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
     final requestCodeUseCase = RequestCodeUseCase(authRepository);
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
@@ -144,13 +146,16 @@ class IoCContainer {
     getIt
         .registerSingleton<PopularBlogsBloc>(PopularBlogsBloc(getBlogsUseCase));
     getIt.registerSingleton<AllCoursesBloc>(AllCoursesBloc(getCoursesUseCase));
-    getIt.registerSingleton<FeatureCoursesBloc>(FeatureCoursesBloc(getCoursesUseCase));
+    getIt.registerSingleton<FeatureCoursesBloc>(
+        FeatureCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<AllCourseByTrainerBloc>(
         AllCourseByTrainerBloc(getCoursesUseCase));
     getIt.registerSingleton<AllBlogsByTrainerBloc>(
         AllBlogsByTrainerBloc(getBlogsUseCase));
     getIt.registerSingleton<GetSearchTagsBloc>(
         GetSearchTagsBloc(getSearchTagsUseCase));
+    getIt.registerSingleton<CourseDetailBloc>(
+        CourseDetailBloc(getCourseByIdUseCase));
     getIt
         .registerSingleton<PlanCoursesBloc>(PlanCoursesBloc(getCoursesUseCase));
     getIt.registerSingleton<CoursesByCategoryBloc>(
