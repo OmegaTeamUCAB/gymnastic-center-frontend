@@ -1,3 +1,4 @@
+import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/application/services/data-sources/local_data_source.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/core/use_case.dart';
@@ -19,10 +20,12 @@ class SignUpDto {
 
 class SignUpUseCase extends IUseCase<SignUpDto, User> {
   final IAuthRepository _authRepository;
+  final INotificationRepository _notificationRepository;
   final LocalDataSource _localDataSource;
 
   SignUpUseCase(
     this._authRepository,
+    this._notificationRepository,
     this._localDataSource,
   );
 
@@ -34,7 +37,7 @@ class SignUpUseCase extends IUseCase<SignUpDto, User> {
       fullName: dto.fullName,
       phoneNumber: dto.phoneNumber,
     );
-    if(signUpResult.isError) {
+    if (signUpResult.isError) {
       return Result.failure(signUpResult.error);
     }
     final result = await _authRepository.login(
@@ -42,6 +45,11 @@ class SignUpUseCase extends IUseCase<SignUpDto, User> {
       password: dto.password,
     );
     if (result.isSuccessful) {
+      final saveTokenResult = await _notificationRepository.saveToken();
+      if (!saveTokenResult.isSuccessful) {
+        print('Error al guardar token');
+        return Result.failure(saveTokenResult.error);
+      }
       _localDataSource.setKeyValue('token', result.unwrap().token);
       return Result.success(result.unwrap().user);
     }

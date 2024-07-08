@@ -64,6 +64,7 @@ import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_reposito
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/trainer/trainer_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/user/user_repository.dart';
@@ -96,13 +97,17 @@ class IoCContainer {
     final userRepository = UserRepository(httpConnectionManager);
     final trainerRepository = TrainerRepository(httpConnectionManager);
     final commentRepository = CommentRepository(httpConnectionManager);
+    final notificationRepository =
+        NotificationRepository(httpConnectionManager);
 
     //USE CASES
     final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
-    final loginUseCase = LoginUseCase(authRepository, secureStorage);
+    final loginUseCase =
+        LoginUseCase(authRepository, notificationRepository, secureStorage);
     final logoutUseCase = LogoutUseCase(authRepository);
     final getCourseByIdUseCase = GetCourseByIdUseCase(courseRepository);
-    final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
+    final signUpUseCase =
+        SignUpUseCase(authRepository, notificationRepository, secureStorage);
     final requestCodeUseCase = RequestCodeUseCase(authRepository);
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
