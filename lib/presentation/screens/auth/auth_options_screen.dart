@@ -39,7 +39,7 @@ class AuthOptionsScreen extends StatelessWidget {
                 height: 50,
               ),
               Text(
-                'Your new fitness companion',
+                AppLocalizations.of(context)!.fitnessCompanion,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
@@ -137,22 +137,22 @@ class AuthOptionsScreen extends StatelessWidget {
                       ),
                     ),
                     builder: (BuildContext context) {
-                      return const SizedBox(
+                      return SizedBox(
                         height: 320,
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
-                              'Select data source',
-                              style: TextStyle(
+                              AppLocalizations.of(context)!.selectDataSource,
+                              style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            DataSourceSelect(),
+                            const DataSourceSelect(),
                           ],
                         ),
                       );
