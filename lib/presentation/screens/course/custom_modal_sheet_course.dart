@@ -76,8 +76,7 @@ class _CustomModalSheetCourseState extends State<CustomModalSheetCourse> {
               },
               child: SingleChildScrollView(
                 child: AddCommentBar(
-                targetType: 'LESSON',
-                lessonOrBlogId: widget.lessonId,
+                lessonId: widget.lessonId,
                                 ),
               ),
             ),

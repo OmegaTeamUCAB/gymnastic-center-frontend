@@ -5,9 +5,12 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
+import 'package:gymnastic_center/presentation/screens/course/comments_course_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/lesson_info.dart';
+import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
+import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
