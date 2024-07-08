@@ -7,6 +7,8 @@ class Lesson {
   final String? videoUrl;
   final String? imageUrl;
   final List<Comment> comments;
+  final int? time;
+  final int? percent;
 
   const Lesson({
     required this.id,
@@ -15,5 +17,7 @@ class Lesson {
     required this.videoUrl,
     required this.imageUrl,
     required this.comments,
+    required this.time,
+    required this.percent,
   });
 }
