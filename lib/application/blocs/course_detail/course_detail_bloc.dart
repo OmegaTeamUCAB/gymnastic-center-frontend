@@ -12,8 +12,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState>
   final GetCourseByIdUseCase getCourseByIdUseCase;
   final Map<String, Course> _cachedCourses = {};
 
-  CourseDetailBloc({required this.getCourseByIdUseCase})
-      : super(CourseLoading()) {
+  CourseDetailBloc(this.getCourseByIdUseCase) : super(CourseLoading()) {
     on<CourseRequested>(_getCourseRequested);
   }
 

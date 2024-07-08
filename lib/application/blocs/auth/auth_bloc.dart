@@ -84,7 +84,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (result.isSuccessful) {
       final resetHandler = BlocResetHandler();
       resetHandler.resetBlocs();
-      emit(AuthState());
+      emit(Unauthenticated());
     }
   }
 

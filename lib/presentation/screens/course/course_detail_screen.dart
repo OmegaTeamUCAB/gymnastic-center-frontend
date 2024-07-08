@@ -15,14 +15,10 @@ class CourseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (_) => CourseDetailBloc(
-                getCourseByIdUseCase:
-                    GetIt.instance.get<GetCourseByIdUseCase>())
-              ..add(CourseRequested(id: courseId))),
-      ],
+    return BlocProvider(
+      create: (context) => CourseDetailBloc(
+        GetIt.instance<GetCourseByIdUseCase>(),
+      )..add(CourseRequested(id: courseId)),
       child: _CourseView(
         courseId: courseId,
       ),
