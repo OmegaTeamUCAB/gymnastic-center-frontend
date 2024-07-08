@@ -9,12 +9,14 @@ class LessonState extends Equatable {
   final bool firstLesson;
   final bool lastLesson;
   final String courseImage;
+
   final String courseId;
   final Progress progress;
   
   const LessonState({
     this.lessonStatus = LessonStatus.loading,
     this.courseLessons = const [],
+
     this.lesson = const Lesson(id: '', title: '', comments: [], content: '', imageUrl: '', videoUrl: '', percent: null, time: null),
     
     this.firstLesson = false,
@@ -46,11 +48,11 @@ class LessonState extends Equatable {
 
   @override
   List<Object> get props => [lesson, courseLessons, firstLesson, lastLesson, courseImage, courseId, lessonStatus, progress];
+
 }
 
 class LessonError extends LessonState {
   final String message;
 
-  LessonError({required this.message});
-
+  const LessonError({required this.message});
 }

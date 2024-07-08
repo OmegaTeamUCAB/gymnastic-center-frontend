@@ -6,14 +6,11 @@ import 'package:gymnastic_center/application/blocs/get_comments/get_comments_blo
 import 'package:gymnastic_center/presentation/widgets/blog/add_comment_bar.dart';
 
 class CustomModalSheet extends StatelessWidget {
-  final String blogId;
-  final String title;
+  final String? blogId;
+  final String? lessonId;
   final Widget child;
   const CustomModalSheet(
-      {super.key,
-      required this.blogId,
-      this.title = 'Comments',
-      required this.child});
+      {super.key, this.blogId, this.lessonId, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,7 @@ class CustomModalSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    title,
+                    blogId != null ? 'Comments' : 'Questions',
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.bold),
                   ),
@@ -65,13 +62,13 @@ class CustomModalSheet extends StatelessWidget {
             child: BlocListener<CreateCommentBloc, CreateCommentState>(
               listener: (context, state) {
                 if (state is CreateCommentSuccess) {
-                  getCommentsBloc
-                      .add(CommentsRequested(blogId: blogId, page: 1));
+                  getCommentsBloc.add(CommentsRequested(
+                      blogId: blogId, lessonId: lessonId, page: 1));
                 }
               },
               child: AddCommentBar(
-                targetType: 'BLOG',
-                lessonOrBlogId: blogId,
+                lessonId: lessonId,
+                blogId: blogId,
               ),
             ),
           ),

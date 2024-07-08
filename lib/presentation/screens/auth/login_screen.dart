@@ -66,7 +66,10 @@ class LoginScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            (GetIt.instance.get<bool>() == false) ? OnBoardingPageScreen() : const MainScreen()),
+                                            (GetIt.instance.get<bool>() ==
+                                                    false)
+                                                ? const OnBoardingPageScreen()
+                                                : const MainScreen()),
                                   );
                                 }
                                 if (state is AuthError) {

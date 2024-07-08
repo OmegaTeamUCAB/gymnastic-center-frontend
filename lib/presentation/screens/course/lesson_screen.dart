@@ -1,16 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
-import 'package:gymnastic_center/presentation/screens/course/comments_course_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/course/lesson_info.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
-import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -76,7 +73,6 @@ class _LessonView extends StatefulWidget {
   final String lessonId;
   const _LessonView({
     required this.lessonId,
-    super.key,
   });
 
   @override

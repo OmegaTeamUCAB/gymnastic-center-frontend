@@ -30,7 +30,7 @@ class NotificationIcon extends StatelessWidget {
             height: 16,
             width: 16,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              color: Theme.of(context).colorScheme.primary,
               shape: BoxShape.circle,
               border: Border.all(
                 color: color,

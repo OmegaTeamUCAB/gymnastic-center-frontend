@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gymnastic_center/application/use_cases/progress/get_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/start_course_progess.use_case.dart';
@@ -14,13 +14,6 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
 
   
   LessonBloc() : super(const LessonState()) {
-    on<ChangeToNextLesson>(_changeToNextLesson);
-    on<ChangeToPreviousLesson>(_changeToPreviousLesson);
-    on<ChangeToFirstLesson>(_changeToFirstLesson);
-    on<ChangeLessonById>(_changeLessonById);
-    on<LoadCourseInfo>(_loadCourseInfo);
-  }
-
 
   Future<void> _changeToFirstLesson(ChangeToFirstLesson event, Emitter<LessonState> emit) async {
     emit(state.copyWith(lessonStatus: LessonStatus.changing));
@@ -47,7 +40,7 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     emit(state.copyWith(firstLesson: state.courseLessons.first.id == nextLesson.id, lastLesson: state.courseLessons.last.id == nextLesson.id, lesson: nextLesson, lessonStatus: LessonStatus.loaded));
   }
 
-  void changeToNextLesson(){
+  void changeToNextLesson() {
     add(ChangeToNextLesson());
   }
   
@@ -56,9 +49,10 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     emit(state.copyWith(lessonStatus: LessonStatus.loading));
     final previousLesson = state.courseLessons[state.courseLessons.indexOf(state.lesson) - 1];
     emit(state.copyWith(firstLesson: state.courseLessons.first.id == previousLesson.id, lastLesson: state.courseLessons.last.id == previousLesson.id, lesson: previousLesson, lessonStatus: LessonStatus.loaded));
+
   }
-  
-  void changeToPreviousLesson(){
+
+  void changeToPreviousLesson() {
     add(ChangeToPreviousLesson());
   }
 
@@ -70,7 +64,7 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
   Lesson getNextLesson() {
     int numberToAdd = 1;
     if (state.lastLesson == true) numberToAdd = 0;
-    return state.courseLessons[state.courseLessons.indexOf(state.lesson) + numberToAdd];
+    return state
+        .courseLessons[state.courseLessons.indexOf(state.lesson) + numberToAdd];
   }
-
 }

@@ -32,18 +32,25 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
               widget.totalDuration * (localPosition.dx / box.size.width);
           await widget.seekPosition(widget.currentDuration);
         },
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Row(
             children: List.generate(
               widget.segments,
               (index) => Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 2),
-                  height: 10,
-                  color: index < (widget.progress * widget.segments)
-                      ? const Color(0xFF4F14A0)
-                      : Theme.of(context).colorScheme.onSecondaryContainer,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                  child: Container(
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: index < (widget.progress * widget.segments)
+                          ? const Color(0xFF4F14A0)
+                          : Theme.of(context).colorScheme.onSecondaryContainer,
+                      borderRadius: BorderRadius.circular(
+                        5,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

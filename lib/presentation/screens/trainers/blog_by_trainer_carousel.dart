@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_blogs_by_trainer/all_blogs_by_trainer_bloc.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_carousel.dart';
+import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
 class BlogByTrainerCarousel extends StatefulWidget {
   final String trainerId;
@@ -46,6 +47,12 @@ class _BlogByTrainerCarouselState extends State<BlogByTrainerCarousel> {
           }
           if (state is AllBlogsByTrainerSuccess) {
             List<Blog> blogs = state.blogs;
+            if (state.blogs.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: NoResults(message: 'No blogs found'),
+              );
+            }
             return BlogCarousel(blogs: blogs);
           } else {
             return const Center(

@@ -47,6 +47,8 @@ class BlogSlide extends StatelessWidget {
                   children: [
                     Text(
                       blog.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -56,14 +58,14 @@ class BlogSlide extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          blog.category!,
+                          blog.trainer!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.primary),
                         ),
                         const Spacer(),
                         Text(
-                          format(DateTime.parse(blog.uploadDate!)),
+                          blog.category!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),

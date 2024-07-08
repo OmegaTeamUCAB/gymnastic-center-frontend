@@ -26,7 +26,7 @@ class OnBoardingPage extends StatelessWidget {
             height: 280,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
@@ -55,7 +55,7 @@ class OnBoardingPage extends StatelessWidget {
                 fontSize: 17, color: Theme.of(context).colorScheme.onSecondary),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 35,
         ),
         Padding(

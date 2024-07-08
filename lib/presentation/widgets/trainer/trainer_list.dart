@@ -27,53 +27,57 @@ class _TrainerListState extends State<TrainerList> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: followTrainerBloc,
-      child: Column(
-        children: widget.trainers.asMap().entries.map((entry) {
-          Trainer trainer = entry.value;
-          return Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TrainerScreen(trainerId: trainer.id!),
-                  ),
-                );
-              },
-              title: Text(
-                trainer.name!,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 100.0),
+        child: Column(
+          children: widget.trainers.asMap().entries.map((entry) {
+            Trainer trainer = entry.value;
+            return Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                borderRadius: BorderRadius.circular(10),
               ),
-              titleTextStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-              trailing: trainer.userFollow!
-                  ? Text(AppLocalizations.of(context)!.following)
-                  : Text(
-                      '${trainer.followers} ${trainer.followers == 1 ? AppLocalizations.of(context)!.follower : AppLocalizations.of(context)!.followers}'),
-              subtitle: Text(trainer.location!),
-              leading: trainer.image != null
-                  ? CircleAvatar(
-                      backgroundImage: NetworkImage(trainer.image!),
-                    )
-                  : const Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        Icons.person,
-                        size: 30,
-                      ),
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TrainerScreen(trainerId: trainer.id!),
                     ),
-            ),
-          );
-        }).toList(),
+                  );
+                },
+                title: Text(
+                  trainer.name!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                titleTextStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                trailing: trainer.userFollow!
+                    ? Text(AppLocalizations.of(context)!.following)
+                    : Text(
+                        '${trainer.followers} ${trainer.followers == 1 ? AppLocalizations.of(context)!.follower : AppLocalizations.of(context)!.followers}'),
+                subtitle: Text(trainer.location ?? "Venezuela"),
+                leading: trainer.image != null
+                    ? CircleAvatar(
+                        backgroundImage: NetworkImage(trainer.image!),
+                      )
+                    : const Padding(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.person,
+                          size: 30,
+                        ),
+                      ),
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

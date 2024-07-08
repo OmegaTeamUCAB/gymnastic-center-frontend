@@ -16,78 +16,79 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchBloc = GetIt.instance<SearchBloc>();
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          automaticallyImplyLeading: false,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.cancel,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 16),
-                  )),
-            ),
-          ],
-          title: BlocProvider.value(
-            value: searchBloc,
-            child: const CustomSearchBar(),
-          ),
-        ),
-        body: BlocProvider.value(
-          value: searchBloc,
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              const SearchChips(),
-              Divider(
-                color: Theme.of(context).colorScheme.surfaceTint,
-              ),
-              BlocBuilder<SearchBloc, SearchState>(
-                builder: (context, state) {
-                  return BlocListener<SearchBloc, SearchState>(
-                    listener: (context, state) {
-                      if (state.isSubmitted) {
-                        if (state.results.courses.isNotEmpty) {
-                          final courseBloc =
-                              BlocProvider.of<CourseBloc>(context);
-                          courseBloc.add(CourseClicked(
-                              courseId: state.results.courses.first.id));
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CourseDetailScreen(
-                                  courseId: state.results.courses.first.id),
-                            ),
-                          );
-                        } else if (state.results.blogs.isNotEmpty) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlogDetailScreen(
-                                  blogId: state.results.blogs.first.id),
-                            ),
-                          );
-                        }
+    return BlocProvider.value(
+      value: searchBloc,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              automaticallyImplyLeading: false,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 16),
+                      )),
+                ),
+              ],
+              title: const CustomSearchBar(),
+              bottom: const PreferredSize(
+                preferredSize: Size.fromHeight(60),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: SearchChips(),
+                    ),
+                    Divider()
+                  ],
+                ),
+              )),
+          body: SingleChildScrollView(
+            child: BlocBuilder<SearchBloc, SearchState>(
+              builder: (context, state) {
+                return BlocListener<SearchBloc, SearchState>(
+                  listener: (context, state) {
+                    if (state.isSubmitted) {
+                      if (state.results.courses.isNotEmpty) {
+                        final courseBloc = BlocProvider.of<CourseBloc>(context);
+                        courseBloc.add(CourseClicked(
+                            courseId: state.results.courses.first.id));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseDetailScreen(
+                                courseId: state.results.courses.first.id),
+                          ),
+                        );
+                      } else if (state.results.blogs.isNotEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlogDetailScreen(
+                                blogId: state.results.blogs.first.id),
+                          ),
+                        );
                       }
-                    },
-                    child: SearchResultsList(
-                        courses: state.results.courses,
-                        blogs: state.results.blogs),
-                  );
-                },
-              ),
-            ],
+                    }
+                  },
+                  child: SearchResultsList(
+                      courses: state.results.courses,
+                      blogs: state.results.blogs),
+                );
+              },
+            ),
           ),
         ),
       ),

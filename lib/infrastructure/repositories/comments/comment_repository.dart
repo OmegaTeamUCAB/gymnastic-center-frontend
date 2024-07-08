@@ -38,6 +38,17 @@ class CommentRepository extends ICommentRepository {
       mapperCallBack: (data) {
         List<Comment> comments = [];
         for (var comment in data) {
+          Answer? answer;
+          if (comment['answer'] != null) {
+            answer = Answer(
+              id: comment['answer']['id'],
+              trainerId: comment['answer']['instructor']['id'],
+              trainerName: comment['answer']['instructor']['name'],
+              trainerImage: comment['answer']['instructor']['image'],
+              body: comment['answer']['answer'],
+              date: DateTime.parse(comment['answer']['date']),
+            );
+          }
           comments.add(Comment(
             id: comment['id'],
             user: comment['user'],
@@ -49,6 +60,7 @@ class CommentRepository extends ICommentRepository {
             userDisliked: comment['userDisliked'],
             userLiked: comment['userLiked'],
             date: DateTime.parse(comment['date']),
+            answer: answer, // This can be null if the comment has no answer
           ));
         }
         return comments;
@@ -91,13 +103,13 @@ class CommentRepository extends ICommentRepository {
     );
     return result;
   }
-  
+
   @override
-  Future<Result<void>> deleteComment(String commentId) async{
+  Future<Result<void>> deleteComment(String commentId) async {
     final result = await _httpConnectionManager.makeRequest(
-      httpMethod: 'DELETE', 
-      urlPath: 'comment/delete/$commentId', 
-      mapperCallBack: (_) => {});
+        httpMethod: 'DELETE',
+        urlPath: 'comment/delete/$commentId',
+        mapperCallBack: (_) => {});
     return result;
   }
 }
