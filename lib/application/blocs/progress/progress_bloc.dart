@@ -73,7 +73,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     if(result.isSuccessful) {
       emit(state.copyWith(progressStatus: ProgressStatus.loaded));
     } else {
-      emit(ProgressError(message: result.error.message));
+      emit(state.copyWith(progressStatus: ProgressStatus.unitialized));
     }
   }
 
