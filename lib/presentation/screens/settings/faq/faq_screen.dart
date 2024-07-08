@@ -6,6 +6,7 @@ import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart
 import 'package:gymnastic_center/presentation/widgets/settings/custom_tile.dart';
 import 'package:gymnastic_center/presentation/widgets/settings/faq/faq_info.dart';
 import 'package:gymnastic_center/presentation/widgets/settings/faq/faq_items.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FAQScreen extends StatefulWidget {
   const FAQScreen({super.key});
@@ -78,41 +79,28 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 120),
-          child: CustomAppBar(
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, 120),
+        child: CustomAppBar(
             content: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        BrandBackButton(),
-                        Text(
-                          'We are happy to help',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
-          )),
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Row(
+            children: [
+              const BrandBackButton(),
+              Text(
+                AppLocalizations.of(context)!.faq,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        )),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Frequently Asked Questions:',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onPrimary),
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: SizedBox(
@@ -124,7 +112,7 @@ class _FAQScreenState extends State<FAQScreen> {
                 itemBuilder: (context, index) {
                   final filter = filterChips[index];
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: FilterChip(
                         backgroundColor:
                             Theme.of(context).colorScheme.surfaceTint,

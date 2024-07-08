@@ -74,11 +74,12 @@ class SignUpScreen extends StatelessWidget {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  (GetIt.instance.get<bool>() ==
-                                                          false)
-                                                      ? OnBoardingPageScreen()
-                                                      : const MainScreen()),
+                                              builder: (context) => (GetIt
+                                                          .instance
+                                                          .get<bool>() ==
+                                                      false)
+                                                  ? const OnBoardingPageScreen()
+                                                  : const MainScreen()),
                                         );
                                       }
                                       if (state is AuthError) {

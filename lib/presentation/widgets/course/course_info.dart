@@ -12,6 +12,7 @@ import 'package:gymnastic_center/presentation/widgets/course/course_detail_info_
 import 'package:gymnastic_center/presentation/widgets/course/lesson_list.dart';
 import 'package:gymnastic_center/presentation/screens/course/lesson_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
 
 class CourseInfo extends StatelessWidget {
   final Course course;
@@ -51,22 +52,44 @@ class CourseInfo extends StatelessWidget {
                           fontSize: 30, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                TrainerScreen(trainerId: course.trainer['id']),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ProfileAvatar(
+                            radius: 20,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrainerScreen(
+                                      trainerId: course.trainer['id']),
+                                ),
+                              );
+                            },
+                            fullName: course.trainer['name'],
+                            urlImage: course.trainer['image'],
                           ),
-                        );
-                      },
-                      child: Text(
-                        course.trainer['name'],
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 114, 45, 211)),
-                        textAlign: TextAlign.center,
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrainerScreen(
+                                      trainerId: course.trainer['id']),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              course.trainer['name'],
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -79,11 +102,13 @@ class CourseInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CourseDetailInfoCard(
-                    label: 'Level ${course.level.toString()}',
+                    label: AppLocalizations.of(context)!
+                        .level(course.level.toString()),
                     iconData: Icons.menu,
                   ),
                   CourseDetailInfoCard(
-                    label: '${course.weeks.toString()} Weeks',
+                    label: AppLocalizations.of(context)!
+                        .weeks(course.weeks.toString()),
                     iconData: Icons.calendar_month_sharp,
                   ),
                   CourseDetailInfoCard(
@@ -155,7 +180,9 @@ class CourseInfo extends StatelessWidget {
               const Divider(
                 height: 30,
               ),
-              Text('${course.lessons!.length} Lessons',
+              Text(
+                  AppLocalizations.of(context)!
+                      .lessons(course.lessons!.length.toString()),
                   style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.onPrimary)),

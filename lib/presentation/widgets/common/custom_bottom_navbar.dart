@@ -54,7 +54,7 @@ class CustomNavigationBar extends StatelessWidget {
                   notificationNumber: 1.toString(),
                   size: 33,
                   color: tabIndex == 2
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      ? Theme.of(context).colorScheme.primary
                       : Theme.of(context)
                           .colorScheme
                           .onPrimary
@@ -106,7 +106,7 @@ class _CustomNavButton extends StatelessWidget {
                 : Icon(
                     iconData,
                     color: (isSelected)
-                        ? Theme.of(context).colorScheme.onPrimaryContainer
+                        ? Theme.of(context).colorScheme.primary
                         : Theme.of(context)
                             .colorScheme
                             .onPrimary

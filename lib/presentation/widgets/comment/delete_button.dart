@@ -14,7 +14,8 @@ class DeleteButton extends StatelessWidget {
     super.key,
     required this.modalTitle,
     required this.buttonLabel,
-    required this.commentId, required this.blogId,
+    required this.commentId,
+    required this.blogId,
   });
 
   @override
@@ -28,7 +29,7 @@ class DeleteButton extends StatelessWidget {
       child: BlocListener<DeleteCommentBloc, DeleteCommentState>(
         listener: (context, state) {
           if (state is DeleteCommentSuccess) {
-            getCommentsBloc.add(CommentsRequested(blogId:blogId, page: 1));
+            getCommentsBloc.add(CommentsRequested(blogId: blogId, page: 1));
           }
         },
         child: IconButton(

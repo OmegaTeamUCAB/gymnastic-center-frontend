@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_info.dart';
-import 'package:gymnastic_center/presentation/screens/blog/comments_fab.dart';
+import 'package:gymnastic_center/presentation/widgets/comment/comments_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/blog/blog_app_bar.dart';
 
 class BlogDetailScreen extends StatefulWidget {
@@ -48,7 +48,9 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                   Positioned(
                       bottom: 20,
                       right: 20,
-                      child: CommentsFAB(blogId: widget.blogId)),
+                      child: CommentsFAB(
+                        blogId: widget.blogId,
+                      )),
                 ],
               );
             } else {

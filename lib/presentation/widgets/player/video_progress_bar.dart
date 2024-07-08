@@ -8,8 +8,8 @@ class VideoProgressBar extends StatelessWidget {
   const VideoProgressBar({super.key});
 
   Stream<double> _videoProgressStream(BuildContext context) {
-    return Stream.periodic(const Duration(microseconds: 100), (_) {
-      return GetIt.instance<VideoPlayerBloc>().getVideoProgress();
+    return Stream.periodic(const Duration(microseconds: 200), (_) {
+      return context.read<VideoPlayerBloc>().getVideoProgress();
     }).takeWhile((progress) => progress < 1);
   }
 
@@ -31,7 +31,7 @@ class VideoProgressBar extends StatelessWidget {
                           : (snapshot.data ?? 0);
                   return CustomProgressBar(
                     progress: progress,
-                    segments: 20,
+                    segments: 25,
                     seekPosition: videoBloc.seekPosition,
                     totalDuration:
                         videoBloc.state.videoDuration,

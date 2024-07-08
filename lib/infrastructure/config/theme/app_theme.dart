@@ -46,7 +46,7 @@ class AppTheme {
           outline: Colors.white,
           surfaceTint: const Color(0xFF4E546A),
           onSecondaryContainer: const Color(0xFF4E546A),
-          onPrimaryContainer: Colors.white,
+          onPrimaryContainer: const Color.fromARGB(255, 114, 45, 211),
           onTertiaryContainer: const Color(0xff2D2D3A),
           tertiaryContainer: const Color(0xFF4E546A),
           onBackground: const Color(0xFF2D2D3A),

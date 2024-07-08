@@ -37,11 +37,13 @@ class ProfileAvatar extends StatelessWidget {
     } else {
       // Default avatar with initials
       avatar = CircleAvatar(
-        backgroundColor: const Color(0xFFe3dff1),
+        backgroundColor: Theme.of(context).colorScheme.surfaceTint,
         radius: radius,
         child: Text(
           fullName.split(' ').map((l) => l[0]).take(2).join(),
-          style: const TextStyle(fontSize: 20),
+          style: TextStyle(
+              fontSize: radius! * 0.8,
+              color: Theme.of(context).colorScheme.primary),
         ),
       );
     }

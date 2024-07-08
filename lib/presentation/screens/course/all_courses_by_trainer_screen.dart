@@ -18,7 +18,6 @@ class AllCoursesByTrainerScreen extends StatefulWidget {
 }
 
 class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
-  // final allCoursesByTrainerBloc = GetIt.instance<AllCourseByTrainerBloc>();
   late PaginationController _paginationController;
   late AllCourseByTrainerBloc _allCoursesByTrainerBloc;
 
@@ -44,7 +43,6 @@ class _AllCoursesByTrainerScreenState extends State<AllCoursesByTrainerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String id = widget.trainer['id'];
     String name = widget.trainer['name'];
     return Scaffold(
         appBar: PreferredSize(

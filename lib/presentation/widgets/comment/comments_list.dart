@@ -5,24 +5,27 @@ import 'package:gymnastic_center/application/blocs/get_comments/get_comments_blo
 import 'package:gymnastic_center/presentation/widgets/comment/comment_tile.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 
-class BlogComments extends StatefulWidget {
-  final String blogId;
-  const BlogComments({
+class CommentsList extends StatefulWidget {
+  final String? blogId;
+  final String? lessonId;
+  const CommentsList({
     super.key,
-    required this.blogId,
+    this.blogId,
+    this.lessonId,
   });
 
   @override
-  State<BlogComments> createState() => _BlogCommentsState();
+  State<CommentsList> createState() => _CommentsListState();
 }
 
-class _BlogCommentsState extends State<BlogComments> {
+class _CommentsListState extends State<CommentsList> {
   late final GetCommentsBloc _commentsBloc;
   @override
   void initState() {
     super.initState();
     _commentsBloc = GetIt.instance<GetCommentsBloc>();
-    _commentsBloc.add(CommentsRequested(blogId: widget.blogId, page: 1));
+    _commentsBloc.add(CommentsRequested(
+        blogId: widget.blogId, lessonId: widget.lessonId, page: 1));
   }
 
   @override
@@ -46,21 +49,23 @@ class _BlogCommentsState extends State<BlogComments> {
           }
           if (state is GetCommentsSuccess) {
             if (state.comments.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.all(20),
-                child: Center(child: NoResults(message: 'No comments')),
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Center(
+                    child: NoResults(
+                        message:
+                            'No ${widget.blogId != null ? 'comments' : 'questions'}')),
               );
             }
             return ListView.builder(
               itemCount: state.comments.length,
               itemBuilder: (context, index) {
                 final comment = state.comments[index];
-                return Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: CommentTile(
-                      blogId: widget.blogId,
-                      comment: comment,
-                    ));
+                return CommentTile(
+                  blogId: widget.blogId,
+                  lessonId: widget.lessonId,
+                  comment: comment,
+                );
               },
             );
           } else {

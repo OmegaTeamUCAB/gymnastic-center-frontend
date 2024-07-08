@@ -5,6 +5,7 @@ import 'package:gymnastic_center/presentation/screens/auth/login_screen.dart';
 import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_footer.dart';
 import 'package:gymnastic_center/presentation/widgets/settings/data_source_select.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -110,6 +111,10 @@ class AuthOptionsScreen extends StatelessWidget {
                         ],
                 ),
               ),
+              const SizedBox(
+                height: 40,
+              ),
+              const BrandFooter()
             ],
           ),
           Positioned(

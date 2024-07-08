@@ -157,14 +157,9 @@ class _TrainerInfoState extends State<TrainerInfo> {
                             builder: (context) => const AllCoursesScreen()),
                       );
                     }),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: BlocProvider(
-                    create: (context) =>
-                        GetIt.instance<AllCourseByTrainerBloc>(),
-                    child:
-                        CourseByTrainerCarousel(trainerId: widget.trainer.id!),
-                  ),
+                BlocProvider(
+                  create: (context) => GetIt.instance<AllCourseByTrainerBloc>(),
+                  child: CourseByTrainerCarousel(trainerId: widget.trainer.id!),
                 ),
                 ContentHeader(
                     title: '${widget.trainer.name}\'s Blogs',
