@@ -17,7 +17,6 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     on<ChangeToFirstLesson>(_changeToFirstLesson);
     on<ChangeLessonById>(_changeLessonById);
     on<LoadCourseInfo>(_loadCourseInfo);
-    on<LoadCourseInfo>(_loadCourseInfo);
   }
 
   Future<void> _changeToFirstLesson(
