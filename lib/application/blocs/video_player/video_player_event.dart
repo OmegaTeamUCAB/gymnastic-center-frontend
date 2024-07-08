@@ -5,8 +5,12 @@ sealed class VideoPlayerEvent {}
 
 class VideoInitialized extends VideoPlayerEvent {
   final String video;
+  final Duration time;
 
-  VideoInitialized({required this.video});
+  VideoInitialized({
+    required this.video,
+    required this.time
+  });
 
 }
 

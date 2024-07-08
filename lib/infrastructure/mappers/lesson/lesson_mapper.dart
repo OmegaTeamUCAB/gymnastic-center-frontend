@@ -11,6 +11,8 @@ class LessonMapper {
         comments: (json["comments"] != null)
             ? CommentMapper.fromJsonToList(json["comments"])
             : [],
+        percent: (json["percent"] != null) ? json["percent"] : null,
+        time: (json["time"] != null) ? json["time"] : null,
       );
 
   //! remove if unused

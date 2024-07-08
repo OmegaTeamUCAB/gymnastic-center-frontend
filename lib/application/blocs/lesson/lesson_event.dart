@@ -10,10 +10,16 @@ class LoadLessons extends LessonEvent {
 
 }
 
-class LoadCourseImage extends LessonEvent {
+class LoadCourseInfo extends LessonEvent {
+  final String courseImage;
   final String course;
+  final List<Lesson> lessons;
 
-  LoadCourseImage({required this.course});
+  LoadCourseInfo({
+    required this.course,
+    required this.courseImage,
+    required this.lessons
+  });
 }
 
 class ChangeToNextLesson extends LessonEvent {}
@@ -24,4 +30,6 @@ class ChangeLessonById extends LessonEvent {
   ChangeLessonById({required this.lessonId});
 }
 class ChangeToFirstLesson extends LessonEvent {}
+
+
 
