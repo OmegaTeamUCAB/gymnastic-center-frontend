@@ -7,6 +7,7 @@ import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_ca
 import 'package:gymnastic_center/application/blocs/course_detail/course_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
+import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
 
 class BlocResetHandler {
@@ -33,5 +34,7 @@ class BlocResetHandler {
     blogDetailBloc.reset();
     final courseDetailBloc = _getIt<CourseDetailBloc>();
     courseDetailBloc.reset();
+    final searchTagsBloc = _getIt<GetSearchTagsBloc>();
+    searchTagsBloc.reset();
   }
 }
