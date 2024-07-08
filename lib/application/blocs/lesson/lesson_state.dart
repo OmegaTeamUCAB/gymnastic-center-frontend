@@ -1,78 +1,54 @@
 part of 'lesson_bloc.dart';
 
+enum LessonStatus {loading, changing, loaded}
+
 class LessonState extends Equatable {
+  final LessonStatus lessonStatus;
   final Lesson lesson;
   final List<Lesson> courseLessons;
   final bool firstLesson;
   final bool lastLesson;
   final String courseImage;
 
+  final String courseId;
+  final Progress progress;
+  
   const LessonState({
+    this.lessonStatus = LessonStatus.loading,
     this.courseLessons = const [],
-    this.lesson = const Lesson(
-        id: '',
-        title: '',
-        comments: [],
-        content: '',
-        imageUrl: '',
-        videoUrl: ''),
+
+    this.lesson = const Lesson(id: '', title: '', comments: [], content: '', imageUrl: '', videoUrl: '', percent: null, time: null),
+    
     this.firstLesson = false,
     this.lastLesson = false,
     this.courseImage = '',
+    this.courseId = '',
+    this.progress = const Progress(lessonProgress: [], percent: 0),
   });
 
-  LessonState copyWith(
-          {Lesson? lesson,
-          List<Lesson>? courseLessons,
-          bool? firstLesson,
-          bool? lastLesson,
-          String? courseImage}) =>
-      LessonState(
-        courseLessons: courseLessons ?? this.courseLessons,
-        firstLesson: firstLesson ?? this.firstLesson,
-        lastLesson: lastLesson ?? this.lastLesson,
-        lesson: lesson ?? this.lesson,
-        courseImage: courseImage ?? this.courseImage,
-      );
+  LessonState copyWith({
+  LessonStatus? lessonStatus,
+  Lesson? lesson,
+  List<Lesson>? courseLessons,
+  bool? firstLesson,
+  bool? lastLesson,
+  String? courseImage,
+  String? courseId,
+  Progress? progress
+  }) => LessonState(
+    lessonStatus: lessonStatus ?? this.lessonStatus,
+    courseLessons: courseLessons ?? this.courseLessons, 
+    firstLesson: firstLesson ?? this.firstLesson, 
+    lastLesson: lastLesson ?? this.lastLesson,
+    lesson: lesson ?? this.lesson,
+    courseImage: courseImage ?? this.courseImage,
+    courseId: courseId ?? this.courseId,
+    progress: progress ?? this.progress,
+  );
 
   @override
-  List<Object> get props =>
-      [lesson, courseLessons, firstLesson, lastLesson, courseImage];
-}
+  List<Object> get props => [lesson, courseLessons, firstLesson, lastLesson, courseImage, courseId, lessonStatus, progress];
 
-class LessonLoading extends LessonState {
-  const LessonLoading(
-      {super.courseLessons = const [],
-      super.lesson = const Lesson(
-          id: '',
-          title: '',
-          comments: [],
-          content: '',
-          imageUrl: '',
-          videoUrl: ''),
-      super.firstLesson = false,
-      super.lastLesson = false,
-      super.courseImage = ''});
-}
-
-class LessonChanging extends LessonState {
-  const LessonChanging({
-    required super.courseLessons,
-    required super.firstLesson,
-    required super.lastLesson,
-    required super.lesson,
-    required super.courseImage,
-  });
-}
-
-class LessonLoaded extends LessonState {
-  const LessonLoaded({
-    required super.courseLessons,
-    required super.firstLesson,
-    required super.lastLesson,
-    required super.lesson,
-    required super.courseImage,
-  });
 }
 
 class LessonError extends LessonState {

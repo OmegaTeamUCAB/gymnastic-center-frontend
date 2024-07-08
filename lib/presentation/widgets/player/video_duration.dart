@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
 
 class VideoDuration extends StatelessWidget {
@@ -14,8 +15,10 @@ class VideoDuration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final videoBloc = GetIt.instance<VideoPlayerBloc>();
+    
     return BlocProvider.value(
-        value: context.read<VideoPlayerBloc>(),
+        value: videoBloc,
         child: BlocBuilder<VideoPlayerBloc, VideoPlayerState>(
           builder: (context, state) {
             if (state.videoStatus == PlayerStatus.streaming) {
@@ -24,7 +27,7 @@ class VideoDuration extends StatelessWidget {
                 builder: (context, snapshot) {
                   Duration position =
                       snapshot.connectionState == ConnectionState.done
-                          ? context.read<VideoPlayerBloc>().state.videoDuration
+                          ? GetIt.instance<VideoPlayerBloc>().state.videoDuration
                           : (snapshot.data ?? Duration.zero);
                   return Text(
                       '${position.inMinutes.remainder(60).toString().padLeft(2, '0')}:${position.inSeconds.remainder(60).toString().padLeft(2, '0')}',

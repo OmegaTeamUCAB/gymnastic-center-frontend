@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
 import 'package:gymnastic_center/presentation/widgets/player/custom_progress_bar.dart';
 
@@ -14,8 +15,10 @@ class VideoProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final videoBloc = GetIt.instance<VideoPlayerBloc>();
+
     return BlocProvider.value(
-        value: context.read<VideoPlayerBloc>(),
+        value: videoBloc,
         child: BlocBuilder<VideoPlayerBloc, VideoPlayerState>(
           builder: (context, state) {
             if (state.videoStatus == PlayerStatus.streaming) {
@@ -29,14 +32,14 @@ class VideoProgressBar extends StatelessWidget {
                   return CustomProgressBar(
                     progress: progress,
                     segments: 25,
-                    seekPosition: context.read<VideoPlayerBloc>().seekPosition,
+                    seekPosition: videoBloc.seekPosition,
                     totalDuration:
-                        context.read<VideoPlayerBloc>().state.videoDuration,
+                        videoBloc.state.videoDuration,
                   );
                 },
               );
             }
-            return const SizedBox.shrink();
+            return Container();
           },
         ));
   }

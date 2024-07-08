@@ -22,6 +22,9 @@ class CourseMapper {
         updatedAt: (json["updatedAt"] != null)
             ? DateTime.parse(json["updatedAt"])
             : null,
+        percent: (json["percent"] != null) 
+            ? json["percent"]
+            : 0
       );
 
   //! remove if unused

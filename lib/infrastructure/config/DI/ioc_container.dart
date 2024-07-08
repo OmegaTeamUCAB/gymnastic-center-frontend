@@ -4,6 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:gymnastic_center/application/blocs/course_detail/course_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
+import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/progress/get_course_progess.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/progress/start_course_progess.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/progress/update_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/blocs/delete_comment/delete_comment_bloc.dart';
 import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
@@ -65,6 +69,7 @@ import 'package:gymnastic_center/infrastructure/repositories/categories/category
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/notifications/notification_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/progress/progress_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/trainer/trainer_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/user/user_repository.dart';
@@ -99,12 +104,13 @@ class IoCContainer {
     final commentRepository = CommentRepository(httpConnectionManager);
     final notificationRepository =
         NotificationRepository(httpConnectionManager);
+    final progressRepository = ProgressRepository(httpConnectionManager);
 
     //USE CASES
     final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
     final loginUseCase =
         LoginUseCase(authRepository, notificationRepository, secureStorage);
-    final logoutUseCase = LogoutUseCase(authRepository);
+    final logoutUseCase = LogoutUseCase(authRepository, notificationRepository);
     final getCourseByIdUseCase = GetCourseByIdUseCase(courseRepository);
     final signUpUseCase =
         SignUpUseCase(authRepository, notificationRepository, secureStorage);
@@ -129,6 +135,12 @@ class IoCContainer {
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
     final likeOrDislikeCommentUseCase =
         LikeOrDislikeCommentUseCase(commentRepository);
+    final startCourseProgressUseCase =
+        StartCourseProgressUseCase(progressRepository);
+    final getCourseProgressByIdUseCase =
+        GetCourseProgressByIdUseCase(progressRepository);
+    final updateCourseProgressUseCase =
+        UpdateCourseProgressUseCase(progressRepository);
 
     //BLOCS
     getIt.registerSingleton<GetCommentsBloc>(
@@ -185,6 +197,10 @@ class IoCContainer {
     getIt.registerSingleton<TrainerUserFollowBloc>(
         TrainerUserFollowBloc(trainerUserFollowUseCase));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
+    getIt.registerSingleton<ProgressBloc>(ProgressBloc(
+        getCourseProgressByIdUseCase: getCourseProgressByIdUseCase,
+        startCourseProgressUseCase: startCourseProgressUseCase,
+        updateCourseProgressUseCase: updateCourseProgressUseCase));
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
     getIt.registerSingleton<SelectDataSourceBloc>(selectDataSourceBloc);
   }
