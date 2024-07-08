@@ -4,6 +4,7 @@ import 'package:gymnastic_center/application/blocs/all_courses/all_courses_bloc.
 import 'package:gymnastic_center/application/blocs/all_trainers/all_trainers_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blog_detail/blog_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/blogs_by_category/blogs_by_category_bloc.dart';
+import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/popular_blogs/popular_blogs_bloc.dart';
 
@@ -25,6 +26,8 @@ class BlocResetHandler {
     allTrainersBloc.reset();
     final blogsByCategoryBloc = _getIt<BlogsByCategoryBloc>();
     blogsByCategoryBloc.reset();
+    final coursesByCategoryBloc = _getIt<CoursesByCategoryBloc>();
+    coursesByCategoryBloc.reset();
     final blogDetailBloc = _getIt<BlogDetailBloc>();
     blogDetailBloc.reset();
   }
