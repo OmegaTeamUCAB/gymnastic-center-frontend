@@ -4,7 +4,7 @@ class BrandNotification {
   final String id;
   final String title;
   final String body;
-  final String date;
+  final DateTime date;
   final bool? isRead;
 
   const BrandNotification({

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/application/models/push_message.dart';
+import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class NotificationDetailScreen extends StatelessWidget {
-  final PushMessage notification;
+  final BrandNotification notification;
   const NotificationDetailScreen({super.key, required this.notification});
 
   @override
@@ -44,8 +44,6 @@ class NotificationDetailScreen extends StatelessWidget {
               height: 15,
             ),
             Text(notification.body),
-            if (notification.imageUrl != null)
-              Image.network(notification.imageUrl!)
           ],
         ),
       ),
