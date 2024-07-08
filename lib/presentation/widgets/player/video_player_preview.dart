@@ -63,6 +63,10 @@ class VideoPlayerView extends StatelessWidget {
                                     (videoBloc.state.isMuted)
                                         ? Icons.volume_off
                                         : Icons.volume_up,
+                                    shadows: const [
+                                      Shadow(
+                                          color: Colors.black54, blurRadius: 10)
+                                    ],
                                     color: Colors.white,
                                     size: 28),
                                 onPressed:
@@ -84,30 +88,37 @@ class VideoPlayerView extends StatelessWidget {
                                                 speed: speed,
                                               )))
                                       .toList(),
-                                  child: const Icon(Icons.settings,
-                                      color: Colors.white, size: 30)),
-                              const SizedBox(width: 10),
-                              IconButton(
-                                icon: const Icon(Icons.playlist_add,
-                                    color: Colors.white, size: 28),
-                                onPressed: () {
-                                  const snackBar = SnackBar(
-                                    behavior: SnackBarBehavior.floating,
-                                    content:
-                                        Text('No hay lista por los momentos'),
-                                    duration: Duration(seconds: 2),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                },
-                              ),
+                                  child: const Icon(
+                                    Icons.settings,
+                                    color: Colors.white,
+                                    size: 30,
+                                    shadows: [
+                                      Shadow(
+                                          color: Colors.black54, blurRadius: 10)
+                                    ],
+                                  )),
                             ],
                           ),
                         ],
                       ),
                     ),
                   ],
-                )
+                ),
+                Positioned(
+                  top: 60,
+                  right: 10,
+                  child: IconButton(
+                    icon: const Icon(Icons.close_rounded,
+                        shadows: [
+                          Shadow(color: Colors.black54, blurRadius: 10)
+                        ],
+                        color: Colors.white,
+                        size: 30),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
               ],
             ),
           );
