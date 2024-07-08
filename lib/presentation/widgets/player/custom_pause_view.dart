@@ -13,8 +13,8 @@ class CustomPauseView extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.black.withOpacity(0.7),
-              Colors.black.withOpacity(0.3),
+              Colors.black.withOpacity(0.2),
+              Colors.black.withOpacity(0.2),
             ],
           ),
         ),
@@ -29,6 +29,7 @@ class CustomPauseView extends StatelessWidget {
                 icon: const Icon(
                   Icons.play_arrow_rounded,
                   color: Colors.white,
+                  shadows: [Shadow(color: Colors.black54, blurRadius: 10)],
                   size: 80,
                 ),
               ),

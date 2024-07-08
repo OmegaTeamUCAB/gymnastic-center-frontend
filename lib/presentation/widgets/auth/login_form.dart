@@ -70,6 +70,8 @@ class _LoginFormState extends State<LoginForm> {
             onChanged: (value) {
               loginBloc.add(PasswordChanged(value));
             },
+            onFieldSubmitted: (value) => onSubmit(),
+            textInputAction: TextInputAction.go,
             validator: (value) {
               if (value == null || value.isEmpty) return 'Required Field';
               if (value.trim().isEmpty) return 'Required Field';

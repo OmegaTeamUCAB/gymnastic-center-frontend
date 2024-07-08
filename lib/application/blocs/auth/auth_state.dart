@@ -8,6 +8,8 @@ class Authenticated extends AuthState {
   Authenticated(this.user);
 }
 
+class Unauthenticated extends AuthState {}
+
 class AuthLoading extends AuthState {}
 
 class AuthError extends AuthState {

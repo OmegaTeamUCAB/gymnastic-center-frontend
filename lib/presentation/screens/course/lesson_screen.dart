@@ -73,26 +73,7 @@ class _LessonView extends StatelessWidget {
           return Scaffold(
             body: Column(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      color: Colors.grey[200],
-                      child:
-                          const SizedBox(height: 680, child: VideoPlayerView()),
-                    ),
-                    Positioned(
-                      top: 60,
-                      right: 10,
-                      child: IconButton(
-                        icon: const Icon(Icons.close_rounded,
-                            color: Colors.white, size: 30),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                const SizedBox(height: 680, child: VideoPlayerView()),
                 LessonInfo(
                   lessonBloc: lessonBloc,
                   state: state,
