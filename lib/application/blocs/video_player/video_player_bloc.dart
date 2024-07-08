@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:bloc/bloc.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:equatable/equatable.dart';
@@ -22,6 +24,7 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   Future<Result<bool>> _loadVideo() async {
     try {
       await videoPlayerController.initialize();
+      await videoPlayerController.seekTo(Duration(seconds: -1));
       return Result.success<bool>(true);
     } catch (e) {
       return Result.failure<bool>(const UnknownException());
@@ -29,15 +32,16 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   }
 
   Future<void> _initializePlayer(VideoInitialized event, Emitter<VideoPlayerState> emit) async {
-    if(state.videoStatus == PlayerStatus.streaming)
-    videoPlayerController.pause();
+    if(state.videoStatus == PlayerStatus.streaming){
+      videoPlayerController.pause();
+    }
     emit(state.copyWith(videoStatus: PlayerStatus.loading));
       videoPlayerController =  CachedVideoPlayerController.network(event.video);
     final result = await _loadVideo();
-        videoPlayerController
-      ..setLooping(false)
-      ..play();
     if(result.isSuccessful){
+      videoPlayerController.setLooping(false);
+      await videoPlayerController.seekTo(((event.time == videoPlayerController.value.duration) || (videoPlayerController.value.duration.inSeconds - event.time.inSeconds <= 3 )) ? Duration.zero : event.time);
+      await videoPlayerController.play();
       emit(state.copyWith(
         videoStatus: PlayerStatus.streaming,
         video: videoPlayerController.dataSource,
@@ -82,8 +86,14 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   Duration getVideoPosition(){
     return videoPlayerController.value.position;
   }
+  
+  Duration getVideoTotalDuration(){
+    return videoPlayerController.value.duration;
+  }
 
     void updateVideoProgress(){
+      if(isClosed || !videoPlayerController.value.isInitialized) return;
+      if(state.videoStatus == PlayerStatus.loading) return;
     final currentPosition = videoPlayerController.value.position.inMicroseconds;
     final videoDuration = videoPlayerController.value.duration.inMicroseconds;
     final progress = currentPosition / videoDuration;
@@ -113,7 +123,16 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   void unmute() {}
 
   Future<void> seekPosition(Duration position) async {
+    if(videoPlayerController.value.isInitialized)
     await videoPlayerController.seekTo(position);
+  }
+
+  Future<void> setToInitialState() async {
+    // ignore: unnecessary_null_comparison
+    if(videoPlayerController != null){
+      await videoPlayerController.dispose();
+    }     
+    emit(VideoPlayerState());
   }
 
 }

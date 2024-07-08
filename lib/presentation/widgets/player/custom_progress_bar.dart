@@ -31,7 +31,6 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
           widget.currentDuration =
               widget.totalDuration * (localPosition.dx / box.size.width);
           await widget.seekPosition(widget.currentDuration);
-          setState(() {});
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
