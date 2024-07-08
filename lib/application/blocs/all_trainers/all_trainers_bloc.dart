@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/trainer/get_trainers.use_case.dart';
 import 'package:gymnastic_center/domain/trainer/trainer.dart';
 import 'package:gymnastic_center/domain/trainer/trainer_repository.dart';
@@ -7,7 +8,8 @@ import 'package:gymnastic_center/domain/trainer/trainer_repository.dart';
 part 'all_trainers_event.dart';
 part 'all_trainers_state.dart';
 
-class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
+class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState>
+    implements ResettableBloc {
   final GetTrainersUseCase getTrainersUseCase;
   final List<Trainer> _cachedTrainers = [];
 
@@ -34,5 +36,10 @@ class AllTrainersBloc extends Bloc<AllTrainersEvent, AllTrainersState> {
         }
       }
     }
+  }
+
+  @override
+  void reset() {
+    _cachedTrainers.clear();
   }
 }
