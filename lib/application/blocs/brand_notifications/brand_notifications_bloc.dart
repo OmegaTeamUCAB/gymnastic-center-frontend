@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/delete_notifications.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/notifications/get_notifications.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/notifications/read_notification.use_case.dart';
 
@@ -11,8 +12,9 @@ class BrandNotificationsBloc
     extends Bloc<BrandNotificationsEvent, BrandNotificationsState> {
   final GetNotificationsUseCase getNotificationsUseCase;
   final ReadNotificationUseCase readNotificationUseCase;
-  BrandNotificationsBloc(
-      this.getNotificationsUseCase, this.readNotificationUseCase)
+  final DeleteNotificationsUseCase deleteNotificationsUseCase;
+  BrandNotificationsBloc(this.getNotificationsUseCase,
+      this.readNotificationUseCase, this.deleteNotificationsUseCase)
       : super(const BrandNotificationsState(
             notifications: [], isLoading: false)) {
     on<NotificationsRequested>(_getNotifications);

@@ -1,10 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course_detail/course_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/delete_notifications.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/get_notifications.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/read_notification.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/get_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/start_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/update_course_progess.use_case.dart';
@@ -133,6 +137,12 @@ class IoCContainer {
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
     final deleteCommentUseCase = DeleteCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
+    final getNotificationsUseCase =
+        GetNotificationsUseCase(notificationRepository);
+    final readNotificationsUseCase =
+        ReadNotificationUseCase(notificationRepository);
+    final deleteNotificationsUseCase =
+        DeleteNotificationsUseCase(notificationRepository);
     final likeOrDislikeCommentUseCase =
         LikeOrDislikeCommentUseCase(commentRepository);
     final startCourseProgressUseCase =
@@ -143,6 +153,10 @@ class IoCContainer {
         UpdateCourseProgressUseCase(progressRepository);
 
     //BLOCS
+    getIt.registerSingleton<BrandNotificationsBloc>(BrandNotificationsBloc(
+        getNotificationsUseCase,
+        readNotificationsUseCase,
+        deleteNotificationsUseCase));
     getIt.registerSingleton<GetCommentsBloc>(
         GetCommentsBloc(getBlogCommentsUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
