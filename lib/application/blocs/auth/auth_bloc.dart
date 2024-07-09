@@ -46,19 +46,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (result.isSuccessful) {
       emit(Authenticated(result.unwrap()));
     } else {
-      emit(AuthState());
+      emit(AuthError('Could not verify user'));
     }
   }
 
   Future<void> _logIn(LoggedIn event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
+
     final result = await loginUseCase
         .execute(LoginDto(email: event.email, password: event.password));
     if (result.isSuccessful) {
-      print('Logged in');
       emit(Authenticated(result.unwrap()));
     } else {
-      emit(AuthError(result.error.message));
+      emit(AuthError('Invalid credentials'));
     }
   }
 
@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print('Signed up');
       emit(Authenticated(result.unwrap()));
     } else {
-      emit(AuthError(result.error.message));
+      emit(AuthError('Sign up failed'));
     }
   }
 
@@ -85,6 +85,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final resetHandler = BlocResetHandler();
       resetHandler.resetBlocs();
       emit(Unauthenticated());
+    } else {
+      print('Logout failed');
+      emit(AuthError(result.error.message));
     }
   }
 
