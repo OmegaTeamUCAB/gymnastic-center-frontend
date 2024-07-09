@@ -20,7 +20,9 @@ class CoursesPageView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CourseTile(course: courses[firstCourseIndex]),
+              CourseTile(
+                  course: courses[firstCourseIndex],
+                  showBorder: secondCourseIndex < courses.length),
               if (secondCourseIndex < courses.length)
                 CourseTile(course: courses[secondCourseIndex]),
             ],

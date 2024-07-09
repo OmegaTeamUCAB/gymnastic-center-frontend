@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gymnastic_center/presentation/screens/profile/profile_app_bar.dart';
 import 'package:gymnastic_center/presentation/screens/profile/profile_course_carousel.dart';
 import 'package:gymnastic_center/presentation/widgets/common/content_header.dart';
-import 'package:gymnastic_center/presentation/widgets/course/course_carrusel.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

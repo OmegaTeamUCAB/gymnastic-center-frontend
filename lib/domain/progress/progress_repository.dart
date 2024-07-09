@@ -30,6 +30,5 @@ abstract class IProgressRepository {
   Future<Result<String>> startCourseProgress(String courseId);
   Future<Result<String>> updateCourseProgress(UpdateProgressDTO dto);
   Future<Result<Progress>> getCourseProgressById(String courseId);
-  Future<Result<List<CourseProgress>>> getWatchingCourses(
-      WatchingProgressDTO dto);
+  Future<Result<List<Course>>> getWatchingCourses(WatchingProgressDTO dto);
 }

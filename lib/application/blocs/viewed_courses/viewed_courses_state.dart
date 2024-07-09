@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:gymnastic_center/domain/progress/progress.dart';
+import 'package:gymnastic_center/domain/course/course.dart';
 
 sealed class ViewedCoursesState extends Equatable {
   @override
@@ -9,7 +9,7 @@ sealed class ViewedCoursesState extends Equatable {
 final class ViewedCoursesLoading extends ViewedCoursesState {}
 
 class ViewedCoursesSuccess extends ViewedCoursesState {
-  final List<CourseProgress> courses;
+  final List<Course> courses;
 
   ViewedCoursesSuccess({required this.courses});
 }

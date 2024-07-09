@@ -60,7 +60,7 @@ class ProgressRepository extends IProgressRepository {
   }
 
   @override
-  Future<Result<List<CourseProgress>>> getWatchingCourses(
+  Future<Result<List<Course>>> getWatchingCourses(
       WatchingProgressDTO dto) async {
     var queryParameters = {
       'page': dto.page.toString(),
@@ -72,18 +72,17 @@ class ProgressRepository extends IProgressRepository {
       urlPath: '/progress/courses?$queryString',
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        List<CourseProgress> courses = [];
+        List<Course> courses = [];
         for (var course in data) {
-          courses.add(CourseProgress(
-              course: Course(
-                id: course['id'],
-                imageUrl: course['image'],
-                category: course['category'],
-                name: course['title'],
-                trainer: course['trainer'],
-                createdAt: course['date'],
-              ),
-              percent: course["percent"]));
+          courses.add(Course(
+            id: course['id'],
+            imageUrl: course['image'],
+            category: course['category'],
+            name: course['title'],
+            trainer: course['trainer'],
+            createdAt: course['date'],
+            percent: course['percent'],
+          ));
         }
         return courses;
       },
