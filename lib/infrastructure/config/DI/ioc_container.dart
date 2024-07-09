@@ -1,10 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course_detail/course_detail_bloc.dart';
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/delete_notifications.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/get_notifications.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/notifications/read_notification.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/get_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/start_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/update_course_progess.use_case.dart';
@@ -68,6 +72,7 @@ import 'package:gymnastic_center/infrastructure/repositories/blogs/blog_reposito
 import 'package:gymnastic_center/infrastructure/repositories/categories/category_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/comments/comment_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/courses/course_repository.dart';
+import 'package:gymnastic_center/infrastructure/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/progress/progress_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/infrastructure/repositories/trainer/trainer_repository.dart';
@@ -101,14 +106,18 @@ class IoCContainer {
     final userRepository = UserRepository(httpConnectionManager);
     final trainerRepository = TrainerRepository(httpConnectionManager);
     final commentRepository = CommentRepository(httpConnectionManager);
+    final notificationRepository =
+        NotificationRepository(httpConnectionManager);
     final progressRepository = ProgressRepository(httpConnectionManager);
 
     //USE CASES
     final getUserFromTokenUseCase = GetUserFromTokenUseCase(authRepository);
-    final loginUseCase = LoginUseCase(authRepository, secureStorage);
-    final logoutUseCase = LogoutUseCase(authRepository);
+    final loginUseCase =
+        LoginUseCase(authRepository, notificationRepository, secureStorage);
+    final logoutUseCase = LogoutUseCase(authRepository, notificationRepository);
     final getCourseByIdUseCase = GetCourseByIdUseCase(courseRepository);
-    final signUpUseCase = SignUpUseCase(authRepository, secureStorage);
+    final signUpUseCase =
+        SignUpUseCase(authRepository, notificationRepository, secureStorage);
     final requestCodeUseCase = RequestCodeUseCase(authRepository);
     final resetPasswordUseCase = ResetPasswordUseCase(authRepository);
     final verifyCodeUseCase = VerifyCodeUseCase(authRepository);
@@ -128,13 +137,26 @@ class IoCContainer {
     final createCommentUseCase = CreateCommentUseCase(commentRepository);
     final deleteCommentUseCase = DeleteCommentUseCase(commentRepository);
     final followTrainerUseCase = FollowTrainersUseCase(trainerRepository);
+    final getNotificationsUseCase =
+        GetNotificationsUseCase(notificationRepository);
+    final readNotificationsUseCase =
+        ReadNotificationUseCase(notificationRepository);
+    final deleteNotificationsUseCase =
+        DeleteNotificationsUseCase(notificationRepository);
     final likeOrDislikeCommentUseCase =
         LikeOrDislikeCommentUseCase(commentRepository);
-    final startCourseProgressUseCase = StartCourseProgressUseCase(progressRepository);
-    final getCourseProgressByIdUseCase = GetCourseProgressByIdUseCase(progressRepository);
-    final updateCourseProgressUseCase = UpdateCourseProgressUseCase(progressRepository);
+    final startCourseProgressUseCase =
+        StartCourseProgressUseCase(progressRepository);
+    final getCourseProgressByIdUseCase =
+        GetCourseProgressByIdUseCase(progressRepository);
+    final updateCourseProgressUseCase =
+        UpdateCourseProgressUseCase(progressRepository);
 
     //BLOCS
+    getIt.registerSingleton<BrandNotificationsBloc>(BrandNotificationsBloc(
+        getNotificationsUseCase,
+        readNotificationsUseCase,
+        deleteNotificationsUseCase));
     getIt.registerSingleton<GetCommentsBloc>(
         GetCommentsBloc(getBlogCommentsUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
@@ -190,10 +212,9 @@ class IoCContainer {
         TrainerUserFollowBloc(trainerUserFollowUseCase));
     getIt.registerSingleton<LessonBloc>(LessonBloc());
     getIt.registerSingleton<ProgressBloc>(ProgressBloc(
-      getCourseProgressByIdUseCase: getCourseProgressByIdUseCase,
-      startCourseProgressUseCase: startCourseProgressUseCase,
-      updateCourseProgressUseCase: updateCourseProgressUseCase
-    ));
+        getCourseProgressByIdUseCase: getCourseProgressByIdUseCase,
+        startCourseProgressUseCase: startCourseProgressUseCase,
+        updateCourseProgressUseCase: updateCourseProgressUseCase));
     getIt.registerSingleton<VideoPlayerBloc>(VideoPlayerBloc());
     getIt.registerSingleton<SelectDataSourceBloc>(selectDataSourceBloc);
   }

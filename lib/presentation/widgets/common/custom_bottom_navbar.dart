@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
+import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/notification_icon.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
@@ -49,19 +52,26 @@ class CustomNavigationBar extends StatelessWidget {
             Container(
               width: size.width * 0.19,
             ),
-            _CustomNavButton(
-              customWidget: NotificationIcon(
-                  notificationNumber: 1.toString(),
-                  size: 33,
-                  color: tabIndex == 2
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context)
-                          .colorScheme
-                          .onPrimary
-                          .withOpacity(0.5)),
-              isSelected: tabIndex == 2,
-              onPressed: () {
-                onTap(2);
+            BlocBuilder<BrandNotificationsBloc, BrandNotificationsState>(
+              builder: (context, state) {
+                final unreadNotificationsCount = state.notifications
+                    .where((notification) => notification.isRead ?? false)
+                    .length;
+                return _CustomNavButton(
+                  customWidget: NotificationIcon(
+                      notificationNumber: unreadNotificationsCount.toString(),
+                      size: 33,
+                      color: tabIndex == 2
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context)
+                              .colorScheme
+                              .onPrimary
+                              .withOpacity(0.5)),
+                  isSelected: tabIndex == 2,
+                  onPressed: () {
+                    onTap(2);
+                  },
+                );
               },
             ),
             _CustomNavButton(
