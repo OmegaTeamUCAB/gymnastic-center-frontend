@@ -1,4 +1,4 @@
-sealed class ApplicationException {
+class ApplicationException {
   final String message;
   const ApplicationException(this.message);
 }
@@ -22,4 +22,3 @@ class CacheException extends ApplicationException {
 class UnknownException extends ApplicationException {
   const UnknownException() : super("Unknown Error");
 }
-

@@ -7,6 +7,7 @@ import 'package:gymnastic_center/presentation/screens/auth/sign_up_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_text_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -37,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Login",
+            AppLocalizations.of(context)!.login,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 40),
