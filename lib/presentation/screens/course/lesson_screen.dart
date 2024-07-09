@@ -8,9 +8,9 @@ import 'package:gymnastic_center/application/blocs/video_player/video_player_blo
 import 'package:gymnastic_center/presentation/screens/course/comments_course_fab.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
 import 'package:gymnastic_center/presentation/widgets/course/lesson_info.dart';
-import 'package:gymnastic_center/presentation/widgets/player/video_duration.dart';
+import 'package:gymnastic_center/presentation/widgets/player/buttons/video_duration.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
-import 'package:gymnastic_center/presentation/widgets/player/video_progress_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/player/buttons/video_progress_bar.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -28,6 +28,9 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   void initState() {
     super.initState();
+    final lessonBloc = GetIt.instance<LessonBloc>();
+    final progressBloc = GetIt.instance<ProgressBloc>()
+      ..add(LessonProgressRequested(courseId: lessonBloc.state.courseId));
     GetIt.instance<LessonBloc>()
         .add(ChangeLessonById(lessonId: widget.lessonId));
   }
@@ -88,217 +91,97 @@ class _LessonViewState extends State<_LessonView> {
     super.dispose();
   }
 
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    void _closeBottomSheet() {
+    Navigator.of(_scaffoldKey.currentContext!).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final lessonBloc = GetIt.instance<LessonBloc>();
-    final progressBloc = GetIt.instance<ProgressBloc>()
-      ..add(LessonProgressRequested(courseId: lessonBloc.state.courseId));
+    final progressBloc = GetIt.instance<ProgressBloc>();
     final videoBloc = GetIt.instance<VideoPlayerBloc>();
 
     return BlocListener<VideoPlayerBloc, VideoPlayerState>(
       listener: (context, state) {
-        if(state.videoStatus == PlayerStatus.completed){
-                progressBloc.add(ProgressLessonUpdated(
-          courseId: lessonBloc.state.courseId,
-          lessonId: lessonBloc.state.lesson.id,
-          markAsCompleted: videoBloc
-                  .state.position.inSeconds ==
-              videoBloc.getVideoTotalDuration().inSeconds,
-          time: videoBloc.state.position,
-          totalTime: videoBloc.getVideoTotalDuration()));
+        if (state.videoStatus == PlayerStatus.completed) {
+          if(!lessonBloc.state.lastLesson){
+          progressBloc.add(ProgressLessonUpdated(
+              courseId: lessonBloc.state.courseId,
+              lessonId: lessonBloc.state.lesson.id,
+              markAsCompleted: videoBloc.state.position.inSeconds ==
+                  videoBloc.getVideoTotalDuration().inSeconds,
+              time: videoBloc.state.position,
+              totalTime: videoBloc.getVideoTotalDuration()));
+          }
 
           lessonBloc.changeToNextLesson();
         }
       },
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Column(
+      child: BlocBuilder<LessonBloc, LessonState>(
+        buildWhen: (previous, current) => previous.lesson.id != current.lesson.id,
+        builder: (context, state) {
+          return Scaffold(
+            body: Stack(
               children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      BlocBuilder<ProgressBloc, ProgressState>(
-                        builder: (context, state) {
-                          if (state.progressStatus == ProgressStatus.fetching) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return Container(
-                              color: Colors.grey[200],
-                              child: SizedBox(
-                                  width: 600,
-                                  height: 600,
-                                  child: FadeIn(
-                                    curve: Curves.easeIn,
-                                    duration: Durations.long4,
-                                    child: VideoPlayerView(
-                                      videoId:
-                                          lessonBloc.state.lesson.videoUrl!,
-                                      time: Duration(
-                                          seconds: (progressBloc
-                                                      .state.progressStatus ==
-                                                  ProgressStatus.loaded)
-                                              ? progressBloc
-                                                  .getLessonById(lessonBloc
-                                                      .state.lesson.id)
-                                                  .time
-                                              : 0),
-                                    ),
-                                  )),
-                            );
-                          }
-                        },
-                      ),
-                      Positioned(
-                        top: 60,
-                        right: 10,
-                        child: IconButton(
-                          icon: const Icon(Icons.close_rounded,
-                              color: Colors.white, size: 30),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  width: double.infinity,
-                  height: 40,
-                  child: VideoProgressBar(),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      VideoTitle(title: lessonBloc.state.lesson.title),
-                      const VideoDuration(),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BrandButton(
-                        isVariant: true,
-                        text: 'Prev',
-                        width: 110,
-                        onPressed: () {
-                          if (videoBloc.state.videoStatus !=
-                              PlayerStatus.loading) {
-                            progressBloc.add(ProgressLessonUpdated(
-                                courseId: lessonBloc.state.courseId,
-                                lessonId: lessonBloc.state.lesson.id,
-                                markAsCompleted: videoBloc
-                                        .state.position.inSeconds ==
-                                    videoBloc.getVideoTotalDuration().inSeconds,
-                                time: videoBloc.state.position,
-                                totalTime: videoBloc.getVideoTotalDuration()));
-                          }
-                          lessonBloc.changeToPreviousLesson();
-                        },
-                      ),
-                      BrandButton(
-                        text: 'Next',
-                        width: 210,
-                        onPressed: () {
-                          if (context
-                                  .read<VideoPlayerBloc>()
-                                  .state
-                                  .videoStatus !=
-                              PlayerStatus.loading) {
-                            progressBloc.add(ProgressLessonUpdated(
-                                courseId: lessonBloc.state.courseId,
-                                lessonId: lessonBloc.state.lesson.id,
-                                markAsCompleted: videoBloc
-                                        .state.position.inSeconds ==
-                                    videoBloc.getVideoTotalDuration().inSeconds,
-                                time: videoBloc.state.position,
-                                totalTime: videoBloc.getVideoTotalDuration()));
-                          }
-
-                          lessonBloc.changeToNextLesson();
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                !lessonBloc.state.lastLesson
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .tertiaryContainer,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    lessonBloc.state.courseImage,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const SizedBox(width: 20),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text('Coming up:'),
-                                      Text(
-                                          context
-                                              .watch<LessonBloc>()
-                                              .getNextLesson()
-                                              .title,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold)),
-                                      Text('0:30',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimary)),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: double.maxFinite,
+                      height: MediaQuery.of(context).size.height * 0.75,
+                      child: Stack(
+                        children: [
+                          BlocBuilder<ProgressBloc, ProgressState>(
+                            builder: (context, state) {
+                              if (state.progressStatus ==
+                                  ProgressStatus.fetching) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                return Container(
+                                  color: Colors.grey[200],
+                                  child: SizedBox.expand(
+                                      child: FadeIn(
+                                        curve: Curves.easeIn,
+                                        duration: Durations.long4,
+                                        child: VideoPlayerView(
+                                          videoId:
+                                              lessonBloc.state.lesson.videoUrl!,
+                                          time: Duration(
+                                              seconds: (progressBloc.state
+                                                          .progressStatus ==
+                                                      ProgressStatus.loaded)
+                                                  ? progressBloc
+                                                      .getLessonById(lessonBloc
+                                                          .state.lesson.id)
+                                                      .time
+                                                  : 0),
+                                        ),
+                                      )),
+                                );
+                              }
+                            },
                           ),
-                        ),
-                      )
-                    : Container(),
+                        ],
+                      ),
+                    ),
+                    LessonInfo(
+                        lessonBloc: lessonBloc,
+                        lessonId: lessonBloc.state.lesson.id),
+
+                  ],
+                ),
               ],
             ),
-            Positioned(
-                bottom: 20,
-                right: 20,
-                child: CommentsCourseFAB(
-                  lessonId: widget.lessonId,
-                ))
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
+
+
 
 class VideoTitle extends StatelessWidget {
   final String title;

@@ -21,7 +21,6 @@ class CustomModalSheet extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Add your code here
             Padding(
               padding: const EdgeInsets.all(15),
               child: Row(
