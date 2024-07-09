@@ -55,7 +55,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
       final progress = result.unwrap();
       emit(state.copyWith(progress: progress, progressStatus: ProgressStatus.loaded));
     } else {
-      emit(ProgressError(message: result.error.message));
+        emit(state.copyWith(progressStatus: ProgressStatus.unitialized));
     }
   }
   
@@ -72,9 +72,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     ));
     if(result.isSuccessful) {
       emit(state.copyWith(progressStatus: ProgressStatus.loaded));
-    } else {
-      emit(state.copyWith(progressStatus: ProgressStatus.unitialized));
-    }
+    } 
   }
 
   void setToInitialState() {
