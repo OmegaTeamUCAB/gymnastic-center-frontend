@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/common/custom_progress_indicator.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
 
 class CourseTile extends StatelessWidget {
   final Course course;
-  const CourseTile({super.key, required this.course});
+  final bool showBorder;
+  const CourseTile({super.key, required this.course, this.showBorder = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +30,16 @@ class CourseTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Ink(
           height: 130,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Theme.of(context).colorScheme.outline,
-                width: 0.5,
-              ),
-            ),
-          ),
+          decoration: showBorder
+              ? BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Theme.of(context).colorScheme.outline,
+                      width: 0.5,
+                    ),
+                  ),
+                )
+              : null,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
@@ -82,10 +86,15 @@ class CourseTile extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                const Icon(
-                  Icons.chevron_right,
-                  size: 30,
-                )
+                course.percent != null
+                    ? CustomProgressIndicator(
+                        percent: course.percent!,
+                        size: 40,
+                      )
+                    : const Icon(
+                        Icons.chevron_right,
+                        size: 30,
+                      )
               ],
             ),
           ),

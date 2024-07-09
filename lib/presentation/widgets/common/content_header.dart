@@ -20,13 +20,14 @@ class ContentHeader extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary),
           ),
           const Spacer(),
-          TextButton(
-            onPressed: onPressed,
-            child: Text(
-              AppLocalizations.of(context)!.showAll,
-              style: const TextStyle(fontSize: 16),
-            ),
-          )
+          if (onPressed != null)
+            TextButton(
+              onPressed: onPressed,
+              child: Text(
+                AppLocalizations.of(context)!.showAll,
+                style: const TextStyle(fontSize: 16),
+              ),
+            )
         ],
       ),
     );

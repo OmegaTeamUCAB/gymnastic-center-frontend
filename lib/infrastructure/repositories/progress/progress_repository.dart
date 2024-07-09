@@ -16,26 +16,20 @@ class ProgressRepository extends IProgressRepository {
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<LessonProgress> lessonProgress = [];
-        for(var lesson in data["lessons"]) {
-          lessonProgress.add(
-            LessonProgress(
-          lessonId: lesson["lessonId"], 
-          time: lesson["time"], 
-          percent: (lesson["percent"] as num).toDouble() 
-        )
-          );
+        for (var lesson in data["lessons"]) {
+          lessonProgress.add(LessonProgress(
+              lessonId: lesson["lessonId"],
+              time: lesson["time"],
+              percent: (lesson["percent"] as num).toDouble()));
         }
-        final progress = Progress( 
-          lessonProgress: lessonProgress,
-        percent: (data["percent"] as num).toDouble()
-        );
+        final progress = Progress(
+            lessonProgress: lessonProgress,
+            percent: (data["percent"] as num).toDouble());
         return progress;
       },
     );
     return response;
-
   }
-
 
   @override
   Future<Result<String>> startCourseProgress(String courseId) async {
@@ -46,7 +40,6 @@ class ProgressRepository extends IProgressRepository {
     );
     return response;
   }
-
 
   @override
   Future<Result<String>> updateCourseProgress(UpdateProgressDTO dto) async {
@@ -65,10 +58,11 @@ class ProgressRepository extends IProgressRepository {
     );
     return response;
   }
-  
+
   @override
-  Future<Result<List<CourseProgress>>> getWatchingCourses(WatchingProgressDTO dto) async {
-      var queryParameters = {
+  Future<Result<List<Course>>> getWatchingCourses(
+      WatchingProgressDTO dto) async {
+    var queryParameters = {
       'page': dto.page.toString(),
       'perPage': dto.perPage.toString(),
     };
@@ -78,23 +72,21 @@ class ProgressRepository extends IProgressRepository {
       urlPath: '/progress/courses?$queryString',
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        List<CourseProgress> courses = [];
+        List<Course> courses = [];
         for (var course in data) {
-          courses.add(CourseProgress(
-            course: Course(
-              id: course['id'],
-              imageUrl: course['image'],
-              category: course['category'],
-              name: course['title'],
-              trainer: course['trainer'],
-              createdAt: course['date'],
-            ),
-            percent: course["percent"] 
-
+          courses.add(Course(
+            id: course['id'],
+            imageUrl: course['image'],
+            category: course['category'],
+            name: course['title'],
+            trainer: course['trainer'],
+            createdAt: course['date'],
+            percent: course['percent'],
           ));
         }
         return courses;
-      },);
+      },
+    );
     return response;
   }
 }

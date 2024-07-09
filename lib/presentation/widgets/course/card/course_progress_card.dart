@@ -7,7 +7,7 @@ class CourseProgressCard extends StatelessWidget {
   final String instructorName;
   final double percent;
 
-  CourseProgressCard({
+  const CourseProgressCard({
     super.key,
     required this.courseImage,
     required this.percent,
@@ -24,7 +24,7 @@ class CourseProgressCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
-          image: NetworkImage(courseImage), 
+          image: NetworkImage(courseImage),
           fit: BoxFit.cover,
         ),
       ),
@@ -48,7 +48,7 @@ class CourseProgressCard extends StatelessWidget {
               children: [
                 Text(
                   instructorName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class CourseProgressCard extends StatelessWidget {
                 ),
                 Text(
                   courseName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
                   ),
@@ -67,13 +67,11 @@ class CourseProgressCard extends StatelessWidget {
           Positioned(
             bottom: 16,
             right: 16,
-            child:                 
-              CustomProgressIndicator(
-                  textColor: Colors.white,
-                  indicatorColor: Colors.deepPurple[200],
-                  strokeWidth: 3,
-                  percent: 40,
-                ),
+            child: CustomProgressIndicator(
+              indicatorColor: Colors.deepPurple[200],
+              strokeWidth: 3,
+              percent: 40,
+            ),
           ),
         ],
       ),
