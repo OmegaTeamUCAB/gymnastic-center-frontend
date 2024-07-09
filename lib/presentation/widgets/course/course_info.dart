@@ -158,6 +158,7 @@ class CourseInfo extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
+                              settings:  RouteSettings(name: "/lesson"),
                               builder: (context) => LessonScreen(
                                     lessonId: course.lessons!.first.id,
                                   )),

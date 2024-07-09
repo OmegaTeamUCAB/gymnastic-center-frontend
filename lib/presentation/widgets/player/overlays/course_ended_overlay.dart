@@ -29,7 +29,7 @@ class CourseEndedOverlay extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Course finished',
+                  'Lesson finished',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -38,7 +38,7 @@ class CourseEndedOverlay extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const Text(
-                  'Congratulations!\nYou have completed the course',
+                  'Congratulations!\nYou have completed the lesson',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
