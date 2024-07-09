@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/trainer_user_follow/trainer_user_follow_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileFollowings extends StatefulWidget {
   const ProfileFollowings({super.key});
@@ -38,19 +39,18 @@ class _ProfileFollowingsState extends State<ProfileFollowings> {
         builder: (context, state) {
           if (state is TrainerUserFollowLoading) {
             if (showTimeoutIndicator) {
-              return const Center(
+              return Center(
                 child: Column(
-                  mainAxisSize:
-                      MainAxisSize.min, // Centra el contenido en la columna
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("-",
+                    const Text("-",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 19,
                             fontWeight: FontWeight.normal)),
                     Text(
-                      'followings',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.following,
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.normal),
@@ -86,9 +86,9 @@ class _ProfileFollowingsState extends State<ProfileFollowings> {
                       fontSize: 19,
                       fontWeight: FontWeight.bold),
                 ),
-                const Text(
-                  'followings',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.following,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.normal),

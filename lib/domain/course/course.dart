@@ -14,7 +14,7 @@ class Course {
   final List<Lesson>? lessons;
   final dynamic createdAt;
   final DateTime? updatedAt;
-  final int? percent; 
+  final double? percent;
 
   Course({
     required this.id,

@@ -6,10 +6,12 @@ import 'package:gymnastic_center/application/blocs/course_detail/course_detail_b
 import 'package:gymnastic_center/application/blocs/feature_courses/feature_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/get_search_tags/get_search_tags_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
+import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/notifications/delete_notifications.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/notifications/get_notifications.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/notifications/read_notification.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/get_course_progess.use_case.dart';
+import 'package:gymnastic_center/application/use_cases/progress/get_viewed_courses.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/start_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/progress/update_course_progess.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
@@ -126,6 +128,7 @@ class IoCContainer {
     final getAllCategoriesUseCase = GetAllCategoriesUseCase(categoryRepository);
     final getCoursesUseCase = GetCoursesUseCase(courseRepository);
     final searchUseCase = SearchUseCase(searchRepository);
+    final getViewedCoursesUseCase = GetViewedCoursesUseCase(progressRepository);
     getIt.registerSingleton<GetCourseByIdUseCase>(
         GetCourseByIdUseCase(courseRepository));
     final getTrainerByIdUseCase = GetTrainerByIdUseCase(trainerRepository);
@@ -159,6 +162,8 @@ class IoCContainer {
         deleteNotificationsUseCase));
     getIt.registerSingleton<GetCommentsBloc>(
         GetCommentsBloc(getBlogCommentsUseCase));
+    getIt.registerSingleton<ViewedCoursesBloc>(
+        ViewedCoursesBloc(getViewedCoursesUseCase));
     getIt.registerSingleton<CreateCommentBloc>(
         CreateCommentBloc(createCommentUseCase));
     getIt.registerSingleton<DeleteCommentBloc>(
