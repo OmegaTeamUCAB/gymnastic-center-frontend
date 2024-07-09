@@ -19,15 +19,26 @@ class BrandNotificationsBloc
             notifications: [], isLoading: false)) {
     on<NotificationsRequested>(_getNotifications);
     on<NotificationRead>(_readNotification);
+    on<NotificationsDeleted>(_deleteNotifications);
   }
 
   Future _getNotifications(NotificationsRequested event,
       Emitter<BrandNotificationsState> emit) async {
     emit(state.copyWith(isLoading: true));
+    final result = await getNotificationsUseCase.execute(GetNotificationsDto());
+    if (result.isSuccessful) {
+      emit(state.copyWith(notifications: result.unwrap(), isLoading: false));
+    }
   }
 
   Future _readNotification(
       NotificationRead event, Emitter<BrandNotificationsState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    await readNotificationUseCase.execute(ReadNotificationsDto(event.id));
+  }
+
+  Future _deleteNotifications(
+      NotificationsDeleted event, Emitter<BrandNotificationsState> emit) async {
+    emit(state.copyWith(isLoading: true, notifications: []));
+    await deleteNotificationsUseCase.execute(DeleteNotificationsDto());
   }
 }

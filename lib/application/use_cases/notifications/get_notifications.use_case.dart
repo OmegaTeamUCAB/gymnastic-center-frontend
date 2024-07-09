@@ -12,7 +12,8 @@ class GetNotificationsUseCase extends IUseCase<GetNotificationsDto, dynamic> {
   GetNotificationsUseCase(this.notificationRepository);
 
   @override
-  Future<Result<dynamic>> execute(GetNotificationsDto dto) async {
+  Future<Result<List<BrandNotification>>> execute(
+      GetNotificationsDto dto) async {
     return await notificationRepository.getNotifications();
   }
 }

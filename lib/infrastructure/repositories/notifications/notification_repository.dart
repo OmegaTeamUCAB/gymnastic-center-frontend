@@ -27,9 +27,9 @@ class NotificationRepository implements INotificationRepository {
       urlPath: 'notifications/many',
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        List<BrandNotification> notification = [];
+        List<BrandNotification> notifications = [];
         for (var notification in data) {
-          notification.add(BrandNotification(
+          notifications.add(BrandNotification(
             id: notification['id'],
             title: notification['title'],
             body: notification['body'],
@@ -37,7 +37,7 @@ class NotificationRepository implements INotificationRepository {
             isRead: notification['isRead'],
           ));
         }
-        return notification;
+        return notifications;
       },
     );
     return result;
@@ -47,7 +47,7 @@ class NotificationRepository implements INotificationRepository {
   Future<Result<BrandNotification>> markAsRead(String id) async {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: 'notifications/one/$id',
-      httpMethod: 'PATCH',
+      httpMethod: 'GET',
       mapperCallBack: (data) {
         return BrandNotification(
           id: data['id'],

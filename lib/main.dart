@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
 import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/select_data_source/select_data_source_bloc.dart';
@@ -50,6 +51,8 @@ class _MainAppState extends State<MainApp> {
           BlocProvider(create: (context) => getIt.get<ThemeBloc>()),
           BlocProvider(create: (context) => getIt.get<CourseBloc>()),
           BlocProvider(create: (context) => getIt.get<SelectDataSourceBloc>()),
+          BlocProvider(
+              create: (context) => getIt.get<BrandNotificationsBloc>()),
         ],
         child: Builder(builder: (context) {
           final userTheme = MediaQuery.of(context).platformBrightness;

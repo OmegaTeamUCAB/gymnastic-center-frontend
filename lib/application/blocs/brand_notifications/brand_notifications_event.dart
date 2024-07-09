@@ -12,3 +12,7 @@ class NotificationRead extends BrandNotificationsEvent {
   final String id;
   const NotificationRead(this.id);
 }
+
+class NotificationsDeleted extends BrandNotificationsEvent {
+  const NotificationsDeleted();
+}
