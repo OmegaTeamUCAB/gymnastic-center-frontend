@@ -65,7 +65,7 @@ class NotificationRepository implements INotificationRepository {
     final result = await _httpConnectionManager.makeRequest(
       urlPath: 'notifications/removetoken',
       body: {},
-      httpMethod: 'POST',
+      httpMethod: 'DELETE',
       mapperCallBack: (data) {
         return null;
       },
