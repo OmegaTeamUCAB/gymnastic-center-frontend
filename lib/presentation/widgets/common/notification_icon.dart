@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class NotificationIcon extends StatelessWidget {
   final String notificationNumber;
@@ -19,7 +18,7 @@ class NotificationIcon extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Icon(
-          Ionicons.notifications_outline,
+          Icons.notifications_none_rounded,
           size: size,
           color: color,
         ),
