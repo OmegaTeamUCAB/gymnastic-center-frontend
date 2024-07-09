@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
-import 'package:gymnastic_center/presentation/widgets/player/custom_progress_bar.dart';
+import 'package:gymnastic_center/presentation/widgets/player/buttons/custom_progress_bar.dart';
 
 class VideoProgressBar extends StatelessWidget {
   const VideoProgressBar({super.key});
