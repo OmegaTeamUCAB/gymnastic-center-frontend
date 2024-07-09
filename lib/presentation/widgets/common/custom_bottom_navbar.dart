@@ -54,9 +54,12 @@ class CustomNavigationBar extends StatelessWidget {
             ),
             BlocBuilder<BrandNotificationsBloc, BrandNotificationsState>(
               builder: (context, state) {
+                final unreadNotificationsCount = state.notifications
+                    .where((notification) => notification.isRead ?? false)
+                    .length;
                 return _CustomNavButton(
                   customWidget: NotificationIcon(
-                      notificationNumber: state.notifications.length.toString(),
+                      notificationNumber: unreadNotificationsCount.toString(),
                       size: 33,
                       color: tabIndex == 2
                           ? Theme.of(context).colorScheme.primary

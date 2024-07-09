@@ -18,6 +18,7 @@ class BrandNotification {
 
 abstract class INotificationRepository {
   Future<Result<BrandNotification>> markAsRead(String id);
+  Future<Result<int>> getUnreadCount();
   Future<Result<List<BrandNotification>>> getNotifications();
   Future<Result<void>> saveToken(String token);
   Future<Result<void>> removeToken();

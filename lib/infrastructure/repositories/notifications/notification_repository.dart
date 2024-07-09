@@ -85,4 +85,18 @@ class NotificationRepository implements INotificationRepository {
     );
     return result;
   }
+
+  @override
+  Future<Result<int>> getUnreadCount() async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'notifications/count/not-readed',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        int count = 0;
+        count = data['count'];
+        return count;
+      },
+    );
+    return result;
+  }
 }

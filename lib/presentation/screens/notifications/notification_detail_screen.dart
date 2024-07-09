@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
+import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
 class NotificationDetailScreen extends StatelessWidget {
@@ -9,27 +10,16 @@ class NotificationDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 100),
+      appBar: const PreferredSize(
+          preferredSize: Size(double.infinity, 100),
           child: CustomAppBar(
-            content: Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.chevron_left,
-                      color: Colors.white,
-                    )),
-                const Text(
-                  'Notification',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+            content: Padding(
+              padding: EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                children: [
+                  BrandBackButton(),
+                ],
+              ),
             ),
           )),
       body: Padding(
