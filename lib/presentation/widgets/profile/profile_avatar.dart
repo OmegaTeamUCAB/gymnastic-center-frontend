@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-class ProfileAvatar extends StatelessWidget {
+class ProfileAvatar extends StatefulWidget {
   final String fullName;
   final String? image;
   final String? urlImage;
@@ -18,39 +18,44 @@ class ProfileAvatar extends StatelessWidget {
       this.onPressed});
 
   @override
+  ProfileAvatarState createState() => ProfileAvatarState();
+}
+
+class ProfileAvatarState extends State<ProfileAvatar> {
+  @override
   Widget build(BuildContext context) {
     Widget avatar;
-    if (urlImage != null) {
+    if (widget.urlImage != null) {
       // If urlImage is provided, use NetworkImage
       avatar = CircleAvatar(
-        backgroundImage: NetworkImage(urlImage!),
-        radius: radius,
+        backgroundImage: NetworkImage(widget.urlImage!),
+        radius: widget.radius,
       );
-    } else if (image != null) {
+    } else if (widget.image != null) {
       // If image is provided, assume it's base64 and use MemoryImage
       avatar = CircleAvatar(
         backgroundImage: MemoryImage(
-          base64Decode(image!),
+          base64Decode(widget.image!),
         ),
-        radius: radius,
+        radius: widget.radius,
       );
     } else {
       // Default avatar with initials
       avatar = CircleAvatar(
         backgroundColor: Theme.of(context).colorScheme.surfaceTint,
-        radius: radius,
+        radius: widget.radius,
         child: Text(
-          fullName.split(' ').map((l) => l[0]).take(2).join(),
+          widget.fullName.split(' ').map((l) => l[0]).take(2).join(),
           style: TextStyle(
-              fontSize: radius! * 0.8,
+              fontSize: widget.radius! * 0.8,
               color: Theme.of(context).colorScheme.primary),
         ),
       );
     }
 
-    return onPressed != null
+    return widget.onPressed != null
         ? InkWell(
-            onTap: onPressed,
+            onTap: widget.onPressed,
             child: avatar,
           )
         : avatar;

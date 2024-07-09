@@ -7,13 +7,28 @@ import 'package:gymnastic_center/presentation/widgets/auth/update_user_form.dart
 import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 
-class UpdateProfileScreen extends StatelessWidget {
+class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
 
   @override
+  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
+}
+
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  late UpdateUserBloc _updateUserBloc;
+  late AuthBloc _authBloc;
+
+  // late final updateUserBloc = GetIt.instance<UpdateUserBloc>();
+  // late final authBloc = GetIt.instance<AuthBloc>();
+  @override
+  void initState() {
+    super.initState();
+    _updateUserBloc = GetIt.instance<UpdateUserBloc>();
+    _authBloc = GetIt.instance<AuthBloc>();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final updateUserBloc = GetIt.instance<UpdateUserBloc>();
-    final authBloc = GetIt.instance<AuthBloc>();
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 100),
@@ -33,12 +48,12 @@ class UpdateProfileScreen extends StatelessWidget {
                   ],
                 )),
           )),
-      body: BlocProvider(
-        create: (context) => updateUserBloc,
+      body: BlocProvider<UpdateUserBloc>.value(
+        value: _updateUserBloc,
         child: BlocListener<UpdateUserBloc, UpdateUserState>(
           listener: (context, state) {
             if (state is UpdateUserSuccess) {
-              authBloc.add(const VerifiedUser());
+              _authBloc.add(const VerifiedUser());
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text(
