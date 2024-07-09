@@ -122,10 +122,16 @@ class CourseInfo extends StatelessWidget {
               ),
               BlocBuilder<ProgressBloc, ProgressState>(
                 builder: (context, state) {
-                  if (state.progressStatus == ProgressStatus.loaded || (state.progress.lessonProgress.isNotEmpty)) {
+                  if (state.progressStatus == ProgressStatus.loaded ||
+                      (state.progress.lessonProgress.isNotEmpty)) {
                     return TweenAnimationBuilder(
-                      tween:
-                          Tween<double>(begin: 0, end: context.watch<ProgressBloc>().state.progress.percent),
+                      tween: Tween<double>(
+                          begin: 0,
+                          end: context
+                              .watch<ProgressBloc>()
+                              .state
+                              .progress
+                              .percent),
                       duration: const Duration(milliseconds: 900),
                       builder: (context, double value, child) {
                         return Column(
@@ -140,11 +146,14 @@ class CourseInfo extends StatelessWidget {
                             FadeIn(
                                 child: Text(
                               'Completed',
-                              style:
-                                  TextStyle(fontWeight: FontWeight.w200, color: Theme.of(context).colorScheme.primary),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w200,
+                                  color: Theme.of(context).colorScheme.primary),
                             )),
-                            SizedBox(height: 10,),
-                          const Divider()
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Divider()
                           ],
                         );
                       },
@@ -154,7 +163,9 @@ class CourseInfo extends StatelessWidget {
                     return BrandButton(
                       text: AppLocalizations.of(context)!.startCourse,
                       onPressed: () async {
-                        await GetIt.instance<ProgressBloc>().startCourse(StartCourse(courseId: course.id), course.lessons!.first.id);
+                        await GetIt.instance<ProgressBloc>().startCourse(
+                            StartCourse(courseId: course.id),
+                            course.lessons!.first.id);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -191,9 +202,7 @@ class CourseInfo extends StatelessWidget {
               ),
               LessonList(
                 lessons: GetIt.instance<LessonBloc>().state.courseLessons,
-                onTap: (index) {
-              
-                },
+                onTap: (index) {},
               ),
               const SizedBox(
                 height: 120,

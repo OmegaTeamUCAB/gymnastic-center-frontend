@@ -36,7 +36,9 @@ class CustomProgressIndicator extends StatelessWidget {
         Center(
             child: Text(
           text,
-          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+          ),
         )),
       ],
     );
