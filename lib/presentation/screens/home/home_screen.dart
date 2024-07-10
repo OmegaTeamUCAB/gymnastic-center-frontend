@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
 import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_state.dart';
 
@@ -32,38 +31,31 @@ class HomeScreen extends StatelessWidget {
           ),
           BlocProvider.value(
             value: viewedCoursesBloc,
-            child: BlocListener<ProgressBloc, ProgressState>(
-              listener: (context, state) {
-                if (state is ProgressLessonUpdated){
-                  viewedCoursesBloc.add(const ViewedCoursesRequested(1));
-                }
-              },
-              child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
-                  builder: (context, state) {
-                if (state is ViewedCoursesLoading) {
-                  return const Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 25),
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                if (state is ViewedCoursesFailed) {
+            child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
+                builder: (context, state) {
+              if (state is ViewedCoursesLoading) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 25),
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              if (state is ViewedCoursesFailed) {
+                return const Center();
+              }
+              if (state is ViewedCoursesSuccess) {
+                if (state.courses.isEmpty) {
                   return const Center();
                 }
-                if (state is ViewedCoursesSuccess) {
-                  if (state.courses.isEmpty) {
-                    return const Center();
-                  }
-                  final course = state.courses[0];
-
-                  return LastCoursePercentage(
-                      course: course, percentage: course.percent!);
-                } else {
-                  return const Center();
-                }
-              }),
-            ),
+                final course = state.courses[0];
+            
+                return LastCoursePercentage(
+                    course: course, percentage: course.percent!);
+              } else {
+                return const Center();
+              }
+            }),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0),
