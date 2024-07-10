@@ -26,7 +26,6 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   Future<Result<bool>> _loadVideo() async {
     try {
       await videoPlayerController.initialize();
-      await videoPlayerController.seekTo(Duration(seconds: -1));
       return Result.success<bool>(true);
     } catch (e) {
       return Result.failure<bool>(const UnknownException());
@@ -55,7 +54,7 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
           position: videoPlayerController.value.position));
       videoPlayerController.addListener(updateVideoProgress);
     } else {
-      emit(state.copyWith(message: result.error.message));
+      emit(state.copyWith(message: result.error.message, videoStatus: PlayerStatus.error));
     }
   }
 
@@ -136,7 +135,8 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   Future<void> setToInitialState() async {
     // ignore: unnecessary_null_comparison
     if(videoPlayerController != null){
-      await videoPlayerController.dispose();
+      videoPlayerController.pause();
+      await Future.delayed(const Duration(milliseconds: 20)).then((value) => videoPlayerController?.dispose());
     }     
     emit(VideoPlayerState());
   }

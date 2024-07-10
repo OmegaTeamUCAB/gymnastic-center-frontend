@@ -52,11 +52,6 @@ class _PlayerViewState extends State<_PlayerView> {
   void initState() {
     super.initState();
         // ignore: unused_local_variable
-        final videoBloc = GetIt.instance<VideoPlayerBloc>()
-      ..add(VideoInitialized(
-          video: widget.videoId,
-          time: widget.time,
-      ));
   }
   
   @override
@@ -66,7 +61,10 @@ class _PlayerViewState extends State<_PlayerView> {
 
   @override
   Widget build(BuildContext context) {
-    final videoBloc = GetIt.instance<VideoPlayerBloc>();
+    final videoBloc = GetIt.instance<VideoPlayerBloc>()..add(VideoInitialized(
+          video: widget.videoId,
+          time: widget.time,
+      ));
     return BlocBuilder<VideoPlayerBloc, VideoPlayerState>(
       buildWhen: (previous, current) => previous.videoStatus != current.videoStatus,
       builder: (context, state) {

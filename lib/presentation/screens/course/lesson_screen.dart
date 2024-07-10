@@ -96,7 +96,7 @@ class _LessonViewState extends State<_LessonView> {
     final videoBloc = GetIt.instance<VideoPlayerBloc>();
 
     return BlocListener<VideoPlayerBloc, VideoPlayerState>(
-      listenWhen: (previous, current) => previous.videoStatus != PlayerStatus.streaming && current.videoStatus == PlayerStatus.completed,
+      listenWhen: (previous, current) => previous.videoStatus == PlayerStatus.streaming && current.videoStatus == PlayerStatus.completed,
       listener: (context, state) {
         if (state.videoStatus == PlayerStatus.completed) {
           final checkProgress = progressBloc.checkProgress(videoBloc.getVideoTotalDuration().inSeconds, videoBloc.state.position.inSeconds, lessonBloc.state.lesson.id);
@@ -129,6 +129,7 @@ class _LessonViewState extends State<_LessonView> {
       child: BlocBuilder<LessonBloc, LessonState>(
         buildWhen: (previous, current) => previous.lesson.id != current.lesson.id,
         builder: (context, state) {
+          final lesson = context.watch<ProgressBloc>().state.progress.lessonProgress;
           return Scaffold(
             body: Stack(
               children: [
@@ -159,7 +160,7 @@ class _LessonViewState extends State<_LessonView> {
                                           time: Duration(
                                               seconds: (progressBloc.state
                                                           .progressStatus ==
-                                                      ProgressStatus.loaded)
+                                                      ProgressStatus.loaded && lesson.isNotEmpty) 
                                                   ? progressBloc
                                                       .getLessonById(lessonBloc
                                                           .state.lesson.id)

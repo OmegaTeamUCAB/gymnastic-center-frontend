@@ -102,7 +102,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
       }
       progress += element.percent;
     });
-      return (progress >= 100.0 - 0.01) ? true : false;
+      return ((progress / state.progress.lessonProgress.length) >= 100.0 - 0.01) ? true : false;
   }
 
 }
