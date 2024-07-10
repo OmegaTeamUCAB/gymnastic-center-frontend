@@ -52,14 +52,17 @@ class PlanCoursesPageViewState extends State<PlanCoursesPageView> {
         const Positioned(
           top: 60,
           left: 5,
-          child: Row(
-            children: [
-              BrandBackButton(),
-              Text(
-                'Choose a workout',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ],
+          child: BrandBackButton(),
+        ),
+
+        const Positioned(
+          top: 120,
+          left: 0,
+          right: 0,
+          child: Text(
+            'Courses recommended for you:',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
         Positioned(

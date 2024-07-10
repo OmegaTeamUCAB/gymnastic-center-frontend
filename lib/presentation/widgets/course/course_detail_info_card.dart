@@ -15,7 +15,7 @@ class CourseDetailInfoCard extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.surfaceTint,
+        color: Theme.of(context).colorScheme.tertiaryContainer,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),

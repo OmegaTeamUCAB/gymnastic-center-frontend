@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/select_data_source/select_data_source_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/search_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
@@ -11,6 +13,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectDataSourceBloc = GetIt.instance<SelectDataSourceBloc>();
+    final dataSourceLetter = selectDataSourceBloc.state.dataSourceLetter;
     return AppBar(
       backgroundColor: Colors.transparent,
       flexibleSpace: Container(
@@ -50,19 +54,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         )
       ],
       centerTitle: true,
-      title: Padding(
-        padding: const EdgeInsets.only(bottom: 5.0),
-        child: Image.asset(
-          'assets/app-launcher/app_icon.png',
-          width: 45,
-          fit: BoxFit.contain,
-        ),
-      ),
-      // title: const Text('Gymnastic Center',
-      //     style: TextStyle(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.bold,
-      //         color: Colors.white)),
+      title: Text(dataSourceLetter,
+          style: const TextStyle(fontSize: 35, color: Colors.white)),
     );
   }
 }

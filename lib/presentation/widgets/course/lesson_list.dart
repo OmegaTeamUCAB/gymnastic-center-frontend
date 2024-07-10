@@ -25,11 +25,11 @@ class LessonList extends StatelessWidget {
             itemCount: lessons.length,
             itemBuilder: (context, index) {
               final lesson = lessons[index];
-
               return Container(
                 margin: const EdgeInsets.only(bottom: 12),
+                height: 83,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceTint,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: InkWell(
@@ -41,7 +41,6 @@ class LessonList extends StatelessWidget {
                     lessonProgress: (lessonProgress.isEmpty)
                         ? null
                         : lessonProgress.elementAt(index),
-                    selected: lessonBloc.state.lesson.id == lesson.id,
                   ),
                 ),
               );

@@ -81,13 +81,14 @@ class LessonInfo extends StatelessWidget {
                           lessonBloc.changeToPreviousLesson();
                         }),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     flex: (!lessonBloc.state.lastLesson) ? 6 : 0,
                     child: BrandButton(
                       text: AppLocalizations.of(context)!.next,
+
                       width: (!lessonBloc.state.lastLesson) ? 210 : 0,
                       onPressed: () {
                         GetIt.instance<VideoPlayerBloc>().pause();
@@ -111,7 +112,9 @@ class LessonInfo extends StatelessWidget {
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: DescriptionTile(description: lessonBloc.state.lesson.content ,onTap: onTap)),
+                child: DescriptionTile(
+                    description: lessonBloc.state.lesson.content,
+                    onTap: onTap)),
           ],
         ),
       ),
@@ -139,7 +142,7 @@ class _ComingUpCard extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: 100,
                 height: 100,
                 child: Stack(
@@ -154,7 +157,7 @@ class _ComingUpCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    WatchVideoOverlay()
+                    const WatchVideoOverlay()
                   ],
                 ),
               ),

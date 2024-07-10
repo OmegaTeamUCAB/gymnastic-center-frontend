@@ -5,19 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 List<dynamic> dataSources = [
   {
     'name': 'Omega (recommended)',
-    'api': 'This is the Omega api',
+    'letter': 'Ω',
   },
   {
     'name': 'Lambda',
-    'api': 'This is the Lambda api',
+    'letter': 'λ',
   },
   {
     'name': 'Alfa',
-    'api': 'This is the Alfa api',
+    'letter': 'α',
   },
   {
     'name': 'Delta',
-    'api': 'This is the Delta api',
+    'letter': 'Δ',
   },
 ];
 
@@ -35,6 +35,10 @@ class DataSourceSelect extends StatelessWidget {
             itemCount: dataSources.length,
             itemBuilder: (context, index) {
               return ListTile(
+                leading: Text(
+                  dataSources[index]['letter'],
+                  style: const TextStyle(fontSize: 24),
+                ),
                 title: Text(dataSources[index]['name']),
                 tileColor: index == dataSourceBloc.state.dataSourceIndex
                     ? Theme.of(context).colorScheme.surfaceTint

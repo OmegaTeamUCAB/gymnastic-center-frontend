@@ -132,7 +132,7 @@ class _CustomNavButton extends StatelessWidget {
             height: 3,
             width: 40,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(1.5),
             ),
           ),

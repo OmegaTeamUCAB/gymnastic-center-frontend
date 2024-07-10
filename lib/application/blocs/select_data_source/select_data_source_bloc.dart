@@ -13,7 +13,15 @@ class SelectDataSourceBloc
 
   void _onSelectDataSource(
       SelectedDataSource event, Emitter<SelectDataSourceState> emit) async {
-    emit(state.copyWith(dataSourceIndex: event.dataSourceIndex));
+    const List<String> greekLetters = ['Ω', 'λ', 'α', 'Δ'];
+    if (event.dataSourceIndex >= 0 &&
+        event.dataSourceIndex < greekLetters.length) {
+      final selectedLetter = greekLetters[event.dataSourceIndex];
+      emit(state.copyWith(
+          dataSourceIndex: event.dataSourceIndex,
+          dataSourceLetter: selectedLetter));
+    }
+
     await Environment.initEnvironment(this);
   }
 }

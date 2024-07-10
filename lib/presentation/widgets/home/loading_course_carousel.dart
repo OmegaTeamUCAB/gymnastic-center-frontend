@@ -14,7 +14,7 @@ class LoadingCourseCarousel extends StatelessWidget {
             height: 120,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.outline,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -23,7 +23,7 @@ class LoadingCourseCarousel extends StatelessWidget {
             height: 120,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.outline,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
               borderRadius: BorderRadius.circular(10),
             ),
           ),
