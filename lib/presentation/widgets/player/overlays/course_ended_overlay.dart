@@ -50,7 +50,6 @@ class CourseEndedOverlay extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Return to course'),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 15),
@@ -58,6 +57,7 @@ class CourseEndedOverlay extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
+                  child: const Text('Return to course'),
                 ),
               ],
             )),

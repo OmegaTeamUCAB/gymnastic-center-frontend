@@ -5,6 +5,7 @@ import 'package:gymnastic_center/application/blocs/all_categories/all_categories
 import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
 import 'package:gymnastic_center/presentation/screens/categories/category_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/loading_categories.dart';
 
 class CategoryCarousel extends StatelessWidget {
   const CategoryCarousel({super.key});
@@ -20,12 +21,7 @@ class CategoryCarousel extends StatelessWidget {
           child: BlocBuilder<AllCategoriesBloc, AllCategoriesState>(
             builder: (context, state) {
               if (state is AllCategoriesLoading) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 25),
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+                return const LoadingCategories();
               }
               if (state is AllCategoriesFailed) {
                 return Center(
