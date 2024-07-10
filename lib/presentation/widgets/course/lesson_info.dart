@@ -31,13 +31,15 @@ class LessonInfo extends StatelessWidget {
     final videoBloc = GetIt.instance<VideoPlayerBloc>();
     final progressBloc = GetIt.instance<ProgressBloc>();
     if (videoBloc.state.videoStatus != PlayerStatus.loading) {
-      progressBloc.add(ProgressLessonUpdated(
-          courseId: lessonBloc.state.courseId,
-          lessonId: lessonBloc.state.lesson.id,
-          markAsCompleted: videoBloc.state.position.inSeconds ==
-              videoBloc.getVideoTotalDuration().inSeconds,
-          time: videoBloc.state.position,
-          totalTime: videoBloc.getVideoTotalDuration()));
+      progressBloc.updateAndLoadProgress(
+          ProgressLessonUpdated(
+              courseId: lessonBloc.state.courseId,
+              lessonId: lessonBloc.state.lesson.id,
+              markAsCompleted: videoBloc.state.position.inSeconds ==
+                  videoBloc.getVideoTotalDuration().inSeconds,
+              time: videoBloc.state.position,
+              totalTime: videoBloc.getVideoTotalDuration()),
+          lessonBloc.state.courseId);
     }
   }
 
@@ -50,33 +52,18 @@ class LessonInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.tertiaryContainer,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30))),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    const VideoProgressBar(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          VideoTitle(title: lessonBloc.state.lesson.title),
-                          const VideoDuration(),
-                        ],
-                      ),
-                    ),
-                  ],
+            const SizedBox(height: 20),
+                const VideoProgressBar(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      VideoTitle(title: lessonBloc.state.lesson.title),
+                      const VideoDuration(),
+                    ],
+                  ),
                 ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -89,6 +76,7 @@ class LessonInfo extends StatelessWidget {
                         text: AppLocalizations.of(context)!.prev,
                         width: (!lessonBloc.state.firstLesson) ? 110 : 0,
                         onPressed: () {
+                          GetIt.instance<VideoPlayerBloc>().pause();
                           saveLessonProgress();
                           lessonBloc.changeToPreviousLesson();
                         }),
@@ -99,11 +87,11 @@ class LessonInfo extends StatelessWidget {
                   Expanded(
                     flex: (!lessonBloc.state.lastLesson) ? 6 : 0,
                     child: BrandButton(
-                      text: (lessonBloc.isNextLastLesson())
-                          ? 'Finish course'
-                          : AppLocalizations.of(context)!.next,
+                      text: AppLocalizations.of(context)!.next,
+
                       width: (!lessonBloc.state.lastLesson) ? 210 : 0,
                       onPressed: () {
+                        GetIt.instance<VideoPlayerBloc>().pause();
                         saveLessonProgress();
                         lessonBloc.changeToNextLesson();
                       },
