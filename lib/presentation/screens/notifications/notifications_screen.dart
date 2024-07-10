@@ -6,26 +6,18 @@ import 'package:gymnastic_center/presentation/widgets/notifications/notification
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NotificationsScreen extends StatefulWidget {
+class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
-
-  @override
-  State<NotificationsScreen> createState() => _NotificationsScreenState();
-}
-
-class _NotificationsScreenState extends State<NotificationsScreen> {
-  @override
-  void initState() {
-    super.initState();
-    final notificationsBloc =
-        BlocProvider.of<BrandNotificationsBloc>(context, listen: false);
-    notificationsBloc.add(const NotificationsRequested());
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BrandNotificationsBloc, BrandNotificationsState>(
       builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size(double.infinity, 100),
