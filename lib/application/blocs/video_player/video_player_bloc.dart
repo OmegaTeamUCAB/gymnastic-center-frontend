@@ -78,7 +78,6 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
     } else {
       play();
     }
-    emit(state.copyWith(isPlaying: !state.isPlaying));
   }
 
   double getVideoProgress() {
@@ -108,10 +107,12 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
 
   void play() {
     videoPlayerController.play();
+        emit(state.copyWith(isPlaying: true));
   }
 
   void pause() {
     videoPlayerController.pause();
+    emit(state.copyWith(isPlaying: false));
   }
 
   void toggleMute() {

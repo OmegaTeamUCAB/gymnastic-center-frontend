@@ -13,6 +13,7 @@ dependencies:
     git:
       url: https://github.com/vikram25897/flutter_cached_video_player
       ref: feature/gradle_version_bump
+  confetti: ^0.7.0
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
   equatable: ^2.0.5

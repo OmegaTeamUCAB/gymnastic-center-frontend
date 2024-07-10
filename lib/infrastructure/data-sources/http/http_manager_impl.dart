@@ -30,6 +30,7 @@ class HttpManagerImpl extends IHttpManager {
     } on DioException catch (e) {
       print('DioException: $e');
       return Result.failure<T>(handleException(e));
+
     } catch (e) {
       print('Exception: $e');
       return Result.failure<T>(const UnknownException());

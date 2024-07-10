@@ -22,7 +22,7 @@ class VideoMainSection extends StatelessWidget {
           return Positioned.fill(
             child: Stack(
               children: [
-                if (!state.isPlaying)
+                if (!videoBloc.state.isPlaying)
                   CustomPauseView(
                       onPressed: context.read<VideoPlayerBloc>().togglePlay),
                 VideoHorizontalSection(videoBloc: videoBloc)

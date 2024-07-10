@@ -44,18 +44,22 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<Result<ILoginResponse>> login(
       {required String email, required String password}) async {
-    final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/login',
-      httpMethod: 'POST',
-      body: jsonEncode({'email': email, 'password': password}),
-      mapperCallBack: (data) {
-        return LoginResponse.fromJson(data);
-      },
-    );
-    final token = result.unwrap().token;
-    _httpConnectionManager.updateHeaders(
-        headerKey: 'Authorization', headerValue: 'Bearer $token');
-    return result;
+    try {
+      final result = await _httpConnectionManager.makeRequest(
+        urlPath: 'auth/login',
+        httpMethod: 'POST',
+        body: jsonEncode({'email': email, 'password': password}),
+        mapperCallBack: (data) {
+          return LoginResponse.fromJson(data);
+        },
+      );
+      final token = result.unwrap().token;
+      _httpConnectionManager.updateHeaders(
+          headerKey: 'Authorization', headerValue: 'Bearer $token');
+      return result;
+    } catch (e) {
+      return Result.failure(ApplicationException(e.toString()));
+    }
   }
 
   @override
@@ -65,21 +69,25 @@ class AuthRepository implements IAuthRepository {
     required String phoneNumber,
     required String password,
   }) async {
-    final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'auth/register',
-      httpMethod: 'POST',
-      body: jsonEncode({
-        'email': email,
-        'name': fullName,
-        'phone': phoneNumber,
-        'password': password,
-        'type': 'CLIENT'
-      }),
-      mapperCallBack: (data) {
-        return null;
-      },
-    );
-    return result;
+    try {
+      final result = await _httpConnectionManager.makeRequest(
+        urlPath: 'auth/register',
+        httpMethod: 'POST',
+        body: jsonEncode({
+          'email': email,
+          'name': fullName,
+          'phone': phoneNumber,
+          'password': password,
+          'type': 'CLIENT'
+        }),
+        mapperCallBack: (data) {
+          return null;
+        },
+      );
+      return result;
+    } catch (e) {
+      return Result.failure(ApplicationException(e.toString()));
+    }
   }
 
   @override

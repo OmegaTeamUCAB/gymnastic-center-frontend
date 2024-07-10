@@ -14,10 +14,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LessonInfo extends StatelessWidget {
   final LessonBloc lessonBloc;
   final String lessonId;
+  final void Function() onTap;
   const LessonInfo(
       {super.key,
       required this.lessonBloc,
+      required this.onTap,
       required this.lessonId});
+      {super.key, required this.lessonBloc, required this.lessonId});
 
   void saveLessonProgress() {
     final lessonBloc = GetIt.instance<LessonBloc>();
@@ -69,21 +72,27 @@ class LessonInfo extends StatelessWidget {
                         lessonBloc.changeToPreviousLesson();
                       }),
                   BrandButton(
-                      text: AppLocalizations.of(context)!.next,
-                      width: 210,
-                      onPressed: () {
-                        saveLessonProgress();
-                        lessonBloc.changeToNextLesson();
-                      },)
+                    text: AppLocalizations.of(context)!.next,
+                    width: 210,
+                    onPressed: () {
+                      saveLessonProgress();
+                      lessonBloc.changeToNextLesson();
+                    },
+                  )
                 ],
               ),
             ),
-                if(!lessonBloc.state.lastLesson)
-                  _ComingUpCard(lessonBloc: lessonBloc),
+            const SizedBox(
+              height: 10,
+            ),
+            if (!lessonBloc.state.lastLesson)
+              _ComingUpCard(lessonBloc: lessonBloc),
             Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: ShowQuestionsTile(
                   lessonId: lessonId,
+                  onTap: onTap
                 )),
           ],
         ),
@@ -103,57 +112,46 @@ class _ComingUpCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 20.0, vertical: 10),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .colorScheme
-                  .tertiaryContainer,
-              borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    lessonBloc.state.courseImage,
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  lessonBloc.state.courseImage,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
-                      const Text('Coming up:'),
-                      Text(
-                          context
-                              .watch<LessonBloc>()
-                              .getNextLesson()
-                              .title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      Text('0:30',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimary)),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Coming up:'),
+                    Text(context.watch<LessonBloc>().getNextLesson().title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text('0:30',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.onPrimary)),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }

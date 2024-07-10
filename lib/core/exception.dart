@@ -1,4 +1,4 @@
-sealed class ApplicationException {
+class ApplicationException {
   final String message;
   const ApplicationException(this.message);
 }

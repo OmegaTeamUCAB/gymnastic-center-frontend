@@ -85,7 +85,11 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                               backgroundImage: FileImage(newImage!),
                               radius: 60,
                             )
-                          : (authBloc.state as Authenticated).user.image != null
+                          : authBloc.state is Authenticated &&
+                                  (authBloc.state as Authenticated)
+                                          .user
+                                          .image !=
+                                      null
                               ? CircleAvatar(
                                   backgroundImage: MemoryImage(
                                     base64Decode(
@@ -100,20 +104,30 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                                   backgroundColor:
                                       Theme.of(context).colorScheme.surfaceTint,
                                   radius: 60,
-                                  child: Text(
-                                      (authBloc.state as Authenticated)
-                                          .user
-                                          .fullName
-                                          .split(' ')
-                                          .map((l) => l[0])
-                                          .take(2)
-                                          .join(),
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          fontSize: 36,
-                                          fontWeight: FontWeight.bold)),
+                                  child: authBloc.state is Authenticated
+                                      ? Text(
+                                          (authBloc.state as Authenticated)
+                                              .user
+                                              .fullName
+                                              .split(' ')
+                                              .map((l) => l[0])
+                                              .take(2)
+                                              .join(),
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                        ),
                                 ),
                     ),
                     Positioned(
@@ -212,8 +226,8 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                                 List<int> compressedImage =
                                     await FlutterImageCompress.compressWithList(
                                   uint8ListImageBytes,
-                                  minWidth: 600,
-                                  minHeight: 600,
+                                  minWidth: 400,
+                                  minHeight: 400,
                                   quality: 40,
                                 );
                                 base64Image = base64Encode(compressedImage);
