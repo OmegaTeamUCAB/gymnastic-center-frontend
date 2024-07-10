@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                   return const Center();
                 }
                 final course = state.courses[0];
-            
+
                 return LastCoursePercentage(
                     course: course, percentage: course.percent!);
               } else {
