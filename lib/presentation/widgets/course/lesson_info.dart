@@ -20,7 +20,6 @@ class LessonInfo extends StatelessWidget {
       required this.lessonBloc,
       required this.onTap,
       required this.lessonId});
-      {super.key, required this.lessonBloc, required this.lessonId});
 
   void saveLessonProgress() {
     final lessonBloc = GetIt.instance<LessonBloc>();
