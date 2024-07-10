@@ -6,8 +6,19 @@ import 'package:gymnastic_center/presentation/widgets/notifications/notification
 import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
+
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  @override
+  initState() {
+    super.initState();
+    context.read<BrandNotificationsBloc>().add(const NotificationsRequested());
+  }
 
   @override
   Widget build(BuildContext context) {
