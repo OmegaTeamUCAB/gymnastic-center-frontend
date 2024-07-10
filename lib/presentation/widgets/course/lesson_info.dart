@@ -54,24 +54,25 @@ class LessonInfo extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))
-                ),
+                    color: Theme.of(context).colorScheme.tertiaryContainer,
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30))),
                 child: Column(
                   children: [
-                const SizedBox(height: 20),
-                const VideoProgressBar(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      VideoTitle(title: lessonBloc.state.lesson.title),
-                      const VideoDuration(),
-                    ],
-                  ),
-                ),
-                
+                    const SizedBox(height: 20),
+                    const VideoProgressBar(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          VideoTitle(title: lessonBloc.state.lesson.title),
+                          const VideoDuration(),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -92,13 +93,15 @@ class LessonInfo extends StatelessWidget {
                           lessonBloc.changeToPreviousLesson();
                         }),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     flex: (!lessonBloc.state.lastLesson) ? 6 : 0,
                     child: BrandButton(
-                      text: (lessonBloc.isNextLastLesson()) ? 'Finish course' : AppLocalizations.of(context)!.next,
+                      text: (lessonBloc.isNextLastLesson())
+                          ? 'Finish course'
+                          : AppLocalizations.of(context)!.next,
                       width: (!lessonBloc.state.lastLesson) ? 210 : 0,
                       onPressed: () {
                         saveLessonProgress();
@@ -121,7 +124,9 @@ class LessonInfo extends StatelessWidget {
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: DescriptionTile(description: lessonBloc.state.lesson.content ,onTap: onTap)),
+                child: DescriptionTile(
+                    description: lessonBloc.state.lesson.content,
+                    onTap: onTap)),
           ],
         ),
       ),
@@ -149,7 +154,7 @@ class _ComingUpCard extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: 100,
                 height: 100,
                 child: Stack(
@@ -164,7 +169,7 @@ class _ComingUpCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    WatchVideoOverlay()
+                    const WatchVideoOverlay()
                   ],
                 ),
               ),

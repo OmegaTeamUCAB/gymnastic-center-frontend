@@ -31,7 +31,7 @@ class CourseInfo extends StatelessWidget {
       controller: scrollController,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
@@ -153,7 +153,6 @@ class CourseInfo extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Divider()
                           ],
                         );
                       },
@@ -169,7 +168,7 @@ class CourseInfo extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              settings:  RouteSettings(name: "/lesson"),
+                              settings: const RouteSettings(name: "/lesson"),
                               builder: (context) => LessonScreen(
                                     lessonId: course.lessons!.first.id,
                                   )),
