@@ -68,9 +68,6 @@ class CustomNavigationBar extends StatelessWidget {
                               .withOpacity(0.5)),
                   isSelected: tabIndex == 2,
                   onPressed: () {
-                    context.read<BrandNotificationsBloc>().add(
-                          const NotificationsRequested(),
-                        );
                     onTap(2);
                   },
                 );

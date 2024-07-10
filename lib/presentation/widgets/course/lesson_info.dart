@@ -89,10 +89,7 @@ class LessonInfo extends StatelessWidget {
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: ShowQuestionsTile(
-                  lessonId: lessonId,
-                  onTap: onTap
-                )),
+                child: ShowQuestionsTile(lessonId: lessonId, onTap: onTap)),
           ],
         ),
       ),

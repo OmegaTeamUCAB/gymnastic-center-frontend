@@ -53,7 +53,7 @@ class NotificationRepository implements INotificationRepository {
           id: data['id'],
           title: data['title'],
           body: data['body'],
-          date: data['date'],
+          date: DateTime.parse(data['date']),
         );
       },
     );
