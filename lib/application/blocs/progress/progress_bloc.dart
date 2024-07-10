@@ -35,7 +35,8 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     final result = await updateCourseProgressUseCase.execute(UpdateProgressDTO(
       courseId: event.courseId, 
       lessonId: event.lessonId, 
-      markAsCompleted: event.markAsCompleted, 
+      markAsCompleted: isLessonCompleted(event.lessonId) ? true : event.markAsCompleted, 
+      // markAsCompleted: event.markAsCompleted,
       time: event.time.inSeconds, 
       totalTime: event.totalTime.inSeconds
     ));
@@ -61,12 +62,11 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
   
   Future<void> _updateLessonProgress(ProgressLessonUpdated event, Emitter<ProgressState> emit) async {
     emit(state.copyWith(progressStatus: ProgressStatus.fetching));
-    final lessonPercent = getLessonById(event.lessonId).percent;
     final result = await updateCourseProgressUseCase.execute(UpdateProgressDTO(
       courseId: event.courseId, 
       lessonId: event.lessonId, 
-      // markAsCompleted: (lessonPercent == 100 || lessonPercent == 1) ? true : event.markAsCompleted, 
-      markAsCompleted: event.markAsCompleted, 
+      markAsCompleted: isLessonCompleted(event.lessonId) ? true : event.markAsCompleted, 
+      // markAsCompleted: event.markAsCompleted,
       time: event.time.inSeconds, 
       totalTime: event.totalTime.inSeconds
     ));
@@ -81,6 +81,28 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
 
   LessonProgress getLessonById(String id) {
     return state.progress.lessonProgress.where((element) => element.lessonId == id).toList()[0];
+  }
+
+  bool isLessonCompleted(String lessonId) {
+    final lessonPercent = getLessonById(lessonId).percent;
+    return (lessonPercent == 100) ? true : false; 
+  }
+
+  bool isCompleted() {
+    return (state.progress.percent  == 100) ? true : false;
+  }
+
+  bool checkProgress(int videoDuration, int videoTime, String lessonId) {
+    final lessonById = getLessonById(lessonId);
+    var progress = 0.0;
+    state.progress.lessonProgress.forEach((element) {
+      if(element.lessonId == lessonById.lessonId){
+        progress += (videoDuration / videoTime) * 100.0;
+        return;
+      }
+      progress += element.percent;
+    });
+      return (progress >= 100.0 - 0.01) ? true : false;
   }
 
 }
