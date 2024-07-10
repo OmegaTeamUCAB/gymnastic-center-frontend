@@ -21,6 +21,6 @@ abstract class INotificationRepository {
   Future<Result<int>> getUnreadCount();
   Future<Result<List<BrandNotification>>> getNotifications();
   Future<Result<void>> saveToken(String token);
-  Future<Result<void>> removeToken();
+  Future<Result<void>> removeToken(String token);
   Future<Result<void>> deleteNotifications();
 }

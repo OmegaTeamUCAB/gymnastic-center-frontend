@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
+import 'package:gymnastic_center/core/exception.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
@@ -61,16 +62,20 @@ class NotificationRepository implements INotificationRepository {
   }
 
   @override
-  Future<Result<void>> removeToken() async {
-    final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'notifications/removetoken',
-      body: {},
-      httpMethod: 'DELETE',
-      mapperCallBack: (data) {
-        return null;
-      },
-    );
-    return result;
+  Future<Result<void>> removeToken(String token) async {
+    try {
+      final result = await _httpConnectionManager.makeRequest(
+        urlPath: 'notifications/removetoken',
+        body: jsonEncode({'token': token}),
+        httpMethod: 'DELETE',
+        mapperCallBack: (data) {
+          return null;
+        },
+      );
+      return result;
+    } catch (e) {
+      return Result.failure(const NetworkException());
+    }
   }
 
   @override
