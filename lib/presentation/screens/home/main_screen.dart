@@ -29,7 +29,6 @@ class _MainScreenState extends State<MainScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {

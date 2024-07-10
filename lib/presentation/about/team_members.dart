@@ -18,7 +18,7 @@ List<TeamMember> teamMembers = [
   TeamMember(
       name: "Sandro Portanova",
       role: "Frontend",
-      imageUrl: "assets/team/andres.png"),
+      imageUrl: "assets/team/sandro.png"),
   TeamMember(
       name: "Andrés Arispe",
       role: "Frontend",

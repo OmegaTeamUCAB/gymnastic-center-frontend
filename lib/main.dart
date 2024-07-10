@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
@@ -15,7 +16,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await IoCContainer.init();
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MainApp());
+  });
 }
 
 class MainApp extends StatefulWidget {
