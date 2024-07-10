@@ -66,7 +66,7 @@ class _TrainerInfoState extends State<TrainerInfo> {
           controller: widget.scrollController,
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onTertiaryContainer,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
@@ -151,12 +151,18 @@ class _TrainerInfoState extends State<TrainerInfo> {
                 ContentHeader(
                   title: '${widget.trainer.name}\'s Courses',
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 BlocProvider(
                   create: (context) => GetIt.instance<AllCourseByTrainerBloc>(),
                   child: CourseByTrainerCarousel(trainerId: widget.trainer.id!),
                 ),
                 ContentHeader(
                   title: '${widget.trainer.name}\'s Blogs',
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 BlocProvider(
                   create: (context) => GetIt.instance<AllBlogsByTrainerBloc>(),

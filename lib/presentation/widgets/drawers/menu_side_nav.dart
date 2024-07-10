@@ -10,10 +10,8 @@ import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dar
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuSideNav extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   const MenuSideNav({
     super.key,
-    required this.scaffoldKey,
   });
 
   @override
@@ -90,7 +88,6 @@ class MenuSideNav extends StatelessWidget {
                       leading: Icon(appMenuItems[i].icon, color: Colors.white),
                       onTap: () {
                         appMenuItems[i].redirect(context);
-                        scaffoldKey.currentState?.closeDrawer();
                       }),
                 ),
               ),

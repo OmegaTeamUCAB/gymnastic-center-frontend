@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
           index: selectedIndex,
           children: screens,
         ),
-        drawer: MenuSideNav(scaffoldKey: scaffoldKey),
+        drawer: const MenuSideNav(),
         bottomNavigationBar: CustomNavigationBar(
           tabIndex: selectedIndex,
           onTap: (newScreenIndex) {

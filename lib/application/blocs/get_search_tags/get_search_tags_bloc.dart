@@ -1,13 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gymnastic_center/application/blocs/resettable_bloc.dart';
 import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 
 part 'get_search_tags_event.dart';
 part 'search_tags_state.dart';
 
-class GetSearchTagsBloc extends Bloc<GetSearchTagsEvent, GetSearchTagsState>
-    implements ResettableBloc {
+class GetSearchTagsBloc extends Bloc<GetSearchTagsEvent, GetSearchTagsState> {
   final GetSearchTagsUseCase getSearchTagsUseCase;
   final List<String> _cachedSearchTags = [];
 
@@ -33,10 +31,5 @@ class GetSearchTagsBloc extends Bloc<GetSearchTagsEvent, GetSearchTagsState>
         }
       }
     }
-  }
-
-  @override
-  void reset() {
-    _cachedSearchTags.clear();
   }
 }
