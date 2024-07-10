@@ -3,7 +3,6 @@ import 'package:gymnastic_center/presentation/screens/profile/update_profile_scr
 import 'package:gymnastic_center/presentation/about/about_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/faq/faq_screen.dart';
 import 'package:gymnastic_center/presentation/screens/settings/language_settings_screen.dart';
-import 'package:gymnastic_center/presentation/screens/settings/notification_settings_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,14 +21,6 @@ final appMenuItems = <MenuItem>[
     icon: GymnasticCenter.account,
     redirect: (context) => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const UpdateProfileScreen())),
-  ),
-  MenuItem(
-    title: (context) => AppLocalizations.of(context)!.notifications,
-    icon: Icons.notifications_on,
-    redirect: (context) => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const NotificationSettingsScreen())),
   ),
   MenuItem(
     title: (context) => AppLocalizations.of(context)!.faq,
