@@ -5,26 +5,30 @@ class LoadingCourseCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 120,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(10),
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 1000),
+      opacity: 0.2,
+      child: Column(
+        children: [
+          Container(
+            height: 120,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-        ),
-        const Divider(),
-        Container(
-          height: 120,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(10),
+          const Divider(),
+          Container(
+            height: 120,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
