@@ -14,7 +14,7 @@ class PlanCoursesBloc extends Bloc<PlanCoursesEvent, PlanCoursesState> {
       PlanCoursesRequested event, Emitter<PlanCoursesState> emit) async {
     emit(PlanCoursesLoading());
     final result = await getCoursesUseCase
-        .execute(GetCoursesDto(page: event.page, userId: event.userId));
+        .execute(GetCoursesDto(page: event.page, filter: event.filter));
     if (result.isSuccessful) {
       emit(PlanCoursesSuccess(courses: result.unwrap()));
     } else {

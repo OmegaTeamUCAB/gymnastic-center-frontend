@@ -63,6 +63,7 @@ class LessonTile extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary),
             subtitle: Text(
               lesson.content!,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
             trailing: (GetIt.instance<ProgressBloc>()
