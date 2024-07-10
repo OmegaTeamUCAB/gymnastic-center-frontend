@@ -1,8 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gymnastic_center/application/use_cases/progress/get_course_progess.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/progress/start_course_progess.use_case.dart';
-import 'package:gymnastic_center/application/use_cases/progress/update_course_progess.use_case.dart';
 import 'package:gymnastic_center/domain/lesson/lesson.dart';
 import 'package:gymnastic_center/domain/progress/progress.dart';
 import 'package:meta/meta.dart';
@@ -101,5 +98,11 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     if (state.lastLesson == true) numberToAdd = 0;
     return state
         .courseLessons[state.courseLessons.indexOf(state.lesson) + numberToAdd];
+  }
+
+  bool isNextLastLesson(){
+    if (state.lastLesson == true) return false;
+    final lessonIndex = state.courseLessons.indexOf(getNextLesson());
+    return (lessonIndex == (state.courseLessons.length -1));
   }
 }

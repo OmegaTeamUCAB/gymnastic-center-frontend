@@ -81,7 +81,7 @@ class ProgressRepository extends IProgressRepository {
             name: course['title'],
             trainer: course['trainer'],
             createdAt: course['date'],
-            percent: course['percent'],
+            percent: (course["percent"] as num).toDouble(),
           ));
         }
         return courses;
