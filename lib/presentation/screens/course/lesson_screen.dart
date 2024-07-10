@@ -5,12 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/lesson/lesson_bloc.dart';
 import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
 import 'package:gymnastic_center/application/blocs/video_player/video_player_bloc.dart';
-import 'package:gymnastic_center/presentation/screens/course/comments_course_fab.dart';
-import 'package:gymnastic_center/presentation/widgets/common/brand_button.dart';
+import 'package:gymnastic_center/presentation/screens/course/views/congratulations_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/course/lesson_info.dart';
-import 'package:gymnastic_center/presentation/widgets/player/buttons/video_duration.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_player_preview.dart';
-import 'package:gymnastic_center/presentation/widgets/player/buttons/video_progress_bar.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -29,6 +26,7 @@ class _LessonScreenState extends State<LessonScreen> {
   void initState() {
     super.initState();
     final lessonBloc = GetIt.instance<LessonBloc>();
+    // ignore: unused_local_variable
     final progressBloc = GetIt.instance<ProgressBloc>()
       ..add(LessonProgressRequested(courseId: lessonBloc.state.courseId));
     GetIt.instance<LessonBloc>()
@@ -91,11 +89,6 @@ class _LessonViewState extends State<_LessonView> {
     super.dispose();
   }
 
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    void _closeBottomSheet() {
-    Navigator.of(_scaffoldKey.currentContext!).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     final lessonBloc = GetIt.instance<LessonBloc>();
@@ -103,8 +96,21 @@ class _LessonViewState extends State<_LessonView> {
     final videoBloc = GetIt.instance<VideoPlayerBloc>();
 
     return BlocListener<VideoPlayerBloc, VideoPlayerState>(
+      listenWhen: (previous, current) => previous.videoStatus != PlayerStatus.streaming && current.videoStatus == PlayerStatus.completed,
       listener: (context, state) {
         if (state.videoStatus == PlayerStatus.completed) {
+          final checkProgress = progressBloc.checkProgress(videoBloc.getVideoTotalDuration().inSeconds, videoBloc.state.position.inSeconds, lessonBloc.state.lesson.id);
+          if(!progressBloc.isCompleted() && checkProgress == true){
+            Navigator.push(
+                          context,
+                          MaterialPageRoute(
+
+                            builder: (context) => CongratulationsScreen(
+                                  courseId: lessonBloc.state.courseId,
+                                ),
+                          ),
+                        );
+          } else {
           if(!lessonBloc.state.lastLesson){
           progressBloc.add(ProgressLessonUpdated(
               courseId: lessonBloc.state.courseId,
@@ -116,6 +122,8 @@ class _LessonViewState extends State<_LessonView> {
           }
 
           lessonBloc.changeToNextLesson();
+
+          }
         }
       },
       child: BlocBuilder<LessonBloc, LessonState>(
@@ -168,7 +176,9 @@ class _LessonViewState extends State<_LessonView> {
                     ),
                     LessonInfo(
                         lessonBloc: lessonBloc,
-                        lessonId: lessonBloc.state.lesson.id),
+                        lessonId: lessonBloc.state.lesson.id,
+                        onTap: videoBloc.pause
+                      ),
 
                   ],
                 ),

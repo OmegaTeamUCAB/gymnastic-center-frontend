@@ -14,7 +14,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LessonInfo extends StatelessWidget {
   final LessonBloc lessonBloc;
   final String lessonId;
+  final void Function() onTap;
   const LessonInfo(
+      {super.key,
+      required this.lessonBloc,
+      required this.onTap,
+      required this.lessonId});
       {super.key, required this.lessonBloc, required this.lessonId});
 
   void saveLessonProgress() {
@@ -87,6 +92,7 @@ class LessonInfo extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: ShowQuestionsTile(
                   lessonId: lessonId,
+                  onTap: onTap
                 )),
           ],
         ),

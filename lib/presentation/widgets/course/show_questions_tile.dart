@@ -5,7 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShowQuestionsTile extends StatelessWidget {
   final String lessonId;
-  const ShowQuestionsTile({super.key, required this.lessonId});
+  final void Function()? onTap;
+  const ShowQuestionsTile({super.key, required this.lessonId, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class ShowQuestionsTile extends StatelessWidget {
         trailing: Icon(Icons.question_answer,
             color: Theme.of(context).colorScheme.onPrimary),
         onTap: () {
+          if(onTap != null) onTap!();
           showModalBottomSheet(
             backgroundColor: Theme.of(context).colorScheme.background,
             context: context,
