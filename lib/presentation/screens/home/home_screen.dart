@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/domain/course/course.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_bloc.dart';
+import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_state.dart';
+
 import 'package:gymnastic_center/presentation/screens/blog/all_blogs_screen.dart';
 import 'package:gymnastic_center/presentation/screens/course/all_courses_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/main_app_bar.dart';
@@ -16,6 +20,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewedCoursesBloc = GetIt.instance<ViewedCoursesBloc>();
+    viewedCoursesBloc.add(const ViewedCoursesRequested(1));
     return Scaffold(
       appBar: MainAppBar(openDrawer: () => Scaffold.of(context).openDrawer()),
       body: ListView(
@@ -23,14 +29,34 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          LastCoursePercentage(
-              course: Course(
-                  id: '1',
-                  name: 'Algun curso de prueba',
-                  imageUrl: 'something',
-                  trainer: 'Test trainer',
-                  category: 'Whatever'),
-              percentage: 50),
+          BlocProvider.value(
+            value: viewedCoursesBloc,
+            child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
+                builder: (context, state) {
+              if (state is ViewedCoursesLoading) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 25),
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              if (state is ViewedCoursesFailed) {
+                return const Center();
+              }
+              if (state is ViewedCoursesSuccess) {
+                if (state.courses.isEmpty) {
+                  return const Center();
+                }
+                final course = state.courses[0];
+            
+                return LastCoursePercentage(
+                    course: course, percentage: course.percent!);
+              } else {
+                return const Center();
+              }
+            }),
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Divider(),
