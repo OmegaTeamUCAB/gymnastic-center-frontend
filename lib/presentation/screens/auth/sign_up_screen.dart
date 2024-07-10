@@ -7,7 +7,9 @@ import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
 import 'package:gymnastic_center/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/sign_up_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
+import 'package:gymnastic_center/presentation/screens/location_screen.dart';
 
+// TODO call the LocationScree(); from this screen
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
