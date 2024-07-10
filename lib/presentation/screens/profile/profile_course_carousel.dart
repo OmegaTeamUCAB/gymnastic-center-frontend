@@ -5,6 +5,7 @@ import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/course/courses_page_view.dart';
 import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/home/loading_course_carousel.dart';
 
 class ProfileCourseCarousel extends StatelessWidget {
   const ProfileCourseCarousel({super.key});
@@ -21,11 +22,9 @@ class ProfileCourseCarousel extends StatelessWidget {
         child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
           builder: (context, state) {
             if (state is ViewedCoursesLoading) {
-              return const Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 25),
-                  child: CircularProgressIndicator(),
-                ),
+              return const Padding(
+                padding: EdgeInsets.only(left: 15, right: 35.0),
+                child: LoadingCourseCarousel(),
               );
             }
             if (state is ViewedCoursesFailed) {

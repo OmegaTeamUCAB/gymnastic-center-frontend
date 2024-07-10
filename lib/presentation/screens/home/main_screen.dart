@@ -25,9 +25,9 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   int selectedIndex = 0;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
           index: selectedIndex,
           children: screens,
         ),
-        drawer: MenuSideNav(scaffoldKey: scaffoldKey),
+        drawer: const MenuSideNav(),
         bottomNavigationBar: CustomNavigationBar(
           tabIndex: selectedIndex,
           onTap: (newScreenIndex) {

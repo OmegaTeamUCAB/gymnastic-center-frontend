@@ -28,9 +28,8 @@ class HttpManagerImpl extends IHttpManager {
           queryParameters: queryParams);
       return Result.success<T>(mapperCallBack(response.data));
     } on DioException catch (e) {
-      print('DioException: $e');
+      print('DioException: $e - ${e.response?.data}');
       return Result.failure<T>(handleException(e));
-
     } catch (e) {
       print('Exception: $e');
       return Result.failure<T>(const UnknownException());
@@ -39,10 +38,10 @@ class HttpManagerImpl extends IHttpManager {
 
   ApplicationException handleException(DioException e) {
     switch (e.type) {
-      case DioExceptionType.badResponse :
+      case DioExceptionType.badResponse:
         return PermissionDeniedException(message: e.response?.data["message"]);
       default:
-        return UnknownException();
+        return const UnknownException();
     }
   }
 
