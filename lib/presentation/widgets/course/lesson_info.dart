@@ -20,7 +20,6 @@ class LessonInfo extends StatelessWidget {
       required this.lessonBloc,
       required this.onTap,
       required this.lessonId});
-      {super.key, required this.lessonBloc, required this.lessonId});
 
   void saveLessonProgress() {
     final lessonBloc = GetIt.instance<LessonBloc>();
@@ -90,10 +89,7 @@ class LessonInfo extends StatelessWidget {
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: ShowQuestionsTile(
-                  lessonId: lessonId,
-                  onTap: onTap
-                )),
+                child: ShowQuestionsTile(lessonId: lessonId, onTap: onTap)),
           ],
         ),
       ),
