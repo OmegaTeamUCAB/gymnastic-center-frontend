@@ -30,17 +30,12 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: viewedCoursesBloc),
-              BlocProvider.value(value: GetIt.instance<ProgressBloc>())
-            ],
+          BlocProvider.value(
+            value: viewedCoursesBloc,
             child: BlocListener<ProgressBloc, ProgressState>(
               listener: (context, state) {
-                if(state is ProgressLessonUpdated) {
-                  print('Paso por aca');
+                if (state is ProgressLessonUpdated){
                   viewedCoursesBloc.add(const ViewedCoursesRequested(1));
-                  
                 }
               },
               child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
@@ -60,9 +55,10 @@ class HomeScreen extends StatelessWidget {
                   if (state.courses.isEmpty) {
                     return const Center();
                   }
+                  final course = state.courses[0];
+
                   return LastCoursePercentage(
-                      course: state.courses[0],
-                      percentage: state.courses[0].percent!);
+                      course: course, percentage: course.percent!);
                 } else {
                   return const Center();
                 }
