@@ -41,7 +41,6 @@ class LessonList extends StatelessWidget {
                     lessonProgress: (lessonProgress.isEmpty)
                         ? null
                         : lessonProgress.elementAt(index),
-                    selected: lessonBloc.state.lesson.id == lesson.id,
                   ),
                 ),
               );

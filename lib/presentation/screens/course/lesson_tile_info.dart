@@ -11,12 +11,12 @@ import 'package:gymnastic_center/presentation/screens/course/lesson_screen.dart'
 class LessonTile extends StatelessWidget {
   final Lesson lesson;
   final LessonProgress? lessonProgress;
-  final bool selected;
-  const LessonTile(
-      {super.key,
-      required this.lesson,
-      this.lessonProgress,
-      required this.selected});
+
+  const LessonTile({
+    super.key,
+    required this.lesson,
+    this.lessonProgress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,6 @@ class LessonTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: ListTile(
-            selected: selected,
             onTap: (context.watch<ProgressBloc>().state.progressStatus ==
                     ProgressStatus.unitialized)
                 ? null
@@ -96,26 +95,6 @@ class LessonTile extends StatelessWidget {
                           context.read<LessonBloc>().state.courseId);
                     },
                   ),
-            // trailing: BlocBuilder<ProgressBloc, ProgressState>(
-            //   buildWhen: (previous, current) =>
-            //       previous.progress.percent != current.progress.percent,
-            //   builder: (context, state) {
-            //     return lessonProgress != null && lessonProgress!.percent > 0.0
-            //         ? FittedBox(
-            //             child: TweenAnimationBuilder(
-            //               tween:
-            //                   Tween<double>(begin: 0, end: lessonProgress!.percent),
-            //               duration: const Duration(milliseconds: 900),
-            //               builder: (context, double value, child) {
-            //                 return CustomProgressIndicator(
-            //                   percent: value,
-            //                 );
-            //               },
-            //             ),
-            //           )
-            //         : const Icon(Icons.chevron_right_rounded);
-            //   },
-            // ),
           ),
         ),
       ],
