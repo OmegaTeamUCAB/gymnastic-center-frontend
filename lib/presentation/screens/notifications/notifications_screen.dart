@@ -11,11 +11,13 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notificationsBloc =
-        BlocProvider.of<BrandNotificationsBloc>(context, listen: false);
-    notificationsBloc.add(const NotificationsRequested());
     return BlocBuilder<BrandNotificationsBloc, BrandNotificationsState>(
       builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size(double.infinity, 100),

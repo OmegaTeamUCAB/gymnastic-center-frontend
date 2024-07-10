@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
-import 'package:gymnastic_center/application/repositories/notifications/notification_repository.dart';
 import 'package:gymnastic_center/presentation/widgets/common/notification_icon.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
 
@@ -69,6 +68,9 @@ class CustomNavigationBar extends StatelessWidget {
                               .withOpacity(0.5)),
                   isSelected: tabIndex == 2,
                   onPressed: () {
+                    context.read<BrandNotificationsBloc>().add(
+                          const NotificationsRequested(),
+                        );
                     onTap(2);
                   },
                 );

@@ -25,7 +25,6 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   int selectedIndex = 0;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
