@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/progress/progress_bloc.dart';
 import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_bloc.dart';
 import 'package:gymnastic_center/application/blocs/viewed_courses/viewed_courses_state.dart';
 
@@ -30,34 +30,44 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          BlocProvider.value(
-            value: viewedCoursesBloc,
-            child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
-                builder: (context, state) {
-              if (state is ViewedCoursesLoading) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 25),
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-              if (state is ViewedCoursesFailed) {
-                return Center(
-                  child: Text(state.message),
-                );
-              }
-              if (state is ViewedCoursesSuccess) {
-                if (state.courses.isEmpty) {
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: viewedCoursesBloc),
+              BlocProvider.value(value: GetIt.instance<ProgressBloc>())
+            ],
+            child: BlocListener<ProgressBloc, ProgressState>(
+              listener: (context, state) {
+                if(state is ProgressLessonUpdated) {
+                  print('Paso por aca');
+                  viewedCoursesBloc.add(const ViewedCoursesRequested(1));
+                  
+                }
+              },
+              child: BlocBuilder<ViewedCoursesBloc, ViewedCoursesState>(
+                  builder: (context, state) {
+                if (state is ViewedCoursesLoading) {
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 25),
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                if (state is ViewedCoursesFailed) {
                   return const Center();
                 }
-                return LastCoursePercentage(
-                    course: state.courses[0],
-                    percentage: state.courses[0].percent!);
-              } else {
-                return const Center();
-              }
-            }),
+                if (state is ViewedCoursesSuccess) {
+                  if (state.courses.isEmpty) {
+                    return const Center();
+                  }
+                  return LastCoursePercentage(
+                      course: state.courses[0],
+                      percentage: state.courses[0].percent!);
+                } else {
+                  return const Center();
+                }
+              }),
+            ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0),
