@@ -22,19 +22,20 @@ class LessonTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
-          bottom: 0,
-          left: 0,
-          child: Container(
-            height: 15.0,
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.circular(10)),
-            width: MediaQuery.of(context).size.width *
-                (lessonProgress?.percent ?? 0) /
-                106.3,
+        if (lessonProgress?.percent != 0)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Container(
+              height: 15.0,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(10)),
+              width: MediaQuery.of(context).size.width *
+                  (lessonProgress?.percent ?? 0) /
+                  106.3,
+            ),
           ),
-        ),
         Container(
           height: 80,
           decoration: BoxDecoration(

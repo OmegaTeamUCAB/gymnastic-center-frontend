@@ -12,7 +12,6 @@ class LessonList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lessonBloc = context.watch<LessonBloc>();
     final lessonProgress =
         context.watch<ProgressBloc>().state.progress.lessonProgress;
 

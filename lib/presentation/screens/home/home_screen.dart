@@ -42,24 +42,20 @@ class HomeScreen extends StatelessWidget {
                 );
               }
               if (state is ViewedCoursesFailed) {
-                return const Center();
+                return const SizedBox.shrink();
               }
               if (state is ViewedCoursesSuccess) {
                 if (state.courses.isEmpty) {
-                  return const Center();
+                  return const SizedBox.shrink();
                 }
                 final course = state.courses[0];
 
                 return LastCoursePercentage(
                     course: course, percentage: course.percent!);
               } else {
-                return const Center();
+                return const SizedBox.shrink();
               }
             }),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
-            child: Divider(),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
