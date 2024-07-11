@@ -1,5 +1,6 @@
 import 'package:gymnastic_center/application/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/application/repositories/search/search_results.dart';
+import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
@@ -47,9 +48,9 @@ class SearchRepository implements ISearchRepository {
   }
 
   @override
-  Future<Result<List<String>>> getSearchTags() async {
+  Future<Result<List<String>>> getSearchTags(SearchTagsDto dto) async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'search/popular/tags',
+      urlPath: 'search/popular/tags?perPage=${dto.perPage}&page=${dto.page}',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<String> searchTags = [];

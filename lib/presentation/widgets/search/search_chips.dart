@@ -17,7 +17,7 @@ class _SearchChipsState extends State<SearchChips> {
   @override
   void initState() {
     searchTagsBloc = GetIt.instance<GetSearchTagsBloc>();
-    searchTagsBloc.add(const SearchTagsRequested());
+    searchTagsBloc.add(const SearchTagsRequested(1, 15));
     super.initState();
   }
 

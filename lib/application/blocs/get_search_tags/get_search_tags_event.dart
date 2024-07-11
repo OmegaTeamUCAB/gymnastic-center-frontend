@@ -5,5 +5,7 @@ sealed class GetSearchTagsEvent {
 }
 
 class SearchTagsRequested extends GetSearchTagsEvent {
-  const SearchTagsRequested();
+  final int page;
+  final int perPage;
+  const SearchTagsRequested(this.page, this.perPage);
 }

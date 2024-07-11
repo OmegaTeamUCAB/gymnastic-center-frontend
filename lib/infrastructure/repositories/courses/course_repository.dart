@@ -13,7 +13,7 @@ class CourseRepository extends ICourseRepository {
   Future<Result<List<Course>>> getCourses(GetCoursesDto dto) async {
     var queryParameters = {
       'page': dto.page.toString(),
-      'perPage': '15',
+      'perPage': '35',
       if (dto.filter != null) 'filter': dto.filter.toString(),
       if (dto.categoryId != null) 'category': dto.categoryId.toString(),
       if (dto.trainerId != null) 'trainer': dto.trainerId.toString(),

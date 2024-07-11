@@ -158,6 +158,9 @@ class _TrainerInfoState extends State<TrainerInfo> {
                   create: (context) => GetIt.instance<AllCourseByTrainerBloc>(),
                   child: CourseByTrainerCarousel(trainerId: widget.trainer.id!),
                 ),
+                const SizedBox(
+                  height: 40,
+                ),
                 ContentHeader(
                   title: '${widget.trainer.name}\'s Blogs',
                 ),

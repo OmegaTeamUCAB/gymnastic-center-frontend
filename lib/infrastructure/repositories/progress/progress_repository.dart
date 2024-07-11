@@ -19,7 +19,7 @@ class ProgressRepository extends IProgressRepository {
         for (var lesson in data["lessons"]) {
           lessonProgress.add(LessonProgress(
               lessonId: lesson["lessonId"],
-              time: lesson["time"],
+              time: lesson["time"] ?? 0,
               percent: (lesson["percent"] as num).toDouble()));
         }
         final progress = Progress(
@@ -81,7 +81,7 @@ class ProgressRepository extends IProgressRepository {
             name: course['title'],
             trainer: course['trainer'],
             createdAt: course['date'],
-            percent: (course["percent"] as num).toDouble(),
+            percent: (course["percent"] ?? 0 as num).toDouble(),
           ));
         }
         return courses;
