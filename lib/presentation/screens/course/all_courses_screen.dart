@@ -82,7 +82,6 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                 }
                 return CoursesList(
                   courses: state.courses,
-                  controller: paginationController.scrollController,
                 );
               } else {
                 return const Center(
