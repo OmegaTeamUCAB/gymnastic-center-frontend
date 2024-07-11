@@ -19,8 +19,8 @@ class CoursesByCategoryBloc
   Future<void> _getCoursesByCategory(CoursesByCategoryRequested event,
       Emitter<CoursesByCategoryState> emit) async {
     emit(CoursesByCategoryLoading());
-    final result = await getCoursesUseCase
-        .execute(GetCoursesDto(categoryId: event.categoryId, page: event.page));
+    final result = await getCoursesUseCase.execute(GetCoursesDto(
+        categoryId: event.categoryId, filter: 'RECENT', page: event.page));
     if (result.isSuccessful) {
       emit(CoursesByCategorySuccess(courses: result.unwrap()));
     } else {

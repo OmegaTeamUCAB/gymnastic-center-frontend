@@ -25,7 +25,7 @@ class NotificationRepository implements INotificationRepository {
   @override
   Future<Result<List<BrandNotification>>> getNotifications() async {
     final result = await _httpConnectionManager.makeRequest(
-      urlPath: 'notifications/many',
+      urlPath: 'notifications/many?page=1&perPage=15',
       httpMethod: 'GET',
       mapperCallBack: (data) {
         List<BrandNotification> notifications = [];
@@ -67,7 +67,7 @@ class NotificationRepository implements INotificationRepository {
       final result = await _httpConnectionManager.makeRequest(
         urlPath: 'notifications/removetoken',
         body: jsonEncode({'token': token}),
-        httpMethod: 'DELETE',
+        httpMethod: 'POST',
         mapperCallBack: (data) {
           return null;
         },

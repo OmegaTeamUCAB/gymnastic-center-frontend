@@ -12,7 +12,7 @@ class BlogsRepository implements IBlogRepository {
   Future<Result<List<Blog>>> getBlogs(GetBlogsDto dto) async {
     var queryParameters = {
       'page': dto.page.toString(),
-      'perPage': '15',
+      'perPage': '35',
       if (dto.categoryId != null) 'category': dto.categoryId.toString(),
       if (dto.trainerId != null) 'trainer': dto.trainerId.toString(),
       if (dto.filter != null) 'filter': dto.filter,

@@ -24,8 +24,8 @@ class AllCourseByTrainerBloc
           courses: _cachedCoursesByTrainer[event.trainerId]!));
     } else {
       emit(AllCourseByTrainerLoading());
-      final result = await getAllCoursesByTrainerUseCase
-          .execute(GetCoursesDto(trainerId: event.trainerId, page: event.page));
+      final result = await getAllCoursesByTrainerUseCase.execute(GetCoursesDto(
+          trainerId: event.trainerId, page: event.page, filter: 'RECENT'));
       if (result.isSuccessful) {
         _cachedCoursesByTrainer[event.trainerId] = result.unwrap();
         emit(AllCoursesByTrainerSuccess(

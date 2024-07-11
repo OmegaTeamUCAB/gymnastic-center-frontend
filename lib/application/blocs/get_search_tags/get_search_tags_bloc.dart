@@ -19,7 +19,8 @@ class GetSearchTagsBloc extends Bloc<GetSearchTagsEvent, GetSearchTagsState> {
       emit(GetSearchTagsSuccess(searchTags: _cachedSearchTags));
     } else {
       emit(SearchTagsLoading());
-      final result = await getSearchTagsUseCase.execute(SearchTagsDto());
+      final result = await getSearchTagsUseCase
+          .execute(SearchTagsDto(event.page, event.perPage));
       if (result.isSuccessful) {
         _cachedSearchTags.addAll(result.unwrap());
         emit(GetSearchTagsSuccess(searchTags: _cachedSearchTags));

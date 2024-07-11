@@ -3,7 +3,9 @@ import 'package:gymnastic_center/core/result.dart';
 import 'package:gymnastic_center/core/use_case.dart';
 
 class SearchTagsDto {
-  SearchTagsDto();
+  final int page;
+  final int perPage;
+  SearchTagsDto(this.page, this.perPage);
 }
 
 class GetSearchTagsUseCase extends IUseCase<SearchTagsDto, dynamic> {
@@ -13,6 +15,6 @@ class GetSearchTagsUseCase extends IUseCase<SearchTagsDto, dynamic> {
 
   @override
   Future<Result<dynamic>> execute(SearchTagsDto dto) async {
-    return await searchRepository.getSearchTags();
+    return await searchRepository.getSearchTags(dto);
   }
 }
