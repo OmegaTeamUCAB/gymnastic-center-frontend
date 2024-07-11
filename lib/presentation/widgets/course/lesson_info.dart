@@ -53,17 +53,17 @@ class LessonInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-                const VideoProgressBar(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      VideoTitle(title: lessonBloc.state.lesson.title),
-                      const VideoDuration(),
-                    ],
-                  ),
-                ),
+            const VideoProgressBar(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  VideoTitle(title: lessonBloc.state.lesson.title),
+                  const VideoDuration(),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -88,7 +88,6 @@ class LessonInfo extends StatelessWidget {
                     flex: (!lessonBloc.state.lastLesson) ? 6 : 0,
                     child: BrandButton(
                       text: AppLocalizations.of(context)!.next,
-
                       width: (!lessonBloc.state.lastLesson) ? 210 : 0,
                       onPressed: () {
                         GetIt.instance<VideoPlayerBloc>().pause();
@@ -115,6 +114,7 @@ class LessonInfo extends StatelessWidget {
                 child: DescriptionTile(
                     description: lessonBloc.state.lesson.content,
                     onTap: onTap)),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -145,20 +145,15 @@ class _ComingUpCard extends StatelessWidget {
               SizedBox(
                 width: 100,
                 height: 100,
-                child: Stack(
-                  children: [
-                    SizedBox.expand(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: VideoThumbnailImage(
-                          videoPath: lessonBloc.getNextLesson().videoUrl!,
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
+                child: SizedBox.expand(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: VideoThumbnailImage(
+                      videoPath: lessonBloc.getNextLesson().videoUrl!,
+                      width: 100,
+                      height: 100,
                     ),
-                    const WatchVideoOverlay()
-                  ],
+                  ),
                 ),
               ),
               const SizedBox(width: 20),
