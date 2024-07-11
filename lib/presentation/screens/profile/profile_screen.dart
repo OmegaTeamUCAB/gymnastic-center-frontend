@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size(double.infinity, 170), child: ProfileAppBar()),
+            preferredSize: Size(double.infinity, 200), child: ProfileAppBar()),
         body: SingleChildScrollView(
           child: Column(
             children: [
