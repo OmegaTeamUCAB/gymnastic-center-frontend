@@ -12,7 +12,7 @@ import 'package:gymnastic_center/presentation/widgets/player/video_player_previe
 class LessonScreen extends StatefulWidget {
   final String lessonId;
 
-  LessonScreen({
+  const LessonScreen({
     super.key,
     required this.lessonId,
   });
@@ -96,40 +96,45 @@ class _LessonViewState extends State<_LessonView> {
     final videoBloc = GetIt.instance<VideoPlayerBloc>();
 
     return BlocListener<VideoPlayerBloc, VideoPlayerState>(
-      listenWhen: (previous, current) => previous.videoStatus == PlayerStatus.streaming && current.videoStatus == PlayerStatus.completed,
+      listenWhen: (previous, current) =>
+          previous.videoStatus == PlayerStatus.streaming &&
+          current.videoStatus == PlayerStatus.completed,
       listener: (context, state) {
         if (state.videoStatus == PlayerStatus.completed) {
-          final checkProgress = progressBloc.checkProgress(videoBloc.getVideoTotalDuration().inSeconds, videoBloc.state.position.inSeconds, lessonBloc.state.lesson.id);
-          if(!progressBloc.isCompleted() && checkProgress == true){
+          final checkProgress = progressBloc.checkProgress(
+              videoBloc.getVideoTotalDuration().inSeconds,
+              videoBloc.state.position.inSeconds,
+              lessonBloc.state.lesson.id);
+          if (!progressBloc.isCompleted() && checkProgress == true) {
             Navigator.push(
-                          context,
-                          MaterialPageRoute(
-
-                            builder: (context) => CongratulationsScreen(
-                                  courseId: lessonBloc.state.courseId,
-                                ),
-                          ),
-                        );
+              context,
+              MaterialPageRoute(
+                builder: (context) => CongratulationsScreen(
+                  courseId: lessonBloc.state.courseId,
+                ),
+              ),
+            );
           } else {
-          if(!lessonBloc.state.lastLesson){
-          progressBloc.add(ProgressLessonUpdated(
-              courseId: lessonBloc.state.courseId,
-              lessonId: lessonBloc.state.lesson.id,
-              markAsCompleted: videoBloc.state.position.inSeconds ==
-                  videoBloc.getVideoTotalDuration().inSeconds,
-              time: videoBloc.state.position,
-              totalTime: videoBloc.getVideoTotalDuration()));
-          }
+            if (!lessonBloc.state.lastLesson) {
+              progressBloc.add(ProgressLessonUpdated(
+                  courseId: lessonBloc.state.courseId,
+                  lessonId: lessonBloc.state.lesson.id,
+                  markAsCompleted: videoBloc.state.position.inSeconds ==
+                      videoBloc.getVideoTotalDuration().inSeconds,
+                  time: videoBloc.state.position,
+                  totalTime: videoBloc.getVideoTotalDuration()));
+            }
 
-          lessonBloc.changeToNextLesson();
-
+            lessonBloc.changeToNextLesson();
           }
         }
       },
       child: BlocBuilder<LessonBloc, LessonState>(
-        buildWhen: (previous, current) => previous.lesson.id != current.lesson.id,
+        buildWhen: (previous, current) =>
+            previous.lesson.id != current.lesson.id,
         builder: (context, state) {
-          final lesson = context.watch<ProgressBloc>().state.progress.lessonProgress;
+          final lesson =
+              context.watch<ProgressBloc>().state.progress.lessonProgress;
           return Scaffold(
             body: Stack(
               children: [
@@ -152,22 +157,23 @@ class _LessonViewState extends State<_LessonView> {
                                   color: Colors.grey[200],
                                   child: SizedBox.expand(
                                       child: FadeIn(
-                                        curve: Curves.easeIn,
-                                        duration: Durations.long4,
-                                        child: VideoPlayerView(
-                                          videoId:
-                                              lessonBloc.state.lesson.videoUrl!,
-                                          time: Duration(
-                                              seconds: (progressBloc.state
+                                    curve: Curves.easeIn,
+                                    duration: Durations.long4,
+                                    child: VideoPlayerView(
+                                      videoId:
+                                          lessonBloc.state.lesson.videoUrl!,
+                                      time: Duration(
+                                          seconds: (progressBloc.state
                                                           .progressStatus ==
-                                                      ProgressStatus.loaded && lesson.isNotEmpty) 
-                                                  ? progressBloc
-                                                      .getLessonById(lessonBloc
-                                                          .state.lesson.id)
-                                                      .time
-                                                  : 0),
-                                        ),
-                                      )),
+                                                      ProgressStatus.loaded &&
+                                                  lesson.isNotEmpty)
+                                              ? progressBloc
+                                                  .getLessonById(lessonBloc
+                                                      .state.lesson.id)
+                                                  .time
+                                              : 0),
+                                    ),
+                                  )),
                                 );
                               }
                             },
@@ -178,9 +184,7 @@ class _LessonViewState extends State<_LessonView> {
                     LessonInfo(
                         lessonBloc: lessonBloc,
                         lessonId: lessonBloc.state.lesson.id,
-                        onTap: videoBloc.pause
-                      ),
-
+                        onTap: videoBloc.pause),
                   ],
                 ),
               ],
@@ -191,8 +195,6 @@ class _LessonViewState extends State<_LessonView> {
     );
   }
 }
-
-
 
 class VideoTitle extends StatelessWidget {
   final String title;
@@ -210,7 +212,7 @@ class VideoTitle extends StatelessWidget {
         title,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

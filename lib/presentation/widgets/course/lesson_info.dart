@@ -13,7 +13,6 @@ import 'package:gymnastic_center/presentation/widgets/course/show_questions_tile
 import 'package:gymnastic_center/presentation/widgets/player/buttons/video_duration.dart';
 import 'package:gymnastic_center/presentation/widgets/player/buttons/video_progress_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:gymnastic_center/presentation/widgets/player/overlays/watch_video_overlay.dart';
 import 'package:gymnastic_center/presentation/widgets/player/video_thumbnail.dart';
 
 class LessonInfo extends StatelessWidget {
@@ -81,9 +80,11 @@ class LessonInfo extends StatelessWidget {
                           lessonBloc.changeToPreviousLesson();
                         }),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  if (!lessonBloc.state.firstLesson &&
+                      !lessonBloc.state.lastLesson)
+                    const SizedBox(
+                      width: 10,
+                    ),
                   Expanded(
                     flex: (!lessonBloc.state.lastLesson) ? 6 : 0,
                     child: BrandButton(

@@ -53,6 +53,7 @@ class SearchResultsList extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: courses.length,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return ResultTile(
                       title: courses[index].title,
