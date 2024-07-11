@@ -77,6 +77,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
 
   void setToInitialState() {
     emit(ProgressState());
+    state.copyWith(progressStatus: ProgressStatus.unitialized);
   }
 
   LessonProgress getLessonById(String id) {
