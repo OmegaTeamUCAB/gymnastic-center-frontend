@@ -6,12 +6,12 @@ class CourseMapper {
       id: json["id"],
       name: json["title"],
       description: json["description"],
-      level: json["level"] = 5,
+      level: json["level"],
       tags: (json["tags"] != null)
           ? List<String>.from(json["tags"].map((x) => x))
           : [],
-      weeks: json["durationWeeks"] = 5,
-      minutes: json["durationMinutes"] = 30,
+      weeks: json["durationWeeks"],
+      minutes: json["durationMinutes"],
       imageUrl: json["image"],
       category: json["category"],
       trainer: json["trainer"],
