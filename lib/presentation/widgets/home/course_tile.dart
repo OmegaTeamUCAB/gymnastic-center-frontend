@@ -13,6 +13,8 @@ class CourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime createdAtDate = DateTime.parse(course.createdAt);
+    final daysDifference = DateTime.now().difference(createdAtDate).inDays;
     return Container(
       padding: const EdgeInsets.only(right: 20),
       child: InkWell(
@@ -51,7 +53,13 @@ class CourseTile extends StatelessWidget {
                       child: Image.network(course.imageUrl,
                           height: 110, width: 120, fit: BoxFit.cover),
                     ),
-                    const Positioned(bottom: 5, left: 5, child: NewChip()),
+                    //Validador de si el curso es nue
+                    if (daysDifference < 2)
+                      const Positioned(
+                        bottom: 5,
+                        left: 5,
+                        child: NewChip(),
+                      ),
                   ],
                 ),
                 const SizedBox(
