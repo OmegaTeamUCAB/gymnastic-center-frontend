@@ -25,8 +25,7 @@ class MenuSideNav extends StatelessWidget {
         ),
       ),
       child: Container(
-        decoration: const BoxDecoration(
-            gradient: brandGradient), // Cambia esto a tu color deseado
+        decoration: const BoxDecoration(gradient: brandGradient),
         child: Padding(
           padding: EdgeInsets.fromLTRB(10, hasNotch ? 70 : 50, 0, 10),
           child: Column(
@@ -104,12 +103,13 @@ class MenuSideNav extends StatelessWidget {
                 leading:
                     const Icon(GymnasticCenter.logout, color: Colors.white),
                 onTap: () {
-                  authBloc.add(const SignedOut());
-                  Navigator.pushReplacement(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const AuthOptionsScreen()),
+                    (Route<dynamic> route) => false,
                   );
+                  authBloc.add(const SignedOut());
                 },
               ),
             ],
