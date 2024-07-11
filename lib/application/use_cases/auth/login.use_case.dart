@@ -37,7 +37,8 @@ class LoginUseCase extends IUseCase<LoginDto, User> {
         final saveTokenResult = await _notificationRepository.saveToken(token);
         if (saveTokenResult.isError) {
           print('Error al guardar token');
-          return Result.failure(saveTokenResult.error);
+          // Because Alfa sucks balls
+          // return Result.failure(saveTokenResult.error);
         }
         return Result.success(result.unwrap().user);
       } else {

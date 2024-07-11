@@ -24,7 +24,7 @@ class LogoutUseCase extends IUseCase<void, bool> {
         final removeTokenResult =
             await _notificationRepository.removeToken(token);
         if (removeTokenResult.isError) {
-          print('Error al eliminar el token');
+          print('Error al eliminar el token de firebase');
           return Result.failure(removeTokenResult.error);
         }
         _authRepository.logout();
