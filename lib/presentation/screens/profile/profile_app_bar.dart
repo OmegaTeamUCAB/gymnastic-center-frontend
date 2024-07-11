@@ -59,20 +59,25 @@ class ProfileAppBar extends StatelessWidget {
                               (authBloc.state as Authenticated).user.fullName,
                         )),
                     const SizedBox(width: 7),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        authBloc.state is Authenticated
-                            ? Text(
-                                (authBloc.state as Authenticated).user.fullName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : const CircularProgressIndicator(),
-                        const ProfileFollowings(),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          authBloc.state is Authenticated
+                              ? Text(
+                                  (authBloc.state as Authenticated)
+                                      .user
+                                      .fullName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : const CircularProgressIndicator(),
+                          const ProfileFollowings(),
+                        ],
+                      ),
                     ),
                   ],
                 ),
