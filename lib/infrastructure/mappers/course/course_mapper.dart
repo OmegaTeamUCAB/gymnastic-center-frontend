@@ -3,26 +3,26 @@ import 'package:gymnastic_center/infrastructure/mappers/lesson/lesson_mapper.dar
 
 class CourseMapper {
   static Course fromJson(Map<String, dynamic> json) => Course(
-        id: json["id"],
-        name: json["title"],
-        description: json["description"],
-        level: json["level"],
-        tags: (json["tags"] != null)
-            ? List<String>.from(json["tags"].map((x) => x))
-            : [],
-        weeks: json["durationWeeks"],
-        minutes: json["durationMinutes"],
-        imageUrl: json["image"],
-        category: json["category"],
-        trainer: json["trainer"],
-        lessons: LessonMapper.fromJsonToList(json["lessons"]),
-        createdAt: (json["createdAt"] != null)
-            ? DateTime.parse(json["createdAt"])
-            : null,
-        updatedAt: (json["updatedAt"] != null)
-            ? DateTime.parse(json["updatedAt"])
-            : null,
-      );
+      id: json["id"],
+      name: json["title"],
+      description: json["description"],
+      level: json["level"],
+      tags: (json["tags"] != null)
+          ? List<String>.from(json["tags"].map((x) => x))
+          : [],
+      weeks: json["durationWeeks"],
+      minutes: json["durationMinutes"],
+      imageUrl: json["image"],
+      category: json["category"],
+      trainer: json["trainer"],
+      lessons: LessonMapper.fromJsonToList(json["lessons"]),
+      createdAt: (json["createdAt"] != null)
+          ? DateTime.parse(json["createdAt"])
+          : null,
+      updatedAt: (json["updatedAt"] != null)
+          ? DateTime.parse(json["updatedAt"])
+          : null,
+      percent: (json["percent"] != null) ? json["percent"] : 0);
 
   //! remove if unused
   static Map<String, dynamic> toJson(Course course) => {

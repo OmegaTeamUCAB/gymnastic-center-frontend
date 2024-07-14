@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gymnastic_center/application/blocs/course/course_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gymnastic_center/application/blocs/search/search_bloc.dart';
-import 'package:gymnastic_center/presentation/widgets/common/brand_back_button.dart';
-import 'package:gymnastic_center/presentation/widgets/common/custom_app_bar.dart';
+import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
+import 'package:gymnastic_center/presentation/screens/course/course_detail_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/search/custom_search_bar.dart';
-import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymnastic_center/presentation/widgets/search/search_chips.dart';
+import 'package:gymnastic_center/presentation/widgets/search/search_results_list.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -13,58 +16,79 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchBloc = GetIt.instance<SearchBloc>();
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        body: BlocProvider<SearchBloc>.value(
-          value: searchBloc,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    //*makes searchBar clickable
-                    height: 155,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Expanded(
-                    child: SearchChips(),
-                  ),
-                ],
-              ),
-              const CustomAppBar(
-                content: Padding(
-                  padding: EdgeInsets.only(bottom: 24.0),
-                  child: Row(
-                    children: [
-                      BrandBackButton(
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Popular Search',
+    return BlocProvider.value(
+      value: searchBloc,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              automaticallyImplyLeading: false,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 16),
+                      )),
                 ),
-              ),
-              const Positioned(
-                  top: 110,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0),
-                    child: CustomSearchBar(),
-                  )),
-            ],
+              ],
+              title: const CustomSearchBar(),
+              bottom: const PreferredSize(
+                preferredSize: Size.fromHeight(60),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: SearchChips(),
+                    ),
+                    Divider()
+                  ],
+                ),
+              )),
+          body: SingleChildScrollView(
+            child: BlocBuilder<SearchBloc, SearchState>(
+              builder: (context, state) {
+                return BlocListener<SearchBloc, SearchState>(
+                  listener: (context, state) {
+                    if (state.isSubmitted) {
+                      if (state.results.courses.isNotEmpty) {
+                        final courseBloc = BlocProvider.of<CourseBloc>(context);
+                        courseBloc.add(CourseClicked(
+                            courseId: state.results.courses.first.id));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseDetailScreen(
+                                courseId: state.results.courses.first.id),
+                          ),
+                        );
+                      } else if (state.results.blogs.isNotEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlogDetailScreen(
+                                blogId: state.results.blogs.first.id),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  child: SearchResultsList(
+                      courses: state.results.courses,
+                      blogs: state.results.blogs),
+                );
+              },
+            ),
           ),
         ),
       ),

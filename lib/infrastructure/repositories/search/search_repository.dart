@@ -1,9 +1,8 @@
 import 'package:gymnastic_center/application/repositories/search/search_repository.dart';
 import 'package:gymnastic_center/application/repositories/search/search_results.dart';
+import 'package:gymnastic_center/application/use_cases/search/get_search_tags.use_case.dart';
 import 'package:gymnastic_center/application/use_cases/search/search.use_case.dart';
 import 'package:gymnastic_center/core/result.dart';
-import 'package:gymnastic_center/domain/blog/blog.dart';
-import 'package:gymnastic_center/domain/course/course.dart';
 import 'package:gymnastic_center/infrastructure/data-sources/http/http_manager.dart';
 
 class SearchRepository implements ISearchRepository {
@@ -13,37 +12,52 @@ class SearchRepository implements ISearchRepository {
 
   @override
   Future<Result<SearchResults>> search(SearchDto dto) async {
+    String urlPath = 'search/all?term=${dto.searchTerm}&perPage=10';
+
+    if (dto.tags.isNotEmpty) {
+      urlPath += '&tag=${dto.tags.join(',')}';
+    }
     final result = await _httpConnectionManager.makeRequest(
-      urlPath:
-          'search?term=${dto.searchTerm}&page=${dto.page}&perPage=${dto.perPage}&${dto.tags.map((tag) => 'tag=$tag').join('&')}',
+      urlPath: urlPath,
       httpMethod: 'GET',
       mapperCallBack: (data) {
-        List<Blog> blogs = [];
-        List<Course> courses = [];
-        // CourseMapper should be removed
+        List<SearchHit> blogs = [];
+        List<SearchHit> courses = [];
         for (var course in data['courses']) {
-          courses.add(Course(
+          courses.add(SearchHit(
             id: course['id'],
-            name: course['title'],
-            imageUrl: course['imageUrl'],
-            trainer: course['instructorName'],
-            description: course['description'],
-            category: course['categoryName'],
-            tags: course['tags'],
+            title: course['title'],
+            image: course['image'],
+            trainer: course['trainer'],
+            category: course['category'],
           ));
         }
         for (var blog in data['blogs']) {
-          blogs.add(Blog(
+          blogs.add(SearchHit(
             id: blog['id'],
             title: blog['title'],
-            content: blog['description'],
-            tags: [blog['tags']],
-            images: [blog['imageUrl']],
-            category: blog['categoryName'],
-            trainer: blog['instructorName'],
+            image: blog['image'],
+            trainer: blog['trainer'],
+            category: blog['category'],
           ));
         }
         return SearchResults(courses: courses, blogs: blogs);
+      },
+    );
+    return result;
+  }
+
+  @override
+  Future<Result<List<String>>> getSearchTags(SearchTagsDto dto) async {
+    final result = await _httpConnectionManager.makeRequest(
+      urlPath: 'search/popular/tags?perPage=${dto.perPage}&page=${dto.page}',
+      httpMethod: 'GET',
+      mapperCallBack: (data) {
+        List<String> searchTags = [];
+        for (var tag in data) {
+          searchTags.add(tag);
+        }
+        return searchTags;
       },
     );
     return result;

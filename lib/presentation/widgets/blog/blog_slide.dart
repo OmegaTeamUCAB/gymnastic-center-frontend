@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/presentation/screens/blog/blog_detail_screen.dart';
-import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 import 'package:gymnastic_center/presentation/widgets/common/new_chip.dart';
+import 'package:timeago/timeago.dart';
 
 class BlogSlide extends StatelessWidget {
   final Blog blog;
@@ -47,6 +47,8 @@ class BlogSlide extends StatelessWidget {
                   children: [
                     Text(
                       blog.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -56,14 +58,14 @@ class BlogSlide extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          blog.category!,
+                          blog.trainer!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.primary),
                         ),
                         const Spacer(),
                         Text(
-                          formatDateTime(DateTime.parse(blog.uploadDate!)),
+                          blog.category!,
                           style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onPrimary),
@@ -74,8 +76,11 @@ class BlogSlide extends StatelessWidget {
                 ),
               ),
             ),
-            // if (DateTime.now().difference(blog.uploadDate).inDays < 90)
-            const Positioned(top: 5, left: 5, child: NewChip()),
+            if (DateTime.now()
+                    .difference(DateTime.parse(blog.uploadDate!))
+                    .inDays <
+                5)
+              const Positioned(top: 5, left: 5, child: NewChip()),
           ])),
     );
   }

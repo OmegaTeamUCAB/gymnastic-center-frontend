@@ -1,0 +1,74 @@
+{
+  "selectDataSource": "Select data source",
+  "fitnessCompanion": "Your new fitness companion",
+  "footer": "Designed and developed by Omega Technologies \u00a9",
+  "courses": "Courses",
+  "comments": "Comments",
+  "questions": "Questions",
+  "selected": "Selected",
+  "level": "Level {level}",
+  "@level": {
+        "description": "Course level",
+        "placeholders": {
+            "level": {
+                "type": "String",
+                "example": "5"
+            }
+        }
+    },
+  "weeks": "{weeksAmount} Weeks",
+  "@weeks": {
+      "description": "Course weeks",
+      "placeholders": {
+          "weeksAmount": {
+              "type": "String",
+              "example": "7"
+          }
+      }
+  },
+  "lessons": "{lessons} Lessons",
+  "@lessons": {
+      "description": "Course lessons",
+      "placeholders": {
+          "lessons": {
+              "type": "String",
+              "example": "7"
+          }
+      }
+  },
+  "next": "Next",
+  "prev": "Prev",
+  "allBlogs": "Todos los Blogs",
+  "allCourses": "Todos los Cursos",
+  "categories": "Categories",
+  "trendingCourses": "Trending Courses",
+  "popularBlogs": "Popular Blogs",
+  "account": "Account",
+  "notifications": "Notifications",
+  "language": "Language",
+  "about": "About Us",
+  "logout": "Log Out",
+  "showAll": "Show All",
+  "newItem": "New",
+  "trainers": "Trainers",
+  "follow": "Follow",
+  "following": "Following",
+  "followers": "Followers",
+  "follower": "Follower",
+  "searchMessage": "What are you looking for?",
+  "cancel": "Cancel",
+  "inbox": "Inbox",
+  "profile": "Profile",
+  "editProfile": "Edit Profile",
+  "name": "Name",
+  "phone": "Phone",
+  "save": "Save",
+  "startCourse": "Start Course",
+  "comments": "Comments",
+  "deleteComment": "Delete Comment",
+  "faq": "FAQ",
+  "login": "Login",
+  "signUp": "Sign up",
+  "password": "Password",
+  "email": "Email"
+}

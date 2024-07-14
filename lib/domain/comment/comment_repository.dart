@@ -1,4 +1,28 @@
 import 'package:gymnastic_center/core/result.dart';
+import 'package:gymnastic_center/domain/comment/comment.dart';
+
+class GetCommentsDto {
+  final int page;
+  final String? blogId;
+  final String? lessonId;
+  GetCommentsDto({
+    required this.page,
+    this.blogId,
+    this.lessonId,
+  });
+}
+
+class CreateCommentDto {
+  final String lessonOrBlogId;
+  final String targetType;
+  final String content;
+
+  CreateCommentDto({
+    required this.content,
+    required this.lessonOrBlogId,
+    required this.targetType,
+  });
+}
 
 abstract class ICreateCommentResponse {
   final String id;
@@ -7,15 +31,13 @@ abstract class ICreateCommentResponse {
 }
 
 abstract class ICommentRepository {
-  Future<Result<ICreateCommentResponse>> createBlogComment({
-    required String userId,
-    required String content,
-    required String blogId,
+  Future<Result<ICreateCommentResponse>> createComment(CreateCommentDto dto);
+  Future<Result<List<Comment>>> getComments(GetCommentsDto dto);
+
+  Future<Result<ICreateCommentResponse>> likeOrDislikeCommentById({
+    required String commentId,
+    required bool like,
   });
-  Future<Result<ICreateCommentResponse>> createCourseComment({
-    required String userId,
-    required String content,
-    required String courseId,
-    required String lessonId,
-  });
+
+  Future<Result<void>> deleteComment(String commentId);
 }

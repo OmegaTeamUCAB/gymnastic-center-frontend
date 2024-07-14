@@ -12,9 +12,10 @@ class BlogsRepository implements IBlogRepository {
   Future<Result<List<Blog>>> getBlogs(GetBlogsDto dto) async {
     var queryParameters = {
       'page': dto.page.toString(),
-      'perPage': '15',
+      'perPage': '35',
       if (dto.categoryId != null) 'category': dto.categoryId.toString(),
       if (dto.trainerId != null) 'trainer': dto.trainerId.toString(),
+      if (dto.filter != null) 'filter': dto.filter,
     };
 
     var queryString = Uri(queryParameters: queryParameters).query;
@@ -29,7 +30,11 @@ class BlogsRepository implements IBlogRepository {
             id: blog['id'],
             images: [blog['image']],
             title: blog['title'],
+            tags: blog['tags'],
+            description: blog['description'],
             category: blog['category'],
+            trainer: blog['trainer'],
+            comments: blog['comments'],
             uploadDate: blog['date'],
           ));
         }
@@ -50,6 +55,7 @@ class BlogsRepository implements IBlogRepository {
           title: data['title'],
           images: data['images'],
           trainer: data['trainer'],
+          category: data['category'],
           content: data['description'],
           uploadDate: data['date'],
           tags: data['tags'],

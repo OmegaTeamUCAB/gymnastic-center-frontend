@@ -9,6 +9,7 @@ part 'all_courses_state.dart';
 
 class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
   final GetCoursesUseCase getCoursesUseCase;
+
   AllCoursesBloc(this.getCoursesUseCase) : super(AllCoursesLoading()) {
     on<AllCoursesRequested>(_getAllCourses);
   }
@@ -19,12 +20,7 @@ class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
     final result =
         await getCoursesUseCase.execute(GetCoursesDto(page: event.page));
     if (result.isSuccessful) {
-      final previousCourses = state is AllCoursesSuccess
-          ? (state as AllCoursesSuccess).courses
-          : <Course>[];
-      final currentCourses = result.unwrap();
-      final allCourses = [...previousCourses, ...currentCourses];
-      emit(AllCoursesSuccess(courses: allCourses));
+      emit(AllCoursesSuccess(courses: result.unwrap()));
     } else {
       try {
         throw result.unwrap();
@@ -33,5 +29,4 @@ class AllCoursesBloc extends Bloc<AllCoursesEvent, AllCoursesState> {
       }
     }
   }
-
 }

@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/infrastructure/config/menu/menu_items.dart';
 import 'package:gymnastic_center/presentation/screens/auth/auth_options_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/update_profile_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 import 'package:gymnastic_center/presentation/widgets/icons/gymnastic_center_icons.dart';
+import 'package:gymnastic_center/presentation/widgets/profile/profile_avatar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuSideNav extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   const MenuSideNav({
     super.key,
-    required this.scaffoldKey,
   });
 
   @override
@@ -24,46 +25,82 @@ class MenuSideNav extends StatelessWidget {
         ),
       ),
       child: Container(
-        decoration: const BoxDecoration(
-            gradient: brandGradient), // Cambia esto a tu color deseado
+        decoration: const BoxDecoration(gradient: brandGradient),
         child: Padding(
           padding: EdgeInsets.fromLTRB(10, hasNotch ? 70 : 50, 0, 10),
           child: Column(
             children: <Widget>[
-              // Cerrar menu lateral
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.cancel_outlined,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).closeDrawer();
-                  },
-                ),
-              ),
+              authBloc.state is! Authenticated
+                  ? const SizedBox.shrink()
+                  : Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          ProfileAvatar(
+                            image: (authBloc.state as Authenticated).user.image,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const UpdateProfileScreen()),
+                              );
+                            },
+                            fullName:
+                                (authBloc.state as Authenticated).user.fullName,
+                            radius: 30,
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  (authBloc.state as Authenticated)
+                                      .user
+                                      .fullName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  (authBloc.state as Authenticated).user.email,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
               Expanded(
                 child: ListView.builder(
                   itemCount: appMenuItems.length,
                   itemBuilder: (context, i) => ListTile(
                       contentPadding: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-                      title: Text(appMenuItems[i].title,
+                      title: Text(appMenuItems[i].title(context),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 20)),
                       leading: Icon(appMenuItems[i].icon, color: Colors.white),
                       onTap: () {
                         appMenuItems[i].redirect(context);
-                        scaffoldKey.currentState?.closeDrawer();
                       }),
                 ),
               ),
 
               // Cerrar sesión
               ListTile(
-                contentPadding: const EdgeInsets.fromLTRB(15, 100, 15, 10),
-                title: const Text('Logout',
-                    style: TextStyle(
+                contentPadding: const EdgeInsets.only(bottom: 10, left: 15),
+                title: Text(AppLocalizations.of(context)!.logout,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -71,12 +108,13 @@ class MenuSideNav extends StatelessWidget {
                 leading:
                     const Icon(GymnasticCenter.logout, color: Colors.white),
                 onTap: () {
-                  authBloc.add(const SignedOut());
-                  Navigator.pushReplacement(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const AuthOptionsScreen()),
+                    (Route<dynamic> route) => false,
                   );
+                  authBloc.add(const SignedOut());
                 },
               ),
             ],

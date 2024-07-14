@@ -10,6 +10,7 @@ part 'blogs_by_category_state.dart';
 class BlogsByCategoryBloc
     extends Bloc<BlogsByCategoryEvent, BlogsByCategoryState> {
   final GetBlogsUseCase getBlogsUseCase;
+
   BlogsByCategoryBloc({required this.getBlogsUseCase})
       : super(BlogsByCategoryLoading()) {
     on<BlogsByCategoryRequested>(_getBlogsByCategory);
@@ -19,14 +20,9 @@ class BlogsByCategoryBloc
       Emitter<BlogsByCategoryState> emit) async {
     emit(BlogsByCategoryLoading());
     final result = await getBlogsUseCase
-        .execute(GetBlogsDto(page: event.page, categoryId: event.categoryId));
+        .execute(GetBlogsDto(categoryId: event.categoryId, page: event.page));
     if (result.isSuccessful) {
-      final previousBlogs = state is BlogsByCategorySuccess
-          ? (state as BlogsByCategorySuccess).blogs
-          : <Blog>[];
-      final currentBlogs = result.unwrap();
-      final allBlogs = [...previousBlogs, ...currentBlogs];
-      emit(BlogsByCategorySuccess(blogs: allBlogs));
+      emit(BlogsByCategorySuccess(blogs: result.unwrap()));
     } else {
       try {
         throw result.unwrap();

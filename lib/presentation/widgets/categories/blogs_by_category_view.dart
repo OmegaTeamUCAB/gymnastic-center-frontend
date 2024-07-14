@@ -66,7 +66,10 @@ class _BlogsByCategoryViewState extends State<BlogsByCategoryView> {
         if (state is BlogsByCategorySuccess) {
           if (state.blogs.isEmpty) {
             return const Center(
-              child: NoResults(),
+              child: Padding(
+                padding: EdgeInsets.all(15),
+                child: NoResults(),
+              ),
             );
           }
           return BlogsGrid(

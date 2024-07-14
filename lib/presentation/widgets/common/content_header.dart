@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContentHeader extends StatelessWidget {
   final String title;
@@ -8,7 +9,7 @@ class ContentHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           Text(
@@ -19,13 +20,14 @@ class ContentHeader extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary),
           ),
           const Spacer(),
-          TextButton(
-            onPressed: onPressed,
-            child: const Text(
-              'Show all',
-              style: TextStyle(fontSize: 16),
-            ),
-          )
+          if (onPressed != null)
+            TextButton(
+              onPressed: onPressed,
+              child: Text(
+                AppLocalizations.of(context)!.showAll,
+                style: const TextStyle(fontSize: 16),
+              ),
+            )
         ],
       ),
     );

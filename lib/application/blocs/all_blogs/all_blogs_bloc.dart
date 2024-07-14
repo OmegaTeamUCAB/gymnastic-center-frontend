@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import 'package:gymnastic_center/application/use_cases/blog/get_blogs.use_case.dart';
 import 'package:gymnastic_center/domain/blog/blog.dart';
 import 'package:gymnastic_center/domain/blog/blog_repository.dart';
@@ -9,6 +10,7 @@ part 'all_blogs_state.dart';
 
 class AllBlogsBloc extends Bloc<AllBlogsEvent, AllBlogsState> {
   final GetBlogsUseCase getBlogsUseCase;
+
   AllBlogsBloc(this.getBlogsUseCase) : super(AllBlogsLoading()) {
     on<AllBlogsRequested>(_getAllBlogs);
   }

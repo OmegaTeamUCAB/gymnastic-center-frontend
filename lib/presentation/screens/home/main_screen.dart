@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gymnastic_center/presentation/screens/disability/disability_screen.dart';
+import 'package:gymnastic_center/presentation/screens/trainers/trainers_screen.dart';
 import 'package:gymnastic_center/presentation/screens/home/home_screen.dart';
 import 'package:gymnastic_center/presentation/screens/notifications/notifications_screen.dart';
-import 'package:gymnastic_center/presentation/screens/settings/settings_screen.dart';
+import 'package:gymnastic_center/presentation/screens/profile/profile_screen.dart';
 import 'package:gymnastic_center/presentation/screens/training/training_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_bottom_navbar.dart';
 import 'package:gymnastic_center/presentation/widgets/common/custom_lightning_button.dart';
 import 'package:gymnastic_center/presentation/widgets/drawers/menu_side_nav.dart';
 
-// ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
   final int pageIndex;
   const MainScreen({this.pageIndex = 0, super.key});
@@ -20,13 +19,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final screens = <Widget>[
     const HomeScreen(),
-    const DisabilityScreen(),
-    const SettingsScreen(),
+    const TrainersScreen(),
     const NotificationsScreen(),
+    const ProfileScreen(),
   ];
 
   int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -43,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
           index: selectedIndex,
           children: screens,
         ),
-        drawer: MenuSideNav(scaffoldKey: scaffoldKey),
+        drawer: const MenuSideNav(),
         bottomNavigationBar: CustomNavigationBar(
           tabIndex: selectedIndex,
           onTap: (newScreenIndex) {

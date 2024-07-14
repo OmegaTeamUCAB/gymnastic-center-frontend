@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/all_categories/all_categories_bloc.dart';
+import 'package:gymnastic_center/application/blocs/theme/theme_bloc.dart';
 import 'package:gymnastic_center/domain/category/category.dart';
 import 'package:gymnastic_center/presentation/screens/categories/category_screen.dart';
+import 'package:gymnastic_center/presentation/widgets/categories/loading_categories.dart';
 
 class CategoryCarousel extends StatelessWidget {
   const CategoryCarousel({super.key});
@@ -19,12 +21,7 @@ class CategoryCarousel extends StatelessWidget {
           child: BlocBuilder<AllCategoriesBloc, AllCategoriesState>(
             builder: (context, state) {
               if (state is AllCategoriesLoading) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 25),
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+                return const LoadingCategories();
               }
               if (state is AllCategoriesFailed) {
                 return Center(
@@ -37,6 +34,9 @@ class CategoryCarousel extends StatelessWidget {
                     child: Text('No categories found'),
                   );
                 }
+                final theme =
+                    context.watch<ThemeBloc>().state.themeData.colorScheme;
+
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.categories.length,
@@ -64,7 +64,7 @@ class CategoryCarousel extends StatelessWidget {
                                 : 0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
-                          color: Theme.of(context).colorScheme.surfaceTint,
+                          color: theme.surfaceTint,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +74,7 @@ class CategoryCarousel extends StatelessWidget {
                               width: 40,
                               child: ColorFiltered(
                                   colorFilter: ColorFilter.mode(
-                                      Theme.of(context).colorScheme.primary,
-                                      BlendMode.srcIn),
+                                      theme.primary, BlendMode.srcIn),
                                   child: Image.network(currentCategory.icon)),
                             ),
                             const SizedBox(height: 10.0),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/auth/auth_bloc.dart';
 import 'package:gymnastic_center/application/blocs/login/login_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/home/main_screen.dart';
+import 'package:gymnastic_center/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:gymnastic_center/presentation/widgets/auth/login_form.dart';
 import 'package:gymnastic_center/presentation/widgets/common/brand_gradient.dart';
 
@@ -45,12 +47,11 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Positioned(
                         bottom: -160,
-                        right: -140,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: 50, horizontal: 150),
-                          width: 685.0,
-                          height: 685.0,
+                          width: 660.0,
+                          height: 660.0,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Theme.of(context).colorScheme.onBackground,
@@ -65,7 +66,10 @@ class LoginScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MainScreen()),
+                                            (GetIt.instance.get<bool>() ==
+                                                    false)
+                                                ? const OnBoardingPageScreen()
+                                                : const MainScreen()),
                                   );
                                 }
                                 if (state is AuthError) {
@@ -75,7 +79,8 @@ class LoginScreen extends StatelessWidget {
                                       .showSnackBar(SnackBar(
                                     content: Text(state.message),
                                     backgroundColor: Colors.red,
-                                    duration: const Duration(milliseconds: 300),
+                                    duration:
+                                        const Duration(milliseconds: 1500),
                                   ));
                                 }
                               },

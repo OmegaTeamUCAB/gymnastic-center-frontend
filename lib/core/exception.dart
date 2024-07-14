@@ -1,4 +1,4 @@
-sealed class ApplicationException {
+class ApplicationException {
   final String message;
   const ApplicationException(this.message);
 }
@@ -23,3 +23,7 @@ class UnknownException extends ApplicationException {
   const UnknownException() : super("Unknown Error");
 }
 
+class PermissionDeniedException extends ApplicationException{
+  final String message;
+  const PermissionDeniedException({required this.message}) : super(message);
+}

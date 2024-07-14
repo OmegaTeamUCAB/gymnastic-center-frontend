@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnastic_center/application/blocs/notifications/notifications_bloc.dart';
-import 'package:gymnastic_center/application/models/push_message.dart';
+import 'package:gymnastic_center/application/blocs/brand_notifications/brand_notifications_bloc.dart';
 import 'package:gymnastic_center/presentation/screens/notifications/notification_detail_screen.dart';
 import 'package:gymnastic_center/presentation/utils/format_date_time.dart';
 
 class NotificationsList extends StatelessWidget {
-  final List<PushMessage> notifications;
-  const NotificationsList({super.key, required this.notifications});
+  final BrandNotificationsBloc notificationsBloc;
+  const NotificationsList({super.key, required this.notificationsBloc});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: notifications.length,
+      itemCount: notificationsBloc.state.notifications.length,
       itemBuilder: (context, index) {
-        final notification = notifications[index];
+        final notification = notificationsBloc.state.notifications[index];
         return ListTile(
           onTap: () {
-            context
-                .read<NotificationsBloc>()
-                .add(NotificationViewed(notification));
+            notificationsBloc.add(NotificationRead(notification.id));
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -27,11 +23,11 @@ class NotificationsList extends StatelessWidget {
                       NotificationDetailScreen(notification: notification)),
             );
           },
-          tileColor: notification.isViewed == false
+          tileColor: notification.isRead == false
               ? Theme.of(context).colorScheme.surfaceTint
               : Colors.transparent,
           contentPadding: const EdgeInsets.all(10),
-          shape: index != notifications.length - 1
+          shape: index != notificationsBloc.state.notifications.length - 1
               ? Border(
                   bottom: BorderSide(
                       color:
@@ -42,7 +38,7 @@ class NotificationsList extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.bold),
           leading: const Icon(Icons.notifications_rounded),
-          trailing: Text(formatDateTime(notification.sentDate)),
+          trailing: Text(formatDateTime(notification.date)),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Text(

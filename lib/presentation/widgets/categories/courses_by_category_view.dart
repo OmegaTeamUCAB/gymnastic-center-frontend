@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gymnastic_center/application/blocs/courses_by_category/courses_by_category_bloc.dart';
-import 'package:gymnastic_center/presentation/utils/pagination_controller.dart';
 import 'package:gymnastic_center/presentation/widgets/common/no_results.dart';
 import 'package:gymnastic_center/presentation/widgets/course/courses_list.dart';
 
@@ -16,19 +15,15 @@ class CoursesByCategoryView extends StatefulWidget {
 }
 
 class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
-  late PaginationController _paginationController;
   late CoursesByCategoryBloc _coursesByCategoryBloc;
 
   @override
   void initState() {
     super.initState();
     _coursesByCategoryBloc = GetIt.instance<CoursesByCategoryBloc>();
-    _paginationController = PaginationController(
-      requestNextPage: (page) {
-        _coursesByCategoryBloc.add(
-          CoursesByCategoryRequested(categoryId: widget.categoryId, page: page),
-        );
-      },
+
+    _coursesByCategoryBloc.add(
+      CoursesByCategoryRequested(categoryId: widget.categoryId, page: 1),
     );
 
     // Dispatch the first request
@@ -39,7 +34,6 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
 
   @override
   void dispose() {
-    _paginationController.dispose();
     super.dispose();
   }
 
@@ -65,12 +59,14 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
           if (state is CoursesByCategorySuccess) {
             if (state.courses.isEmpty) {
               return const Center(
-                child: NoResults(),
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: NoResults(),
+                ),
               );
             }
             return CoursesList(
               courses: state.courses,
-              controller: _paginationController.scrollController,
             );
           } else {
             return const Center(
